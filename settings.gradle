@@ -1,0 +1,5 @@
+include 'cm-domain'
+include 'cm-service'
+include 'cm-web-war'
+include 'cm-admin-war'
+
