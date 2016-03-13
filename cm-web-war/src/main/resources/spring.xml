@@ -5,6 +5,7 @@
 
     <!-- 引入service的spring配置文件 -->
     <import resource="classpath:spring-service.xml"/>
+
     <!--<import resource="classpath:client.xml"/>-->
 
     <!--<bean id="freemarkerConfig"-->

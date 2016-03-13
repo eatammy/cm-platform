@@ -1,4 +1,4 @@
-package cn.eatammy.common.service.impl;
+package cn.eatammy.common.service;
 
 import cn.eatammy.common.dao.IBaseDAO;
 import cn.eatammy.common.domain.BaseDomain;

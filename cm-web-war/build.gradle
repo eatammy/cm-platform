@@ -11,5 +11,11 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
+
     compile project(':cm-service')
+
+//    compile(
+//            'org.springframework:spring-web:4.1.0.RELEASE',
+//            'org.springframework:spring-webmvc:4.1.0.RELEASE'
+//    )
 }

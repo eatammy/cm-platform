@@ -1,4 +1,4 @@
-package cn.eatammy.dao;
+package cn.eatammy.cm.dao;
 
 import cn.eatammy.common.dao.IBaseDAO;
 import cn.eatammy.common.domain.BaseDomain;

@@ -10,7 +10,28 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    //导入本地的依赖包
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
     compile(
-            'commons-lang:commons-lang:2.6'
+            'commons-lang:commons-lang:2.6',
+
+            'org.springframework:spring-context:4.1.0.RELEASE',
+            'org.springframework:spring-tx:4.1.0.RELEASE',
+            'org.springframework:spring-web:4.1.0.RELEASE',
+            'org.springframework:spring-webmvc:4.1.0.RELEASE',
+            'org.springframework:spring-jdbc:4.1.0.RELEASE',
+            'org.springframework:spring-beans:4.1.0.RELEASE',
+            'org.springframework:spring-test:4.1.0.RELEASE',
+            'aspectj:aspectjrt:1.5.4',
+
+            'com.alibaba:fastjson:1.2.7',
+            'org.mybatis:mybatis-spring:1.2.3',
+            'org.mybatis:mybatis:3.3.0',
+            'com.alibaba.druid:druid-wrapper:0.2.9',
+            "mysql:mysql-connector-java:5.1.24",
+
+            "log4j:log4j:1.2.17"
     )
 }
