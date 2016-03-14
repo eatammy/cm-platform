@@ -3,14 +3,14 @@ package cn.eatammy.common.domain;
 /**
  * Created by 郭旭辉 on 2016/3/13.
  */
-public class CmCreateBaseDomain<T> extends BaseDomain<T> {
+public class CMCreateBaseDomain<T> extends BaseDomain<T> {
     private Object creator;
     private Long createDate = System.currentTimeMillis();
     private Object lastModifier;
     private Long lastModDate = System.currentTimeMillis();
     private Integer status;
 
-    public CmCreateBaseDomain(){}
+    public CMCreateBaseDomain(){}
 
     public Object getCreator() {
         return creator;

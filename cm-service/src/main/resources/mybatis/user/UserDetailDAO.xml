@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.eatammy.cm.dao.user.IUserDetailDAO">
+
+    <sql id="Base_Column_List">
+        id,
+        username,
+        password,
+        phone,
+        address,
+        nickname,
+        sex,
+        headIcon,
+        funs,
+        attentions,
+        score,
+        isStudent,
+        studentId,
+        studentPic,
+        idCard,
+        idCardPic,
+        creator,
+        createDate,
+        lastModifier,
+        lastModDate,
+        status
+    </sql>
+    <insert id="insert" parameterType="cn.eatammy.cm.domain.user.UserDetail">
+        INSERT INTO cm_user_Detail (
+		    username
+		    ,password
+		    ,phone
+		    ,address
+		    ,nickname
+		    ,sex
+		    ,headIcon
+		    ,funs
+		    ,attentions
+		    ,score
+		    ,isStudent
+		    ,studentId
+		    ,studentPic
+		    ,idCard
+		    ,idCardPic
+		    ,creator
+		    ,createDate
+		    ,lastModifier
+		    ,lastModDate
+		    ,status
+        ) VALUES (
+		    	#{username}
+		    	,#{password}
+		    	,#{phone}
+		    	,#{address}
+		    	,#{nickname}
+		    	,#{sex}
+		    	,#{headIcon}
+		    	,#{funs}
+		    	,#{attentions}
+		    	,#{score}
+		    	,#{isStudent}
+		    	,#{studentId}
+		    	,#{studentPic}
+		    	,#{idCard}
+		    	,#{idCardPic}
+		    	,#{creator}
+		    	,#{createDate}
+		    	,#{lastModifier}
+		    	,#{lastModDate}
+		    	,#{status}
+        )
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+        	SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <insert id="insertMap" >
+        INSERT INTO cm_user_Detail (
+		    username
+		    ,password
+		    ,phone
+		    ,address
+		    ,nickname
+		    ,sex
+		    ,headIcon
+		    ,funs
+		    ,attentions
+		    ,score
+		    ,isStudent
+		    ,studentId
+		    ,studentPic
+		    ,idCard
+		    ,idCardPic
+		    ,creator
+		    ,createDate
+		    ,lastModifier
+		    ,lastModDate
+		    ,status
+        ) VALUES (
+		    	#{map.username}
+		    	,#{map.password}
+		    	,#{map.phone}
+		    	,#{map.address}
+		    	,#{map.nickname}
+		    	,#{map.sex}
+		    	,#{map.headIcon}
+		    	,#{map.funs}
+		    	,#{map.attentions}
+		    	,#{map.score}
+		    	,#{map.isStudent}
+		    	,#{map.studentId}
+		    	,#{map.studentPic}
+		    	,#{map.idCard}
+		    	,#{map.idCardPic}
+		    	,#{map.creator}
+		    	,#{map.createDate}
+		    	,#{map.lastModifier}
+		    	,#{map.lastModDate}
+		    	,#{map.status}
+        )
+    </insert>
+    
+    <!-- 更新 -->
+    <update id="update" parameterType="cn.eatammy.cm.domain.user.UserDetail">
+        UPDATE cm_user_Detail
+        <trim prefix="SET" suffixOverrides=",">
+		    username=#{username},
+		    password=#{password},
+		    phone=#{phone},
+		    address=#{address},
+		    nickname=#{nickname},
+		    sex=#{sex},
+		    headIcon=#{headIcon},
+		    funs=#{funs},
+		    attentions=#{attentions},
+		    score=#{score},
+		    isStudent=#{isStudent},
+		    studentId=#{studentId},
+		    studentPic=#{studentPic},
+		    idCard=#{idCard},
+		    idCardPic=#{idCardPic},
+		    creator=#{creator},
+		    createDate=#{createDate},
+		    lastModifier=#{lastModifier},
+		    lastModDate=#{lastModDate},
+		    status=#{status},
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+	
+	<update id="updateMap">
+        UPDATE cm_user_Detail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="map.username!=null">
+                username = #{map.username},
+            </if>
+            <if test="map.password!=null">
+                password = #{map.password},
+            </if>
+            <if test="map.phone!=null">
+                phone = #{map.phone},
+            </if>
+            <if test="map.address!=null">
+                address = #{map.address},
+            </if>
+            <if test="map.nickname!=null">
+                nickname = #{map.nickname},
+            </if>
+            <if test="map.sex!=null">
+                sex = #{map.sex},
+            </if>
+            <if test="map.headIcon!=null">
+                headIcon = #{map.headIcon},
+            </if>
+            <if test="map.funs!=null">
+                funs = #{map.funs},
+            </if>
+            <if test="map.attentions!=null">
+                attentions = #{map.attentions},
+            </if>
+            <if test="map.score!=null">
+                score = #{map.score},
+            </if>
+            <if test="map.isStudent!=null">
+                isStudent = #{map.isStudent},
+            </if>
+            <if test="map.studentId!=null">
+                studentId = #{map.studentId},
+            </if>
+            <if test="map.studentPic!=null">
+                studentPic = #{map.studentPic},
+            </if>
+            <if test="map.idCard!=null">
+                idCard = #{map.idCard},
+            </if>
+            <if test="map.idCardPic!=null">
+                idCardPic = #{map.idCardPic},
+            </if>
+            <if test="map.creator!=null">
+                creator = #{map.creator},
+            </if>
+            <if test="map.createDate!=null">
+                createDate = #{map.createDate},
+            </if>
+            <if test="map.lastModifier!=null">
+                lastModifier = #{map.lastModifier},
+            </if>
+            <if test="map.lastModDate!=null">
+                lastModDate = #{map.lastModDate},
+            </if>
+            <if test="map.status!=null">
+                status = #{map.status},
+            </if>
+        </trim>
+        WHERE
+        id = #{map.id}
+    </update>
+
+    <update id="updateByCondition">
+        UPDATE cm_user_Detail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="update.username!=null">
+                username = #{update.username},
+            </if>
+            <if test="update.password!=null">
+                password = #{update.password},
+            </if>
+            <if test="update.phone!=null">
+                phone = #{update.phone},
+            </if>
+            <if test="update.address!=null">
+                address = #{update.address},
+            </if>
+            <if test="update.nickname!=null">
+                nickname = #{update.nickname},
+            </if>
+            <if test="update.sex!=null">
+                sex = #{update.sex},
+            </if>
+            <if test="update.headIcon!=null">
+                headIcon = #{update.headIcon},
+            </if>
+            <if test="update.funs!=null">
+                funs = #{update.funs},
+            </if>
+            <if test="update.attentions!=null">
+                attentions = #{update.attentions},
+            </if>
+            <if test="update.score!=null">
+                score = #{update.score},
+            </if>
+            <if test="update.isStudent!=null">
+                isStudent = #{update.isStudent},
+            </if>
+            <if test="update.studentId!=null">
+                studentId = #{update.studentId},
+            </if>
+            <if test="update.studentPic!=null">
+                studentPic = #{update.studentPic},
+            </if>
+            <if test="update.idCard!=null">
+                idCard = #{update.idCard},
+            </if>
+            <if test="update.idCardPic!=null">
+                idCardPic = #{update.idCardPic},
+            </if>
+            <if test="update.creator!=null">
+                creator = #{update.creator},
+            </if>
+            <if test="update.createDate!=null">
+                createDate = #{update.createDate},
+            </if>
+            <if test="update.lastModifier!=null">
+                lastModifier = #{update.lastModifier},
+            </if>
+            <if test="update.lastModDate!=null">
+                lastModDate = #{update.lastModDate},
+            </if>
+            <if test="update.status!=null">
+                status = #{update.status},
+            </if>
+        </trim>
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.username!=null">
+                AND username = #{condition.username}
+            </if>
+            <if test="condition.password!=null">
+                AND password = #{condition.password}
+            </if>
+            <if test="condition.phone!=null">
+                AND phone = #{condition.phone}
+            </if>
+            <if test="condition.address!=null">
+                AND address = #{condition.address}
+            </if>
+            <if test="condition.nickname!=null">
+                AND nickname = #{condition.nickname}
+            </if>
+            <if test="condition.sex!=null">
+                AND sex = #{condition.sex}
+            </if>
+            <if test="condition.headIcon!=null">
+                AND headIcon = #{condition.headIcon}
+            </if>
+            <if test="condition.funs!=null">
+                AND funs = #{condition.funs}
+            </if>
+            <if test="condition.attentions!=null">
+                AND attentions = #{condition.attentions}
+            </if>
+            <if test="condition.score!=null">
+                AND score = #{condition.score}
+            </if>
+            <if test="condition.isStudent!=null">
+                AND isStudent = #{condition.isStudent}
+            </if>
+            <if test="condition.studentId!=null">
+                AND studentId = #{condition.studentId}
+            </if>
+            <if test="condition.studentPic!=null">
+                AND studentPic = #{condition.studentPic}
+            </if>
+            <if test="condition.idCard!=null">
+                AND idCard = #{condition.idCard}
+            </if>
+            <if test="condition.idCardPic!=null">
+                AND idCardPic = #{condition.idCardPic}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+        </trim>
+    </update>
+
+    <update id="updateNull" parameterType="cn.eatammy.cm.domain.user.UserDetail">
+        UPDATE cm_user_Detail
+        <trim prefix="SET" suffixOverrides=",">
+            username = #{username},
+            password = #{password},
+            phone = #{phone},
+            address = #{address},
+            nickname = #{nickname},
+            sex = #{sex},
+            headIcon = #{headIcon},
+            funs = #{funs},
+            attentions = #{attentions},
+            score = #{score},
+            isStudent = #{isStudent},
+            studentId = #{studentId},
+            studentPic = #{studentPic},
+            idCard = #{idCard},
+            idCardPic = #{idCardPic},
+            creator = #{creator},
+            createDate = #{createDate},
+            lastModifier = #{lastModifier},
+            lastModDate = #{lastModDate},
+            status = #{status},
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+    
+    
+    <!-- 按Id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM cm_user_Detail
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </delete>
+
+    <!--根据list(ids)删除对象-->
+    <delete id="deleteByIds">
+        DELETE FROM cm_user_Detail
+        WHERE id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+
+    <delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM cm_user_Detail
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="username!=null">
+                AND username = #{username}
+            </if>
+            <if test="password!=null">
+                AND password = #{password}
+            </if>
+            <if test="phone!=null">
+                AND phone = #{phone}
+            </if>
+            <if test="address!=null">
+                AND address = #{address}
+            </if>
+            <if test="nickname!=null">
+                AND nickname = #{nickname}
+            </if>
+            <if test="sex!=null">
+                AND sex = #{sex}
+            </if>
+            <if test="headIcon!=null">
+                AND headIcon = #{headIcon}
+            </if>
+            <if test="funs!=null">
+                AND funs = #{funs}
+            </if>
+            <if test="attentions!=null">
+                AND attentions = #{attentions}
+            </if>
+            <if test="score!=null">
+                AND score = #{score}
+            </if>
+            <if test="isStudent!=null">
+                AND isStudent = #{isStudent}
+            </if>
+            <if test="studentId!=null">
+                AND studentId = #{studentId}
+            </if>
+            <if test="studentPic!=null">
+                AND studentPic = #{studentPic}
+            </if>
+            <if test="idCard!=null">
+                AND idCard = #{idCard}
+            </if>
+            <if test="idCardPic!=null">
+                AND idCardPic = #{idCardPic}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="status!=null">
+                AND status = #{status}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM cm_user_Detail WHERE
+        ${property} = #{value}
+    </delete>
+    
+    <!--查询相关 -->
+    <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.user.UserDetail">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_user_Detail
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.user.UserDetail">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_user_Detail WHERE
+        ${property} = #{value}
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.user.UserDetail">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_user_Detail WHERE
+        ${property} = #{value}
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="findAll" resultType="UserDetail">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_user_Detail
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryPage" resultType="cn.eatammy.cm.domain.user.UserDetail">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_user_Detail
+        <where>
+
+            <if test="condition.whereSql != null">
+                and id in (#{condition.whereSql})
+            </if>
+
+            <if test="condition.id!=null">
+                ${condition.groupOp}   id  ${condition.id.op}  #{condition.id.data}
+            </if>
+            <if test="condition.username!=null">
+                ${condition.groupOp}   username  ${condition.username.op}  #{condition.username.data}
+            </if>
+            <if test="condition.password!=null">
+                ${condition.groupOp}   password  ${condition.password.op}  #{condition.password.data}
+            </if>
+            <if test="condition.phone!=null">
+                ${condition.groupOp}   phone  ${condition.phone.op}  #{condition.phone.data}
+            </if>
+            <if test="condition.address!=null">
+                ${condition.groupOp}   address  ${condition.address.op}  #{condition.address.data}
+            </if>
+            <if test="condition.nickname!=null">
+                ${condition.groupOp}   nickname  ${condition.nickname.op}  #{condition.nickname.data}
+            </if>
+            <if test="condition.sex!=null">
+                ${condition.groupOp}   sex  ${condition.sex.op}  #{condition.sex.data}
+            </if>
+            <if test="condition.headIcon!=null">
+                ${condition.groupOp}   headIcon  ${condition.headIcon.op}  #{condition.headIcon.data}
+            </if>
+            <if test="condition.funs!=null">
+                ${condition.groupOp}   funs  ${condition.funs.op}  #{condition.funs.data}
+            </if>
+            <if test="condition.attentions!=null">
+                ${condition.groupOp}   attentions  ${condition.attentions.op}  #{condition.attentions.data}
+            </if>
+            <if test="condition.score!=null">
+                ${condition.groupOp}   score  ${condition.score.op}  #{condition.score.data}
+            </if>
+            <if test="condition.isStudent!=null">
+                ${condition.groupOp}   isStudent  ${condition.isStudent.op}  #{condition.isStudent.data}
+            </if>
+            <if test="condition.studentId!=null">
+                ${condition.groupOp}   studentId  ${condition.studentId.op}  #{condition.studentId.data}
+            </if>
+            <if test="condition.studentPic!=null">
+                ${condition.groupOp}   studentPic  ${condition.studentPic.op}  #{condition.studentPic.data}
+            </if>
+            <if test="condition.idCard!=null">
+                ${condition.groupOp}   idCard  ${condition.idCard.op}  #{condition.idCard.data}
+            </if>
+            <if test="condition.idCardPic!=null">
+                ${condition.groupOp}   idCardPic  ${condition.idCardPic.op}  #{condition.idCardPic.data}
+            </if>
+            <if test="condition.creator!=null">
+                ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
+            </if>
+            <if test="condition.createDate!=null">
+                ${condition.groupOp}   createDate  ${condition.createDate.op}  #{condition.createDate.data}
+            </if>
+            <if test="condition.lastModifier!=null">
+                ${condition.groupOp}   lastModifier  ${condition.lastModifier.op}  #{condition.lastModifier.data}
+            </if>
+            <if test="condition.lastModDate!=null">
+                ${condition.groupOp}   lastModDate  ${condition.lastModDate.op}  #{condition.lastModDate.data}
+            </if>
+            <if test="condition.status!=null">
+                ${condition.groupOp}   status  ${condition.status.op}  #{condition.status.data}
+            </if>
+
+
+    </where>
+
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.user.UserDetail">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_user_Detail
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id like CONCAT('%', #{id} , '%')
+            </if>
+            <if test="username!=null">
+                AND username like CONCAT('%', #{username} , '%')
+            </if>
+            <if test="password!=null">
+                AND password like CONCAT('%', #{password} , '%')
+            </if>
+            <if test="phone!=null">
+                AND phone like CONCAT('%', #{phone} , '%')
+            </if>
+            <if test="address!=null">
+                AND address like CONCAT('%', #{address} , '%')
+            </if>
+            <if test="nickname!=null">
+                AND nickname like CONCAT('%', #{nickname} , '%')
+            </if>
+            <if test="sex!=null">
+                AND sex like CONCAT('%', #{sex} , '%')
+            </if>
+            <if test="headIcon!=null">
+                AND headIcon like CONCAT('%', #{headIcon} , '%')
+            </if>
+            <if test="funs!=null">
+                AND funs like CONCAT('%', #{funs} , '%')
+            </if>
+            <if test="attentions!=null">
+                AND attentions like CONCAT('%', #{attentions} , '%')
+            </if>
+            <if test="score!=null">
+                AND score like CONCAT('%', #{score} , '%')
+            </if>
+            <if test="isStudent!=null">
+                AND isStudent like CONCAT('%', #{isStudent} , '%')
+            </if>
+            <if test="studentId!=null">
+                AND studentId like CONCAT('%', #{studentId} , '%')
+            </if>
+            <if test="studentPic!=null">
+                AND studentPic like CONCAT('%', #{studentPic} , '%')
+            </if>
+            <if test="idCard!=null">
+                AND idCard like CONCAT('%', #{idCard} , '%')
+            </if>
+            <if test="idCardPic!=null">
+                AND idCardPic like CONCAT('%', #{idCardPic} , '%')
+            </if>
+            <if test="creator!=null">
+                AND creator like CONCAT('%', #{creator} , '%')
+            </if>
+            <if test="createDate!=null">
+                AND createDate like CONCAT('%', #{createDate} , '%')
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier like CONCAT('%', #{lastModifier} , '%')
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate like CONCAT('%', #{lastModDate} , '%')
+            </if>
+            <if test="status!=null">
+                AND status like CONCAT('%', #{status} , '%')
+            </if>
+        </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+
+    <select id="queryList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.user.UserDetail">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_user_Detail
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.username!=null">
+                AND username = #{condition.username}
+            </if>
+            <if test="condition.password!=null">
+                AND password = #{condition.password}
+            </if>
+            <if test="condition.phone!=null">
+                AND phone = #{condition.phone}
+            </if>
+            <if test="condition.address!=null">
+                AND address = #{condition.address}
+            </if>
+            <if test="condition.nickname!=null">
+                AND nickname = #{condition.nickname}
+            </if>
+            <if test="condition.sex!=null">
+                AND sex = #{condition.sex}
+            </if>
+            <if test="condition.headIcon!=null">
+                AND headIcon = #{condition.headIcon}
+            </if>
+            <if test="condition.funs!=null">
+                AND funs = #{condition.funs}
+            </if>
+            <if test="condition.attentions!=null">
+                AND attentions = #{condition.attentions}
+            </if>
+            <if test="condition.score!=null">
+                AND score = #{condition.score}
+            </if>
+            <if test="condition.isStudent!=null">
+                AND isStudent = #{condition.isStudent}
+            </if>
+            <if test="condition.studentId!=null">
+                AND studentId = #{condition.studentId}
+            </if>
+            <if test="condition.studentPic!=null">
+                AND studentPic = #{condition.studentPic}
+            </if>
+            <if test="condition.idCard!=null">
+                AND idCard = #{condition.idCard}
+            </if>
+            <if test="condition.idCardPic!=null">
+                AND idCardPic = #{condition.idCardPic}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+        </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.user.UserDetail">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_user_Detail
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.username!=null">
+                AND username = #{condition.username}
+            </if>
+            <if test="condition.password!=null">
+                AND password = #{condition.password}
+            </if>
+            <if test="condition.phone!=null">
+                AND phone = #{condition.phone}
+            </if>
+            <if test="condition.address!=null">
+                AND address = #{condition.address}
+            </if>
+            <if test="condition.nickname!=null">
+                AND nickname = #{condition.nickname}
+            </if>
+            <if test="condition.sex!=null">
+                AND sex = #{condition.sex}
+            </if>
+            <if test="condition.headIcon!=null">
+                AND headIcon = #{condition.headIcon}
+            </if>
+            <if test="condition.funs!=null">
+                AND funs = #{condition.funs}
+            </if>
+            <if test="condition.attentions!=null">
+                AND attentions = #{condition.attentions}
+            </if>
+            <if test="condition.score!=null">
+                AND score = #{condition.score}
+            </if>
+            <if test="condition.isStudent!=null">
+                AND isStudent = #{condition.isStudent}
+            </if>
+            <if test="condition.studentId!=null">
+                AND studentId = #{condition.studentId}
+            </if>
+            <if test="condition.studentPic!=null">
+                AND studentPic = #{condition.studentPic}
+            </if>
+            <if test="condition.idCard!=null">
+                AND idCard = #{condition.idCard}
+            </if>
+            <if test="condition.idCardPic!=null">
+                AND idCardPic = #{condition.idCardPic}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+        </trim>
+        limit 0,1
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(1) FROM cm_user_Detail
+       <where>
+           <if test="id!=null">
+               ${groupOp} id ${id.op}  #{id.data}
+           </if>
+           <if test="username!=null">
+               ${groupOp} username ${username.op}  #{username.data}
+           </if>
+           <if test="password!=null">
+               ${groupOp} password ${password.op}  #{password.data}
+           </if>
+           <if test="phone!=null">
+               ${groupOp} phone ${phone.op}  #{phone.data}
+           </if>
+           <if test="address!=null">
+               ${groupOp} address ${address.op}  #{address.data}
+           </if>
+           <if test="nickname!=null">
+               ${groupOp} nickname ${nickname.op}  #{nickname.data}
+           </if>
+           <if test="sex!=null">
+               ${groupOp} sex ${sex.op}  #{sex.data}
+           </if>
+           <if test="headIcon!=null">
+               ${groupOp} headIcon ${headIcon.op}  #{headIcon.data}
+           </if>
+           <if test="funs!=null">
+               ${groupOp} funs ${funs.op}  #{funs.data}
+           </if>
+           <if test="attentions!=null">
+               ${groupOp} attentions ${attentions.op}  #{attentions.data}
+           </if>
+           <if test="score!=null">
+               ${groupOp} score ${score.op}  #{score.data}
+           </if>
+           <if test="isStudent!=null">
+               ${groupOp} isStudent ${isStudent.op}  #{isStudent.data}
+           </if>
+           <if test="studentId!=null">
+               ${groupOp} studentId ${studentId.op}  #{studentId.data}
+           </if>
+           <if test="studentPic!=null">
+               ${groupOp} studentPic ${studentPic.op}  #{studentPic.data}
+           </if>
+           <if test="idCard!=null">
+               ${groupOp} idCard ${idCard.op}  #{idCard.data}
+           </if>
+           <if test="idCardPic!=null">
+               ${groupOp} idCardPic ${idCardPic.op}  #{idCardPic.data}
+           </if>
+           <if test="creator!=null">
+               ${groupOp} creator ${creator.op}  #{creator.data}
+           </if>
+           <if test="createDate!=null">
+               ${groupOp} createDate ${createDate.op}  #{createDate.data}
+           </if>
+           <if test="lastModifier!=null">
+               ${groupOp} lastModifier ${lastModifier.op}  #{lastModifier.data}
+           </if>
+           <if test="lastModDate!=null">
+               ${groupOp} lastModDate ${lastModDate.op}  #{lastModDate.data}
+           </if>
+           <if test="status!=null">
+               ${groupOp} status ${status.op}  #{status.data}
+           </if>
+
+       </where>
+    <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+    </if>
+    </select>
+
+    <select id="selectMaxId" resultType="java.lang.Long">
+        SELECT
+        MAX(id)
+        FROM cm_user_Detail
+    </select>
+   
+</mapper>

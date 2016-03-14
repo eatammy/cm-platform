@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.eatammy.cm.dao.share.IReplyDAO">
+
+    <sql id="Base_Column_List">
+        id,
+        content,
+        commentId,
+        answerId,
+        answerName,
+        replayDate,
+        replyToId,
+        replyName,
+        creator,
+        createDate,
+        lastModifier,
+        lastModDate,
+        status
+    </sql>
+    <insert id="insert" parameterType="cn.eatammy.cm.domain.share.Reply">
+        INSERT INTO cm_share_reply (
+		    content
+		    ,commentId
+		    ,answerId
+		    ,answerName
+		    ,replayDate
+		    ,replyToId
+		    ,replyName
+		    ,creator
+		    ,createDate
+		    ,lastModifier
+		    ,lastModDate
+		    ,status
+        ) VALUES (
+		    	#{content}
+		    	,#{commentId}
+		    	,#{answerId}
+		    	,#{answerName}
+		    	,#{replayDate}
+		    	,#{replyToId}
+		    	,#{replyName}
+		    	,#{creator}
+		    	,#{createDate}
+		    	,#{lastModifier}
+		    	,#{lastModDate}
+		    	,#{status}
+        )
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+        	SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <insert id="insertMap" >
+        INSERT INTO cm_share_reply (
+		    content
+		    ,commentId
+		    ,answerId
+		    ,answerName
+		    ,replayDate
+		    ,replyToId
+		    ,replyName
+		    ,creator
+		    ,createDate
+		    ,lastModifier
+		    ,lastModDate
+		    ,status
+        ) VALUES (
+		    	#{map.content}
+		    	,#{map.commentId}
+		    	,#{map.answerId}
+		    	,#{map.answerName}
+		    	,#{map.replayDate}
+		    	,#{map.replyToId}
+		    	,#{map.replyName}
+		    	,#{map.creator}
+		    	,#{map.createDate}
+		    	,#{map.lastModifier}
+		    	,#{map.lastModDate}
+		    	,#{map.status}
+        )
+    </insert>
+    
+    <!-- 更新 -->
+    <update id="update" parameterType="cn.eatammy.cm.domain.share.Reply">
+        UPDATE cm_share_reply
+        <trim prefix="SET" suffixOverrides=",">
+		    content=#{content},
+		    commentId=#{commentId},
+		    answerId=#{answerId},
+		    answerName=#{answerName},
+		    replayDate=#{replayDate},
+		    replyToId=#{replyToId},
+		    replyName=#{replyName},
+		    creator=#{creator},
+		    createDate=#{createDate},
+		    lastModifier=#{lastModifier},
+		    lastModDate=#{lastModDate},
+		    status=#{status},
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+	
+	<update id="updateMap">
+        UPDATE cm_share_reply
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="map.content!=null">
+                content = #{map.content},
+            </if>
+            <if test="map.commentId!=null">
+                commentId = #{map.commentId},
+            </if>
+            <if test="map.answerId!=null">
+                answerId = #{map.answerId},
+            </if>
+            <if test="map.answerName!=null">
+                answerName = #{map.answerName},
+            </if>
+            <if test="map.replayDate!=null">
+                replayDate = #{map.replayDate},
+            </if>
+            <if test="map.replyToId!=null">
+                replyToId = #{map.replyToId},
+            </if>
+            <if test="map.replyName!=null">
+                replyName = #{map.replyName},
+            </if>
+            <if test="map.creator!=null">
+                creator = #{map.creator},
+            </if>
+            <if test="map.createDate!=null">
+                createDate = #{map.createDate},
+            </if>
+            <if test="map.lastModifier!=null">
+                lastModifier = #{map.lastModifier},
+            </if>
+            <if test="map.lastModDate!=null">
+                lastModDate = #{map.lastModDate},
+            </if>
+            <if test="map.status!=null">
+                status = #{map.status},
+            </if>
+        </trim>
+        WHERE
+        id = #{map.id}
+    </update>
+
+    <update id="updateByCondition">
+        UPDATE cm_share_reply
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="update.content!=null">
+                content = #{update.content},
+            </if>
+            <if test="update.commentId!=null">
+                commentId = #{update.commentId},
+            </if>
+            <if test="update.answerId!=null">
+                answerId = #{update.answerId},
+            </if>
+            <if test="update.answerName!=null">
+                answerName = #{update.answerName},
+            </if>
+            <if test="update.replayDate!=null">
+                replayDate = #{update.replayDate},
+            </if>
+            <if test="update.replyToId!=null">
+                replyToId = #{update.replyToId},
+            </if>
+            <if test="update.replyName!=null">
+                replyName = #{update.replyName},
+            </if>
+            <if test="update.creator!=null">
+                creator = #{update.creator},
+            </if>
+            <if test="update.createDate!=null">
+                createDate = #{update.createDate},
+            </if>
+            <if test="update.lastModifier!=null">
+                lastModifier = #{update.lastModifier},
+            </if>
+            <if test="update.lastModDate!=null">
+                lastModDate = #{update.lastModDate},
+            </if>
+            <if test="update.status!=null">
+                status = #{update.status},
+            </if>
+        </trim>
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.content!=null">
+                AND content = #{condition.content}
+            </if>
+            <if test="condition.commentId!=null">
+                AND commentId = #{condition.commentId}
+            </if>
+            <if test="condition.answerId!=null">
+                AND answerId = #{condition.answerId}
+            </if>
+            <if test="condition.answerName!=null">
+                AND answerName = #{condition.answerName}
+            </if>
+            <if test="condition.replayDate!=null">
+                AND replayDate = #{condition.replayDate}
+            </if>
+            <if test="condition.replyToId!=null">
+                AND replyToId = #{condition.replyToId}
+            </if>
+            <if test="condition.replyName!=null">
+                AND replyName = #{condition.replyName}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+        </trim>
+    </update>
+
+    <update id="updateNull" parameterType="cn.eatammy.cm.domain.share.Reply">
+        UPDATE cm_share_reply
+        <trim prefix="SET" suffixOverrides=",">
+            content = #{content},
+            commentId = #{commentId},
+            answerId = #{answerId},
+            answerName = #{answerName},
+            replayDate = #{replayDate},
+            replyToId = #{replyToId},
+            replyName = #{replyName},
+            creator = #{creator},
+            createDate = #{createDate},
+            lastModifier = #{lastModifier},
+            lastModDate = #{lastModDate},
+            status = #{status},
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+    
+    
+    <!-- 按Id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM cm_share_reply
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </delete>
+
+    <!--根据list(ids)删除对象-->
+    <delete id="deleteByIds">
+        DELETE FROM cm_share_reply
+        WHERE id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+
+    <delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM cm_share_reply
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="content!=null">
+                AND content = #{content}
+            </if>
+            <if test="commentId!=null">
+                AND commentId = #{commentId}
+            </if>
+            <if test="answerId!=null">
+                AND answerId = #{answerId}
+            </if>
+            <if test="answerName!=null">
+                AND answerName = #{answerName}
+            </if>
+            <if test="replayDate!=null">
+                AND replayDate = #{replayDate}
+            </if>
+            <if test="replyToId!=null">
+                AND replyToId = #{replyToId}
+            </if>
+            <if test="replyName!=null">
+                AND replyName = #{replyName}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="status!=null">
+                AND status = #{status}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM cm_share_reply WHERE
+        ${property} = #{value}
+    </delete>
+    
+    <!--查询相关 -->
+    <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.share.Reply">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_share_reply
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Reply">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_share_reply WHERE
+        ${property} = #{value}
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Reply">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_share_reply WHERE
+        ${property} = #{value}
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="findAll" resultType="Reply">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_share_reply
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryPage" resultType="cn.eatammy.cm.domain.share.Reply">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_share_reply
+        <where>
+
+            <if test="condition.whereSql != null">
+                and id in (#{condition.whereSql})
+            </if>
+
+            <if test="condition.id!=null">
+                ${condition.groupOp}   id  ${condition.id.op}  #{condition.id.data}
+            </if>
+            <if test="condition.content!=null">
+                ${condition.groupOp}   content  ${condition.content.op}  #{condition.content.data}
+            </if>
+            <if test="condition.commentId!=null">
+                ${condition.groupOp}   commentId  ${condition.commentId.op}  #{condition.commentId.data}
+            </if>
+            <if test="condition.answerId!=null">
+                ${condition.groupOp}   answerId  ${condition.answerId.op}  #{condition.answerId.data}
+            </if>
+            <if test="condition.answerName!=null">
+                ${condition.groupOp}   answerName  ${condition.answerName.op}  #{condition.answerName.data}
+            </if>
+            <if test="condition.replayDate!=null">
+                ${condition.groupOp}   replayDate  ${condition.replayDate.op}  #{condition.replayDate.data}
+            </if>
+            <if test="condition.replyToId!=null">
+                ${condition.groupOp}   replyToId  ${condition.replyToId.op}  #{condition.replyToId.data}
+            </if>
+            <if test="condition.replyName!=null">
+                ${condition.groupOp}   replyName  ${condition.replyName.op}  #{condition.replyName.data}
+            </if>
+            <if test="condition.creator!=null">
+                ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
+            </if>
+            <if test="condition.createDate!=null">
+                ${condition.groupOp}   createDate  ${condition.createDate.op}  #{condition.createDate.data}
+            </if>
+            <if test="condition.lastModifier!=null">
+                ${condition.groupOp}   lastModifier  ${condition.lastModifier.op}  #{condition.lastModifier.data}
+            </if>
+            <if test="condition.lastModDate!=null">
+                ${condition.groupOp}   lastModDate  ${condition.lastModDate.op}  #{condition.lastModDate.data}
+            </if>
+            <if test="condition.status!=null">
+                ${condition.groupOp}   status  ${condition.status.op}  #{condition.status.data}
+            </if>
+
+
+    </where>
+
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Reply">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_share_reply
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id like CONCAT('%', #{id} , '%')
+            </if>
+            <if test="content!=null">
+                AND content like CONCAT('%', #{content} , '%')
+            </if>
+            <if test="commentId!=null">
+                AND commentId like CONCAT('%', #{commentId} , '%')
+            </if>
+            <if test="answerId!=null">
+                AND answerId like CONCAT('%', #{answerId} , '%')
+            </if>
+            <if test="answerName!=null">
+                AND answerName like CONCAT('%', #{answerName} , '%')
+            </if>
+            <if test="replayDate!=null">
+                AND replayDate like CONCAT('%', #{replayDate} , '%')
+            </if>
+            <if test="replyToId!=null">
+                AND replyToId like CONCAT('%', #{replyToId} , '%')
+            </if>
+            <if test="replyName!=null">
+                AND replyName like CONCAT('%', #{replyName} , '%')
+            </if>
+            <if test="creator!=null">
+                AND creator like CONCAT('%', #{creator} , '%')
+            </if>
+            <if test="createDate!=null">
+                AND createDate like CONCAT('%', #{createDate} , '%')
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier like CONCAT('%', #{lastModifier} , '%')
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate like CONCAT('%', #{lastModDate} , '%')
+            </if>
+            <if test="status!=null">
+                AND status like CONCAT('%', #{status} , '%')
+            </if>
+        </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+
+    <select id="queryList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Reply">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_share_reply
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.content!=null">
+                AND content = #{condition.content}
+            </if>
+            <if test="condition.commentId!=null">
+                AND commentId = #{condition.commentId}
+            </if>
+            <if test="condition.answerId!=null">
+                AND answerId = #{condition.answerId}
+            </if>
+            <if test="condition.answerName!=null">
+                AND answerName = #{condition.answerName}
+            </if>
+            <if test="condition.replayDate!=null">
+                AND replayDate = #{condition.replayDate}
+            </if>
+            <if test="condition.replyToId!=null">
+                AND replyToId = #{condition.replyToId}
+            </if>
+            <if test="condition.replyName!=null">
+                AND replyName = #{condition.replyName}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+        </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Reply">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_share_reply
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.content!=null">
+                AND content = #{condition.content}
+            </if>
+            <if test="condition.commentId!=null">
+                AND commentId = #{condition.commentId}
+            </if>
+            <if test="condition.answerId!=null">
+                AND answerId = #{condition.answerId}
+            </if>
+            <if test="condition.answerName!=null">
+                AND answerName = #{condition.answerName}
+            </if>
+            <if test="condition.replayDate!=null">
+                AND replayDate = #{condition.replayDate}
+            </if>
+            <if test="condition.replyToId!=null">
+                AND replyToId = #{condition.replyToId}
+            </if>
+            <if test="condition.replyName!=null">
+                AND replyName = #{condition.replyName}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+        </trim>
+        limit 0,1
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(1) FROM cm_share_reply
+       <where>
+           <if test="id!=null">
+               ${groupOp} id ${id.op}  #{id.data}
+           </if>
+           <if test="content!=null">
+               ${groupOp} content ${content.op}  #{content.data}
+           </if>
+           <if test="commentId!=null">
+               ${groupOp} commentId ${commentId.op}  #{commentId.data}
+           </if>
+           <if test="answerId!=null">
+               ${groupOp} answerId ${answerId.op}  #{answerId.data}
+           </if>
+           <if test="answerName!=null">
+               ${groupOp} answerName ${answerName.op}  #{answerName.data}
+           </if>
+           <if test="replayDate!=null">
+               ${groupOp} replayDate ${replayDate.op}  #{replayDate.data}
+           </if>
+           <if test="replyToId!=null">
+               ${groupOp} replyToId ${replyToId.op}  #{replyToId.data}
+           </if>
+           <if test="replyName!=null">
+               ${groupOp} replyName ${replyName.op}  #{replyName.data}
+           </if>
+           <if test="creator!=null">
+               ${groupOp} creator ${creator.op}  #{creator.data}
+           </if>
+           <if test="createDate!=null">
+               ${groupOp} createDate ${createDate.op}  #{createDate.data}
+           </if>
+           <if test="lastModifier!=null">
+               ${groupOp} lastModifier ${lastModifier.op}  #{lastModifier.data}
+           </if>
+           <if test="lastModDate!=null">
+               ${groupOp} lastModDate ${lastModDate.op}  #{lastModDate.data}
+           </if>
+           <if test="status!=null">
+               ${groupOp} status ${status.op}  #{status.data}
+           </if>
+
+       </where>
+    <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+    </if>
+    </select>
+
+    <select id="selectMaxId" resultType="java.lang.Long">
+        SELECT
+        MAX(id)
+        FROM cm_share_reply
+    </select>
+   
+</mapper>

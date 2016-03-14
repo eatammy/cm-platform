@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.eatammy.cm.dao.cook.ICCollectionDAO">
+
+    <sql id="Base_Column_List">
+    </sql>
+    <insert id="insert" parameterType="cn.eatammy.cm.domain.cook.CCollection">
+        INSERT INTO cm_cook_collection (
+        ) VALUES (
+        )
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+        	SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <insert id="insertMap" >
+        INSERT INTO cm_cook_collection (
+        ) VALUES (
+        )
+    </insert>
+    
+    <!-- 更新 -->
+    <update id="update" parameterType="cn.eatammy.cm.domain.cook.CCollection">
+        UPDATE cm_cook_collection
+        <trim prefix="SET" suffixOverrides=",">
+        </trim>
+        WHERE
+    </update>
+	
+	<update id="updateMap">
+        UPDATE cm_cook_collection
+        <trim prefix="SET" suffixOverrides=",">
+        </trim>
+        WHERE
+        id = #{map.id}
+    </update>
+
+    <update id="updateByCondition">
+        UPDATE cm_cook_collection
+        <trim prefix="SET" suffixOverrides=",">
+        </trim>
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+        </trim>
+    </update>
+
+    <update id="updateNull" parameterType="cn.eatammy.cm.domain.cook.CCollection">
+        UPDATE cm_cook_collection
+        <trim prefix="SET" suffixOverrides=",">
+        </trim>
+        WHERE
+    </update>
+    
+    
+    <!-- 按Id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM cm_cook_collection
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+        </trim>
+    </delete>
+
+    <!--根据list(ids)删除对象-->
+    <delete id="deleteByIds">
+        DELETE FROM cm_cook_collection
+        WHERE id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+
+    <delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM cm_cook_collection
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM cm_cook_collection WHERE
+        ${property} = #{value}
+    </delete>
+    
+    <!--查询相关 -->
+    <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.cook.CCollection">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_cook_collection
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+        </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.cook.CCollection">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_cook_collection WHERE
+        ${property} = #{value}
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.cook.CCollection">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_cook_collection WHERE
+        ${property} = #{value}
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="findAll" resultType="CCollection">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_cook_collection
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryPage" resultType="cn.eatammy.cm.domain.cook.CCollection">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_cook_collection
+        <where>
+
+            <if test="condition.whereSql != null">
+                and id in (#{condition.whereSql})
+            </if>
+
+
+
+    </where>
+
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.cook.CCollection">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_cook_collection
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+        </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+
+    <select id="queryList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.cook.CCollection">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_cook_collection
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+        </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.cook.CCollection">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_cook_collection
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+        </trim>
+        limit 0,1
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(1) FROM cm_cook_collection
+       <where>
+
+       </where>
+    <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+    </if>
+    </select>
+
+    <select id="selectMaxId" resultType="java.lang.Long">
+        SELECT
+        MAX(id)
+        FROM cm_cook_collection
+    </select>
+   
+</mapper>
