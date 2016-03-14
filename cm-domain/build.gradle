@@ -33,6 +33,11 @@ dependencies {
             'com.alibaba.druid:druid-wrapper:0.2.9',
             "mysql:mysql-connector-java:5.1.24",
 
+            'org.codehaus.jackson:jackson-core-asl:1.9.13',
+            'org.codehaus.jackson:jackson-mapper-asl:1.9.13',
+
             "log4j:log4j:1.2.17"
     )
+
+
 }
