@@ -16,6 +16,7 @@ dependencies {
 
     compile(
             'commons-lang:commons-lang:2.6',
+            'commons-logging:commons-logging:1.2',
 
             'org.springframework:spring-context:4.1.0.RELEASE',
             'org.springframework:spring-tx:4.1.0.RELEASE',
