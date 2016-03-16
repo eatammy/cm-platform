@@ -5,7 +5,7 @@ import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.common.domain.CreateBaseDomain;
 import cn.eatammy.common.service.IBaseService;
 import cn.eatammy.common.service.IDaoAware;
-import cn.eatammy.common.util.SqlOrderEnum;
+import cn.eatammy.common.utils.SqlOrderEnum;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.util.StringUtils;

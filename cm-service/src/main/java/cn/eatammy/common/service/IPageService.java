@@ -3,7 +3,7 @@ package cn.eatammy.common.service;
 import cn.eatammy.common.dao.IBaseDAO;
 import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.common.domain.BizData4Page;
-import cn.eatammy.common.util.SqlOrderEnum;
+import cn.eatammy.common.utils.SqlOrderEnum;
 
 import java.util.Map;
 

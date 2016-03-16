@@ -1,4 +1,4 @@
-package cn.eatammy.common.util;
+package cn.eatammy.common.utils;
 
 import cn.eatammy.common.dao.IBaseDAO;
 import cn.eatammy.common.domain.BizData4Page;

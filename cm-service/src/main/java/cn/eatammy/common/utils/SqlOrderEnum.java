@@ -1,4 +1,4 @@
-package cn.eatammy.common.util;
+package cn.eatammy.common.utils;
 
 /**
  * Created by 郭旭辉 on 2016/3/10.
