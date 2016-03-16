@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 商场控制类
  */
 @Controller
-@RequestMapping(value = "cm/app/business")
+@RequestMapping(value = "/cm/app/business")
 public class BusinessController {
 }
