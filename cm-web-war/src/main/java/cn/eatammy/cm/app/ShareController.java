@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 美食社交控制类
  */
 @Controller
-@RequestMapping("/cm/app/social")
-public class SocialController {
+@RequestMapping("/cm/app/share")
+public class ShareController {
 }
