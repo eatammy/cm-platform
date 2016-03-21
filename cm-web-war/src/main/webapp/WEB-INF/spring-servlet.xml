@@ -57,6 +57,12 @@
     </bean>
 
     <context:component-scan base-package="cn.eatammy"/>
+
+    <bean id="exceptionResolver" class="cn.eatammy.common.sys.resolver.CMSimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props></props>
+        </property>
+    </bean>
     <!-- freemarker的配置 -->
     <!-- FreeMarker视图解析   如返回student。。在这里配置后缀名ftl和视图解析器。。-->
     <!--<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">-->
