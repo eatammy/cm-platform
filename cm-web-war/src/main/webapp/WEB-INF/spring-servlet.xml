@@ -47,10 +47,11 @@
     </bean>
 
     <bean id="fastJsonHttpMessageConverter"
-          class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+          class="cn.eatammy.common.sys.converter.CMFastJsonHttpMessageConverter">
         <property name="supportedMediaTypes">
             <list>
-                <value>application/json; charset=utf-8</value>
+                <value>application/json; charset=UTF-8</value>
+                <value>text/html;charset=UTF-8</value>
             </list>
         </property>
     </bean>
