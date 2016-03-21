@@ -23,12 +23,14 @@ public class BizExceptionHandler {
             isDebug = true;
         }
         ResponseT<String> responseT = null;
+        //构造 BizException
+        BizException bizException = null;
         if (exception instanceof BizException) { //业务预知的异常
-            responseT = ResponseTs.<String>newResponseException((BizException) exception, isDebug);
+            bizException = (BizException) exception;
+            responseT = ResponseTs.<String>newResponseException(bizException, isDebug);
             logger.error(errorMsgPattern, request.getRequestURL(), ((BizException) exception).getMsg());
         } else {
-            //构造 BizException
-            BizException bizException = null;
+
             if (isDebug) {
                 bizException = new BizException(RtnCodeEnum.UNKNOW.getValue(), RtnCodeEnum.UNKNOW.getDesc(), exception.getMessage());
             } else {
