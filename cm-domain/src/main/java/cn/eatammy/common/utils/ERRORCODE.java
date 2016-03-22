@@ -7,10 +7,13 @@ public enum ERRORCODE {
     /**
      * 参数异常
      */
+    ILLEGAL_LOGIN("0100000","登录超时"),
     QUERYJSON_ISNULL("0100001", "查询参数为空"),
     PARAM_ISERROR("0100002", "参数错误"),
     PARAM_ISNULL("0100003", "参数不能为空"),
     PARAM_ISTOLONG("0100004", "参数长度超过限制"),
+    ACCOUNT_ILLEGAL("0100007","账号不合法"),
+    ACCOUNT_PASSWD_UNMATCH("0100008","账号密码不正确"),
     ;
 
     /**

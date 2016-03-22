@@ -25,11 +25,25 @@ import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.service.ICMBaseService;
 import cn.eatammy.common.service.IPageService;
 
- /**
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
  * 《用户》 业务逻辑服务接口
- * @author 郭旭辉
  *
+ * @author 郭旭辉
  */
-public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>,IPageService<D, T>{
+public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>, IPageService<D, T> {
+
+    /**
+     * 判断用户是否登录
+     *
+     * @param username 用户名
+     * @param password 密码
+     * @param session  session
+     * @param response response
+     * @return 返回操作码
+     */
+    String isLogin(String username, String password, HttpSession session, HttpServletResponse response);
 
 }
