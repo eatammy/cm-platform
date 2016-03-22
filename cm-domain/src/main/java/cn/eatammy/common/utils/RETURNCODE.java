@@ -6,10 +6,12 @@ package cn.eatammy.common.utils;
  * 成功操作返回码
  */
 public enum RETURNCODE {
+    LOGIN_SUCCESS("0000000","登录成功"),
     SUCCESS_COMPLETE("0000001", "操作成功"),
     DELETE_COMPLETE("0000002", "删除成功"),
     ADD_COMPLETE("0000003", "新增成功"),
     UPDATE_COMPLETE("0000004", "更新成功"),;
+
     /**
      * 操作码.
      */

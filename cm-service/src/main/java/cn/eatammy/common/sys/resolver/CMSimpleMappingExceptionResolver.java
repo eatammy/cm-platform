@@ -19,8 +19,8 @@ public class CMSimpleMappingExceptionResolver extends SimpleMappingExceptionReso
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 
         try {
-            PrintWriter writer = response.getWriter();
             response.setHeader("Content-type", "text/json;charset=UTF-8");
+            PrintWriter writer = response.getWriter();
             String jsonString = JSONArray.toJSONString(new BizExceptionHandler().handleException(ex, request));
             writer.write(jsonString);
             writer.flush();
