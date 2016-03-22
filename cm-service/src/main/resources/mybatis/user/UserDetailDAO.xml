@@ -27,7 +27,7 @@
         status
     </sql>
     <insert id="insert" parameterType="cn.eatammy.cm.domain.user.UserDetail">
-        INSERT INTO cm_user_Detail (
+        INSERT INTO cm_user_detail (
 		    username
 		    ,password
 		    ,phone
@@ -76,7 +76,7 @@
     </insert>
 
     <insert id="insertMap" >
-        INSERT INTO cm_user_Detail (
+        INSERT INTO cm_user_detail (
 		    username
 		    ,password
 		    ,phone
@@ -123,7 +123,7 @@
     
     <!-- 更新 -->
     <update id="update" parameterType="cn.eatammy.cm.domain.user.UserDetail">
-        UPDATE cm_user_Detail
+        UPDATE cm_user_detail
         <trim prefix="SET" suffixOverrides=",">
 		    username=#{username},
 		    password=#{password},
@@ -151,7 +151,7 @@
     </update>
 	
 	<update id="updateMap">
-        UPDATE cm_user_Detail
+        UPDATE cm_user_detail
         <trim prefix="SET" suffixOverrides=",">
             <if test="map.username!=null">
                 username = #{map.username},
@@ -219,7 +219,7 @@
     </update>
 
     <update id="updateByCondition">
-        UPDATE cm_user_Detail
+        UPDATE cm_user_detail
         <trim prefix="SET" suffixOverrides=",">
             <if test="update.username!=null">
                 username = #{update.username},
@@ -348,7 +348,7 @@
     </update>
 
     <update id="updateNull" parameterType="cn.eatammy.cm.domain.user.UserDetail">
-        UPDATE cm_user_Detail
+        UPDATE cm_user_detail
         <trim prefix="SET" suffixOverrides=",">
             username = #{username},
             password = #{password},
@@ -378,7 +378,7 @@
     
     <!-- 按Id删除 -->
     <delete id="deleteById" parameterType="java.lang.Long">
-        DELETE FROM cm_user_Detail
+        DELETE FROM cm_user_detail
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             AND id = #{id}
         </trim>
@@ -386,13 +386,13 @@
 
     <!--根据list(ids)删除对象-->
     <delete id="deleteByIds">
-        DELETE FROM cm_user_Detail
+        DELETE FROM cm_user_detail
         WHERE id in
         <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
     </delete>
 
     <delete id="deleteByCondition" parameterType="java.util.Map">
-        DELETE FROM cm_user_Detail
+        DELETE FROM cm_user_detail
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="id!=null">
                 AND id = #{id}
@@ -461,7 +461,7 @@
     </delete>
 
     <delete id="deleteByProperty" parameterType="java.util.Map">
-        DELETE FROM cm_user_Detail WHERE
+        DELETE FROM cm_user_detail WHERE
         ${property} = #{value}
     </delete>
     
@@ -469,7 +469,7 @@
     <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.user.UserDetail">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_user_Detail
+        FROM cm_user_detail
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             AND id = #{id}
         </trim>
@@ -481,7 +481,7 @@
     <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.user.UserDetail">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_user_Detail WHERE
+        FROM cm_user_detail WHERE
         ${property} = #{value}
         LIMIT 0,1
     </select>
@@ -489,7 +489,7 @@
     <select id="findList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.user.UserDetail">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_user_Detail WHERE
+        FROM cm_user_detail WHERE
         ${property} = #{value}
         <if test="orderBy!=null">
             ORDER BY ${orderBy} ${sortBy}
@@ -499,7 +499,7 @@
     <select id="findAll" resultType="UserDetail">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_user_Detail
+        FROM cm_user_detail
         <if test="orderBy!=null">
             ORDER BY ${orderBy} ${sortBy}
         </if>
@@ -508,7 +508,7 @@
     <select id="queryPage" resultType="cn.eatammy.cm.domain.user.UserDetail">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_user_Detail
+        FROM cm_user_detail
         <where>
 
             <if test="condition.whereSql != null">
@@ -593,7 +593,7 @@
     <select id="like" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.user.UserDetail">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_user_Detail
+        FROM cm_user_detail
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="id!=null">
                 AND id like CONCAT('%', #{id} , '%')
@@ -668,7 +668,7 @@
     <select id="queryList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.user.UserDetail">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_user_Detail
+        FROM cm_user_detail
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="condition.id!=null">
                 AND id = #{condition.id}
@@ -742,7 +742,7 @@
     <select id="queryOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.user.UserDetail">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_user_Detail
+        FROM cm_user_detail
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="condition.id!=null">
                 AND id = #{condition.id}
@@ -812,7 +812,7 @@
     </select>
 
     <select id="count" resultType="java.lang.Integer">
-        SELECT count(1) FROM cm_user_Detail
+        SELECT count(1) FROM cm_user_detail
        <where>
            <if test="id!=null">
                ${groupOp} id ${id.op}  #{id.data}
@@ -887,7 +887,7 @@
     <select id="selectMaxId" resultType="java.lang.Long">
         SELECT
         MAX(id)
-        FROM cm_user_Detail
+        FROM cm_user_detail
     </select>
    
 </mapper>
