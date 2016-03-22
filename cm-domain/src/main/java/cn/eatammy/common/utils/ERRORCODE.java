@@ -11,6 +11,8 @@ public enum ERRORCODE {
     PARAM_ISERROR("0100002", "参数错误"),
     PARAM_ISNULL("0100003", "参数不能为空"),
     PARAM_ISTOLONG("0100004", "参数长度超过限制"),
+    OPERATION_FAIL("0100005", "操作失败"),
+    RESULT_ISNULL("0100006", "查询结果为空"),
     ;
 
     /**
