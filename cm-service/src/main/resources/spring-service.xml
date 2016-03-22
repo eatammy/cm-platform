@@ -55,7 +55,7 @@
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driver}"/>
         <!-- 基本属性 url、user、password -->
-        <property name="url" value="jdbc:mysql://119.29.168.228:3306/eatammy?characterEncoding=utf-8"/>
+        <property name="url" value="jdbc:mysql://119.29.168.228:3306/eatammy?useUnicode=true&amp;characterEncoding=utf-8"/>
         <property name="username" value="root"/>
         <property name="password" value="123"/>
 
