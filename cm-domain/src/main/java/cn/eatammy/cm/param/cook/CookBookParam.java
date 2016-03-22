@@ -47,7 +47,7 @@ public class CookBookParam extends CreateBaseParam<Long> {
 	/**
 	*字段常量——原材料表主键
 	*/
-	public static final String F_MeterialId="meterialId";
+	public static final String F_MaterialId="materialId";
 	/**
 	*字段常量——过程表主键
 	*/
@@ -75,7 +75,7 @@ public class CookBookParam extends CreateBaseParam<Long> {
 	
 	private String cookBookName; //菜谱名称
 	private String description; //菜谱简介
-	private Long meterialId; //原材料表主键
+	private Long materialId; //原材料表主键
 	private Long processId; //过程表主键
 	private Long categoryId; //菜谱所属类别主键
 	private String tips; //贴士
@@ -115,16 +115,16 @@ public class CookBookParam extends CreateBaseParam<Long> {
 		this.description = description;
 	}
 	/**
-	 * @return meterialId 原材料表主键
+	 * @return materialId 原材料表主键
 	 */
-	public Long getMeterialId(){
-		return this.meterialId;
+	public Long getMaterialId(){
+		return this.materialId;
 	}
 	/**
-	 * @param meterialId 原材料表主键
+	 * @param materialId 原材料表主键
 	 */
-	public void setMeterialId(Long meterialId){
-		this.meterialId = meterialId;
+	public void setMaterialId(Long materialId){
+		this.materialId = materialId;
 	}
 	/**
 	 * @return processId 过程表主键
@@ -204,7 +204,7 @@ public class CookBookParam extends CreateBaseParam<Long> {
 			.append("id",getId())
 			.append("cookBookName",getCookBookName())
 			.append("description",getDescription())
-			.append("meterialId",getMeterialId())
+			.append("materialId",getMaterialId())
 			.append("processId",getProcessId())
 			.append("categoryId",getCategoryId())
 			.append("tips",getTips())

@@ -7,7 +7,7 @@
         id,
         cookBookName,
         description,
-        meterialId,
+        materialId,
         processId,
         categoryId,
         tips,
@@ -24,7 +24,7 @@
         INSERT INTO cm_cook_cookBook (
 		    cookBookName
 		    ,description
-		    ,meterialId
+		    ,materialId
 		    ,processId
 		    ,categoryId
 		    ,tips
@@ -39,7 +39,7 @@
         ) VALUES (
 		    	#{cookBookName}
 		    	,#{description}
-		    	,#{meterialId}
+		    	,#{materialId}
 		    	,#{processId}
 		    	,#{categoryId}
 		    	,#{tips}
@@ -61,7 +61,7 @@
         INSERT INTO cm_cook_cookBook (
 		    cookBookName
 		    ,description
-		    ,meterialId
+		    ,materialId
 		    ,processId
 		    ,categoryId
 		    ,tips
@@ -76,7 +76,7 @@
         ) VALUES (
 		    	#{map.cookBookName}
 		    	,#{map.description}
-		    	,#{map.meterialId}
+		    	,#{map.materialId}
 		    	,#{map.processId}
 		    	,#{map.categoryId}
 		    	,#{map.tips}
@@ -97,7 +97,7 @@
         <trim prefix="SET" suffixOverrides=",">
 		    cookBookName=#{cookBookName},
 		    description=#{description},
-		    meterialId=#{meterialId},
+		    materialId=#{materialId},
 		    processId=#{processId},
 		    categoryId=#{categoryId},
 		    tips=#{tips},
@@ -123,8 +123,8 @@
             <if test="map.description!=null">
                 description = #{map.description},
             </if>
-            <if test="map.meterialId!=null">
-                meterialId = #{map.meterialId},
+            <if test="map.materialId!=null">
+                materialId = #{map.materialId},
             </if>
             <if test="map.processId!=null">
                 processId = #{map.processId},
@@ -173,8 +173,8 @@
             <if test="update.description!=null">
                 description = #{update.description},
             </if>
-            <if test="update.meterialId!=null">
-                meterialId = #{update.meterialId},
+            <if test="update.materialId!=null">
+                materialId = #{update.materialId},
             </if>
             <if test="update.processId!=null">
                 processId = #{update.processId},
@@ -218,8 +218,8 @@
             <if test="condition.description!=null">
                 AND description = #{condition.description}
             </if>
-            <if test="condition.meterialId!=null">
-                AND meterialId = #{condition.meterialId}
+            <if test="condition.materialId!=null">
+                AND materialId = #{condition.materialId}
             </if>
             <if test="condition.processId!=null">
                 AND processId = #{condition.processId}
@@ -262,7 +262,7 @@
         <trim prefix="SET" suffixOverrides=",">
             cookBookName = #{cookBookName},
             description = #{description},
-            meterialId = #{meterialId},
+            materialId = #{materialId},
             processId = #{processId},
             categoryId = #{categoryId},
             tips = #{tips},
@@ -307,8 +307,8 @@
             <if test="description!=null">
                 AND description = #{description}
             </if>
-            <if test="meterialId!=null">
-                AND meterialId = #{meterialId}
+            <if test="materialId!=null">
+                AND materialId = #{materialId}
             </if>
             <if test="processId!=null">
                 AND processId = #{processId}
@@ -410,8 +410,8 @@
             <if test="condition.description!=null">
                 ${condition.groupOp}   description  ${condition.description.op}  #{condition.description.data}
             </if>
-            <if test="condition.meterialId!=null">
-                ${condition.groupOp}   meterialId  ${condition.meterialId.op}  #{condition.meterialId.data}
+            <if test="condition.materialId!=null">
+                ${condition.groupOp}   materialId  ${condition.materialId.op}  #{condition.materialId.data}
             </if>
             <if test="condition.processId!=null">
                 ${condition.groupOp}   processId  ${condition.processId.op}  #{condition.processId.data}
@@ -472,8 +472,8 @@
             <if test="description!=null">
                 AND description like CONCAT('%', #{description} , '%')
             </if>
-            <if test="meterialId!=null">
-                AND meterialId like CONCAT('%', #{meterialId} , '%')
+            <if test="materialId!=null">
+                AND materialId like CONCAT('%', #{materialId} , '%')
             </if>
             <if test="processId!=null">
                 AND processId like CONCAT('%', #{processId} , '%')
@@ -529,8 +529,8 @@
             <if test="condition.description!=null">
                 AND description = #{condition.description}
             </if>
-            <if test="condition.meterialId!=null">
-                AND meterialId = #{condition.meterialId}
+            <if test="condition.materialId!=null">
+                AND materialId = #{condition.materialId}
             </if>
             <if test="condition.processId!=null">
                 AND processId = #{condition.processId}
@@ -585,8 +585,8 @@
             <if test="condition.description!=null">
                 AND description = #{condition.description}
             </if>
-            <if test="condition.meterialId!=null">
-                AND meterialId = #{condition.meterialId}
+            <if test="condition.materialId!=null">
+                AND materialId = #{condition.materialId}
             </if>
             <if test="condition.processId!=null">
                 AND processId = #{condition.processId}
@@ -637,8 +637,8 @@
            <if test="description!=null">
                ${groupOp} description ${description.op}  #{description.data}
            </if>
-           <if test="meterialId!=null">
-               ${groupOp} meterialId ${meterialId.op}  #{meterialId.data}
+           <if test="materialId!=null">
+               ${groupOp} materialId ${materialId.op}  #{materialId.data}
            </if>
            <if test="processId!=null">
                ${groupOp} processId ${processId.op}  #{processId.data}

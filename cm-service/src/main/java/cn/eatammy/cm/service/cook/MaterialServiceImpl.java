@@ -23,11 +23,16 @@ package cn.eatammy.cm.service.cook;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.cook.IMaterialDAO;
 import cn.eatammy.cm.domain.cook.Material;
+import cn.eatammy.cm.param.cook.MaterialParam;
 import cn.eatammy.cm.service.AbstractCMPageService;
+import cn.eatammy.common.exception.BizException;
+import cn.eatammy.common.utils.ERRORCODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
- /**
+
+
+/**
  * 《食谱原材料》 业务逻辑服务类
  * @author 郭旭辉
  *
@@ -41,5 +46,43 @@ public class MaterialServiceImpl extends AbstractCMPageService<ICMBaseDAO<Materi
     public ICMBaseDAO<Material> getDao() {
         return materialDAO;
     }
+
+    @Override
+    public Long saveMaterial(String user, MaterialParam materialParam) {
+        Material material = new Material();
+        try {
+
+            material.setMaterialNames(materialParam.getMaterialNames());
+            material.setDosage(materialParam.getDosage());
+            material.setCreateDate(System.currentTimeMillis());
+            material.setCreator(user);
+            material.setStatus(0);
+            this.insert(material);
+        }catch (Exception e){
+            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(),ERRORCODE.OPERATION_FAIL.getMessage());
+        }
+
+
+        return material.getId();
+    }
+
+    @Override
+    public int updateMaterial(String user, MaterialParam materialParam) {
+        try {
+            Material material = this.findOne(MaterialParam.F_ID,materialParam.getId());
+            material.setMaterialNames(materialParam.getMaterialNames());
+            material.setDosage(materialParam.getDosage());
+            material.setLastModDate(System.currentTimeMillis());
+            material.setLastModifier(user);
+            material.setStatus(0);
+            this.update(material);
+        }catch (Exception e){
+            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(),ERRORCODE.OPERATION_FAIL.getMessage());
+        }
+
+
+        return 1;
+    }
+
 
 }

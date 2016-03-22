@@ -23,7 +23,10 @@ package cn.eatammy.cm.service.cook;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.cook.IProcessDAO;
 import cn.eatammy.cm.domain.cook.Process;
+import cn.eatammy.cm.param.cook.ProcessParam;
 import cn.eatammy.cm.service.AbstractCMPageService;
+import cn.eatammy.common.exception.BizException;
+import cn.eatammy.common.utils.ERRORCODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,4 +45,38 @@ public class ProcessServiceImpl extends AbstractCMPageService<ICMBaseDAO<Process
         return processDAO;
     }
 
-}
+
+     @Override
+     public Long saveProcess(String user, ProcessParam processParam) {
+         Process process = new Process();
+         try {
+             process.setProcess(processParam.getProcess());
+             process.setProcessUrl(processParam.getProcessUrl());
+             process.setCreateDate(System.currentTimeMillis());
+             process.setCreator(user);
+             process.setStatus(0);
+             this.insert(process);
+         }catch (Exception e){
+             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(),ERRORCODE.OPERATION_FAIL.getMessage());
+
+         }
+
+         return process.getId();
+     }
+
+     @Override
+     public int updateProcess(String user, ProcessParam processParam) {
+         try {
+             Process process = this.findOne(ProcessParam.F_ID,processParam.getId());
+             process.setProcess(processParam.getProcess());
+             process.setProcessUrl(processParam.getProcessUrl());
+             process.setLastModDate(System.currentTimeMillis());
+             process.setLastModifier(user);
+             process.setStatus(0);
+             this.update(process);
+         }catch (Exception e){
+             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(),ERRORCODE.OPERATION_FAIL.getMessage());
+         }
+         return 1;
+     }
+ }

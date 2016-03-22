@@ -20,6 +20,9 @@
 
 package cn.eatammy.cm.service.cook;
 
+import cn.eatammy.cm.domain.cook.*;
+import cn.eatammy.cm.domain.cook.Process;
+import cn.eatammy.cm.param.cook.ProcessParam;
 import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.service.ICMBaseService;
@@ -31,5 +34,22 @@ import cn.eatammy.common.service.IPageService;
  *
  */
 public interface IProcessService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>,IPageService<D, T>{
+
+  /**
+   * 添加菜谱制作步骤信息
+   * @param user 用户
+   * @param processParam 制作步骤参数实体
+   * @return 成功返回1，否则抛出相关异常
+   */
+  Long saveProcess(String user, ProcessParam processParam);
+
+  /**
+   * 更新菜谱制作步骤信息
+   * @param user 用户信息
+   * @param processParam 制作步骤参数实体
+   * @return 成功返回1，否则抛出相关异常
+   */
+  int updateProcess(String user,ProcessParam processParam);
+
 
 }

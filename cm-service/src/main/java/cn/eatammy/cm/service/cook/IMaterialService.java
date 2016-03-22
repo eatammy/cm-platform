@@ -20,6 +20,8 @@
 
 package cn.eatammy.cm.service.cook;
 
+import cn.eatammy.cm.domain.cook.Material;
+import cn.eatammy.cm.param.cook.MaterialParam;
 import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.service.ICMBaseService;
@@ -32,4 +34,19 @@ import cn.eatammy.common.service.IPageService;
  */
 public interface IMaterialService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>,IPageService<D, T>{
 
+  /**
+   * 添加原材料
+   * @param materialParam 原材料参数实体
+   * @return 成功返回该条记录的id，否则抛出相关异常
+   */
+  Long saveMaterial(String user,MaterialParam materialParam);
+
+  /**
+   * 更新原材料
+   * @param materialParam 原材料参数实体
+   * @return 成功返回1，否则抛出相关异常
+   */
+  int updateMaterial(String user,MaterialParam materialParam);
+
+  Material findMaterial();
 }
