@@ -70,11 +70,12 @@ public class CookController {
         return RETURNCODE.UPDATE_COMPLETE.getCode();
     }
 
+    @ResponseBody
     @RequestMapping("/test1")
     public String test1( CookBook cookBook){
 
         System.out.println(cookBook);
-        return null;
+        return RETURNCODE.SUCCESS_COMPLETE.getMessage();
     }
 }
 

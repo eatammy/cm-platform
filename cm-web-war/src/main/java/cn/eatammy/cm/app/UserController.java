@@ -32,4 +32,10 @@ public class UserController {
     }
 
 
+    @ResponseBody
+    @RequestMapping(value="/test")
+    public String test(){
+        return RETURNCODE.SUCCESS_COMPLETE.getMessage();
+    }
+
 }

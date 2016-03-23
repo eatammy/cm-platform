@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
  * http协议处理类
  */
 public class HttpUtils {
-    private static final String ACCESS_TOKEN = "access_token";
+    public static final String ACCESS_TOKEN = "access_token";
 
     /**
      * 根据cookie名称获取指定的cookie
@@ -41,6 +41,7 @@ public class HttpUtils {
     public static void setCookie(HttpServletResponse response, String token, int timeout){
         Cookie cookie = new Cookie(ACCESS_TOKEN,token);
         cookie.setMaxAge(timeout);
+        cookie.setPath("/");
         response.addCookie(cookie);
     }
 
