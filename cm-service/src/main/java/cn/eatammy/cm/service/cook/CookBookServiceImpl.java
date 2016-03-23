@@ -22,24 +22,147 @@ package cn.eatammy.cm.service.cook;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.cook.ICookBookDAO;
-import cn.eatammy.cm.domain.cook.CookBook;
+import cn.eatammy.cm.dao.sys.ICategoryDAO;
+import cn.eatammy.cm.domain.cook.*;
+import cn.eatammy.cm.domain.cook.Process;
+import cn.eatammy.cm.domain.sys.Category;
+import cn.eatammy.cm.param.cook.CookBookParam;
+import cn.eatammy.cm.param.cook.MaterialParam;
+import cn.eatammy.cm.param.cook.ProcessParam;
 import cn.eatammy.cm.service.AbstractCMPageService;
+import cn.eatammy.common.exception.BizException;
+import cn.eatammy.common.utils.ERRORCODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
- /**
+import java.util.Date;
+
+/**
  * 《菜谱》 业务逻辑服务类
  * @author 郭旭辉
  *
  */
 @Service("CookBookServiceImpl")
 public class CookBookServiceImpl extends AbstractCMPageService<ICMBaseDAO<CookBook>, CookBook> implements ICookBookService<ICMBaseDAO<CookBook>,CookBook>{
-    @Autowired
-    private ICookBookDAO cookBookDAO;
+     @Autowired
+     private ICookBookDAO cookBookDAO;
+
+
+     @Autowired
+     private IMaterialService iMaterialService;
+
+     @Autowired
+     private IProcessService iProcessService;
+
 
     @Override
     public ICMBaseDAO<CookBook> getDao() {
         return cookBookDAO;
     }
+
+
+
+    @Override
+    public Long saveCookBook(String user, CookBookParam cookBookParam, MaterialParam materialParam, ProcessParam processParam) {
+
+        CookBook cookBook = new CookBook();
+        try {
+            cookBook.setCookBookName(cookBookParam.getCookBookName());
+            cookBook.setDescription(cookBookParam.getDescription());
+            cookBook.setTips(cookBookParam.getTips());
+            cookBook.setMeterialId(iMaterialService.saveMaterial(user,materialParam));
+            cookBook.setProcessId(iProcessService.saveProcess(user,processParam));
+            cookBook.setCategoryId(cookBookParam.getCategoryId());
+            //获取用户主键
+            cookBook.setUid(456L);
+            cookBook.setCreateDate(System.currentTimeMillis());
+            //获取创建人
+            cookBook.setCreator(user);
+            cookBook.setStatus(0);
+            this.insert(cookBook);
+
+        }catch (Exception e){
+            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(),ERRORCODE.OPERATION_FAIL.getMessage());
+        }
+
+        return cookBook.getId();
+    }
+
+
+
+
+
+    @Override
+    public CookBookEx findCookBookByCBid(Long cookBookId) {
+        CookBookEx cookBookEx = null;
+        //判断cookbookId是否为空
+        if(cookBookId==null){
+            throw new BizException(ERRORCODE.PARAM_ISNULL.getCode(),ERRORCODE.PARAM_ISNULL.getMessage());
+        }
+
+        try{
+            cookBookEx = cookBookDAO.findCookBookInfoByCBid(cookBookId);
+            if(cookBookEx==null){
+                throw new BizException(ERRORCODE.RESULT_ISNULL.getCode(),ERRORCODE.RESULT_ISNULL.getMessage());
+            }
+        }catch (Exception e){
+            if(e instanceof BizException){
+                throw new BizException(ERRORCODE.RESULT_ISNULL.getCode(),ERRORCODE.RESULT_ISNULL.getMessage());
+            }else {
+                throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(),ERRORCODE.OPERATION_FAIL.getMessage());
+            }
+
+        }
+
+        return cookBookEx;
+    }
+
+    @Override
+    public int deleteCookBookByCBid(Long cookBookId) {
+        CookBook cookBook = findOne(CookBookParam.F_ID, cookBookId);
+
+        if(cookBook == null){
+            throw new BizException(ERRORCODE.RESULT_ISNULL.getCode(),ERRORCODE.RESULT_ISNULL.getMessage());
+        }
+
+
+        try {
+            iMaterialService.deleteById(cookBook.getMeterialId());
+            iMaterialService.deleteById(cookBook.getMeterialId());
+            cookBookDAO.deleteById(cookBookId);
+        }catch (Exception e){
+            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(),ERRORCODE.OPERATION_FAIL.getMessage());
+        }
+
+        return 1;
+    }
+
+    @Override
+    public int updateCookBook(String user, CookBookParam cookBookParam, MaterialParam materialParam, ProcessParam processParam) {
+        try {
+            materialParam.setId(cookBookParam.getMaterialId());
+            processParam.setId(cookBookParam.getProcessId());
+
+            iMaterialService.updateMaterial(user,materialParam);
+            iProcessService.updateProcess(user,processParam);
+
+            CookBook cookBook = this.findOne(CookBookParam.F_ID,cookBookParam.getId());
+            cookBook.setCookBookName(cookBookParam.getCookBookName());
+            cookBook.setDescription(cookBookParam.getDescription());
+            cookBook.setTips(cookBookParam.getTips());
+            cookBook.setCategoryId(cookBookParam.getCategoryId());
+            cookBook.setCreateDate(System.currentTimeMillis());
+            cookBook.setCreator(user);
+            cookBook.setStatus(0);
+
+            this.update(cookBook);
+
+        }catch (Exception e){
+            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(),ERRORCODE.OPERATION_FAIL.getMessage());
+        }
+
+        return 1;
+    }
+
 
 }

@@ -6,23 +6,38 @@ import cn.eatammy.common.utils.RtnCodeEnum;
 import java.io.Serializable;
 
 /**
- * Created by 郭旭辉 on 2016/3/17.
+ * Created by 郭旭辉 on 2016/3/18.
+ * http服务返回的数据包装类   使用泛型
  */
 public class ResponseT<T> implements Serializable {
-    /** 返回的响应码 为空，说明是正常返回*/
+    /**
+     * 返回的响应码 为空，说明是正常返回
+     */
     private String rtnCode;
-    /** 错误信息 有业务异常的时候，来源于BizException；否则网关出错（系统异常），使用通用异常 */
+    /**
+     * 错误信息 有业务异常的时候，来源于BizException；否则网关出错（系统异常），使用通用异常
+     */
     private String msg;
-    /** 错误堆栈信息，便于排查问题   正常是调试模式下该字段才返回信息 */
+    /**
+     * 错误堆栈信息，便于排查问题   正常是调试模式下该字段才返回信息
+     */
     private String developMsg;
-    /** 错误说明url 有业务异常的时候，来源于BizException；否则网关出错（系统异常），使用通用异常 */
+    /**
+     * 错误说明url 有业务异常的时候，来源于BizException；否则网关出错（系统异常），使用通用异常
+     */
     private String uri;
     private long ts = System.currentTimeMillis();
-    /** 返回的业务 有业务异常的时候，来源于BizException；否则网关出错（系统异常），使用通用异常 */
+    /**
+     * 返回的业务 有业务异常的时候，来源于BizException；否则网关出错（系统异常），使用通用异常
+     */
     private T bizData;
 
-    public ResponseT(){}
-    public ResponseT(RtnCodeEnum rtnCode){ this.rtnCode = rtnCode.getValue();}
+    public ResponseT() {
+    }
+
+    public ResponseT(RtnCodeEnum rtnCode) {
+        this.rtnCode = rtnCode.getValue();
+    }
 
     public ResponseT(BizException bizException) {
         this(bizException, false);
@@ -31,7 +46,7 @@ public class ResponseT<T> implements Serializable {
     public ResponseT(BizException bizException, boolean isDebug) {
         this.rtnCode = bizException.getErrorCode();
         this.msg = bizException.getMsg();
-        if(isDebug) {
+        if (isDebug) {
             this.developMsg = bizException.getDevelopMsg();
         }
         this.uri = bizException.getUri();
@@ -74,16 +89,16 @@ public class ResponseT<T> implements Serializable {
     }
 
     /**
-     * @deprecated 应用不要使用，仅供fastjson转换用
      * @param developMsg
+     * @deprecated 应用不要使用，仅供fastjson转换用
      */
     public void setDevelopMsg(String developMsg) {
         this.developMsg = developMsg;
     }
 
     /**
-     * @deprecated 应用不要使用，仅供fastjson转换用
      * @param ts
+     * @deprecated 应用不要使用，仅供fastjson转换用
      */
     public void setTs(long ts) {
         this.ts = ts;

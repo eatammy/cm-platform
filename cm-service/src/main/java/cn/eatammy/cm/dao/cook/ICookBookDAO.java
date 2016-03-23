@@ -22,13 +22,20 @@ package cn.eatammy.cm.dao.cook;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.domain.cook.CookBook;
+import cn.eatammy.cm.domain.cook.CookBookEx;
 
- /**
+/**
  * 《菜谱》 数据访问接口
  * @author 郭旭辉
  *
  */
 public interface ICookBookDAO extends ICMBaseDAO<CookBook> {
 
+ /**
+  * 根据菜谱id查找菜谱详情
+  * @param cookBookId 菜谱id
+  * @return 返回扩展的菜谱实例
+  */
+  public CookBookEx findCookBookInfoByCBid(Long cookBookId);
 
 }

@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.eatammy.cm.dao.cook.ICookBookDAO">
-	<!-- 在这里存放用户自定义的映射配置（注：CookBookDAO.xml里各节点的ID不能在这里重复出现）  -->
-	
+    <!-- 在这里存放用户自定义的映射配置（注：CookBookDAO.xml里各节点的ID不能在这里重复出现）  -->
+    <select id="findCookBookInfoByCBid" parameterType="long" resultType="cn.eatammy.cm.domain.cook.CookBookEx">
+		SELECT ccb.*,cm.materialNames,cm.dosage ,cp.processUrl,cp.process,sc.categoryName
+        FROM cm_cook_cookBook ccb,cm_cook_material cm,cm_cook_process cp,cm_sys_category sc
+        WHERE ccb.meterialId = cm.id
+        AND ccb.processId = cp.id
+        AND ccb.categoryId=sc.id
+        AND ccb.id = #{cookBookId}
+
+	</select>
 </mapper>

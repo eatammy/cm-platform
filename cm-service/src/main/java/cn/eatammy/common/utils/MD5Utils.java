@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
  * Created by 郭旭辉 on 2016/3/16.
  */
 public class MD5Utils {
-    private static final String SALT = "eatammy";
+    public static final String SALT = "eatammy";
 
     //全局数组
     private final static String[] strDigits = {"0", "1", "2", "3", "4", "5",
@@ -71,11 +71,11 @@ public class MD5Utils {
 
     //获取token
     public static String getToken(String username, String password) {
-        return getMD5(SALT+getMD5(username)+getMD5(password));
+        return getMD5(SALT+getMD5(username)+getMD5(password)+System.currentTimeMillis());
     }
 
     public static void main(String[] args){
-        System.out.println(getMD5("simagle"));
+        System.out.println(getMD5("123456"+SALT));
         System.out.println(getToken("simagle","123123"));
     }
 

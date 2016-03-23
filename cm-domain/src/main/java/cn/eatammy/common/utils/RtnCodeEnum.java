@@ -1,7 +1,7 @@
 package cn.eatammy.common.utils;
 
 /**
- * Created by 郭旭辉 on 2016/3/17.
+ * Created by 郭旭辉 on 2016/3/18.
  */
 public enum RtnCodeEnum {
     SUCCESS("success", TBCConstants.SUCC_CODE, "请求成功"),
