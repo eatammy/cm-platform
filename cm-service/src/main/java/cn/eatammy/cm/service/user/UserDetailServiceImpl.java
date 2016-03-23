@@ -64,6 +64,8 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
             HttpUtils.generalUserSession(session, user, token, 30 * 60);
             //设置cookie
             HttpUtils.setCookie(response, token, 30 * 60);
+            //设置缓存
+//            UserContext.initUser();
             return RETURNCODE.LOGIN_SUCCESS.getMessage();
         } else {
             //登录验证未通过，自动转化为系统异常
