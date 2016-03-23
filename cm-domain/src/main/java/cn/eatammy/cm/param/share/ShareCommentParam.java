@@ -11,30 +11,47 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-14  郭旭辉        新建	
+{  2016-03-23  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
 {*****************************************************************************	
 */
 
-package cn.eatammy.cm.domain.share;
+package cn.eatammy.cm.param.share;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import cn.eatammy.common.param.CreateBaseParam;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import cn.eatammy.common.domain.CMCreateBaseDomain;
-
-import java.util.*;
 
 /**
- * 《评论》 实体
+ * 《评论》 查询参数实体
  * @author 郭旭辉
  *
  */
-public class Comment extends CMCreateBaseDomain<Long> {
+public class ShareCommentParam extends CreateBaseParam<Long> {
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	*字段常量——评论内容
+	*/
+	public static final String F_Content="content";
+	/**
+	*字段常量——评论者id
+	*/
+	public static final String F_UserId="userId";
+	/**
+	*字段常量——消息id
+	*/
+	public static final String F_WeiboId="weiboId";
+	/**
+	*字段常量——忆文主键
+	*/
+	public static final String F_ArticleId="articleId";
+	/**
+	*字段常量——时光轴主键
+	*/
+	public static final String F_FusionId="fusionId";
 	
 	private String content; //评论内容
 	private Long userId; //评论者id
@@ -45,7 +62,7 @@ public class Comment extends CMCreateBaseDomain<Long> {
 	/**
 	 *默认空构造函数
 	 */
-	public Comment() {
+	public ShareCommentParam() {
 		super();
 	}
 	 
@@ -126,28 +143,4 @@ public class Comment extends CMCreateBaseDomain<Long> {
 			.toString();
 	}
 	
-	public int hashCode() {
-		return new HashCodeBuilder()
-			.append(getId())
-			.append(getContent())
-			.append(getUserId())
-			.append(getWeiboId())
-			.append(getArticleId())
-			.append(getFusionId())
-			.append(getCreator())
-			.append(getCreateDate())
-			.append(getLastModifier())
-			.append(getLastModDate())
-			.append(getStatus())
-			.toHashCode();
-	}
-	
-	public boolean equals(Object obj) {
-		if(obj instanceof Comment == false) return false;
-		if(this == obj) return true;
-		Comment other = (Comment)obj;
-		return new EqualsBuilder()
-			.append(getId(),other.getId())
-			.isEquals();
-	}
 }

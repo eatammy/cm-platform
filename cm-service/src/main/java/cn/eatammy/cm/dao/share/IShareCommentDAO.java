@@ -11,35 +11,24 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-14  郭旭辉        新建	
+{  2016-03-23  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
 {*****************************************************************************	
 */
 
-package cn.eatammy.cm.service.share;
+package cn.eatammy.cm.dao.share;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
-import cn.eatammy.cm.dao.share.ICommentDAO;
-import cn.eatammy.cm.domain.share.Comment;
-import cn.eatammy.cm.service.AbstractCMPageService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import cn.eatammy.cm.domain.share.ShareComment;
 
  /**
- * 《评论》 业务逻辑服务类
+ * 《评论》 数据访问接口
  * @author 郭旭辉
  *
  */
-@Service("CommentServiceImpl")
-public class CommentServiceImpl extends AbstractCMPageService<ICMBaseDAO<Comment>, Comment> implements ICommentService<ICMBaseDAO<Comment>,Comment>{
-    @Autowired
-    private ICommentDAO commentDAO;
+public interface IShareCommentDAO extends ICMBaseDAO<ShareComment> {
 
-    @Override
-    public ICMBaseDAO<Comment> getDao() {
-        return commentDAO;
-    }
 
 }

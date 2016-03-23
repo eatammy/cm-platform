@@ -4,7 +4,7 @@
 {  版权信息 (c) 2005-2016 广东全通教育股份有限公司. 保留所有权利.					
 {  创建人：  郭旭辉
 {  审查人：
-{  模块：购物车											
+{  模块：回复表											
 {  功能描述:										
 {															
 {  ---------------------------------------------------------------------------	
@@ -18,33 +18,17 @@
 {*****************************************************************************	
 */
 
-package cn.eatammy.cm.service.business;
+package cn.eatammy.cm.dao.share;
 
-import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
-import cn.eatammy.cm.dao.business.IShoppingCartDAO;
-import cn.eatammy.cm.domain.business.ShoppingCart;
-import cn.eatammy.cm.service.business.IShoppingCartService;
-import cn.eatammy.cm.service.AbstractCMPageService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
+import cn.eatammy.cm.domain.share.ShareReply;
 
  /**
- * 《购物车》 业务逻辑服务类
+ * 《回复》 数据访问接口
  * @author 郭旭辉
  *
  */
-@Service("ShoppingCartServiceImpl")
-public class ShoppingCartServiceImpl extends AbstractCMPageService<ICMBaseDAO<ShoppingCart>, ShoppingCart> implements IShoppingCartService<ICMBaseDAO<ShoppingCart>,ShoppingCart>{
-    @Autowired
-    private IShoppingCartDAO shoppingCartDAO;
+public interface IShareReplyDAO extends ICMBaseDAO<ShareReply> {
 
-    @Override
-    public ICMBaseDAO<ShoppingCart> getDao() {
-        return shoppingCartDAO;
-    }
 
 }

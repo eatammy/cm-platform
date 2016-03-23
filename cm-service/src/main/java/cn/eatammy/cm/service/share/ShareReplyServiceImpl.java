@@ -4,36 +4,42 @@
 {  版权信息 (c) 2005-2016 广东全通教育股份有限公司. 保留所有权利.					
 {  创建人：  郭旭辉
 {  审查人：
-{  模块：评论表											
+{  模块：回复表											
 {  功能描述:										
 {															
 {  ---------------------------------------------------------------------------	
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-14  郭旭辉        新建	
+{  2016-03-23  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
 {*****************************************************************************	
 */
 
-package cn.eatammy.cm.param.share;
+package cn.eatammy.cm.service.share;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import java.util.*;
+import cn.eatammy.cm.dao.ICMBaseDAO;
+import cn.eatammy.cm.dao.share.IShareReplyDAO;
+import cn.eatammy.cm.domain.share.ShareReply;
+import cn.eatammy.cm.service.AbstractCMPageService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-/**
- * 《评论》 查询参数实体
+ /**
+ * 《回复》 业务逻辑服务类
  * @author 郭旭辉
  *
  */
-public class CommentParamEx extends CommentParam {
-	private static final long serialVersionUID = 1L;
-	
-	//针对CommentParam实体在这里增加额外的属性和对应的get和set方法
-	
+@Service("ShareReplyServiceImpl")
+public class ShareReplyServiceImpl extends AbstractCMPageService<ICMBaseDAO<ShareReply>, ShareReply> implements IShareReplyService<ICMBaseDAO<ShareReply>,ShareReply>{
+    @Autowired
+    private IShareReplyDAO shareReplyDAO;
+
+    @Override
+    public ICMBaseDAO<ShareReply> getDao() {
+        return shareReplyDAO;
+    }
+
 }

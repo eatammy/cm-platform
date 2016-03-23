@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-14  郭旭辉        新建	
+{  2016-03-23  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -20,7 +20,7 @@
 
 package cn.eatammy.cm.param.cook;
 
-import cn.eatammy.common.param.BaseParam;
+import cn.eatammy.common.param.CreateBaseParam;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -29,10 +29,20 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author 郭旭辉
  *
  */
-public class CCollectionParam extends BaseParam<Long> {
+public class CCollectionParam extends CreateBaseParam<Long> {
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	*字段常量——所属者主键
+	*/
+	public static final String F_Uid="uid";
+	/**
+	*字段常量——食谱主键
+	*/
+	public static final String F_CookbookId="cookbookId";
 	
+	private Long uid; //所属者主键
+	private Long cookbookId; //食谱主键
     
 	/**
 	 *默认空构造函数
@@ -40,10 +50,42 @@ public class CCollectionParam extends BaseParam<Long> {
 	public CCollectionParam() {
 		super();
 	}
-
+	 
+	/**
+	 * @return uid 所属者主键
+	 */
+	public Long getUid(){
+		return this.uid;
+	}
+	/**
+	 * @param uid 所属者主键
+	 */
+	public void setUid(Long uid){
+		this.uid = uid;
+	}
+	/**
+	 * @return cookbookId 食谱主键
+	 */
+	public Long getCookbookId(){
+		return this.cookbookId;
+	}
+	/**
+	 * @param cookbookId 食谱主键
+	 */
+	public void setCookbookId(Long cookbookId){
+		this.cookbookId = cookbookId;
+	}
 	
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+			.append("id",getId())
+			.append("uid",getUid())
+			.append("cookbookId",getCookbookId())
+			.append("createDate",getCreateDate())
+			.append("creator",getCreator())
+			.append("lastModDate",getLastModDate())
+			.append("lastModifier",getLastModifier())
+			.append("status",getStatus())
 			.toString();
 	}
 	

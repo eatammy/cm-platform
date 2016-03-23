@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-14  郭旭辉        新建	
+{  2016-03-23  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -20,26 +20,16 @@
 
 package cn.eatammy.cm.service.share;
 
+import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
-import cn.eatammy.cm.dao.share.IReplyDAO;
-import cn.eatammy.cm.domain.share.Reply;
-import cn.eatammy.cm.service.AbstractCMPageService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import cn.eatammy.cm.service.ICMBaseService;
+import cn.eatammy.common.service.IPageService;
 
  /**
- * 《回复》 业务逻辑服务类
+ * 《回复》 业务逻辑服务接口
  * @author 郭旭辉
  *
  */
-@Service("ReplyServiceImpl")
-public class ReplyServiceImpl extends AbstractCMPageService<ICMBaseDAO<Reply>, Reply> implements IReplyService<ICMBaseDAO<Reply>,Reply>{
-    @Autowired
-    private IReplyDAO replyDAO;
-
-    @Override
-    public ICMBaseDAO<Reply> getDao() {
-        return replyDAO;
-    }
+public interface IShareReplyService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>,IPageService<D, T>{
 
 }

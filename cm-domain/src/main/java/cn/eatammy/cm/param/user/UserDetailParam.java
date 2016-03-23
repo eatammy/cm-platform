@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-14  郭旭辉        新建	
+{  2016-03-23  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -73,7 +73,7 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 	*/
 	public static final String F_Score="score";
 	/**
-	*字段常量——是否为学生，0
+	*字段常量——是否为学生，0:学生，1：非学生
 	*/
 	public static final String F_IsStudent="isStudent";
 	/**
@@ -98,12 +98,12 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 	private String phone; //电话
 	private String address; //地址
 	private String nickname; //昵称
-	private Boolean sex; //性别,0:man,1:fumale
+	private Integer sex; //性别,0:man,1:fumale
 	private String headIcon; //头像
 	private Integer funs; //粉丝数
 	private Integer attentions; //关注数
 	private Integer score; //积分
-	private Boolean isStudent; //是否为学生，0
+	private Integer isStudent; //是否为学生，0:学生，1：非学生
 	private String studentId; //学生证号码
 	private String studentPic; //学生证图片链接
 	private String idCard; //身份证
@@ -179,13 +179,13 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 	/**
 	 * @return sex 性别,0:man,1:fumale
 	 */
-	public Boolean getSex(){
+	public Integer getSex(){
 		return this.sex;
 	}
 	/**
 	 * @param sex 性别,0:man,1:fumale
 	 */
-	public void setSex(Boolean sex){
+	public void setSex(Integer sex){
 		this.sex = sex;
 	}
 	/**
@@ -237,15 +237,15 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 		this.score = score;
 	}
 	/**
-	 * @return isStudent 是否为学生，0
+	 * @return isStudent 是否为学生，0:学生，1：非学生
 	 */
-	public Boolean getIsStudent(){
+	public Integer getIsStudent(){
 		return this.isStudent;
 	}
 	/**
-	 * @param isStudent 是否为学生，0
+	 * @param isStudent 是否为学生，0:学生，1：非学生
 	 */
-	public void setIsStudent(Boolean isStudent){
+	public void setIsStudent(Integer isStudent){
 		this.isStudent = isStudent;
 	}
 	/**

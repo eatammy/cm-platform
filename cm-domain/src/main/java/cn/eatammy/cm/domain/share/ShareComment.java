@@ -4,7 +4,7 @@
 {  版权信息 (c) 2005-2016 广东全通教育股份有限公司. 保留所有权利.					
 {  创建人：  郭旭辉
 {  审查人：
-{  模块：食谱原材料表											
+{  模块：评论表											
 {  功能描述:										
 {															
 {  ---------------------------------------------------------------------------	
@@ -18,7 +18,7 @@
 {*****************************************************************************	
 */
 
-package cn.eatammy.cm.domain.cook;
+package cn.eatammy.cm.domain.share;
 
 import cn.eatammy.common.domain.CMCreateBaseDomain;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -27,57 +27,99 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * 《食谱原材料》 实体
+ * 《评论》 实体
  * @author 郭旭辉
  *
  */
-public class Material extends CMCreateBaseDomain<Long> {
+public class ShareComment extends CMCreateBaseDomain<Long> {
 	private static final long serialVersionUID = 1L;
 	
-	private String materialNames; //原材料名称，名称以'，'隔开
-	private String dosage; //用量，以‘，’隔开
+	private String content; //评论内容
+	private Long userId; //评论者id
+	private Long weiboId; //消息id
+	private Long articleId; //忆文主键
+	private Long fusionId; //时光轴主键
     
 	/**
 	 *默认空构造函数
 	 */
-	public Material() {
+	public ShareComment() {
 		super();
 	}
 	 
 	/**
-	 * @return materialNames 原材料名称，名称以'，'隔开
+	 * @return content 评论内容
 	 */
-	public String getMaterialNames(){
-		return this.materialNames;
+	public String getContent(){
+		return this.content;
 	}
 	/**
-	 * @param materialNames 原材料名称，名称以'，'隔开
+	 * @param content 评论内容
 	 */
-	public void setMaterialNames(String materialNames){
-		this.materialNames = materialNames;
+	public void setContent(String content){
+		this.content = content;
 	}
 	/**
-	 * @return dosage 用量，以‘，’隔开
+	 * @return userId 评论者id
 	 */
-	public String getDosage(){
-		return this.dosage;
+	public Long getUserId(){
+		return this.userId;
 	}
 	/**
-	 * @param dosage 用量，以‘，’隔开
+	 * @param userId 评论者id
 	 */
-	public void setDosage(String dosage){
-		this.dosage = dosage;
+	public void setUserId(Long userId){
+		this.userId = userId;
+	}
+	/**
+	 * @return weiboId 消息id
+	 */
+	public Long getWeiboId(){
+		return this.weiboId;
+	}
+	/**
+	 * @param weiboId 消息id
+	 */
+	public void setWeiboId(Long weiboId){
+		this.weiboId = weiboId;
+	}
+	/**
+	 * @return articleId 忆文主键
+	 */
+	public Long getArticleId(){
+		return this.articleId;
+	}
+	/**
+	 * @param articleId 忆文主键
+	 */
+	public void setArticleId(Long articleId){
+		this.articleId = articleId;
+	}
+	/**
+	 * @return fusionId 时光轴主键
+	 */
+	public Long getFusionId(){
+		return this.fusionId;
+	}
+	/**
+	 * @param fusionId 时光轴主键
+	 */
+	public void setFusionId(Long fusionId){
+		this.fusionId = fusionId;
 	}
 	
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("id",getId())
-			.append("materialNames",getMaterialNames())
-			.append("dosage",getDosage())
-			.append("createDate",getCreateDate())
+			.append("content",getContent())
+			.append("userId",getUserId())
+			.append("weiboId",getWeiboId())
+			.append("articleId",getArticleId())
+			.append("fusionId",getFusionId())
 			.append("creator",getCreator())
-			.append("lastModDate",getLastModDate())
+			.append("createDate",getCreateDate())
 			.append("lastModifier",getLastModifier())
+			.append("lastModDate",getLastModDate())
 			.append("status",getStatus())
 			.toString();
 	}
@@ -85,20 +127,23 @@ public class Material extends CMCreateBaseDomain<Long> {
 	public int hashCode() {
 		return new HashCodeBuilder()
 			.append(getId())
-			.append(getMaterialNames())
-			.append(getDosage())
-			.append(getCreateDate())
+			.append(getContent())
+			.append(getUserId())
+			.append(getWeiboId())
+			.append(getArticleId())
+			.append(getFusionId())
 			.append(getCreator())
-			.append(getLastModDate())
+			.append(getCreateDate())
 			.append(getLastModifier())
+			.append(getLastModDate())
 			.append(getStatus())
 			.toHashCode();
 	}
 	
 	public boolean equals(Object obj) {
-		if(obj instanceof Material == false) return false;
+		if(obj instanceof ShareComment == false) return false;
 		if(this == obj) return true;
-		Material other = (Material)obj;
+		ShareComment other = (ShareComment)obj;
 		return new EqualsBuilder()
 			.append(getId(),other.getId())
 			.isEquals();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.eatammy.cm.dao.share.IReplyDAO">
+<mapper namespace="cn.eatammy.cm.dao.share.IShareReplyDAO">
 
     <sql id="Base_Column_List">
         id,
@@ -18,7 +18,7 @@
         lastModDate,
         status
     </sql>
-    <insert id="insert" parameterType="cn.eatammy.cm.domain.share.Reply">
+    <insert id="insert" parameterType="cn.eatammy.cm.domain.share.ShareReply">
         INSERT INTO cm_share_reply (
 		    content
 		    ,commentId
@@ -82,7 +82,7 @@
     </insert>
     
     <!-- 更新 -->
-    <update id="update" parameterType="cn.eatammy.cm.domain.share.Reply">
+    <update id="update" parameterType="cn.eatammy.cm.domain.share.ShareReply">
         UPDATE cm_share_reply
         <trim prefix="SET" suffixOverrides=",">
 		    content=#{content},
@@ -227,7 +227,7 @@
         </trim>
     </update>
 
-    <update id="updateNull" parameterType="cn.eatammy.cm.domain.share.Reply">
+    <update id="updateNull" parameterType="cn.eatammy.cm.domain.share.ShareReply">
         UPDATE cm_share_reply
         <trim prefix="SET" suffixOverrides=",">
             content = #{content},
@@ -314,7 +314,7 @@
     </delete>
     
     <!--查询相关 -->
-    <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.share.Reply">
+    <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.share.ShareReply">
         SELECT
         <include refid="Base_Column_List" />
         FROM cm_share_reply
@@ -326,7 +326,7 @@
         </if>
     </select>
 
-    <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Reply">
+    <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.ShareReply">
         SELECT
         <include refid="Base_Column_List" />
         FROM cm_share_reply WHERE
@@ -334,7 +334,7 @@
         LIMIT 0,1
     </select>
 
-    <select id="findList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Reply">
+    <select id="findList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.ShareReply">
         SELECT
         <include refid="Base_Column_List" />
         FROM cm_share_reply WHERE
@@ -344,7 +344,7 @@
         </if>
     </select>
 
-    <select id="findAll" resultType="Reply">
+    <select id="findAll" resultType="ShareReply">
         SELECT
         <include refid="Base_Column_List" />
         FROM cm_share_reply
@@ -353,7 +353,7 @@
         </if>
     </select>
 
-    <select id="queryPage" resultType="cn.eatammy.cm.domain.share.Reply">
+    <select id="queryPage" resultType="cn.eatammy.cm.domain.share.ShareReply">
         SELECT
         <include refid="Base_Column_List" />
         FROM cm_share_reply
@@ -414,7 +414,7 @@
         </if>
     </select>
 
-    <select id="like" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Reply">
+    <select id="like" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.ShareReply">
         SELECT
         <include refid="Base_Column_List" />
         FROM cm_share_reply
@@ -465,7 +465,7 @@
     </select>
 
 
-    <select id="queryList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Reply">
+    <select id="queryList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.ShareReply">
         SELECT
         <include refid="Base_Column_List" />
         FROM cm_share_reply
@@ -515,7 +515,7 @@
         </if>
     </select>
 
-    <select id="queryOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Reply">
+    <select id="queryOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.ShareReply">
         SELECT
         <include refid="Base_Column_List" />
         FROM cm_share_reply

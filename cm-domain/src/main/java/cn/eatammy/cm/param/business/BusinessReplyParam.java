@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-14  郭旭辉        新建	
+{  2016-03-23  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -20,20 +20,16 @@
 
 package cn.eatammy.cm.param.business;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import cn.eatammy.common.param.CreateBaseParam;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import cn.eatammy.common.param.CreateBaseParam;
-
-import java.util.*;
 
 /**
  * 《商城回复回复》 查询参数实体
  * @author 郭旭辉
  *
  */
-public class ReplyParam extends CreateBaseParam<Long> {
+public class BusinessReplyParam extends CreateBaseParam<Long> {
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -76,7 +72,7 @@ public class ReplyParam extends CreateBaseParam<Long> {
 	/**
 	 *默认空构造函数
 	 */
-	public ReplyParam() {
+	public BusinessReplyParam() {
 		super();
 	}
 	 

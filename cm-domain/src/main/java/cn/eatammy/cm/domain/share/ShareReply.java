@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-14  郭旭辉        新建	
+{  2016-03-23  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -31,7 +31,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author 郭旭辉
  *
  */
-public class Reply extends CMCreateBaseDomain<Long> {
+public class ShareReply extends CMCreateBaseDomain<Long> {
 	private static final long serialVersionUID = 1L;
 	
 	private String content; //回复内容
@@ -45,7 +45,7 @@ public class Reply extends CMCreateBaseDomain<Long> {
 	/**
 	 *默认空构造函数
 	 */
-	public Reply() {
+	public ShareReply() {
 		super();
 	}
 	 
@@ -171,9 +171,9 @@ public class Reply extends CMCreateBaseDomain<Long> {
 	}
 	
 	public boolean equals(Object obj) {
-		if(obj instanceof Reply == false) return false;
+		if(obj instanceof ShareReply == false) return false;
 		if(this == obj) return true;
-		Reply other = (Reply)obj;
+		ShareReply other = (ShareReply)obj;
 		return new EqualsBuilder()
 			.append(getId(),other.getId())
 			.isEquals();

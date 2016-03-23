@@ -4,67 +4,40 @@
 {  版权信息 (c) 2005-2016 广东全通教育股份有限公司. 保留所有权利.					
 {  创建人：  郭旭辉
 {  审查人：
-{  模块：回复表											
+{  模块：商城回复回复表											
 {  功能描述:										
 {															
 {  ---------------------------------------------------------------------------	
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-14  郭旭辉        新建	
+{  2016-03-23  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
 {*****************************************************************************	
 */
 
-package cn.eatammy.cm.param.share;
+package cn.eatammy.cm.domain.business;
 
-import cn.eatammy.common.param.CreateBaseParam;
+import cn.eatammy.common.domain.CMCreateBaseDomain;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * 《回复》 查询参数实体
+ * 《商城回复回复》 实体
  * @author 郭旭辉
  *
  */
-public class ReplyParam extends CreateBaseParam<Long> {
+public class BusinessReply extends CMCreateBaseDomain<Long> {
 	private static final long serialVersionUID = 1L;
-	
-	/**
-	*字段常量——回复内容
-	*/
-	public static final String F_Content="content";
-	/**
-	*字段常量——评论主键
-	*/
-	public static final String F_CommentId="commentId";
-	/**
-	*字段常量——回复人主键
-	*/
-	public static final String F_AnswerId="answerId";
-	/**
-	*字段常量——回复人名称
-	*/
-	public static final String F_AnswerName="answerName";
-	/**
-	*字段常量——回复时间
-	*/
-	public static final String F_ReplayDate="replayDate";
-	/**
-	*字段常量——被回复者主键
-	*/
-	public static final String F_ReplyToId="replyToId";
-	/**
-	*字段常量——被回复者名称
-	*/
-	public static final String F_ReplyName="replyName";
 	
 	private String content; //回复内容
 	private Long commentId; //评论主键
-	private Long answerId; //回复人主键
-	private String answerName; //回复人名称
+	private Long shopId; //回复人主键
+	private String shopName; //回复人名称
 	private Long replayDate; //回复时间
 	private Long replyToId; //被回复者主键
 	private String replyName; //被回复者名称
@@ -72,7 +45,7 @@ public class ReplyParam extends CreateBaseParam<Long> {
 	/**
 	 *默认空构造函数
 	 */
-	public ReplyParam() {
+	public BusinessReply() {
 		super();
 	}
 	 
@@ -101,28 +74,28 @@ public class ReplyParam extends CreateBaseParam<Long> {
 		this.commentId = commentId;
 	}
 	/**
-	 * @return answerId 回复人主键
+	 * @return shopId 回复人主键
 	 */
-	public Long getAnswerId(){
-		return this.answerId;
+	public Long getShopId(){
+		return this.shopId;
 	}
 	/**
-	 * @param answerId 回复人主键
+	 * @param shopId 回复人主键
 	 */
-	public void setAnswerId(Long answerId){
-		this.answerId = answerId;
+	public void setShopId(Long shopId){
+		this.shopId = shopId;
 	}
 	/**
-	 * @return answerName 回复人名称
+	 * @return shopName 回复人名称
 	 */
-	public String getAnswerName(){
-		return this.answerName;
+	public String getShopName(){
+		return this.shopName;
 	}
 	/**
-	 * @param answerName 回复人名称
+	 * @param shopName 回复人名称
 	 */
-	public void setAnswerName(String answerName){
-		this.answerName = answerName;
+	public void setShopName(String shopName){
+		this.shopName = shopName;
 	}
 	/**
 	 * @return replayDate 回复时间
@@ -166,8 +139,8 @@ public class ReplyParam extends CreateBaseParam<Long> {
 			.append("id",getId())
 			.append("content",getContent())
 			.append("commentId",getCommentId())
-			.append("answerId",getAnswerId())
-			.append("answerName",getAnswerName())
+			.append("shopId",getShopId())
+			.append("shopName",getShopName())
 			.append("replayDate",getReplayDate())
 			.append("replyToId",getReplyToId())
 			.append("replyName",getReplyName())
@@ -179,4 +152,30 @@ public class ReplyParam extends CreateBaseParam<Long> {
 			.toString();
 	}
 	
+	public int hashCode() {
+		return new HashCodeBuilder()
+			.append(getId())
+			.append(getContent())
+			.append(getCommentId())
+			.append(getShopId())
+			.append(getShopName())
+			.append(getReplayDate())
+			.append(getReplyToId())
+			.append(getReplyName())
+			.append(getCreator())
+			.append(getCreateDate())
+			.append(getLastModifier())
+			.append(getLastModDate())
+			.append(getStatus())
+			.toHashCode();
+	}
+	
+	public boolean equals(Object obj) {
+		if(obj instanceof BusinessReply == false) return false;
+		if(this == obj) return true;
+		BusinessReply other = (BusinessReply)obj;
+		return new EqualsBuilder()
+			.append(getId(),other.getId())
+			.isEquals();
+	}
 }

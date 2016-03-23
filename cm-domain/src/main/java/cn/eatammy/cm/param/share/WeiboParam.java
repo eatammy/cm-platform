@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-14  郭旭辉        新建	
+{  2016-03-23  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -20,13 +20,9 @@
 
 package cn.eatammy.cm.param.share;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import cn.eatammy.common.param.CreateBaseParam;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import cn.eatammy.common.param.CreateBaseParam;
-
-import java.util.*;
 
 /**
  * 《美食圈》 查询参数实体
@@ -85,8 +81,8 @@ public class WeiboParam extends CreateBaseParam<Long> {
 	private String picture; //图片url
 	private Integer praiseNum; //点赞数，默认为0
 	private Integer commentNum; //评论数，默认为0
-	private Boolean isReport; //是否举报，0：正常，1：举报一次；2：完全举报（敏感内容）
-	private Boolean weiboType; //圈文类型
+	private Integer isReport; //是否举报，0：正常，1：举报一次；2：完全举报（敏感内容）
+	private Integer weiboType; //圈文类型
     
 	/**
 	 *默认空构造函数
@@ -194,25 +190,25 @@ public class WeiboParam extends CreateBaseParam<Long> {
 	/**
 	 * @return isReport 是否举报，0：正常，1：举报一次；2：完全举报（敏感内容）
 	 */
-	public Boolean getIsReport(){
+	public Integer getIsReport(){
 		return this.isReport;
 	}
 	/**
 	 * @param isReport 是否举报，0：正常，1：举报一次；2：完全举报（敏感内容）
 	 */
-	public void setIsReport(Boolean isReport){
+	public void setIsReport(Integer isReport){
 		this.isReport = isReport;
 	}
 	/**
 	 * @return weiboType 圈文类型
 	 */
-	public Boolean getWeiboType(){
+	public Integer getWeiboType(){
 		return this.weiboType;
 	}
 	/**
 	 * @param weiboType 圈文类型
 	 */
-	public void setWeiboType(Boolean weiboType){
+	public void setWeiboType(Integer weiboType){
 		this.weiboType = weiboType;
 	}
 	

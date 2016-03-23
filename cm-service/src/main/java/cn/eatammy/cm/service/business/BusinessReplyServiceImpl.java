@@ -4,7 +4,7 @@
 {  版权信息 (c) 2005-2016 广东全通教育股份有限公司. 保留所有权利.					
 {  创建人：  郭旭辉
 {  审查人：
-{  模块：购物车											
+{  模块：商城回复回复表											
 {  功能描述:										
 {															
 {  ---------------------------------------------------------------------------	
@@ -22,9 +22,9 @@ package cn.eatammy.cm.service.business;
 
 import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
-import cn.eatammy.cm.dao.business.IShoppingCartDAO;
-import cn.eatammy.cm.domain.business.ShoppingCart;
-import cn.eatammy.cm.service.business.IShoppingCartService;
+import cn.eatammy.cm.dao.business.IBusinessReplyDAO;
+import cn.eatammy.cm.domain.business.BusinessReply;
+import cn.eatammy.cm.service.business.IBusinessReplyService;
 import cn.eatammy.cm.service.AbstractCMPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,18 +33,18 @@ import java.util.List;
 import java.util.Map;
 
  /**
- * 《购物车》 业务逻辑服务类
+ * 《商城回复回复》 业务逻辑服务类
  * @author 郭旭辉
  *
  */
-@Service("ShoppingCartServiceImpl")
-public class ShoppingCartServiceImpl extends AbstractCMPageService<ICMBaseDAO<ShoppingCart>, ShoppingCart> implements IShoppingCartService<ICMBaseDAO<ShoppingCart>,ShoppingCart>{
+@Service("BusinessReplyServiceImpl")
+public class BusinessReplyServiceImpl extends AbstractCMPageService<ICMBaseDAO<BusinessReply>, BusinessReply> implements IBusinessReplyService<ICMBaseDAO<BusinessReply>,BusinessReply>{
     @Autowired
-    private IShoppingCartDAO shoppingCartDAO;
+    private IBusinessReplyDAO businessReplyDAO;
 
     @Override
-    public ICMBaseDAO<ShoppingCart> getDao() {
-        return shoppingCartDAO;
+    public ICMBaseDAO<BusinessReply> getDao() {
+        return businessReplyDAO;
     }
 
 }

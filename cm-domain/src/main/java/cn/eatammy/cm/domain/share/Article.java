@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-14  郭旭辉        新建	
+{  2016-03-23  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -39,7 +39,7 @@ public class Article extends CMCreateBaseDomain<Long> {
 	private String content; //文章内容
 	private Integer praiseNum; //点赞数
 	private Integer commentNum; //评论数
-	private Boolean isReport; //是否举报，默认为0，1：举报一次，2：审核状态
+	private Integer isReport; //是否举报，默认为0，1：举报一次，2：审核状态
     
 	/**
 	 *默认空构造函数
@@ -111,13 +111,13 @@ public class Article extends CMCreateBaseDomain<Long> {
 	/**
 	 * @return isReport 是否举报，默认为0，1：举报一次，2：审核状态
 	 */
-	public Boolean getIsReport(){
+	public Integer getIsReport(){
 		return this.isReport;
 	}
 	/**
 	 * @param isReport 是否举报，默认为0，1：举报一次，2：审核状态
 	 */
-	public void setIsReport(Boolean isReport){
+	public void setIsReport(Integer isReport){
 		this.isReport = isReport;
 	}
 	

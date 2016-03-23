@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.eatammy.cm.dao.share.ICommentDAO">
+<mapper namespace="cn.eatammy.cm.dao.business.IBusinessReplyDAO">
 
     <sql id="Base_Column_List">
         id,
         content,
-        userId,
-        weiboId,
-        articleId,
-        fusionId,
+        commentId,
+        shopId,
+        shopName,
+        replayDate,
+        replyToId,
+        replyName,
         creator,
         createDate,
         lastModifier,
         lastModDate,
         status
     </sql>
-    <insert id="insert" parameterType="cn.eatammy.cm.domain.share.Comment">
-        INSERT INTO cm_share_comment (
+    <insert id="insert" parameterType="cn.eatammy.cm.domain.business.BusinessReply">
+        INSERT INTO cm_business_reply (
 		    content
-		    ,userId
-		    ,weiboId
-		    ,articleId
-		    ,fusionId
+		    ,commentId
+		    ,shopId
+		    ,shopName
+		    ,replayDate
+		    ,replyToId
+		    ,replyName
 		    ,creator
 		    ,createDate
 		    ,lastModifier
@@ -30,10 +34,12 @@
 		    ,status
         ) VALUES (
 		    	#{content}
-		    	,#{userId}
-		    	,#{weiboId}
-		    	,#{articleId}
-		    	,#{fusionId}
+		    	,#{commentId}
+		    	,#{shopId}
+		    	,#{shopName}
+		    	,#{replayDate}
+		    	,#{replyToId}
+		    	,#{replyName}
 		    	,#{creator}
 		    	,#{createDate}
 		    	,#{lastModifier}
@@ -46,12 +52,14 @@
     </insert>
 
     <insert id="insertMap" >
-        INSERT INTO cm_share_comment (
+        INSERT INTO cm_business_reply (
 		    content
-		    ,userId
-		    ,weiboId
-		    ,articleId
-		    ,fusionId
+		    ,commentId
+		    ,shopId
+		    ,shopName
+		    ,replayDate
+		    ,replyToId
+		    ,replyName
 		    ,creator
 		    ,createDate
 		    ,lastModifier
@@ -59,10 +67,12 @@
 		    ,status
         ) VALUES (
 		    	#{map.content}
-		    	,#{map.userId}
-		    	,#{map.weiboId}
-		    	,#{map.articleId}
-		    	,#{map.fusionId}
+		    	,#{map.commentId}
+		    	,#{map.shopId}
+		    	,#{map.shopName}
+		    	,#{map.replayDate}
+		    	,#{map.replyToId}
+		    	,#{map.replyName}
 		    	,#{map.creator}
 		    	,#{map.createDate}
 		    	,#{map.lastModifier}
@@ -72,14 +82,16 @@
     </insert>
     
     <!-- 更新 -->
-    <update id="update" parameterType="cn.eatammy.cm.domain.share.Comment">
-        UPDATE cm_share_comment
+    <update id="update" parameterType="cn.eatammy.cm.domain.business.BusinessReply">
+        UPDATE cm_business_reply
         <trim prefix="SET" suffixOverrides=",">
 		    content=#{content},
-		    userId=#{userId},
-		    weiboId=#{weiboId},
-		    articleId=#{articleId},
-		    fusionId=#{fusionId},
+		    commentId=#{commentId},
+		    shopId=#{shopId},
+		    shopName=#{shopName},
+		    replayDate=#{replayDate},
+		    replyToId=#{replyToId},
+		    replyName=#{replyName},
 		    creator=#{creator},
 		    createDate=#{createDate},
 		    lastModifier=#{lastModifier},
@@ -91,22 +103,28 @@
     </update>
 	
 	<update id="updateMap">
-        UPDATE cm_share_comment
+        UPDATE cm_business_reply
         <trim prefix="SET" suffixOverrides=",">
             <if test="map.content!=null">
                 content = #{map.content},
             </if>
-            <if test="map.userId!=null">
-                userId = #{map.userId},
+            <if test="map.commentId!=null">
+                commentId = #{map.commentId},
             </if>
-            <if test="map.weiboId!=null">
-                weiboId = #{map.weiboId},
+            <if test="map.shopId!=null">
+                shopId = #{map.shopId},
             </if>
-            <if test="map.articleId!=null">
-                articleId = #{map.articleId},
+            <if test="map.shopName!=null">
+                shopName = #{map.shopName},
             </if>
-            <if test="map.fusionId!=null">
-                fusionId = #{map.fusionId},
+            <if test="map.replayDate!=null">
+                replayDate = #{map.replayDate},
+            </if>
+            <if test="map.replyToId!=null">
+                replyToId = #{map.replyToId},
+            </if>
+            <if test="map.replyName!=null">
+                replyName = #{map.replyName},
             </if>
             <if test="map.creator!=null">
                 creator = #{map.creator},
@@ -129,22 +147,28 @@
     </update>
 
     <update id="updateByCondition">
-        UPDATE cm_share_comment
+        UPDATE cm_business_reply
         <trim prefix="SET" suffixOverrides=",">
             <if test="update.content!=null">
                 content = #{update.content},
             </if>
-            <if test="update.userId!=null">
-                userId = #{update.userId},
+            <if test="update.commentId!=null">
+                commentId = #{update.commentId},
             </if>
-            <if test="update.weiboId!=null">
-                weiboId = #{update.weiboId},
+            <if test="update.shopId!=null">
+                shopId = #{update.shopId},
             </if>
-            <if test="update.articleId!=null">
-                articleId = #{update.articleId},
+            <if test="update.shopName!=null">
+                shopName = #{update.shopName},
             </if>
-            <if test="update.fusionId!=null">
-                fusionId = #{update.fusionId},
+            <if test="update.replayDate!=null">
+                replayDate = #{update.replayDate},
+            </if>
+            <if test="update.replyToId!=null">
+                replyToId = #{update.replyToId},
+            </if>
+            <if test="update.replyName!=null">
+                replyName = #{update.replyName},
             </if>
             <if test="update.creator!=null">
                 creator = #{update.creator},
@@ -167,17 +191,23 @@
             <if test="condition.content!=null">
                 AND content = #{condition.content}
             </if>
-            <if test="condition.userId!=null">
-                AND userId = #{condition.userId}
+            <if test="condition.commentId!=null">
+                AND commentId = #{condition.commentId}
             </if>
-            <if test="condition.weiboId!=null">
-                AND weiboId = #{condition.weiboId}
+            <if test="condition.shopId!=null">
+                AND shopId = #{condition.shopId}
             </if>
-            <if test="condition.articleId!=null">
-                AND articleId = #{condition.articleId}
+            <if test="condition.shopName!=null">
+                AND shopName = #{condition.shopName}
             </if>
-            <if test="condition.fusionId!=null">
-                AND fusionId = #{condition.fusionId}
+            <if test="condition.replayDate!=null">
+                AND replayDate = #{condition.replayDate}
+            </if>
+            <if test="condition.replyToId!=null">
+                AND replyToId = #{condition.replyToId}
+            </if>
+            <if test="condition.replyName!=null">
+                AND replyName = #{condition.replyName}
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
@@ -197,14 +227,16 @@
         </trim>
     </update>
 
-    <update id="updateNull" parameterType="cn.eatammy.cm.domain.share.Comment">
-        UPDATE cm_share_comment
+    <update id="updateNull" parameterType="cn.eatammy.cm.domain.business.BusinessReply">
+        UPDATE cm_business_reply
         <trim prefix="SET" suffixOverrides=",">
             content = #{content},
-            userId = #{userId},
-            weiboId = #{weiboId},
-            articleId = #{articleId},
-            fusionId = #{fusionId},
+            commentId = #{commentId},
+            shopId = #{shopId},
+            shopName = #{shopName},
+            replayDate = #{replayDate},
+            replyToId = #{replyToId},
+            replyName = #{replyName},
             creator = #{creator},
             createDate = #{createDate},
             lastModifier = #{lastModifier},
@@ -218,7 +250,7 @@
     
     <!-- 按Id删除 -->
     <delete id="deleteById" parameterType="java.lang.Long">
-        DELETE FROM cm_share_comment
+        DELETE FROM cm_business_reply
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             AND id = #{id}
         </trim>
@@ -226,13 +258,13 @@
 
     <!--根据list(ids)删除对象-->
     <delete id="deleteByIds">
-        DELETE FROM cm_share_comment
+        DELETE FROM cm_business_reply
         WHERE id in
         <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
     </delete>
 
     <delete id="deleteByCondition" parameterType="java.util.Map">
-        DELETE FROM cm_share_comment
+        DELETE FROM cm_business_reply
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="id!=null">
                 AND id = #{id}
@@ -240,17 +272,23 @@
             <if test="content!=null">
                 AND content = #{content}
             </if>
-            <if test="userId!=null">
-                AND userId = #{userId}
+            <if test="commentId!=null">
+                AND commentId = #{commentId}
             </if>
-            <if test="weiboId!=null">
-                AND weiboId = #{weiboId}
+            <if test="shopId!=null">
+                AND shopId = #{shopId}
             </if>
-            <if test="articleId!=null">
-                AND articleId = #{articleId}
+            <if test="shopName!=null">
+                AND shopName = #{shopName}
             </if>
-            <if test="fusionId!=null">
-                AND fusionId = #{fusionId}
+            <if test="replayDate!=null">
+                AND replayDate = #{replayDate}
+            </if>
+            <if test="replyToId!=null">
+                AND replyToId = #{replyToId}
+            </if>
+            <if test="replyName!=null">
+                AND replyName = #{replyName}
             </if>
             <if test="creator!=null">
                 AND creator = #{creator}
@@ -271,15 +309,15 @@
     </delete>
 
     <delete id="deleteByProperty" parameterType="java.util.Map">
-        DELETE FROM cm_share_comment WHERE
+        DELETE FROM cm_business_reply WHERE
         ${property} = #{value}
     </delete>
     
     <!--查询相关 -->
-    <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.share.Comment">
+    <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.business.BusinessReply">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_share_comment
+        FROM cm_business_reply
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             AND id = #{id}
         </trim>
@@ -288,37 +326,37 @@
         </if>
     </select>
 
-    <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Comment">
+    <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.business.BusinessReply">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_share_comment WHERE
+        FROM cm_business_reply WHERE
         ${property} = #{value}
         LIMIT 0,1
     </select>
 
-    <select id="findList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Comment">
+    <select id="findList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.business.BusinessReply">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_share_comment WHERE
+        FROM cm_business_reply WHERE
         ${property} = #{value}
         <if test="orderBy!=null">
             ORDER BY ${orderBy} ${sortBy}
         </if>
     </select>
 
-    <select id="findAll" resultType="Comment">
+    <select id="findAll" resultType="BusinessReply">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_share_comment
+        FROM cm_business_reply
         <if test="orderBy!=null">
             ORDER BY ${orderBy} ${sortBy}
         </if>
     </select>
 
-    <select id="queryPage" resultType="cn.eatammy.cm.domain.share.Comment">
+    <select id="queryPage" resultType="cn.eatammy.cm.domain.business.BusinessReply">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_share_comment
+        FROM cm_business_reply
         <where>
 
             <if test="condition.whereSql != null">
@@ -331,17 +369,23 @@
             <if test="condition.content!=null">
                 ${condition.groupOp}   content  ${condition.content.op}  #{condition.content.data}
             </if>
-            <if test="condition.userId!=null">
-                ${condition.groupOp}   userId  ${condition.userId.op}  #{condition.userId.data}
+            <if test="condition.commentId!=null">
+                ${condition.groupOp}   commentId  ${condition.commentId.op}  #{condition.commentId.data}
             </if>
-            <if test="condition.weiboId!=null">
-                ${condition.groupOp}   weiboId  ${condition.weiboId.op}  #{condition.weiboId.data}
+            <if test="condition.shopId!=null">
+                ${condition.groupOp}   shopId  ${condition.shopId.op}  #{condition.shopId.data}
             </if>
-            <if test="condition.articleId!=null">
-                ${condition.groupOp}   articleId  ${condition.articleId.op}  #{condition.articleId.data}
+            <if test="condition.shopName!=null">
+                ${condition.groupOp}   shopName  ${condition.shopName.op}  #{condition.shopName.data}
             </if>
-            <if test="condition.fusionId!=null">
-                ${condition.groupOp}   fusionId  ${condition.fusionId.op}  #{condition.fusionId.data}
+            <if test="condition.replayDate!=null">
+                ${condition.groupOp}   replayDate  ${condition.replayDate.op}  #{condition.replayDate.data}
+            </if>
+            <if test="condition.replyToId!=null">
+                ${condition.groupOp}   replyToId  ${condition.replyToId.op}  #{condition.replyToId.data}
+            </if>
+            <if test="condition.replyName!=null">
+                ${condition.groupOp}   replyName  ${condition.replyName.op}  #{condition.replyName.data}
             </if>
             <if test="condition.creator!=null">
                 ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
@@ -370,10 +414,10 @@
         </if>
     </select>
 
-    <select id="like" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Comment">
+    <select id="like" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.business.BusinessReply">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_share_comment
+        FROM cm_business_reply
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="id!=null">
                 AND id like CONCAT('%', #{id} , '%')
@@ -381,17 +425,23 @@
             <if test="content!=null">
                 AND content like CONCAT('%', #{content} , '%')
             </if>
-            <if test="userId!=null">
-                AND userId like CONCAT('%', #{userId} , '%')
+            <if test="commentId!=null">
+                AND commentId like CONCAT('%', #{commentId} , '%')
             </if>
-            <if test="weiboId!=null">
-                AND weiboId like CONCAT('%', #{weiboId} , '%')
+            <if test="shopId!=null">
+                AND shopId like CONCAT('%', #{shopId} , '%')
             </if>
-            <if test="articleId!=null">
-                AND articleId like CONCAT('%', #{articleId} , '%')
+            <if test="shopName!=null">
+                AND shopName like CONCAT('%', #{shopName} , '%')
             </if>
-            <if test="fusionId!=null">
-                AND fusionId like CONCAT('%', #{fusionId} , '%')
+            <if test="replayDate!=null">
+                AND replayDate like CONCAT('%', #{replayDate} , '%')
+            </if>
+            <if test="replyToId!=null">
+                AND replyToId like CONCAT('%', #{replyToId} , '%')
+            </if>
+            <if test="replyName!=null">
+                AND replyName like CONCAT('%', #{replyName} , '%')
             </if>
             <if test="creator!=null">
                 AND creator like CONCAT('%', #{creator} , '%')
@@ -415,10 +465,10 @@
     </select>
 
 
-    <select id="queryList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Comment">
+    <select id="queryList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.business.BusinessReply">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_share_comment
+        FROM cm_business_reply
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="condition.id!=null">
                 AND id = #{condition.id}
@@ -426,17 +476,23 @@
             <if test="condition.content!=null">
                 AND content = #{condition.content}
             </if>
-            <if test="condition.userId!=null">
-                AND userId = #{condition.userId}
+            <if test="condition.commentId!=null">
+                AND commentId = #{condition.commentId}
             </if>
-            <if test="condition.weiboId!=null">
-                AND weiboId = #{condition.weiboId}
+            <if test="condition.shopId!=null">
+                AND shopId = #{condition.shopId}
             </if>
-            <if test="condition.articleId!=null">
-                AND articleId = #{condition.articleId}
+            <if test="condition.shopName!=null">
+                AND shopName = #{condition.shopName}
             </if>
-            <if test="condition.fusionId!=null">
-                AND fusionId = #{condition.fusionId}
+            <if test="condition.replayDate!=null">
+                AND replayDate = #{condition.replayDate}
+            </if>
+            <if test="condition.replyToId!=null">
+                AND replyToId = #{condition.replyToId}
+            </if>
+            <if test="condition.replyName!=null">
+                AND replyName = #{condition.replyName}
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
@@ -459,10 +515,10 @@
         </if>
     </select>
 
-    <select id="queryOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.Comment">
+    <select id="queryOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.business.BusinessReply">
         SELECT
         <include refid="Base_Column_List" />
-        FROM cm_share_comment
+        FROM cm_business_reply
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="condition.id!=null">
                 AND id = #{condition.id}
@@ -470,17 +526,23 @@
             <if test="condition.content!=null">
                 AND content = #{condition.content}
             </if>
-            <if test="condition.userId!=null">
-                AND userId = #{condition.userId}
+            <if test="condition.commentId!=null">
+                AND commentId = #{condition.commentId}
             </if>
-            <if test="condition.weiboId!=null">
-                AND weiboId = #{condition.weiboId}
+            <if test="condition.shopId!=null">
+                AND shopId = #{condition.shopId}
             </if>
-            <if test="condition.articleId!=null">
-                AND articleId = #{condition.articleId}
+            <if test="condition.shopName!=null">
+                AND shopName = #{condition.shopName}
             </if>
-            <if test="condition.fusionId!=null">
-                AND fusionId = #{condition.fusionId}
+            <if test="condition.replayDate!=null">
+                AND replayDate = #{condition.replayDate}
+            </if>
+            <if test="condition.replyToId!=null">
+                AND replyToId = #{condition.replyToId}
+            </if>
+            <if test="condition.replyName!=null">
+                AND replyName = #{condition.replyName}
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
@@ -502,7 +564,7 @@
     </select>
 
     <select id="count" resultType="java.lang.Integer">
-        SELECT count(1) FROM cm_share_comment
+        SELECT count(1) FROM cm_business_reply
        <where>
            <if test="id!=null">
                ${groupOp} id ${id.op}  #{id.data}
@@ -510,17 +572,23 @@
            <if test="content!=null">
                ${groupOp} content ${content.op}  #{content.data}
            </if>
-           <if test="userId!=null">
-               ${groupOp} userId ${userId.op}  #{userId.data}
+           <if test="commentId!=null">
+               ${groupOp} commentId ${commentId.op}  #{commentId.data}
            </if>
-           <if test="weiboId!=null">
-               ${groupOp} weiboId ${weiboId.op}  #{weiboId.data}
+           <if test="shopId!=null">
+               ${groupOp} shopId ${shopId.op}  #{shopId.data}
            </if>
-           <if test="articleId!=null">
-               ${groupOp} articleId ${articleId.op}  #{articleId.data}
+           <if test="shopName!=null">
+               ${groupOp} shopName ${shopName.op}  #{shopName.data}
            </if>
-           <if test="fusionId!=null">
-               ${groupOp} fusionId ${fusionId.op}  #{fusionId.data}
+           <if test="replayDate!=null">
+               ${groupOp} replayDate ${replayDate.op}  #{replayDate.data}
+           </if>
+           <if test="replyToId!=null">
+               ${groupOp} replyToId ${replyToId.op}  #{replyToId.data}
+           </if>
+           <if test="replyName!=null">
+               ${groupOp} replyName ${replyName.op}  #{replyName.data}
            </if>
            <if test="creator!=null">
                ${groupOp} creator ${creator.op}  #{creator.data}
@@ -547,7 +615,7 @@
     <select id="selectMaxId" resultType="java.lang.Long">
         SELECT
         MAX(id)
-        FROM cm_share_comment
+        FROM cm_business_reply
     </select>
    
 </mapper>

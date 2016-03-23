@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-14  郭旭辉        新建	
+{  2016-03-23  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -20,13 +20,9 @@
 
 package cn.eatammy.cm.param.cook;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import cn.eatammy.common.param.CreateBaseParam;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import cn.eatammy.common.param.CreateBaseParam;
-
-import java.util.*;
 
 /**
  * 《菜谱》 查询参数实体
@@ -47,7 +43,7 @@ public class CookBookParam extends CreateBaseParam<Long> {
 	/**
 	*字段常量——原材料表主键
 	*/
-	public static final String F_MaterialId="materialId";
+	public static final String F_MeterialId="meterialId";
 	/**
 	*字段常量——过程表主键
 	*/
@@ -123,7 +119,7 @@ public class CookBookParam extends CreateBaseParam<Long> {
 	/**
 	 * @param materialId 原材料表主键
 	 */
-	public void setMaterialId(Long materialId){
+	public void setMeterialId(Long materialId){
 		this.materialId = materialId;
 	}
 	/**
@@ -204,7 +200,7 @@ public class CookBookParam extends CreateBaseParam<Long> {
 			.append("id",getId())
 			.append("cookBookName",getCookBookName())
 			.append("description",getDescription())
-			.append("materialId",getMaterialId())
+			.append("meterialId",getMaterialId())
 			.append("processId",getProcessId())
 			.append("categoryId",getCategoryId())
 			.append("tips",getTips())

@@ -4,7 +4,7 @@
 {  版权信息 (c) 2005-2016 广东全通教育股份有限公司. 保留所有权利.					
 {  创建人：  郭旭辉
 {  审查人：
-{  模块：商家表											
+{  模块：回复表											
 {  功能描述:										
 {															
 {  ---------------------------------------------------------------------------	
@@ -18,33 +18,22 @@
 {*****************************************************************************	
 */
 
-package cn.eatammy.cm.service.business;
+package cn.eatammy.cm.param.share;
 
-import cn.eatammy.common.domain.BaseDomain;
-import cn.eatammy.cm.dao.ICMBaseDAO;
-import cn.eatammy.cm.dao.business.IShopDAO;
-import cn.eatammy.cm.domain.business.Shop;
-import cn.eatammy.cm.service.business.IShopService;
-import cn.eatammy.cm.service.AbstractCMPageService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+import java.util.*;
 
-import java.util.List;
-import java.util.Map;
-
- /**
- * 《商家》 业务逻辑服务类
+/**
+ * 《回复》 查询参数实体
  * @author 郭旭辉
  *
  */
-@Service("ShopServiceImpl")
-public class ShopServiceImpl extends AbstractCMPageService<ICMBaseDAO<Shop>, Shop> implements IShopService<ICMBaseDAO<Shop>,Shop>{
-    @Autowired
-    private IShopDAO shopDAO;
-
-    @Override
-    public ICMBaseDAO<Shop> getDao() {
-        return shopDAO;
-    }
-
+public class ShareReplyParamEx extends ShareReplyParam {
+	private static final long serialVersionUID = 1L;
+	
+	//针对ShareReplyParam实体在这里增加额外的属性和对应的get和set方法
+	
 }

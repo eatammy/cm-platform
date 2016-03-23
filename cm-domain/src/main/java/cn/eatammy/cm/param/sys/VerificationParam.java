@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-14  郭旭辉        新建	
+{  2016-03-23  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -20,13 +20,9 @@
 
 package cn.eatammy.cm.param.sys;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import cn.eatammy.common.param.CreateBaseParam;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import cn.eatammy.common.param.CreateBaseParam;
-
-import java.util.*;
 
 /**
  * 《验证模块：注册验证，修改密码验证，商店证验证以及其他认证验证（短信验证码验证）》 查询参数实体
@@ -59,10 +55,9 @@ public class VerificationParam extends CreateBaseParam<Long> {
 	
 	private String verifiedCode; //验证码，6位数字
 	private Long uid; //用户uid
-	private Boolean type; //验证码类型，1：注册验证，2：找回密码验证，4：注册商店商店验证码，
+	private Integer type; //验证码类型，1：注册验证，2：找回密码验证，4：注册商店商店验证码，
 	private Long disabledDate; //失效时间，默认失效时间为30min
-	private Boolean state; //验证码状态，0：有效，1：失效
-    
+
 	/**
 	 *默认空构造函数
 	 */
@@ -97,13 +92,13 @@ public class VerificationParam extends CreateBaseParam<Long> {
 	/**
 	 * @return type 验证码类型，1：注册验证，2：找回密码验证，4：注册商店商店验证码，
 	 */
-	public Boolean getType(){
+	public Integer getType(){
 		return this.type;
 	}
 	/**
 	 * @param type 验证码类型，1：注册验证，2：找回密码验证，4：注册商店商店验证码，
 	 */
-	public void setType(Boolean type){
+	public void setType(Integer type){
 		this.type = type;
 	}
 	/**
@@ -118,19 +113,7 @@ public class VerificationParam extends CreateBaseParam<Long> {
 	public void setDisabledDate(Long disabledDate){
 		this.disabledDate = disabledDate;
 	}
-	/**
-	 * @return state 验证码状态，0：有效，1：失效
-	 */
-	public Boolean getState(){
-		return this.state;
-	}
-	/**
-	 * @param state 验证码状态，0：有效，1：失效
-	 */
-	public void setState(Boolean state){
-		this.state = state;
-	}
-	
+
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("id",getId())
@@ -139,7 +122,6 @@ public class VerificationParam extends CreateBaseParam<Long> {
 			.append("type",getType())
 			.append("createDate",getCreateDate())
 			.append("disabledDate",getDisabledDate())
-			.append("state",getState())
 			.append("creator",getCreator())
 			.append("lastModifier",getLastModifier())
 			.append("lastModDate",getLastModDate())

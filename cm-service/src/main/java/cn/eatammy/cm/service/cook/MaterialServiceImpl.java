@@ -84,5 +84,10 @@ public class MaterialServiceImpl extends AbstractCMPageService<ICMBaseDAO<Materi
         return 1;
     }
 
+    @Override
+    public Material findMaterial() {
+        return null;
+    }
+
 
 }
