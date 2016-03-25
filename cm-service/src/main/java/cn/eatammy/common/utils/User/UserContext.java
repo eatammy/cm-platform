@@ -2,7 +2,9 @@ package cn.eatammy.common.utils.User;
 
 import cn.eatammy.cm.domain.user.UserDetail;
 import cn.eatammy.common.domain.AccountDto;
+import cn.eatammy.common.exception.BizException;
 import cn.eatammy.common.sys.filter.CMRequestFilter;
+import cn.eatammy.common.utils.ERRORCODE;
 import cn.eatammy.common.utils.http.HttpUtils;
 
 import javax.servlet.http.Cookie;
@@ -14,15 +16,19 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class UserContext {
 
-    private  static  ThreadLocal<AccountDto> context = new ThreadLocal<>();
+//    private  static  ThreadLocal<AccountDto> context = new ThreadLocal<>();
 
 
-    public static void initUser(){
-        HttpServletRequest request = CMRequestFilter.getRequest();
-        //获取access_token
-        Cookie cookie = HttpUtils.getCookie(request.getCookies(),HttpUtils.ACCESS_TOKEN);
-        String token = cookie.getValue();
-        UserDetail userDetail = (UserDetail) request.getSession().getAttribute(token);
+//    public static void initUser(){
+//        HttpServletRequest request = CMRequestFilter.getRequest();
+//        String url = request.getRequestURI();
+//        if (url.contains("login")){
+//
+//        }
+//        //获取access_token
+//        Cookie cookie = HttpUtils.getCookie(request.getCookies(),HttpUtils.ACCESS_TOKEN);
+//        String token = cookie.getValue();
+//        UserDetail userDetail = (UserDetail) request.getSession().getAttribute(token);
 //        if (userDetail != null){
 //            AccountDto accountDto = setAccount(userDetail);
 //            IUserContext userContext = new DefaultUserContextImpl();
@@ -31,8 +37,8 @@ public class UserContext {
 //            ((DefaultUserContextImpl) userContext).setContexts(datas);
 //            UserContextHolder.setUserContext(userContext);
 //        }
-        setCurrentUser(setAccount(userDetail));
-    }
+//        setCurrentUser(setAccount(userDetail));
+//    }
 
     /**
      * 更新当前用户
@@ -47,24 +53,38 @@ public class UserContext {
      * @return 返回 AccountDto
      */
     public static AccountDto getCurrentUser(){
-        return context.get();
+        HttpServletRequest request = CMRequestFilter.getRequest();
+        //获取access_token
+        Cookie cookie = HttpUtils.getCookie(request.getCookies(),HttpUtils.ACCESS_TOKEN);
+        if (cookie != null){
+            String token = cookie.getValue();
+            UserDetail userDetail = (UserDetail) request.getSession().getAttribute(token);
+            if (userDetail != null){
+                return setAccount(userDetail);
+            }else {
+                throw new BizException(ERRORCODE.ILLEGAL_LOGIN.getCode(), ERRORCODE.ILLEGAL_LOGIN.getMessage());
+            }
+        }else {
+            throw new BizException(ERRORCODE.ILLEGAL_LOGIN.getCode(), ERRORCODE.ILLEGAL_LOGIN.getMessage());
+        }
+
     }
 
     /**
      * 设置当前用户
      * @param user
      */
-    public static void setCurrentUser(AccountDto user){
-        //缓存记录
-        context.set(user);
-    }
+//    public static void setCurrentUser(AccountDto user){
+//        //缓存记录
+//        context.set(user);
+//    }
 
     /**
      * 移除当前用户
      */
-    public static void removeCurrentUser(){
-        context.remove();
-    }
+//    public static void removeCurrentUser(){
+//        context.remove();
+//    }
 
     private static AccountDto setAccount(UserDetail userDetail){
         AccountDto accountDto = new AccountDto();

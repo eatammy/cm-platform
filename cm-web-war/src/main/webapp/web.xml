@@ -14,9 +14,9 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener
         </listener-class>
     </listener>
-    <!--<listener>-->
-        <!--<listener-class>cn.eatammy.common.sys.filter.CMRequestFilter</listener-class>-->
-    <!--</listener>-->
+    <listener>
+        <listener-class>cn.eatammy.common.sys.filter.CMRequestFilter</listener-class>
+    </listener>
 
     <!--logback监听-->
     <context-param>
