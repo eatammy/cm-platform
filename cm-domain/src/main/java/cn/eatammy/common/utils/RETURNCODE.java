@@ -10,7 +10,9 @@ public enum RETURNCODE {
     SUCCESS_COMPLETE("0000001", "操作成功"),
     DELETE_COMPLETE("0000002", "删除成功"),
     ADD_COMPLETE("0000003", "新增成功"),
-    UPDATE_COMPLETE("0000004", "更新成功"),;
+    UPDATE_COMPLETE("0000004", "更新成功"),
+    SENDSMS_SUCCESS("0000005", "验证码发送成功"),
+    ;
 
     /**
      * 操作码.

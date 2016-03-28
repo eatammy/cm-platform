@@ -32,4 +32,10 @@ import cn.eatammy.common.service.IPageService;
  */
 public interface IVerificationService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>,IPageService<D, T>{
 
+  /**
+   * 根据手机号码发送短信
+   * @param phone
+   * @return
+      */
+  public String sendSMS(String phone);
 }

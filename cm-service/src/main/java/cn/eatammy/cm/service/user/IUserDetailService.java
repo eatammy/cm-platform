@@ -46,4 +46,11 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
      */
     String isLogin(String username, String password, HttpSession session, HttpServletResponse response);
 
+    /**
+     * 注册
+     * @param username  用户名（账号）
+     * @param password  密码
+     * @return
+     */
+    String register(String username, String password);
 }

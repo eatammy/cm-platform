@@ -72,4 +72,9 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
             throw new RuntimeException();
         }
     }
+
+    @Override
+    public String register(String username, String password) {
+        return null;
+    }
 }
