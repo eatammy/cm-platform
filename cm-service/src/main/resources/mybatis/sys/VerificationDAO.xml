@@ -264,9 +264,6 @@
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             AND id = #{id}
         </trim>
-        <if test="orderBy!=null">
-        ORDER BY ${orderBy} ${sortBy}
-        </if>
     </select>
 
     <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.sys.Verification">
