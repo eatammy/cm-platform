@@ -51,6 +51,8 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
         return userDetailDAO;
     }
 
+    private static final String CREATOR = "ADMIN";
+
 
     @Override
     public String isLogin(String username, String password, HttpSession session, HttpServletResponse response) {
@@ -74,7 +76,16 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     }
 
     @Override
-    public String register(String username, String password) {
-        return null;
+    public UserDetail register(String username, String password, String phone) {
+        UserDetail user = new UserDetail();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setCreator(CREATOR);
+        user.setCreateDate(System.currentTimeMillis());
+        if(this.insert(user) == 1){
+            return user;
+        }else{
+            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+        }
     }
 }

@@ -20,6 +20,7 @@
 
 package cn.eatammy.cm.service.user;
 
+import cn.eatammy.cm.domain.user.UserDetail;
 import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.service.ICMBaseService;
@@ -50,7 +51,8 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
      * 注册
      * @param username  用户名（账号）
      * @param password  密码
-     * @return
+     * @param phone     手机
+     * @return 用户实体
      */
-    String register(String username, String password);
+    UserDetail register(String username, String password, String phone);
 }
