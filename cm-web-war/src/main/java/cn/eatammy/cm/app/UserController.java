@@ -37,10 +37,16 @@ public class UserController {
 
 
     @ResponseBody
-    @RequestMapping(value="/test")
-    public String test(String username, String password, String phone){
-        UserDetail user = (UserDetail) userDetailService.fetch(2);
-        return "";
+    @RequestMapping(value="/register", method = RequestMethod.POST)
+    public UserDetail register(String username, String password, String nickname){
+        UserDetail user = userDetailService.register(username, password, nickname);
+        return user;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/checkVerifiedCode")
+    public String checkVerifiedCode(String username, String verifiedCode){
+        return RETURNCODE.REGISTER_SUCCESS.getMessage();
     }
 
 }

@@ -51,8 +51,16 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
      * 注册
      * @param username  用户名（账号）
      * @param password  密码
-     * @param phone     手机
+     * @param nickname     手机
      * @return 用户实体
      */
-    UserDetail register(String username, String password, String phone);
+    UserDetail register(String username, String password, String nickname);
+
+    /**
+     * 根据某个字段判断是否存在用户
+     * @param property  字段名
+     * @param value     字段值
+     * @return  返回，true：存在，false：不存在
+     */
+    boolean isExists(String property, Object value);
 }

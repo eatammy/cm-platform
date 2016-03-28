@@ -17,6 +17,7 @@ public enum ERRORCODE {
     ACCOUNT_ILLEGAL("0100007","账号不合法"),
     ACCOUNT_PASSWD_UNMATCH("0100008","账号密码不正确"),
     SENDSMS_FAILED("0100009","验证码发送失败"),
+    ACCOUNT_EXISTS("0100010","用户已存在")
     ;
 
     /**

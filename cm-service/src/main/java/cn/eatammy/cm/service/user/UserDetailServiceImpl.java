@@ -30,11 +30,13 @@ import cn.eatammy.common.utils.ERRORCODE;
 import cn.eatammy.common.utils.MD5Utils;
 import cn.eatammy.common.utils.RETURNCODE;
 import cn.eatammy.common.utils.http.HttpUtils;
+import com.alibaba.druid.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 /**
  * 《用户》 业务逻辑服务类
@@ -52,6 +54,7 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     }
 
     private static final String CREATOR = "ADMIN";
+    private static final String NICKNAME = "萌萌的的吃货"+new Date().getYear();
 
 
     @Override
@@ -76,16 +79,30 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     }
 
     @Override
-    public UserDetail register(String username, String password, String phone) {
-        UserDetail user = new UserDetail();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setCreator(CREATOR);
-        user.setCreateDate(System.currentTimeMillis());
-        if(this.insert(user) == 1){
-            return user;
-        }else{
-            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+    public UserDetail register(String username, String password, String nickname) {
+        if (!isExists(UserDetailParam.F_Username,username)){
+            if (StringUtils.isEmpty(nickname)){
+                nickname = NICKNAME;
+            }
+            UserDetail user = new UserDetail();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setNickname(nickname);
+            user.setCreator(CREATOR);
+            user.setCreateDate(System.currentTimeMillis());
+            if(this.insert(user) == 1){//注册成功，发送验证码
+                return user;
+            }else{
+                throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+            }
+        } else {
+            throw new BizException(ERRORCODE.ACCOUNT_EXISTS.getCode(), ERRORCODE.ACCOUNT_EXISTS.getMessage());
         }
+
+    }
+
+    @Override
+    public boolean isExists(String property, Object value) {
+        return this.findOne(property,value) == null ? false : true;
     }
 }
