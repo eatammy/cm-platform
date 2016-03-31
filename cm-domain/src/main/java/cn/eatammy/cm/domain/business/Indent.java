@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-23  郭旭辉        新建	
+{  2016-03-31  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -20,11 +20,13 @@
 
 package cn.eatammy.cm.domain.business;
 
-import cn.eatammy.common.domain.CMCreateBaseDomain;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import cn.eatammy.common.domain.CMCreateBaseDomain;
+
+import java.util.*;
 
 /**
  * 《订单》 实体
@@ -43,14 +45,14 @@ public class Indent extends CMCreateBaseDomain<Long> {
 	private Integer total; //总额
 	private Double piece; //单价
 	private Integer isTraded; //是否完成交易，0：未完成，1：完成
-
+    
 	/**
 	 *默认空构造函数
 	 */
 	public Indent() {
 		super();
 	}
-
+	 
 	/**
 	 * @return uid 用户id
 	 */
@@ -159,7 +161,7 @@ public class Indent extends CMCreateBaseDomain<Long> {
 	public void setIsTraded(Integer isTraded){
 		this.isTraded = isTraded;
 	}
-
+	
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("id",getId())
@@ -179,7 +181,7 @@ public class Indent extends CMCreateBaseDomain<Long> {
 			.append("status",getStatus())
 			.toString();
 	}
-
+	
 	public int hashCode() {
 		return new HashCodeBuilder()
 			.append(getId())
@@ -199,7 +201,7 @@ public class Indent extends CMCreateBaseDomain<Long> {
 			.append(getStatus())
 			.toHashCode();
 	}
-
+	
 	public boolean equals(Object obj) {
 		if(obj instanceof Indent == false) return false;
 		if(this == obj) return true;

@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-23  郭旭辉        新建	
+{  2016-03-31  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -36,7 +36,7 @@ public class CookBook extends CMCreateBaseDomain<Long> {
 	
 	private String cookBookName; //菜谱名称
 	private String description; //菜谱简介
-	private Long meterialId; //原材料表主键
+	private Long materialId; //materialId
 	private Long processId; //过程表主键
 	private Long categoryId; //菜谱所属类别主键
 	private String tips; //贴士
@@ -76,16 +76,16 @@ public class CookBook extends CMCreateBaseDomain<Long> {
 		this.description = description;
 	}
 	/**
-	 * @return meterialId 原材料表主键
+	 * @return materialId materialId
 	 */
-	public Long getMeterialId(){
-		return this.meterialId;
+	public Long getMaterialId(){
+		return this.materialId;
 	}
 	/**
-	 * @param meterialId 原材料表主键
+	 * @param materialId materialId
 	 */
-	public void setMeterialId(Long meterialId){
-		this.meterialId = meterialId;
+	public void setMaterialId(Long materialId){
+		this.materialId = materialId;
 	}
 	/**
 	 * @return processId 过程表主键
@@ -165,7 +165,7 @@ public class CookBook extends CMCreateBaseDomain<Long> {
 			.append("id",getId())
 			.append("cookBookName",getCookBookName())
 			.append("description",getDescription())
-			.append("meterialId",getMeterialId())
+			.append("materialId",getMaterialId())
 			.append("processId",getProcessId())
 			.append("categoryId",getCategoryId())
 			.append("tips",getTips())
@@ -185,7 +185,7 @@ public class CookBook extends CMCreateBaseDomain<Long> {
 			.append(getId())
 			.append(getCookBookName())
 			.append(getDescription())
-			.append(getMeterialId())
+			.append(getMaterialId())
 			.append(getProcessId())
 			.append(getCategoryId())
 			.append(getTips())

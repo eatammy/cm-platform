@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-23  郭旭辉        新建	
+{  2016-03-31  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -20,9 +20,13 @@
 
 package cn.eatammy.cm.param.user;
 
-import cn.eatammy.common.param.CreateBaseParam;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import cn.eatammy.common.param.CreateBaseParam;
+
+import java.util.*;
 
 /**
  * 《用户地址》 查询参数实体
@@ -129,7 +133,7 @@ public class UserAddressParam extends CreateBaseParam<Long> {
 	
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-			.append("Id",getId())
+			.append("id",getId())
 			.append("province",getProvince())
 			.append("city",getCity())
 			.append("town",getTown())

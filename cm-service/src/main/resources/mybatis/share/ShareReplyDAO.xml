@@ -321,7 +321,6 @@
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             AND id = #{id}
         </trim>
-
     </select>
 
     <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.share.ShareReply">

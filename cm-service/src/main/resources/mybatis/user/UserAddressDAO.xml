@@ -4,13 +4,13 @@
 <mapper namespace="cn.eatammy.cm.dao.user.IUserAddressDAO">
 
     <sql id="Base_Column_List">
-        Id,
+        id,
         province,
         city,
         town,
         detail,
         uid,
-        state,
+        status,
         creator,
         createDate,
         lastModifier,
@@ -23,7 +23,7 @@
 		    ,town
 		    ,detail
 		    ,uid
-		    ,state
+		    ,status
 		    ,creator
 		    ,createDate
 		    ,lastModifier
@@ -34,7 +34,7 @@
 		    	,#{town}
 		    	,#{detail}
 		    	,#{uid}
-		    	,#{state}
+		    	,#{status}
 		    	,#{creator}
 		    	,#{createDate}
 		    	,#{lastModifier}
@@ -52,7 +52,7 @@
 		    ,town
 		    ,detail
 		    ,uid
-		    ,state
+		    ,status
 		    ,creator
 		    ,createDate
 		    ,lastModifier
@@ -63,7 +63,7 @@
 		    	,#{map.town}
 		    	,#{map.detail}
 		    	,#{map.uid}
-		    	,#{map.state}
+		    	,#{map.status}
 		    	,#{map.creator}
 		    	,#{map.createDate}
 		    	,#{map.lastModifier}
@@ -80,14 +80,14 @@
 		    town=#{town},
 		    detail=#{detail},
 		    uid=#{uid},
-		    state=#{state},
+		    status=#{status},
 		    creator=#{creator},
 		    createDate=#{createDate},
 		    lastModifier=#{lastModifier},
 		    lastModDate=#{lastModDate},
         </trim>
         WHERE
-        Id = #{id}
+        id = #{id}
     </update>
 	
 	<update id="updateMap">
@@ -108,8 +108,8 @@
             <if test="map.uid!=null">
                 uid = #{map.uid},
             </if>
-            <if test="map.state!=null">
-                state = #{map.state},
+            <if test="map.status!=null">
+                status = #{map.status},
             </if>
             <if test="map.creator!=null">
                 creator = #{map.creator},
@@ -146,8 +146,8 @@
             <if test="update.uid!=null">
                 uid = #{update.uid},
             </if>
-            <if test="update.state!=null">
-                state = #{update.state},
+            <if test="update.status!=null">
+                status = #{update.status},
             </if>
             <if test="update.creator!=null">
                 creator = #{update.creator},
@@ -179,8 +179,8 @@
             <if test="condition.uid!=null">
                 AND uid = #{condition.uid}
             </if>
-            <if test="condition.state!=null">
-                AND state = #{condition.state}
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
@@ -205,14 +205,14 @@
             town = #{town},
             detail = #{detail},
             uid = #{uid},
-            state = #{state},
+            status = #{status},
             creator = #{creator},
             createDate = #{createDate},
             lastModifier = #{lastModifier},
             lastModDate = #{lastModDate},
         </trim>
         WHERE
-        Id = #{id}
+        id = #{id}
     </update>
     
     
@@ -220,7 +220,7 @@
     <delete id="deleteById" parameterType="java.lang.Long">
         DELETE FROM cm_user_address
         <trim prefix="WHERE" prefixOverrides="AND | OR">
-            AND Id = #{id}
+            AND id = #{id}
         </trim>
     </delete>
 
@@ -235,7 +235,7 @@
         DELETE FROM cm_user_address
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="id!=null">
-                AND Id = #{id}
+                AND id = #{id}
             </if>
             <if test="province!=null">
                 AND province = #{province}
@@ -252,8 +252,8 @@
             <if test="uid!=null">
                 AND uid = #{uid}
             </if>
-            <if test="state!=null">
-                AND state = #{state}
+            <if test="status!=null">
+                AND status = #{status}
             </if>
             <if test="creator!=null">
                 AND creator = #{creator}
@@ -281,9 +281,8 @@
         <include refid="Base_Column_List" />
         FROM cm_user_address
         <trim prefix="WHERE" prefixOverrides="AND | OR">
-            AND Id = #{id}
+            AND id = #{id}
         </trim>
-
     </select>
 
     <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.user.UserAddress">
@@ -324,7 +323,7 @@
             </if>
 
             <if test="condition.id!=null">
-                ${condition.groupOp}   Id  ${condition.Id.op}  #{condition.Id.data}
+                ${condition.groupOp}   id  ${condition.id.op}  #{condition.id.data}
             </if>
             <if test="condition.province!=null">
                 ${condition.groupOp}   province  ${condition.province.op}  #{condition.province.data}
@@ -341,8 +340,8 @@
             <if test="condition.uid!=null">
                 ${condition.groupOp}   uid  ${condition.uid.op}  #{condition.uid.data}
             </if>
-            <if test="condition.state!=null">
-                ${condition.groupOp}   state  ${condition.state.op}  #{condition.state.data}
+            <if test="condition.status!=null">
+                ${condition.groupOp}   status  ${condition.status.op}  #{condition.status.data}
             </if>
             <if test="condition.creator!=null">
                 ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
@@ -374,7 +373,7 @@
         FROM cm_user_address
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="id!=null">
-                AND Id like CONCAT('%', #{id} , '%')
+                AND id like CONCAT('%', #{id} , '%')
             </if>
             <if test="province!=null">
                 AND province like CONCAT('%', #{province} , '%')
@@ -391,8 +390,8 @@
             <if test="uid!=null">
                 AND uid like CONCAT('%', #{uid} , '%')
             </if>
-            <if test="state!=null">
-                AND state like CONCAT('%', #{state} , '%')
+            <if test="status!=null">
+                AND status like CONCAT('%', #{status} , '%')
             </if>
             <if test="creator!=null">
                 AND creator like CONCAT('%', #{creator} , '%')
@@ -419,7 +418,7 @@
         FROM cm_user_address
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="condition.id!=null">
-                AND Id = #{condition.id}
+                AND id = #{condition.id}
             </if>
             <if test="condition.province!=null">
                 AND province = #{condition.province}
@@ -436,8 +435,8 @@
             <if test="condition.uid!=null">
                 AND uid = #{condition.uid}
             </if>
-            <if test="condition.state!=null">
-                AND state = #{condition.state}
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
@@ -463,7 +462,7 @@
         FROM cm_user_address
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="condition.id!=null">
-                AND Id = #{condition.id}
+                AND id = #{condition.id}
             </if>
             <if test="condition.province!=null">
                 AND province = #{condition.province}
@@ -480,8 +479,8 @@
             <if test="condition.uid!=null">
                 AND uid = #{condition.uid}
             </if>
-            <if test="condition.state!=null">
-                AND state = #{condition.state}
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
@@ -503,7 +502,7 @@
         SELECT count(1) FROM cm_user_address
        <where>
            <if test="id!=null">
-               ${groupOp} Id ${Id.op}  #{Id.data}
+               ${groupOp} id ${id.op}  #{id.data}
            </if>
            <if test="province!=null">
                ${groupOp} province ${province.op}  #{province.data}
@@ -520,8 +519,8 @@
            <if test="uid!=null">
                ${groupOp} uid ${uid.op}  #{uid.data}
            </if>
-           <if test="state!=null">
-               ${groupOp} state ${state.op}  #{state.data}
+           <if test="status!=null">
+               ${groupOp} status ${status.op}  #{status.data}
            </if>
            <if test="creator!=null">
                ${groupOp} creator ${creator.op}  #{creator.data}

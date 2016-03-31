@@ -6,34 +6,34 @@
     <sql id="Base_Column_List">
         id,
         verifiedCode,
-        username,
+        phone,
         type,
-        createDate,
         disabledDate,
         status,
         creator,
+        createDate,
         lastModifier,
         lastModDate
     </sql>
     <insert id="insert" parameterType="cn.eatammy.cm.domain.sys.Verification">
         INSERT INTO cm_sys_verification (
 		    verifiedCode
-		    ,username
+		    ,phone
 		    ,type
-		    ,createDate
 		    ,disabledDate
 		    ,status
 		    ,creator
+		    ,createDate
 		    ,lastModifier
 		    ,lastModDate
         ) VALUES (
 		    	#{verifiedCode}
-		    	,#{username}
+		    	,#{phone}
 		    	,#{type}
-		    	,#{createDate}
 		    	,#{disabledDate}
 		    	,#{status}
 		    	,#{creator}
+		    	,#{createDate}
 		    	,#{lastModifier}
 		    	,#{lastModDate}
         )
@@ -45,22 +45,22 @@
     <insert id="insertMap" >
         INSERT INTO cm_sys_verification (
 		    verifiedCode
-		    ,username
+		    ,phone
 		    ,type
-		    ,createDate
 		    ,disabledDate
 		    ,status
 		    ,creator
+		    ,createDate
 		    ,lastModifier
 		    ,lastModDate
         ) VALUES (
 		    	#{map.verifiedCode}
-		    	,#{map.username}
+		    	,#{map.phone}
 		    	,#{map.type}
-		    	,#{map.createDate}
 		    	,#{map.disabledDate}
 		    	,#{map.status}
 		    	,#{map.creator}
+		    	,#{map.createDate}
 		    	,#{map.lastModifier}
 		    	,#{map.lastModDate}
         )
@@ -71,12 +71,12 @@
         UPDATE cm_sys_verification
         <trim prefix="SET" suffixOverrides=",">
 		    verifiedCode=#{verifiedCode},
-		    username=#{username},
+		    phone=#{phone},
 		    type=#{type},
-		    createDate=#{createDate},
 		    disabledDate=#{disabledDate},
 		    status=#{status},
 		    creator=#{creator},
+		    createDate=#{createDate},
 		    lastModifier=#{lastModifier},
 		    lastModDate=#{lastModDate},
         </trim>
@@ -90,14 +90,11 @@
             <if test="map.verifiedCode!=null">
                 verifiedCode = #{map.verifiedCode},
             </if>
-            <if test="map.username!=null">
-                username = #{map.username},
+            <if test="map.phone!=null">
+                phone = #{map.phone},
             </if>
             <if test="map.type!=null">
                 type = #{map.type},
-            </if>
-            <if test="map.createDate!=null">
-                createDate = #{map.createDate},
             </if>
             <if test="map.disabledDate!=null">
                 disabledDate = #{map.disabledDate},
@@ -107,6 +104,9 @@
             </if>
             <if test="map.creator!=null">
                 creator = #{map.creator},
+            </if>
+            <if test="map.createDate!=null">
+                createDate = #{map.createDate},
             </if>
             <if test="map.lastModifier!=null">
                 lastModifier = #{map.lastModifier},
@@ -125,14 +125,11 @@
             <if test="update.verifiedCode!=null">
                 verifiedCode = #{update.verifiedCode},
             </if>
-            <if test="update.username!=null">
-                username = #{update.username},
+            <if test="update.phone!=null">
+                phone = #{update.phone},
             </if>
             <if test="update.type!=null">
                 type = #{update.type},
-            </if>
-            <if test="update.createDate!=null">
-                createDate = #{update.createDate},
             </if>
             <if test="update.disabledDate!=null">
                 disabledDate = #{update.disabledDate},
@@ -142,6 +139,9 @@
             </if>
             <if test="update.creator!=null">
                 creator = #{update.creator},
+            </if>
+            <if test="update.createDate!=null">
+                createDate = #{update.createDate},
             </if>
             <if test="update.lastModifier!=null">
                 lastModifier = #{update.lastModifier},
@@ -155,14 +155,11 @@
             <if test="condition.verifiedCode!=null">
                 AND verifiedCode = #{condition.verifiedCode}
             </if>
-            <if test="condition.username!=null">
-                AND username = #{condition.username}
+            <if test="condition.phone!=null">
+                AND phone = #{condition.phone}
             </if>
             <if test="condition.type!=null">
                 AND type = #{condition.type}
-            </if>
-            <if test="condition.createDate!=null">
-                AND createDate = #{condition.createDate}
             </if>
             <if test="condition.disabledDate!=null">
                 AND disabledDate = #{condition.disabledDate}
@@ -172,6 +169,9 @@
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
             </if>
             <if test="condition.lastModifier!=null">
                 AND lastModifier = #{condition.lastModifier}
@@ -186,12 +186,12 @@
         UPDATE cm_sys_verification
         <trim prefix="SET" suffixOverrides=",">
             verifiedCode = #{verifiedCode},
-            username = #{username},
+            phone = #{phone},
             type = #{type},
-            createDate = #{createDate},
             disabledDate = #{disabledDate},
             status = #{status},
             creator = #{creator},
+            createDate = #{createDate},
             lastModifier = #{lastModifier},
             lastModDate = #{lastModDate},
         </trim>
@@ -224,14 +224,11 @@
             <if test="verifiedCode!=null">
                 AND verifiedCode = #{verifiedCode}
             </if>
-            <if test="username!=null">
-                AND username = #{username}
+            <if test="phone!=null">
+                AND phone = #{phone}
             </if>
             <if test="type!=null">
                 AND type = #{type}
-            </if>
-            <if test="createDate!=null">
-                AND createDate = #{createDate}
             </if>
             <if test="disabledDate!=null">
                 AND disabledDate = #{disabledDate}
@@ -241,6 +238,9 @@
             </if>
             <if test="creator!=null">
                 AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
             </if>
             <if test="lastModifier!=null">
                 AND lastModifier = #{lastModifier}
@@ -309,14 +309,11 @@
             <if test="condition.verifiedCode!=null">
                 ${condition.groupOp}   verifiedCode  ${condition.verifiedCode.op}  #{condition.verifiedCode.data}
             </if>
-            <if test="condition.username!=null">
-                ${condition.groupOp}   username  ${condition.username.op}  #{condition.username.data}
+            <if test="condition.phone!=null">
+                ${condition.groupOp}   phone  ${condition.phone.op}  #{condition.phone.data}
             </if>
             <if test="condition.type!=null">
                 ${condition.groupOp}   type  ${condition.type.op}  #{condition.type.data}
-            </if>
-            <if test="condition.createDate!=null">
-                ${condition.groupOp}   createDate  ${condition.createDate.op}  #{condition.createDate.data}
             </if>
             <if test="condition.disabledDate!=null">
                 ${condition.groupOp}   disabledDate  ${condition.disabledDate.op}  #{condition.disabledDate.data}
@@ -326,6 +323,9 @@
             </if>
             <if test="condition.creator!=null">
                 ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
+            </if>
+            <if test="condition.createDate!=null">
+                ${condition.groupOp}   createDate  ${condition.createDate.op}  #{condition.createDate.data}
             </if>
             <if test="condition.lastModifier!=null">
                 ${condition.groupOp}   lastModifier  ${condition.lastModifier.op}  #{condition.lastModifier.data}
@@ -356,14 +356,11 @@
             <if test="verifiedCode!=null">
                 AND verifiedCode like CONCAT('%', #{verifiedCode} , '%')
             </if>
-            <if test="username!=null">
-                AND username like CONCAT('%', #{username} , '%')
+            <if test="phone!=null">
+                AND phone like CONCAT('%', #{phone} , '%')
             </if>
             <if test="type!=null">
                 AND type like CONCAT('%', #{type} , '%')
-            </if>
-            <if test="createDate!=null">
-                AND createDate like CONCAT('%', #{createDate} , '%')
             </if>
             <if test="disabledDate!=null">
                 AND disabledDate like CONCAT('%', #{disabledDate} , '%')
@@ -373,6 +370,9 @@
             </if>
             <if test="creator!=null">
                 AND creator like CONCAT('%', #{creator} , '%')
+            </if>
+            <if test="createDate!=null">
+                AND createDate like CONCAT('%', #{createDate} , '%')
             </if>
             <if test="lastModifier!=null">
                 AND lastModifier like CONCAT('%', #{lastModifier} , '%')
@@ -398,14 +398,11 @@
             <if test="condition.verifiedCode!=null">
                 AND verifiedCode = #{condition.verifiedCode}
             </if>
-            <if test="condition.username!=null">
-                AND username = #{condition.username}
+            <if test="condition.phone!=null">
+                AND phone = #{condition.phone}
             </if>
             <if test="condition.type!=null">
                 AND type = #{condition.type}
-            </if>
-            <if test="condition.createDate!=null">
-                AND createDate = #{condition.createDate}
             </if>
             <if test="condition.disabledDate!=null">
                 AND disabledDate = #{condition.disabledDate}
@@ -415,6 +412,9 @@
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
             </if>
             <if test="condition.lastModifier!=null">
                 AND lastModifier = #{condition.lastModifier}
@@ -439,14 +439,11 @@
             <if test="condition.verifiedCode!=null">
                 AND verifiedCode = #{condition.verifiedCode}
             </if>
-            <if test="condition.username!=null">
-                AND username = #{condition.username}
+            <if test="condition.phone!=null">
+                AND phone = #{condition.phone}
             </if>
             <if test="condition.type!=null">
                 AND type = #{condition.type}
-            </if>
-            <if test="condition.createDate!=null">
-                AND createDate = #{condition.createDate}
             </if>
             <if test="condition.disabledDate!=null">
                 AND disabledDate = #{condition.disabledDate}
@@ -456,6 +453,9 @@
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
             </if>
             <if test="condition.lastModifier!=null">
                 AND lastModifier = #{condition.lastModifier}
@@ -476,14 +476,11 @@
            <if test="verifiedCode!=null">
                ${groupOp} verifiedCode ${verifiedCode.op}  #{verifiedCode.data}
            </if>
-           <if test="username!=null">
-               ${groupOp} username ${username.op}  #{username.data}
+           <if test="phone!=null">
+               ${groupOp} phone ${phone.op}  #{phone.data}
            </if>
            <if test="type!=null">
                ${groupOp} type ${type.op}  #{type.data}
-           </if>
-           <if test="createDate!=null">
-               ${groupOp} createDate ${createDate.op}  #{createDate.data}
            </if>
            <if test="disabledDate!=null">
                ${groupOp} disabledDate ${disabledDate.op}  #{disabledDate.data}
@@ -493,6 +490,9 @@
            </if>
            <if test="creator!=null">
                ${groupOp} creator ${creator.op}  #{creator.data}
+           </if>
+           <if test="createDate!=null">
+               ${groupOp} createDate ${createDate.op}  #{createDate.data}
            </if>
            <if test="lastModifier!=null">
                ${groupOp} lastModifier ${lastModifier.op}  #{lastModifier.data}

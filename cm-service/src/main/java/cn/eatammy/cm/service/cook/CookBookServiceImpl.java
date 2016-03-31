@@ -45,10 +45,10 @@ public class CookBookServiceImpl extends AbstractCMPageService<ICMBaseDAO<CookBo
 
 
      @Autowired
-     private IMaterialService iMaterialService;
+     private IMaterialService materialService;
 
      @Autowired
-     private IProcessService iProcessService;
+     private IProcessService processService;
 
 
     @Override
@@ -66,8 +66,8 @@ public class CookBookServiceImpl extends AbstractCMPageService<ICMBaseDAO<CookBo
             cookBook.setCookBookName(cookBookParam.getCookBookName());
             cookBook.setDescription(cookBookParam.getDescription());
             cookBook.setTips(cookBookParam.getTips());
-            cookBook.setMeterialId(iMaterialService.saveMaterial(user,materialParam));
-            cookBook.setProcessId(iProcessService.saveProcess(user,processParam));
+            cookBook.setMaterialId(materialService.saveMaterial(user,materialParam));
+            cookBook.setProcessId(processService.saveProcess(user,processParam));
             cookBook.setCategoryId(cookBookParam.getCategoryId());
             //获取用户主键
             cookBook.setUid(456L);
@@ -123,8 +123,8 @@ public class CookBookServiceImpl extends AbstractCMPageService<ICMBaseDAO<CookBo
 
 
         try {
-            iMaterialService.deleteById(cookBook.getMeterialId());
-            iMaterialService.deleteById(cookBook.getMeterialId());
+            materialService.deleteById(cookBook.getMaterialId());
+            materialService.deleteById(cookBook.getMaterialId());
             cookBookDAO.deleteById(cookBookId);
         }catch (Exception e){
             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(),ERRORCODE.OPERATION_FAIL.getMessage());
@@ -139,8 +139,8 @@ public class CookBookServiceImpl extends AbstractCMPageService<ICMBaseDAO<CookBo
             materialParam.setId(cookBookParam.getMaterialId());
             processParam.setId(cookBookParam.getProcessId());
 
-            iMaterialService.updateMaterial(user,materialParam);
-            iProcessService.updateProcess(user,processParam);
+            materialService.updateMaterial(user,materialParam);
+            processService.updateProcess(user,processParam);
 
             CookBook cookBook = this.findOne(CookBookParam.F_ID,cookBookParam.getId());
             cookBook.setCookBookName(cookBookParam.getCookBookName());

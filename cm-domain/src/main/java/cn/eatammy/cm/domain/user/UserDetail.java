@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-23  郭旭辉        新建	
+{  2016-03-31  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -49,6 +49,7 @@ public class UserDetail extends CMCreateBaseDomain<Long> {
 	private String studentPic; //学生证图片链接
 	private String idCard; //身份证
 	private String idCardPic; //身份证图片链接
+	private String description; //个性签名
     
 	/**
 	 *默认空构造函数
@@ -237,6 +238,18 @@ public class UserDetail extends CMCreateBaseDomain<Long> {
 	public void setIdCardPic(String idCardPic){
 		this.idCardPic = idCardPic;
 	}
+	/**
+	 * @return description 个性签名
+	 */
+	public String getDescription(){
+		return this.description;
+	}
+	/**
+	 * @param description 个性签名
+	 */
+	public void setDescription(String description){
+		this.description = description;
+	}
 	
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -256,6 +269,7 @@ public class UserDetail extends CMCreateBaseDomain<Long> {
 			.append("studentPic",getStudentPic())
 			.append("idCard",getIdCard())
 			.append("idCardPic",getIdCardPic())
+			.append("description",getDescription())
 			.append("creator",getCreator())
 			.append("createDate",getCreateDate())
 			.append("lastModifier",getLastModifier())
@@ -282,6 +296,7 @@ public class UserDetail extends CMCreateBaseDomain<Long> {
 			.append(getStudentPic())
 			.append(getIdCard())
 			.append(getIdCardPic())
+			.append(getDescription())
 			.append(getCreator())
 			.append(getCreateDate())
 			.append(getLastModifier())

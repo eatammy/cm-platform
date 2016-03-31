@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-23  郭旭辉        新建	
+{  2016-03-31  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -41,9 +41,9 @@ public class CookBookParam extends CreateBaseParam<Long> {
 	*/
 	public static final String F_Description="description";
 	/**
-	*字段常量——原材料表主键
+	*字段常量——materialId
 	*/
-	public static final String F_MeterialId="meterialId";
+	public static final String F_MaterialId="materialId";
 	/**
 	*字段常量——过程表主键
 	*/
@@ -71,7 +71,7 @@ public class CookBookParam extends CreateBaseParam<Long> {
 	
 	private String cookBookName; //菜谱名称
 	private String description; //菜谱简介
-	private Long materialId; //原材料表主键
+	private Long materialId; //materialId
 	private Long processId; //过程表主键
 	private Long categoryId; //菜谱所属类别主键
 	private String tips; //贴士
@@ -111,15 +111,15 @@ public class CookBookParam extends CreateBaseParam<Long> {
 		this.description = description;
 	}
 	/**
-	 * @return materialId 原材料表主键
+	 * @return materialId materialId
 	 */
 	public Long getMaterialId(){
 		return this.materialId;
 	}
 	/**
-	 * @param materialId 原材料表主键
+	 * @param materialId materialId
 	 */
-	public void setMeterialId(Long materialId){
+	public void setMaterialId(Long materialId){
 		this.materialId = materialId;
 	}
 	/**
@@ -200,7 +200,7 @@ public class CookBookParam extends CreateBaseParam<Long> {
 			.append("id",getId())
 			.append("cookBookName",getCookBookName())
 			.append("description",getDescription())
-			.append("meterialId",getMaterialId())
+			.append("materialId",getMaterialId())
 			.append("processId",getProcessId())
 			.append("categoryId",getCategoryId())
 			.append("tips",getTips())

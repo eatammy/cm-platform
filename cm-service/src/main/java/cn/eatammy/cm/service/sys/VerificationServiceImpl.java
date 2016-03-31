@@ -60,10 +60,10 @@ public class VerificationServiceImpl extends AbstractCMPageService<ICMBaseDAO<Ve
         boolean flag = userDetailDAO.findOne(UserDetailParam.F_Username,username, null, null) == null ? true: false;
         if (flag) {
             Verification verification = new Verification();
-            verification.setUsername(username);
+            verification.setPhone(username);
             verification.setCreator(username);
             verification.setCreateDate(System.currentTimeMillis());
-            verification.setDisabledDate(verification.getCreateDate() + 12000);
+            verification.setDisabledDate(verification.getCreateDate() + 30000);
             verification.setType(1);
             String verifiedCode = (int) (Math.random() * 1000000) + "";
             verification.setVerifiedCode(verifiedCode);
