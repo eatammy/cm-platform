@@ -6,11 +6,11 @@
     <sql id="Base_Column_List">
         id,
         verifiedCode,
-        uid,
+        username,
         type,
         createDate,
         disabledDate,
-        state,
+        status,
         creator,
         lastModifier,
         lastModDate
@@ -18,21 +18,21 @@
     <insert id="insert" parameterType="cn.eatammy.cm.domain.sys.Verification">
         INSERT INTO cm_sys_verification (
 		    verifiedCode
-		    ,uid
+		    ,username
 		    ,type
 		    ,createDate
 		    ,disabledDate
-		    ,state
+		    ,status
 		    ,creator
 		    ,lastModifier
 		    ,lastModDate
         ) VALUES (
 		    	#{verifiedCode}
-		    	,#{uid}
+		    	,#{username}
 		    	,#{type}
 		    	,#{createDate}
 		    	,#{disabledDate}
-		    	,#{state}
+		    	,#{status}
 		    	,#{creator}
 		    	,#{lastModifier}
 		    	,#{lastModDate}
@@ -45,21 +45,21 @@
     <insert id="insertMap" >
         INSERT INTO cm_sys_verification (
 		    verifiedCode
-		    ,uid
+		    ,username
 		    ,type
 		    ,createDate
 		    ,disabledDate
-		    ,state
+		    ,status
 		    ,creator
 		    ,lastModifier
 		    ,lastModDate
         ) VALUES (
 		    	#{map.verifiedCode}
-		    	,#{map.uid}
+		    	,#{map.username}
 		    	,#{map.type}
 		    	,#{map.createDate}
 		    	,#{map.disabledDate}
-		    	,#{map.state}
+		    	,#{map.status}
 		    	,#{map.creator}
 		    	,#{map.lastModifier}
 		    	,#{map.lastModDate}
@@ -71,11 +71,11 @@
         UPDATE cm_sys_verification
         <trim prefix="SET" suffixOverrides=",">
 		    verifiedCode=#{verifiedCode},
-		    uid=#{uid},
+		    username=#{username},
 		    type=#{type},
 		    createDate=#{createDate},
 		    disabledDate=#{disabledDate},
-		    state=#{state},
+		    status=#{status},
 		    creator=#{creator},
 		    lastModifier=#{lastModifier},
 		    lastModDate=#{lastModDate},
@@ -90,8 +90,8 @@
             <if test="map.verifiedCode!=null">
                 verifiedCode = #{map.verifiedCode},
             </if>
-            <if test="map.uid!=null">
-                uid = #{map.uid},
+            <if test="map.username!=null">
+                username = #{map.username},
             </if>
             <if test="map.type!=null">
                 type = #{map.type},
@@ -102,8 +102,8 @@
             <if test="map.disabledDate!=null">
                 disabledDate = #{map.disabledDate},
             </if>
-            <if test="map.state!=null">
-                state = #{map.state},
+            <if test="map.status!=null">
+                status = #{map.status},
             </if>
             <if test="map.creator!=null">
                 creator = #{map.creator},
@@ -125,8 +125,8 @@
             <if test="update.verifiedCode!=null">
                 verifiedCode = #{update.verifiedCode},
             </if>
-            <if test="update.uid!=null">
-                uid = #{update.uid},
+            <if test="update.username!=null">
+                username = #{update.username},
             </if>
             <if test="update.type!=null">
                 type = #{update.type},
@@ -137,8 +137,8 @@
             <if test="update.disabledDate!=null">
                 disabledDate = #{update.disabledDate},
             </if>
-            <if test="update.state!=null">
-                state = #{update.state},
+            <if test="update.status!=null">
+                status = #{update.status},
             </if>
             <if test="update.creator!=null">
                 creator = #{update.creator},
@@ -155,8 +155,8 @@
             <if test="condition.verifiedCode!=null">
                 AND verifiedCode = #{condition.verifiedCode}
             </if>
-            <if test="condition.uid!=null">
-                AND uid = #{condition.uid}
+            <if test="condition.username!=null">
+                AND username = #{condition.username}
             </if>
             <if test="condition.type!=null">
                 AND type = #{condition.type}
@@ -167,8 +167,8 @@
             <if test="condition.disabledDate!=null">
                 AND disabledDate = #{condition.disabledDate}
             </if>
-            <if test="condition.state!=null">
-                AND state = #{condition.state}
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
@@ -186,11 +186,11 @@
         UPDATE cm_sys_verification
         <trim prefix="SET" suffixOverrides=",">
             verifiedCode = #{verifiedCode},
-            uid = #{uid},
+            username = #{username},
             type = #{type},
             createDate = #{createDate},
             disabledDate = #{disabledDate},
-            state = #{state},
+            status = #{status},
             creator = #{creator},
             lastModifier = #{lastModifier},
             lastModDate = #{lastModDate},
@@ -224,8 +224,8 @@
             <if test="verifiedCode!=null">
                 AND verifiedCode = #{verifiedCode}
             </if>
-            <if test="uid!=null">
-                AND uid = #{uid}
+            <if test="username!=null">
+                AND username = #{username}
             </if>
             <if test="type!=null">
                 AND type = #{type}
@@ -236,8 +236,8 @@
             <if test="disabledDate!=null">
                 AND disabledDate = #{disabledDate}
             </if>
-            <if test="state!=null">
-                AND state = #{state}
+            <if test="status!=null">
+                AND status = #{status}
             </if>
             <if test="creator!=null">
                 AND creator = #{creator}
@@ -309,8 +309,8 @@
             <if test="condition.verifiedCode!=null">
                 ${condition.groupOp}   verifiedCode  ${condition.verifiedCode.op}  #{condition.verifiedCode.data}
             </if>
-            <if test="condition.uid!=null">
-                ${condition.groupOp}   uid  ${condition.uid.op}  #{condition.uid.data}
+            <if test="condition.username!=null">
+                ${condition.groupOp}   username  ${condition.username.op}  #{condition.username.data}
             </if>
             <if test="condition.type!=null">
                 ${condition.groupOp}   type  ${condition.type.op}  #{condition.type.data}
@@ -321,8 +321,8 @@
             <if test="condition.disabledDate!=null">
                 ${condition.groupOp}   disabledDate  ${condition.disabledDate.op}  #{condition.disabledDate.data}
             </if>
-            <if test="condition.state!=null">
-                ${condition.groupOp}   state  ${condition.state.op}  #{condition.state.data}
+            <if test="condition.status!=null">
+                ${condition.groupOp}   status  ${condition.status.op}  #{condition.status.data}
             </if>
             <if test="condition.creator!=null">
                 ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
@@ -356,8 +356,8 @@
             <if test="verifiedCode!=null">
                 AND verifiedCode like CONCAT('%', #{verifiedCode} , '%')
             </if>
-            <if test="uid!=null">
-                AND uid like CONCAT('%', #{uid} , '%')
+            <if test="username!=null">
+                AND username like CONCAT('%', #{username} , '%')
             </if>
             <if test="type!=null">
                 AND type like CONCAT('%', #{type} , '%')
@@ -368,8 +368,8 @@
             <if test="disabledDate!=null">
                 AND disabledDate like CONCAT('%', #{disabledDate} , '%')
             </if>
-            <if test="state!=null">
-                AND state like CONCAT('%', #{state} , '%')
+            <if test="status!=null">
+                AND status like CONCAT('%', #{status} , '%')
             </if>
             <if test="creator!=null">
                 AND creator like CONCAT('%', #{creator} , '%')
@@ -398,8 +398,8 @@
             <if test="condition.verifiedCode!=null">
                 AND verifiedCode = #{condition.verifiedCode}
             </if>
-            <if test="condition.uid!=null">
-                AND uid = #{condition.uid}
+            <if test="condition.username!=null">
+                AND username = #{condition.username}
             </if>
             <if test="condition.type!=null">
                 AND type = #{condition.type}
@@ -410,8 +410,8 @@
             <if test="condition.disabledDate!=null">
                 AND disabledDate = #{condition.disabledDate}
             </if>
-            <if test="condition.state!=null">
-                AND state = #{condition.state}
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
@@ -439,8 +439,8 @@
             <if test="condition.verifiedCode!=null">
                 AND verifiedCode = #{condition.verifiedCode}
             </if>
-            <if test="condition.uid!=null">
-                AND uid = #{condition.uid}
+            <if test="condition.username!=null">
+                AND username = #{condition.username}
             </if>
             <if test="condition.type!=null">
                 AND type = #{condition.type}
@@ -451,8 +451,8 @@
             <if test="condition.disabledDate!=null">
                 AND disabledDate = #{condition.disabledDate}
             </if>
-            <if test="condition.state!=null">
-                AND state = #{condition.state}
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
@@ -476,8 +476,8 @@
            <if test="verifiedCode!=null">
                ${groupOp} verifiedCode ${verifiedCode.op}  #{verifiedCode.data}
            </if>
-           <if test="uid!=null">
-               ${groupOp} uid ${uid.op}  #{uid.data}
+           <if test="username!=null">
+               ${groupOp} username ${username.op}  #{username.data}
            </if>
            <if test="type!=null">
                ${groupOp} type ${type.op}  #{type.data}
@@ -488,8 +488,8 @@
            <if test="disabledDate!=null">
                ${groupOp} disabledDate ${disabledDate.op}  #{disabledDate.data}
            </if>
-           <if test="state!=null">
-               ${groupOp} state ${state.op}  #{state.data}
+           <if test="status!=null">
+               ${groupOp} status ${status.op}  #{status.data}
            </if>
            <if test="creator!=null">
                ${groupOp} creator ${creator.op}  #{creator.data}

@@ -39,7 +39,7 @@ public class VerificationParam extends CreateBaseParam<Long> {
 	/**
 	*字段常量——用户uid
 	*/
-	public static final String F_Uid="uid";
+	public static final String F_Username="username";
 	/**
 	*字段常量——验证码类型，1：注册验证，2：找回密码验证，4：注册商店商店验证码，
 	*/
@@ -54,7 +54,7 @@ public class VerificationParam extends CreateBaseParam<Long> {
 	public static final String F_State="state";
 	
 	private String verifiedCode; //验证码，6位数字
-	private Long uid; //用户uid
+	private String username; //用户账号
 	private Integer type; //验证码类型，1：注册验证，2：找回密码验证，4：注册商店商店验证码，
 	private Long disabledDate; //失效时间，默认失效时间为30min
 
@@ -77,18 +77,16 @@ public class VerificationParam extends CreateBaseParam<Long> {
 	public void setVerifiedCode(String verifiedCode){
 		this.verifiedCode = verifiedCode;
 	}
-	/**
-	 * @return uid 用户uid
-	 */
-	public Long getUid(){
-		return this.uid;
+
+	public String getUsername() {
+
+		return username;
 	}
-	/**
-	 * @param uid 用户uid
-	 */
-	public void setUid(Long uid){
-		this.uid = uid;
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
+
 	/**
 	 * @return type 验证码类型，1：注册验证，2：找回密码验证，4：注册商店商店验证码，
 	 */
@@ -118,7 +116,7 @@ public class VerificationParam extends CreateBaseParam<Long> {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("id",getId())
 			.append("verifiedCode",getVerifiedCode())
-			.append("uid",getUid())
+			.append("username",getUsername())
 			.append("type",getType())
 			.append("createDate",getCreateDate())
 			.append("disabledDate",getDisabledDate())
