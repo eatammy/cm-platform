@@ -20,10 +20,10 @@
 
 package cn.eatammy.cm.service.user;
 
-import cn.eatammy.cm.domain.user.UserDetail;
-import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
+import cn.eatammy.cm.param.user.UserDetailParam;
 import cn.eatammy.cm.service.ICMBaseService;
+import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.common.service.IPageService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -48,13 +48,13 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
     String isLogin(String username, String password, HttpSession session, HttpServletResponse response);
 
     /**
-     * 注册
-     * @param username  用户名（账号）
-     * @param password  密码
-     * @param nickname     手机
-     * @return 用户实体
+     * 用户注册
+     * @param param         用户注册参数
+     * @param verifiedCode  验证码
+     * @param typeValue     短信类型，1：注册短信，2：找回密码短信，4：商店认证短信
+     * @return  返回，操作码
      */
-    UserDetail register(String username, String password, String nickname);
+    String register(UserDetailParam param, String verifiedCode, int typeValue);
 
     /**
      * 根据某个字段判断是否存在用户

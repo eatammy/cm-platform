@@ -1,6 +1,6 @@
 package cn.eatammy.cm.app;
 
-import cn.eatammy.cm.domain.user.UserDetail;
+import cn.eatammy.cm.param.user.UserDetailParam;
 import cn.eatammy.cm.service.sys.IVerificationService;
 import cn.eatammy.cm.service.user.IUserDetailService;
 import cn.eatammy.common.utils.RETURNCODE;
@@ -28,6 +28,14 @@ public class UserController {
     IVerificationService verificationService;
 
 
+    /**
+     * 用户登录
+     * @param username 用户名
+     * @param password 密码
+     * @param session
+     * @param response
+     * @return 返回，操作码
+     */
     @ResponseBody
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String isLogin(String username, String password, HttpSession session, HttpServletResponse response){
@@ -36,16 +44,41 @@ public class UserController {
     }
 
 
+    /**
+     * 用户注册
+     * @param param         用户注册信息参数
+     * @param verifiedCode  验证码
+     * @param typeValue     验证码类型
+     * @return 返回，操作码
+     */
     @ResponseBody
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public UserDetail register(String username, String password, String nickname){
-        UserDetail user = userDetailService.register(username, password, nickname);
-        return user;
+    public String register(UserDetailParam param, String verifiedCode, int typeValue){
+        return userDetailService.register(param, verifiedCode, typeValue);
     }
 
+    /**
+     * 获取验证码
+     * @param username 用户名
+     * @param typeValue 短信值
+     * @return 返回，操作码
+     */
+    @ResponseBody
+    @RequestMapping(value="/getVerifiedCode")
+    public String getVerifiedCode(String username, int typeValue) {
+       return verificationService.sendSMS(username, typeValue);
+    }
+
+    /**
+     * 校验短信验证码
+     * @param username      用户名
+     * @param verifiedCode  短信验证码
+     * @param typeValue     用户值
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/checkVerifiedCode")
-    public String checkVerifiedCode(String username, String verifiedCode){
+    public String checkVerifiedCode(String username, String verifiedCode, int typeValue){
         return RETURNCODE.REGISTER_SUCCESS.getMessage();
     }
 

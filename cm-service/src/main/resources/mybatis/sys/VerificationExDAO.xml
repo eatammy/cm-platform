@@ -2,6 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.eatammy.cm.dao.sys.IVerificationDAO">
-	<!-- 在这里存放用户自定义的映射配置（注：VerificationDAO.xml里各节点的ID不能在这里重复出现）  -->
-	
+    <!-- 在这里存放用户自定义的映射配置（注：VerificationDAO.xml里各节点的ID不能在这里重复出现）  -->
+
+    <select id="findOneEx" resultType="cn.eatammy.cm.domain.sys.Verification">
+        SELECT * FROM cm_sys_verification
+        <where>
+            <if test="username != null and username != ''">
+                username = #{username}
+            </if>
+            <if test="verifiedCode != null and verifiedCode != ''">
+                verifiedCode = #{verifiedCode}
+            </if>
+            <if test="type != null">
+                type = #{type}
+            </if>
+        </where>
+        ORDER BY createDate DESC
+        AND status = 0
+        limit 0,1
+    </select>
 </mapper>

@@ -25,6 +25,7 @@ import cn.eatammy.cm.dao.user.IUserDetailDAO;
 import cn.eatammy.cm.domain.user.UserDetail;
 import cn.eatammy.cm.param.user.UserDetailParam;
 import cn.eatammy.cm.service.AbstractCMPageService;
+import cn.eatammy.cm.service.sys.IVerificationService;
 import cn.eatammy.common.exception.BizException;
 import cn.eatammy.common.utils.ERRORCODE;
 import cn.eatammy.common.utils.MD5Utils;
@@ -47,6 +48,8 @@ import java.util.Date;
 public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserDetail>, UserDetail> implements IUserDetailService<ICMBaseDAO<UserDetail>, UserDetail> {
     @Autowired
     private IUserDetailDAO userDetailDAO;
+    @Autowired
+    private IVerificationService verificationService;
 
     @Override
     public ICMBaseDAO<UserDetail> getDao() {
@@ -79,27 +82,24 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     }
 
     @Override
-    public UserDetail register(String username, String password, String nickname) {
-        if (!isExists(UserDetailParam.F_Username,username)){
-            if (StringUtils.isEmpty(nickname)){
-                nickname = NICKNAME;
-            }
+    public String register(UserDetailParam param, String verifiedCode, int typeValue) {
+        if (verificationService.checkVerifiedCode(param.getUsername(),verifiedCode,typeValue)){
             UserDetail user = new UserDetail();
-            user.setUsername(username);
-            user.setPassword(password);
-            user.setNickname(nickname);
+            if (StringUtils.isEmpty(param.getNickname())){
+                user.setNickname(NICKNAME);
+            }
+            user.setUsername(param.getUsername());
+            user.setPassword(MD5Utils.getMD5(param.getPassword()+MD5Utils.SALT));
             user.setCreator(CREATOR);
             user.setCreateDate(System.currentTimeMillis());
-            if(this.insert(user) == 1){//注册成功，发送验证码
-                return user;
-            }else{
-                throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
-            }
-        } else {
-            throw new BizException(ERRORCODE.ACCOUNT_EXISTS.getCode(), ERRORCODE.ACCOUNT_EXISTS.getMessage());
+            user.setStatus(1);
+            insert(user);
+            return RETURNCODE.REGISTER_SUCCESS.getMessage();
+        }else {
+            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
         }
-
     }
+
 
     @Override
     public boolean isExists(String property, Object value) {
