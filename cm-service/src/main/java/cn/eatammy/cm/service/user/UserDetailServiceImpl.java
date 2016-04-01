@@ -61,7 +61,7 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
 
 
     @Override
-    public String isLogin(String username, String password, HttpSession session, HttpServletResponse response) {
+    public UserDetail isLogin(String username, String password, HttpSession session, HttpServletResponse response) {
         UserDetail user = findOne(UserDetailParam.F_Username, username);
         if (user == null) {
             throw new BizException(ERRORCODE.ACCOUNT_ILLEGAL.getCode(), ERRORCODE.ACCOUNT_ILLEGAL.getMessage());
@@ -74,7 +74,7 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
             HttpUtils.setCookie(response, token, 30 * 60);
             //设置缓存
 //            UserContext.initUser();
-            return RETURNCODE.LOGIN_SUCCESS.getMessage();
+            return user;
         } else {
             //登录验证未通过，自动转化为系统异常
             throw new RuntimeException();

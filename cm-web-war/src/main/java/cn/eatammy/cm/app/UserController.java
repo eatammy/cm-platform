@@ -35,13 +35,12 @@ public class UserController {
      * @param password 密码
      * @param session
      * @param response
-     * @return 返回，操作码
+     * @return 返回，userBean
      */
     @ResponseBody
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String isLogin(String username, String password, HttpSession session, HttpServletResponse response){
-        userDetailService.isLogin(username, password, session, response);
-        return RETURNCODE.LOGIN_SUCCESS.getMessage();
+    public UserDetail isLogin(String username, String password, HttpSession session, HttpServletResponse response){
+        return userDetailService.isLogin(username, password, session, response);
     }
 
     /**

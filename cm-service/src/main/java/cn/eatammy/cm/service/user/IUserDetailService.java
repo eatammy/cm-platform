@@ -21,6 +21,7 @@
 package cn.eatammy.cm.service.user;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
+import cn.eatammy.cm.domain.user.UserDetail;
 import cn.eatammy.cm.param.user.UserDetailParam;
 import cn.eatammy.cm.service.ICMBaseService;
 import cn.eatammy.common.domain.BaseDomain;
@@ -43,9 +44,9 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
      * @param password 密码
      * @param session  session
      * @param response response
-     * @return 返回操作码
+     * @return 返回,userbean
      */
-    String isLogin(String username, String password, HttpSession session, HttpServletResponse response);
+    UserDetail isLogin(String username, String password, HttpSession session, HttpServletResponse response);
 
     /**
      * 用户注册
