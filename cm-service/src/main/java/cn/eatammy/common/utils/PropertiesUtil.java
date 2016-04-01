@@ -131,6 +131,8 @@ public class PropertiesUtil {
     }
     public static void main(String[] args){
 //        System.out.println(getProperties("/sysConfig/sms-config.properties").get("is_test"));
-        System.out.println(new PropertiesUtil().getProp4Config("/sysConfig/sms-config.properties").get("version"));
+        String ignoreUrl = new PropertiesUtil().getProp4Config("/sysConfig/ignoreUrl-config.properties").getProperty("IGNOREURL");
+        String[] url = ignoreUrl.split(",");
+        System.out.println();
     }
 }

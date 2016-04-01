@@ -3,6 +3,7 @@ package cn.eatammy.common.sys.filter;
 import cn.eatammy.common.exception.BizException;
 import cn.eatammy.common.exception.BizExceptionHandler;
 import cn.eatammy.common.utils.ERRORCODE;
+import cn.eatammy.common.utils.PropertiesUtil;
 import cn.eatammy.common.utils.http.HttpUtils;
 import com.alibaba.fastjson.JSONArray;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -20,8 +21,7 @@ import java.io.PrintWriter;
  */
 public class CMSessionFilter extends OncePerRequestFilter{
 
-    private static final String[] ignoreUrlPattern = new String[]{".htm", ".html", ".js", ".jpg", ".gif", ".png",
-            ".css", ".swf", ".ico", "jpeg","/druid/*","/cm/app/user/login","/cm/app/user/register","/cm/app/user/getVerifiedCode","/cm/app/user/forgetPassowd"};
+    private static final String[] ignoreUrlPattern = new PropertiesUtil().getProp4Config("/sysConfig/ignoreUrl-config.properties").getProperty("IGNOREURL").split(",");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
