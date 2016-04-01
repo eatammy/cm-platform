@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Created by 郭旭辉 on 2016/3/14.
- *
+ * <p/>
  * 用户中心控制类
  */
 @Controller
@@ -31,6 +31,7 @@ public class UserController {
 
     /**
      * 用户登录
+     *
      * @param username 用户名
      * @param password 密码
      * @param session
@@ -38,53 +39,56 @@ public class UserController {
      * @return 返回，userBean
      */
     @ResponseBody
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public UserDetail isLogin(String username, String password, HttpSession session, HttpServletResponse response){
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public UserDetail isLogin(String username, String password, HttpSession session, HttpServletResponse response) {
         return userDetailService.isLogin(username, password, session, response);
     }
 
     /**
      * 用户注册
-     * @param param         用户注册信息参数
-     * @param verifiedCode  验证码
-     * @param typeValue     验证码类型
+     *
+     * @param param        用户注册信息参数
+     * @param verifiedCode 验证码
+     * @param typeValue    验证码类型
      * @return 返回，操作码
      */
     @ResponseBody
-    @RequestMapping(value="/register", method = RequestMethod.POST)
-    public String register(UserDetailParam param, String verifiedCode, int typeValue){
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(UserDetailParam param, String verifiedCode, int typeValue) {
         return userDetailService.register(param, verifiedCode, typeValue);
     }
 
     /**
      * 获取验证码
-     * @param username 用户名
+     *
+     * @param username  用户名
      * @param typeValue 短信值
      * @return 返回，操作码
      */
     @ResponseBody
-    @RequestMapping(value="/getVerifiedCode")
+    @RequestMapping(value = "/getVerifiedCode", method = RequestMethod.POST)
     public String getVerifiedCode(String username, int typeValue) {
-       return verificationService.sendSMS(username, typeValue);
+        return verificationService.sendSMS(username, typeValue);
     }
 
     /**
      * 校验短信验证码
-     * @param username      用户名
-     * @param verifiedCode  短信验证码
-     * @param typeValue     用户值
+     *
+     * @param username     用户名
+     * @param verifiedCode 短信验证码
+     * @param typeValue    用户值
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/checkVerifiedCode")
-    public String checkVerifiedCode(String username, String verifiedCode, int typeValue){
+    public String checkVerifiedCode(String username, String verifiedCode, int typeValue) {
         return RETURNCODE.REGISTER_SUCCESS.getMessage();
     }
 
     @ResponseBody
-    @RequestMapping(value = "/queryOne")
-    public UserDetail queryOne(UserDetailParam param){
-        return null;
+    @RequestMapping(value = "forgetPassowd", method = RequestMethod.POST)
+    public String forgetPassowd(String username, String password, String verifiedCode, int typeValue) {
+        return userDetailService.forgetPasswd(username, password, verifiedCode, typeValue);
     }
 
 }

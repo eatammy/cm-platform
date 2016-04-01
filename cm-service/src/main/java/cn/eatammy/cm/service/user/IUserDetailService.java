@@ -58,6 +58,16 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
     String register(UserDetailParam param, String verifiedCode, int typeValue);
 
     /**
+     * 找回密码
+     * @param username      用户名
+     * @param password      新密码
+     * @param verifiedCode  验证码
+     * @param typeValue     短信类型，1：注册短信，2：找回密码短信，4：商店认证短信
+     * @return 返回，操作码
+     */
+    String forgetPasswd(String username, String password, String verifiedCode, int typeValue);
+
+    /**
      * 根据某个字段判断是否存在用户
      * @param property  字段名
      * @param value     字段值

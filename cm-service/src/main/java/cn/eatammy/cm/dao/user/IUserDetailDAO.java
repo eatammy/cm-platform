@@ -22,13 +22,20 @@ package cn.eatammy.cm.dao.user;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.domain.user.UserDetail;
+import org.apache.ibatis.annotations.Param;
 
- /**
+/**
  * 《用户》 数据访问接口
- * @author 郭旭辉
  *
+ * @author 郭旭辉
  */
 public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
 
-
+    /**
+     * 根据用户名修个密码
+     * @param username  用户名
+     * @param password  密码
+     * @return 返回，0：失败，1：成功
+     */
+    int updateEx(@Param("username") String username, @Param("password") String password);
 }

@@ -19,7 +19,7 @@ public enum ERRORCODE {
     SENDSMS_FAILED("0100009","验证码发送失败"),
     ACCOUNT_EXISTS("0100010","用户已存在"),
     ACCOUNT_NOT_ACTIVE("0100011","当前账号还未激活"),
-    VERIFIEDCODE_ILLEGAL("0100012","该验证码不合法")
+    VERIFIEDCODE_ILLEGAL("0100012","该验证码不合法"),
     ;
 
     /**

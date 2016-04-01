@@ -21,7 +21,7 @@ import java.io.PrintWriter;
 public class CMSessionFilter extends OncePerRequestFilter{
 
     private static final String[] ignoreUrlPattern = new String[]{".htm", ".html", ".js", ".jpg", ".gif", ".png",
-            ".css", ".swf", ".ico", "jpeg","/druid/*","/cm/app/user/login","/cm/app/user/register","/cm/app/user/getVerifiedCode"};
+            ".css", ".swf", ".ico", "jpeg","/druid/*","/cm/app/user/login","/cm/app/user/register","/cm/app/user/getVerifiedCode","/cm/app/user/forgetPassowd"};
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

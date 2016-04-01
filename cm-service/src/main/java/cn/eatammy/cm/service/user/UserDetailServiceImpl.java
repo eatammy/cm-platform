@@ -100,6 +100,16 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
         }
     }
 
+    @Override
+    public String forgetPasswd(String username, String password, String verifiedCode, int typeValue) {
+        if(verificationService.checkVerifiedCode(username,verifiedCode,typeValue)){
+            password = MD5Utils.getMD5(password+MD5Utils.SALT);
+            userDetailDAO.updateEx(username, password);
+            return RETURNCODE.UPDATE_COMPLETE.getMessage();
+        }else{
+            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+        }
+    }
 
     @Override
     public boolean isExists(String property, Object value) {

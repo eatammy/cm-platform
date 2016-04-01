@@ -57,16 +57,19 @@ public class VerificationServiceImpl extends AbstractCMPageService<ICMBaseDAO<Ve
 
     @Override
     public String sendSMS(String username, int type) {
-        boolean flag = userDetailDAO.findOne(UserDetailParam.F_Username,username, null, null) == null ? true: false;
-        if (flag) {
+        boolean flag = userDetailDAO.findOne(UserDetailParam.F_Username, username, null, null) == null ? true : false;
+        if (type == 1 && flag) {//如果是注册流程
+            throw new BizException(ERRORCODE.ACCOUNT_EXISTS.getCode(), ERRORCODE.ACCOUNT_EXISTS.getMessage());
+        }
+        if (!flag) {
             Verification verification = new Verification();
             verification.setPhone(username);
             verification.setCreator(username);
             verification.setCreateDate(System.currentTimeMillis());
-            verification.setDisabledDate(verification.getCreateDate() + 300000);
+            verification.setDisabledDate(verification.getCreateDate() + 120000);
             verification.setType(1);
             String verifiedCode = "";
-            while(verifiedCode.length() != 6){
+            while (verifiedCode.length() != 6) {
                 verifiedCode = (int) (Math.random() * 1000000) + "";
             }
             verification.setVerifiedCode(verifiedCode);
@@ -79,18 +82,18 @@ public class VerificationServiceImpl extends AbstractCMPageService<ICMBaseDAO<Ve
             } else {
                 throw new BizException(ERRORCODE.SENDSMS_FAILED.getCode(), ERRORCODE.SENDSMS_FAILED.getMessage());
             }
-        }else{
-            throw new BizException(ERRORCODE.ACCOUNT_EXISTS.getCode(), ERRORCODE.ACCOUNT_EXISTS.getMessage());
+        } else {
+            throw new BizException(ERRORCODE.ACCOUNT_ILLEGAL.getCode(), ERRORCODE.ACCOUNT_ILLEGAL.getMessage());
         }
     }
 
     @Override
     public boolean checkVerifiedCode(String username, String verifiedCode, int typeValue) {
-        Verification verification = verificationDAO.findOneEx(username,verifiedCode,typeValue);
-        if (verification != null && verification.getDisabledDate() > System.currentTimeMillis()){
+        Verification verification = verificationDAO.findOneEx(username, verifiedCode, typeValue);
+        if (verification != null && verification.getDisabledDate() > System.currentTimeMillis()) {
             verificationDAO.updateById(verification.getId());
             return true;
-        }else{
+        } else {
             throw new BizException(ERRORCODE.VERIFIEDCODE_ILLEGAL.getCode(), ERRORCODE.VERIFIEDCODE_ILLEGAL.getMessage());
         }
     }
