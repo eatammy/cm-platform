@@ -39,4 +39,11 @@ public interface IVerificationDAO extends ICMBaseDAO<Verification> {
      * @return
      */
     Verification findOneEx(@Param("username") String username, @Param("verifiedCode") String verifiedCode, @Param("type") int type);
+
+    /**
+     * 根据id更新验证码状态
+     * @param id    验证码id
+     * @return 返回，0：失败，1：成功
+     */
+    int updateById(@Param("id") long id);
 }

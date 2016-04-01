@@ -1,5 +1,6 @@
 package cn.eatammy.cm.app;
 
+import cn.eatammy.cm.domain.user.UserDetail;
 import cn.eatammy.cm.param.user.UserDetailParam;
 import cn.eatammy.cm.service.sys.IVerificationService;
 import cn.eatammy.cm.service.user.IUserDetailService;
@@ -43,7 +44,6 @@ public class UserController {
         return RETURNCODE.LOGIN_SUCCESS.getMessage();
     }
 
-
     /**
      * 用户注册
      * @param param         用户注册信息参数
@@ -80,6 +80,12 @@ public class UserController {
     @RequestMapping(value = "/checkVerifiedCode")
     public String checkVerifiedCode(String username, String verifiedCode, int typeValue){
         return RETURNCODE.REGISTER_SUCCESS.getMessage();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/queryOne")
+    public UserDetail queryOne(UserDetailParam param){
+        return null;
     }
 
 }

@@ -63,9 +63,12 @@ public class VerificationServiceImpl extends AbstractCMPageService<ICMBaseDAO<Ve
             verification.setPhone(username);
             verification.setCreator(username);
             verification.setCreateDate(System.currentTimeMillis());
-            verification.setDisabledDate(verification.getCreateDate() + 30000);
+            verification.setDisabledDate(verification.getCreateDate() + 300000);
             verification.setType(1);
-            String verifiedCode = (int) (Math.random() * 1000000) + "";
+            String verifiedCode = "";
+            while(verifiedCode.length() != 6){
+                verifiedCode = (int) (Math.random() * 1000000) + "";
+            }
             verification.setVerifiedCode(verifiedCode);
             verification.setStatus(0);
             verificationDAO.insert(verification);
@@ -85,6 +88,7 @@ public class VerificationServiceImpl extends AbstractCMPageService<ICMBaseDAO<Ve
     public boolean checkVerifiedCode(String username, String verifiedCode, int typeValue) {
         Verification verification = verificationDAO.findOneEx(username,verifiedCode,typeValue);
         if (verification != null && verification.getDisabledDate() > System.currentTimeMillis()){
+            verificationDAO.updateById(verification.getId());
             return true;
         }else{
             throw new BizException(ERRORCODE.VERIFIEDCODE_ILLEGAL.getCode(), ERRORCODE.VERIFIEDCODE_ILLEGAL.getMessage());

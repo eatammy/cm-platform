@@ -8,17 +8,23 @@
         SELECT * FROM cm_sys_verification
         <where>
             <if test="username != null and username != ''">
-                username = #{username}
+                phone = #{username}
             </if>
             <if test="verifiedCode != null and verifiedCode != ''">
-                verifiedCode = #{verifiedCode}
+                AND verifiedCode = #{verifiedCode}
             </if>
             <if test="type != null">
-                type = #{type}
+               AND type = #{type}
             </if>
         </where>
-        ORDER BY createDate DESC
         AND status = 0
+        ORDER BY id DESC
         limit 0,1
     </select>
+
+    <update id="updateById">
+        UPDATE cm_sys_verification
+        set status = 1
+        where id = #{id}
+    </update>
 </mapper>

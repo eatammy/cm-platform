@@ -92,7 +92,7 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
             user.setPassword(MD5Utils.getMD5(param.getPassword()+MD5Utils.SALT));
             user.setCreator(CREATOR);
             user.setCreateDate(System.currentTimeMillis());
-            user.setStatus(1);
+            user.setStatus(0);
             insert(user);
             return RETURNCODE.REGISTER_SUCCESS.getMessage();
         }else {
