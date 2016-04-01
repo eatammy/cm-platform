@@ -39,7 +39,7 @@ public class SysConfig {
             is = getClass().getResourceAsStream(
                     "/WEB-INF/classes/sms-config.properties");
             if (is == null) {
-                is = getClass().getResourceAsStream("/sms-config.properties");
+                is = getClass().getResourceAsStream("/sysConfig/sms-config.properties");
             }
             InputStreamReader reader = new InputStreamReader(is, "UTF-8");
             props.load(reader);
