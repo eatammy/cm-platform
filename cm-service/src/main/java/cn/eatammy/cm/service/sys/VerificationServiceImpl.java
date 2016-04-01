@@ -29,9 +29,12 @@ import cn.eatammy.cm.service.AbstractCMPageService;
 import cn.eatammy.common.exception.BizException;
 import cn.eatammy.common.sms.client.JsonReqClient;
 import cn.eatammy.common.utils.ERRORCODE;
+import cn.eatammy.common.utils.PropertiesUtil;
 import cn.eatammy.common.utils.RETURNCODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Properties;
 
 /**
  * 《验证模块：注册验证，修改密码验证，商店证验证以及其他认证验证（短信验证码验证）》 业务逻辑服务类
@@ -50,10 +53,18 @@ public class VerificationServiceImpl extends AbstractCMPageService<ICMBaseDAO<Ve
         return verificationDAO;
     }
 
-    private static final String ACCOUNTSID = "6660c7e8d6fac0828a9f1ab5a0416e08";
-    private static final String TOKEN = "b67118bf2600eeb6efbe7fceca38920b";
-    private static final String APPID = "ca8d40cb3cd94b8fbb75afddb389911b";
-    private static final String TEMPLATEID = "22038";
+//    private static final String ACCOUNTSID = "6660c7e8d6fac0828a9f1ab5a0416e08";
+//    private static final String TOKEN = "b67118bf2600eeb6efbe7fceca38920b";
+//    private static final String APPID = "ca8d40cb3cd94b8fbb75afddb389911b";
+//    private static final String TEMPLATEID = "22038";
+
+    private Properties properties = new PropertiesUtil().getProp4Config("/sysConfig/msg-config.properties");
+    private String ACCOUNTSID = properties.getProperty("ACCOUNTSID");
+    private String TOKEN = properties.getProperty("TOKEN");
+    private String APPID = properties.getProperty("APPID");
+    private String TEMPLATEID = properties.getProperty("TEMPLATEID");
+    private int TIMEOUT = Integer.parseInt(properties.getProperty("TIMEOUT"));
+    private String MINUTE = properties.getProperty("MINUTE");
 
     @Override
     public String sendSMS(String username, int type) {
@@ -66,7 +77,7 @@ public class VerificationServiceImpl extends AbstractCMPageService<ICMBaseDAO<Ve
             verification.setPhone(username);
             verification.setCreator(username);
             verification.setCreateDate(System.currentTimeMillis());
-            verification.setDisabledDate(verification.getCreateDate() + 120000);
+            verification.setDisabledDate(verification.getCreateDate() + TIMEOUT);
             verification.setType(1);
             String verifiedCode = "";
             while (verifiedCode.length() != 6) {
@@ -76,7 +87,7 @@ public class VerificationServiceImpl extends AbstractCMPageService<ICMBaseDAO<Ve
             verification.setStatus(0);
             verificationDAO.insert(verification);
             JsonReqClient jrc = new JsonReqClient();
-            String result = jrc.templateSMS(ACCOUNTSID, TOKEN, APPID, TEMPLATEID, username, verifiedCode + ",2");
+            String result = jrc.templateSMS(ACCOUNTSID, TOKEN, APPID, TEMPLATEID, username, verifiedCode + MINUTE);
             if (result.contains("000000")) {
                 return RETURNCODE.SENDSMS_SUCCESS.getMessage();
             } else {

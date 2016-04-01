@@ -2,10 +2,7 @@ package cn.eatammy.common.utils;
 
 import com.alibaba.druid.util.StringUtils;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -13,6 +10,29 @@ import java.util.Properties;
  * 配置文件读取类
  */
 public class PropertiesUtil {
+
+    public Properties getProp4Config(String file){
+        Properties properties = null;
+        InputStream in = null;
+        try {
+            in = getClass().getResourceAsStream(file);
+            InputStreamReader reader = new InputStreamReader(in, "utf-8");
+            properties = new Properties();
+            properties.load(reader);
+
+        }catch (Exception e){
+            throw new RuntimeException("配置文件读取失败");
+        }finally {
+            try {
+                if (in != null){
+                    in.close();
+                }
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        return properties;
+    }
 
     public static  void addProperties(String key[], String value[], String file){
         Properties iniFile = getProperties(file);
@@ -110,6 +130,7 @@ public class PropertiesUtil {
         saveProperties(properties, file);
     }
     public static void main(String[] args){
-        System.out.println(getProperties("/sysConfig/sms-config.properties").get("is_test"));
+//        System.out.println(getProperties("/sysConfig/sms-config.properties").get("is_test"));
+        System.out.println(new PropertiesUtil().getProp4Config("/sysConfig/sms-config.properties").get("version"));
     }
 }
