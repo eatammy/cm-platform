@@ -38,4 +38,11 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
      * @return 返回，0：失败，1：成功
      */
     int updateEx(@Param("username") String username, @Param("password") String password);
+
+    /**
+     * 修改用户详细信息
+     * @param user  用户修改参数
+     * @return  返回，0：失败，1：成功
+     */
+    int updateDetail(@Param("user") UserDetail user);
 }

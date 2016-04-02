@@ -5,6 +5,7 @@ import cn.eatammy.cm.param.user.UserDetailParam;
 import cn.eatammy.cm.service.sys.IVerificationService;
 import cn.eatammy.cm.service.user.IUserDetailService;
 import cn.eatammy.common.utils.RETURNCODE;
+import cn.eatammy.common.utils.User.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,7 +77,7 @@ public class UserController {
      *
      * @param username     用户名
      * @param verifiedCode 短信验证码
-     * @param typeValue    用户值
+     * @param typeValue    短信值
      * @return
      */
     @ResponseBody
@@ -85,10 +86,34 @@ public class UserController {
         return RETURNCODE.REGISTER_SUCCESS.getMessage();
     }
 
+    /**
+     * 找回密码/修改密码
+     * @param username      用户名
+     * @param password      密码
+     * @param verifiedCode  验证码
+     * @param typeValue     短信值
+     * @return
+     */
     @ResponseBody
-    @RequestMapping(value = "forgetPassowd", method = RequestMethod.POST)
+    @RequestMapping(value = "/forgetPassowd", method = RequestMethod.POST)
     public String forgetPassowd(String username, String password, String verifiedCode, int typeValue) {
         return userDetailService.forgetPasswd(username, password, verifiedCode, typeValue);
     }
 
+    /**
+     * 根据uid获取用户信息
+     * @param uid
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/queryOne")
+    public UserDetail queryOne(String uid){
+        return (UserDetail) userDetailService.findOne(UserDetailParam.F_ID,uid);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public UserDetail update(UserDetailParam param){
+        return userDetailService.update(param, UserContext.getCurrentUser());
+    }
 }

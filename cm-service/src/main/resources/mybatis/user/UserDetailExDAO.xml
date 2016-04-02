@@ -8,4 +8,11 @@
 		set password = #{password}
 		WHERE username = #{username}
 	</update>
+
+    <update id="updateDetail">
+        UPDATE  cm_user_detail
+        set nickname=#{user.nickname}, description=#{user.description}, phone=#{user.phone},
+        address=#{user.address},sex=#{user.sex},headIcon=#{user.headIcon}
+        WHERE id=#{user.id}
+    </update>
 </mapper>

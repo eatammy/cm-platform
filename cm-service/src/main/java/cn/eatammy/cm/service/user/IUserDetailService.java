@@ -24,6 +24,7 @@ import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.domain.user.UserDetail;
 import cn.eatammy.cm.param.user.UserDetailParam;
 import cn.eatammy.cm.service.ICMBaseService;
+import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.common.service.IPageService;
 
@@ -66,6 +67,14 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
      * @return 返回，操作码
      */
     String forgetPasswd(String username, String password, String verifiedCode, int typeValue);
+
+    /**
+     * 更新用户信息
+     * @param param         用户信息列表
+     * @param currentUser   当前操作用户
+     * @return 返回，最新用户实体
+     */
+    UserDetail update(UserDetailParam param, AccountDto currentUser);
 
     /**
      * 根据某个字段判断是否存在用户

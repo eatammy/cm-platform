@@ -26,6 +26,7 @@ import cn.eatammy.cm.domain.user.UserDetail;
 import cn.eatammy.cm.param.user.UserDetailParam;
 import cn.eatammy.cm.service.AbstractCMPageService;
 import cn.eatammy.cm.service.sys.IVerificationService;
+import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.exception.BizException;
 import cn.eatammy.common.utils.ERRORCODE;
 import cn.eatammy.common.utils.MD5Utils;
@@ -107,6 +108,27 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
             userDetailDAO.updateEx(username, password);
             return RETURNCODE.UPDATE_COMPLETE.getMessage();
         }else{
+            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+        }
+    }
+
+    @Override
+    public UserDetail update(UserDetailParam param, AccountDto currentUser) {
+        try {
+            UserDetail userDetail = new UserDetail();
+            userDetail.setNickname(param.getNickname());
+            userDetail.setPhone(param.getPhone());
+            userDetail.setStatus(0);
+            userDetail.setAddress(param.getAddress());
+            userDetail.setDescription(param.getDescription());
+            userDetail.setLastModifier(currentUser.getUid());
+            userDetail.setLastModifier(System.currentTimeMillis());
+            userDetail.setId(param.getId());
+            userDetail.setSex(param.getSex());
+            userDetail.setHeadIcon(param.getHeadIcon());
+            userDetailDAO.updateDetail(userDetail);
+            return userDetail;
+        } catch (Exception e){
             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
         }
     }
