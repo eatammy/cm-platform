@@ -3,6 +3,7 @@ package cn.eatammy.cm.app;
 import cn.eatammy.cm.domain.user.UserDetail;
 import cn.eatammy.cm.param.user.UserDetailParam;
 import cn.eatammy.cm.service.sys.IVerificationService;
+import cn.eatammy.cm.service.user.IBuddyListService;
 import cn.eatammy.cm.service.user.IUserDetailService;
 import cn.eatammy.common.utils.RETURNCODE;
 import cn.eatammy.common.utils.User.UserContext;
@@ -28,6 +29,8 @@ public class UserController {
     IUserDetailService userDetailService;
     @Autowired
     IVerificationService verificationService;
+    @Autowired
+    IBuddyListService buddyListService;
 
 
     /**
@@ -111,9 +114,46 @@ public class UserController {
         return (UserDetail) userDetailService.findOne(UserDetailParam.F_ID,uid);
     }
 
+    /**
+     * 更新用户信息
+     * @param param 用户信息参数
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public UserDetail update(UserDetailParam param){
         return userDetailService.update(param, UserContext.getCurrentUser());
     }
+
+    /**
+     * 关注某个用户
+     * @param uid       用户id
+     * @param buddyUid  被关注用户id
+     * @return  返回，操作码
+     */
+    @ResponseBody
+    @RequestMapping(value = "/attachOne")
+    public String attachOne(long uid, long buddyUid){
+        return buddyListService.attachOne(uid, buddyUid, UserContext.getCurrentUser());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/inattach")
+    public String inattach(long uid, long buddyUid){
+        return buddyListService.inattach(uid, buddyUid);
+    }
+
+    /**
+     * 第一版暂时不做好友通讯录
+     * @param uid
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+//    @ResponseBody
+//    @RequestMapping(value = "/queryAttachList")
+//    public BizData4Page<BuddyList> queryAttachList(long uid, int pageNo, int pageSize){
+////        return
+//    }
+
 }

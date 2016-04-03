@@ -45,4 +45,20 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
      * @return  返回，0：失败，1：成功
      */
     int updateDetail(@Param("user") UserDetail user);
+
+    /**
+     * 更新粉丝数
+     * @param count 粉丝数量
+     * @param id    当前用户id
+     * @return 返回，0：失败，1：成功
+     */
+    int updateFuns(@Param("count")int count, @Param("id") long id);
+
+    /**
+     * 更新粉丝数
+     * @param count 粉丝数量
+     * @param id    当前用户id
+     * @return 返回，0：失败，1：成功
+     */
+    int updateAttentions(@Param("count")int count, @Param("id") long id);
 }

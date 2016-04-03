@@ -22,13 +22,20 @@ package cn.eatammy.cm.dao.user;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.domain.user.BuddyList;
+import org.apache.ibatis.annotations.Param;
 
- /**
+/**
  * 《好友列表（cm_user_buddyList）》 数据访问接口
  * @author 郭旭辉
  *
  */
 public interface IBuddyListDAO extends ICMBaseDAO<BuddyList> {
 
-
+  /**
+   * 根据uid，buddyUid删除关注
+   * @param uid       用户id
+   * @param buddyUid  被关注用户id
+   * @return 返回，0：失败，1：成功
+     */
+  int deleteOne(@Param("uid") long uid, @Param("buddyUid") long buddyUid);
 }

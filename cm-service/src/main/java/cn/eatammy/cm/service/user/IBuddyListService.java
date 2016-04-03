@@ -20,16 +20,33 @@
 
 package cn.eatammy.cm.service.user;
 
+import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.service.ICMBaseService;
 import cn.eatammy.common.service.IPageService;
 
- /**
+/**
  * 《好友列表（cm_user_buddyList）》 业务逻辑服务接口
- * @author 郭旭辉
  *
+ * @author 郭旭辉
  */
-public interface IBuddyListService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>,IPageService<D, T>{
+public interface IBuddyListService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>, IPageService<D, T> {
 
+    /**
+     * 根据用户
+     * @param uid           用户id
+     * @param buddyUid      被关注用户id
+     * @param currentUser   当前操作者
+     * @return 返回，操作码
+     */
+    String attachOne(long uid, long buddyUid, AccountDto currentUser);
+
+    /**
+     * 取消对用户的关注
+     * @param uid       用户id
+     * @param buddyUid  被关注用户id
+     * @return 返回，操作码
+     */
+    String inattach(long uid, long buddyUid);
 }

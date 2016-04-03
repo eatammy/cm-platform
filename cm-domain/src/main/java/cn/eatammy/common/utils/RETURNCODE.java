@@ -13,6 +13,8 @@ public enum RETURNCODE {
     UPDATE_COMPLETE("0000004", "修改成功"),
     SENDSMS_SUCCESS("0000005", "验证码发送成功"),
     REGISTER_SUCCESS("0000006", "注册成功"),
+    ATTACH_SUCCESS("0000007", "关注成功"),
+    INATTACH_SUCCESS("00000008","取消关注成功")
     ;
 
     /**

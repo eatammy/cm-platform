@@ -3,5 +3,8 @@
 
 <mapper namespace="cn.eatammy.cm.dao.user.IBuddyListDAO">
 	<!-- 在这里存放用户自定义的映射配置（注：BuddyListDAO.xml里各节点的ID不能在这里重复出现）  -->
-	
+	<delete id="deleteOne">
+		DELETE  FROM cm_user_buddyList
+		WHERE uid = #{uid} AND buddyUid = #{buddyUid}
+	</delete>
 </mapper>
