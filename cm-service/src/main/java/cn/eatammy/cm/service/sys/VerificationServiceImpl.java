@@ -53,11 +53,6 @@ public class VerificationServiceImpl extends AbstractCMPageService<ICMBaseDAO<Ve
         return verificationDAO;
     }
 
-//    private static final String ACCOUNTSID = "6660c7e8d6fac0828a9f1ab5a0416e08";
-//    private static final String TOKEN = "b67118bf2600eeb6efbe7fceca38920b";
-//    private static final String APPID = "ca8d40cb3cd94b8fbb75afddb389911b";
-//    private static final String TEMPLATEID = "22038";
-
     private Properties properties = new PropertiesUtil().getProp4Config("/sysConfig/msg-config.properties");
     private String ACCOUNTSID = properties.getProperty("ACCOUNTSID");
     private String TOKEN = properties.getProperty("TOKEN");
