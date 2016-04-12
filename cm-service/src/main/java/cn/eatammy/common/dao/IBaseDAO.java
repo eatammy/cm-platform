@@ -1,6 +1,7 @@
 package cn.eatammy.common.dao;
 
 import cn.eatammy.common.domain.BaseDomain;
+import cn.eatammy.common.sys.database.DataSource;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      *
      * @param entity
      */
+    @DataSource("write")
     public int insert(T entity);
 
     /**
@@ -25,8 +27,9 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @param entity
      *            要更新的实体对象
      */
+    @DataSource("write")
     public int update(T entity);
-
+    @DataSource("write")
     public int updateMap(@Param("map") Map<String, Object> entityMap);
 
     /**
@@ -34,12 +37,14 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @param updateMap 需要更新的值
      * @param conditionMap 需要被更新的条件
      */
+    @DataSource("write")
     public int updateByCondition(@Param("update") Map<String, Object> updateMap, @Param("condition") Map<String, Object> conditionMap);
 
     /**
      * map类型数据的新增
      * @param entityMap
      */
+    @DataSource("write")
     public int insertMap(@Param("map") Map<String, Object> entityMap);
 
     /**
@@ -47,6 +52,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      *
      * @param entity
      */
+    @DataSource("write")
     public int updateNull(T entity);
 
     /**
@@ -54,6 +60,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      *
      * @param id
      */
+    @DataSource("write")
     public int deleteById(Object id);
 
     /**
@@ -61,6 +68,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      *
      * @param list
      */
+    @DataSource("write")
     public int deleteByIds(List list);
 
     /**
@@ -68,6 +76,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      *
      * @param condition
      */
+    @DataSource("write")
     public int deleteByCondition(Map<String, Object> condition);
 
     /**
@@ -76,6 +85,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @param property
      * @param value
      */
+    @DataSource("write")
     public int deleteByProperty(@Param("property") String property, @Param("value") Object value);
 
     /**
@@ -84,6 +94,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @param id
      * @return
      */
+    @DataSource("read")
     public T fetch(Object id);
 
     /**
@@ -105,6 +116,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @param sortBy
      * @return
      */
+    @DataSource("read")
     public T findOne(@Param("property") String property, @Param("value") Object value, @Param("orderBy") String orderBy, @Param("sortBy") String sortBy);
 
     /**
@@ -126,6 +138,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @param sortBy
      * @return
      */
+    @DataSource("read")
     public List<T> findList(@Param("property") String property, @Param("value") Object value, @Param("orderBy") String orderBy, @Param("sortBy") String sortBy);
 
     /**
@@ -141,6 +154,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @param sortBy
      * @return
      */
+    @DataSource("read")
     public List<T> findAll(@Param("orderBy") String orderBy, @Param("sortBy") String sortBy);
     /**
      * 根据条件集合进行分页查询
@@ -164,10 +178,11 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @param sortBy
      * @return
      */
+    @DataSource("read")
     public List<T> queryPage(@Param("condition") Map<String, Object> condition, @Param("offset") int offset, @Param("rows") int rows,
                              @Param("orderBy") String orderBy, @Param("sortBy") String sortBy);
 
-
+    @DataSource("read")
     public List<T> queryPage(@Param("condition") Map<String, Object> condition, @Param("offset") int offset, @Param("rows") int rows,
                              @Param("orderBy") String orderBy, @Param("sortBy") String sortBy, @Param("selector") Map<String, Object> selector);
 
@@ -189,7 +204,9 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @param sortBy
      * @return
      */
+    @DataSource("read")
     public List<T> like(@Param("condition") Map<String, Object> condition, @Param("orderBy") String orderBy, @Param("sortBy") String sortBy);
+    @DataSource("read")
     public List<T> like(@Param("condition") Map<String, Object> condition, @Param("orderBy") String orderBy, @Param("sortBy") String sortBy, @Param("selector") Map<String, Object> selector);
 
     /**
@@ -199,8 +216,9 @@ public interface IBaseDAO<T extends BaseDomain> {
      *            进行查询的条件集合
      * @return 返回泛型参数类型的对象集合，如何取到泛型类型参数，请参看{@link #getEntityClass()}
      */
+    @DataSource("read")
     public List<T> queryList(@Param("condition") Map<String, Object> condition, @Param("orderBy") String orderBy, @Param("sortBy") String sortBy);
-
+    @DataSource("read")
     public List<T> queryList(@Param("condition") Map<String, Object> condition, @Param("orderBy") String orderBy, @Param("sortBy") String sortBy, @Param("selector") Map<String, Object> selector);
 
     /**
@@ -211,6 +229,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @return 返回泛型参数类型的对象，如何取到泛型类型参数，请参看{@link #getEntityClass()}，
      */
 //    public T queryOne(Map<String, Object> condition);
+    @DataSource("read")
     public T queryOne(@Param("condition") Map<String, Object> condition, @Param("orderBy") String orderBy, @Param("sortBy") String sortBy);
 
     /**
@@ -221,6 +240,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @param selector  查询器，不进行不必要字段的查询，这样 生成的 model  在http传递给客户端时依赖fastjson的特性 就不会传递出去，减少带宽依赖
      * @return
      */
+    @DataSource("read")
     public T queryOne(@Param("condition") Map<String, Object> condition, @Param("orderBy") String orderBy, @Param("sortBy") String sortBy, @Param("selector") Map<String, Object> selector);
 
     /**
@@ -229,6 +249,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @param condition
      * @return 返回符合条件的泛型参数对应表中的数量
      */
+    @DataSource("read")
     public int count(Map<String, Object> condition);
 
     /**
@@ -249,6 +270,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @exception/throws 如果主键类型不为long，会抛出类型转换异常
      * @return 返回泛型参数对应表的主键最大值
      */
+    @DataSource("read")
     public Object selectMaxId();
 
     /**
@@ -264,6 +286,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @throws SecurityException
      * @throws IllegalArgumentException
      */
+    @DataSource("write")
     public T updateOrSave(@Param("condition") T t, @Param("condition") Long id);
 
     /**
@@ -274,6 +297,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @return 返回泛型类型对象，如果返回多个结果集会抛出异常，如果要返回多个结果集，请参看
      *         {@link #selectList(String, Object)}
      */
+    @DataSource("read")
     public T selectOne(@Param("condition") String mapperId, @Param("condition") Object obj);
 
     /**
@@ -283,14 +307,16 @@ public interface IBaseDAO<T extends BaseDomain> {
      * @param obj
      * @return 返回泛型类型对象集合，如果要返回单个结果对象，请参看{@link #selectOne(String, Object)}
      */
+    @DataSource("read")
     public List<T> selectList(@Param("condition") String mapperId, @Param("condition") Object obj);
 
     /**
      * 根据原生sql查询获取返回的值[模型动态化]
      * @return
      */
+    @DataSource("read")
     public List<Map> queryBySql(@Param("executeSql") String executeSql);
-
+    @DataSource("read")
     public Long queryBySqlCount(@Param("executeSqlCount") String executeSql);
 
     /**
@@ -298,6 +324,7 @@ public interface IBaseDAO<T extends BaseDomain> {
      *
      * @return
      */
+    @DataSource("read")
     public Class<T> getEntityClass();
 
 }
