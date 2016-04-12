@@ -11,7 +11,7 @@
            http://www.springframework.org/schema/tx      http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
        ">
 
-     <!--读取本地配置-->
+    <!--读取本地配置-->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="order" value="1"/>
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
@@ -52,40 +52,95 @@
     <!--加载db.properties-->
     <context:property-placeholder location="classpath:db.properties"/>
 
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <property name="driverClassName" value="${jdbc.driver}"/>
+    <bean id="writeDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.master.driver}"/>
         <!-- 基本属性 url、user、password -->
-        <property name="url" value="jdbc:mysql://119.29.168.228:3306/eatammy?useUnicode=true&amp;characterEncoding=utf-8"/>
-        <property name="username" value="root"/>
-        <property name="password" value="123"/>
-
+        <property name="url"
+                  value="${jdbc.master.url}"/>
+        <property name="username" value="${jdbc.master.username}"/>
+        <property name="password" value="${jdbc.master.password}"/>
         <!-- 配置初始化大小、最小、最大 -->
-        <property name="initialSize" value="1"/>
-        <property name="minIdle" value="1"/>
-        <property name="maxActive" value="20"/>
+        <property name="initialSize" value="${jdbc.master.initialSize}"/>
+        <property name="minIdle" value="${jdbc.master.minIdle}"/>
+        <property name="maxActive" value="${jdbc.master.maxActive}"/>
 
         <!-- 配置获取连接等待超时的时间 -->
-        <property name="maxWait" value="60000"/>
+        <property name="maxWait" value="${jdbc.master.maxWait}"/>
 
         <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
-        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="timeBetweenEvictionRunsMillis" value="${jdbc.master.timeBetweenEvictionRunsMillis}"/>
 
         <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
-        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="minEvictableIdleTimeMillis" value="${jdbc.master.minEvictableIdleTimeMillis}"/>
 
-        <property name="validationQuery" value="SELECT 'x'"/>
-        <property name="testWhileIdle" value="true"/>
-        <property name="testOnBorrow" value="false"/>
-        <property name="testOnReturn" value="false"/>
+        <property name="validationQuery" value="${jdbc.master.validationQuery}"/>
+        <property name="testWhileIdle" value="${jdbc.master.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${jdbc.master.testOnBorrow}"/>
+        <property name="testOnReturn" value="${jdbc.master.testOnReturn}"/>
 
         <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
-        <property name="poolPreparedStatements" value="true"/>
-        <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+        <property name="poolPreparedStatements" value="${jdbc.master.poolPreparedStatements}"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="${jdbc.master.maxPoolPreparedStatementPerConnectionSize}"/>
+
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="stat"/>
+    </bean>
+    <bean id="readDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.slave.driver}"/>
+        <!-- 基本属性 url、user、password -->
+        <property name="url"
+                  value="${jdbc.slave.url}"/>
+        <property name="username" value="${jdbc.slave.username}"/>
+        <property name="password" value="${jdbc.slave.password}"/>
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="${jdbc.slave.initialSize}"/>
+        <property name="minIdle" value="${jdbc.slave.minIdle}"/>
+        <property name="maxActive" value="${jdbc.slave.maxActive}"/>
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="${jdbc.slave.maxWait}"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${jdbc.slave.timeBetweenEvictionRunsMillis}"/>
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${jdbc.slave.minEvictableIdleTimeMillis}"/>
+
+        <property name="validationQuery" value="${jdbc.slave.validationQuery}"/>
+        <property name="testWhileIdle" value="${jdbc.slave.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${jdbc.slave.testOnBorrow}"/>
+        <property name="testOnReturn" value="${jdbc.slave.testOnReturn}"/>
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="${jdbc.slave.poolPreparedStatements}"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="${jdbc.slave.maxPoolPreparedStatementPerConnectionSize}"/>
 
         <!-- 配置监控统计拦截的filters -->
         <property name="filters" value="stat"/>
     </bean>
 
+    <bean id="dataSource" class="cn.eatammy.common.sys.database.DynamicDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <!--主数据库 写数据库-->
+                <entry key="write" value-ref="writeDataSource"/>
+                <!--从数据库，读数据库-->
+                <entry key="read" value-ref="readDataSource"/>
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="writeDataSource"/>
+    </bean>
+    <!-- 激活自动代理功能 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!-- 配置数据库注解aop -->
+    <bean id="dataSourceAspect" class="cn.eatammy.common.sys.database.DataSourceAspect" />
+    <aop:config>
+        <aop:aspect id="c" ref="dataSourceAspect">
+            <aop:pointcut id="tx" expression="execution(* cn.eatammy.cm.service..*.*(..))"/>
+            <aop:before pointcut-ref="tx" method="before"/>
+        </aop:aspect>
+    </aop:config>
     <!--默认的redis配置，启动时会建立连接-->
     <!--<import resource="classpath*:spring-redis.xml"/>-->
     <!--&lt;!&ndash;依赖消费服务&ndash;&gt;-->
