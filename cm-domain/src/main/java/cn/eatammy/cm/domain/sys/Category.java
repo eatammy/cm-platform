@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-31  郭旭辉        新建	
+{  2016-04-15  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -20,13 +20,11 @@
 
 package cn.eatammy.cm.domain.sys;
 
+import cn.eatammy.common.domain.CMCreateBaseDomain;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import cn.eatammy.common.domain.CMCreateBaseDomain;
-
-import java.util.*;
 
 /**
  * 《分类》 实体
@@ -36,9 +34,10 @@ import java.util.*;
 public class Category extends CMCreateBaseDomain<Long> {
 	private static final long serialVersionUID = 1L;
 	
-	private String categoryName; //菜谱分类名称
+	private String name; //
 	private Integer priority; //排序字段
-	private Integer type; //分类类别，1：食谱分类，2：商店分类
+	private Integer type; //分类类别，1：食谱分类，2：商店分类,4：商品分类，8：活动分类
+	private String creatorName; //创建人名称
     
 	/**
 	 *默认空构造函数
@@ -48,16 +47,16 @@ public class Category extends CMCreateBaseDomain<Long> {
 	}
 	 
 	/**
-	 * @return categoryName 菜谱分类名称
+	 * @return name 
 	 */
-	public String getCategoryName(){
-		return this.categoryName;
+	public String getName(){
+		return this.name;
 	}
 	/**
-	 * @param categoryName 菜谱分类名称
+	 * @param name 
 	 */
-	public void setCategoryName(String categoryName){
-		this.categoryName = categoryName;
+	public void setName(String name){
+		this.name = name;
 	}
 	/**
 	 * @return priority 排序字段
@@ -72,22 +71,34 @@ public class Category extends CMCreateBaseDomain<Long> {
 		this.priority = priority;
 	}
 	/**
-	 * @return type 分类类别，1：食谱分类，2：商店分类
+	 * @return type 分类类别，1：食谱分类，2：商店分类,4：商品分类，8：活动分类
 	 */
 	public Integer getType(){
 		return this.type;
 	}
 	/**
-	 * @param type 分类类别，1：食谱分类，2：商店分类
+	 * @param type 分类类别，1：食谱分类，2：商店分类,4：商品分类，8：活动分类
 	 */
 	public void setType(Integer type){
 		this.type = type;
+	}
+	/**
+	 * @return creatorName 创建人名称
+	 */
+	public String getCreatorName(){
+		return this.creatorName;
+	}
+	/**
+	 * @param creatorName 创建人名称
+	 */
+	public void setCreatorName(String creatorName){
+		this.creatorName = creatorName;
 	}
 	
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("id",getId())
-			.append("categoryName",getCategoryName())
+			.append("name",getName())
 			.append("priority",getPriority())
 			.append("type",getType())
 			.append("status",getStatus())
@@ -95,13 +106,14 @@ public class Category extends CMCreateBaseDomain<Long> {
 			.append("createDate",getCreateDate())
 			.append("lastModifier",getLastModifier())
 			.append("lastModDate",getLastModDate())
+			.append("creatorName",getCreatorName())
 			.toString();
 	}
 	
 	public int hashCode() {
 		return new HashCodeBuilder()
 			.append(getId())
-			.append(getCategoryName())
+			.append(getName())
 			.append(getPriority())
 			.append(getType())
 			.append(getStatus())
@@ -109,6 +121,7 @@ public class Category extends CMCreateBaseDomain<Long> {
 			.append(getCreateDate())
 			.append(getLastModifier())
 			.append(getLastModDate())
+			.append(getCreatorName())
 			.toHashCode();
 	}
 	

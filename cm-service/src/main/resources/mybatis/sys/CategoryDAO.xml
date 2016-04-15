@@ -5,18 +5,19 @@
 
     <sql id="Base_Column_List">
         id,
-        categoryName,
+        name,
         priority,
         type,
         status,
         creator,
         createDate,
         lastModifier,
-        lastModDate
+        lastModDate,
+        creatorName
     </sql>
     <insert id="insert" parameterType="cn.eatammy.cm.domain.sys.Category">
         INSERT INTO cm_sys_category (
-		    categoryName
+		    name
 		    ,priority
 		    ,type
 		    ,status
@@ -24,8 +25,9 @@
 		    ,createDate
 		    ,lastModifier
 		    ,lastModDate
+		    ,creatorName
         ) VALUES (
-		    	#{categoryName}
+		    	#{name}
 		    	,#{priority}
 		    	,#{type}
 		    	,#{status}
@@ -33,6 +35,7 @@
 		    	,#{createDate}
 		    	,#{lastModifier}
 		    	,#{lastModDate}
+		    	,#{creatorName}
         )
         <selectKey resultType="java.lang.Long" keyProperty="id">
         	SELECT LAST_INSERT_ID() AS ID
@@ -41,7 +44,7 @@
 
     <insert id="insertMap" >
         INSERT INTO cm_sys_category (
-		    categoryName
+		    name
 		    ,priority
 		    ,type
 		    ,status
@@ -49,8 +52,9 @@
 		    ,createDate
 		    ,lastModifier
 		    ,lastModDate
+		    ,creatorName
         ) VALUES (
-		    	#{map.categoryName}
+		    	#{map.name}
 		    	,#{map.priority}
 		    	,#{map.type}
 		    	,#{map.status}
@@ -58,6 +62,7 @@
 		    	,#{map.createDate}
 		    	,#{map.lastModifier}
 		    	,#{map.lastModDate}
+		    	,#{map.creatorName}
         )
     </insert>
     
@@ -65,7 +70,7 @@
     <update id="update" parameterType="cn.eatammy.cm.domain.sys.Category">
         UPDATE cm_sys_category
         <trim prefix="SET" suffixOverrides=",">
-		    categoryName=#{categoryName},
+		    name=#{name},
 		    priority=#{priority},
 		    type=#{type},
 		    status=#{status},
@@ -73,6 +78,7 @@
 		    createDate=#{createDate},
 		    lastModifier=#{lastModifier},
 		    lastModDate=#{lastModDate},
+		    creatorName=#{creatorName},
         </trim>
         WHERE
         id = #{id}
@@ -81,8 +87,8 @@
 	<update id="updateMap">
         UPDATE cm_sys_category
         <trim prefix="SET" suffixOverrides=",">
-            <if test="map.categoryName!=null">
-                categoryName = #{map.categoryName},
+            <if test="map.name!=null">
+                name = #{map.name},
             </if>
             <if test="map.priority!=null">
                 priority = #{map.priority},
@@ -105,6 +111,9 @@
             <if test="map.lastModDate!=null">
                 lastModDate = #{map.lastModDate},
             </if>
+            <if test="map.creatorName!=null">
+                creatorName = #{map.creatorName},
+            </if>
         </trim>
         WHERE
         id = #{map.id}
@@ -113,8 +122,8 @@
     <update id="updateByCondition">
         UPDATE cm_sys_category
         <trim prefix="SET" suffixOverrides=",">
-            <if test="update.categoryName!=null">
-                categoryName = #{update.categoryName},
+            <if test="update.name!=null">
+                name = #{update.name},
             </if>
             <if test="update.priority!=null">
                 priority = #{update.priority},
@@ -137,11 +146,14 @@
             <if test="update.lastModDate!=null">
                 lastModDate = #{update.lastModDate},
             </if>
+            <if test="update.creatorName!=null">
+                creatorName = #{update.creatorName},
+            </if>
         </trim>
 
         <trim prefix="WHERE" prefixOverrides="AND | OR">
-            <if test="condition.categoryName!=null">
-                AND categoryName = #{condition.categoryName}
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
             </if>
             <if test="condition.priority!=null">
                 AND priority = #{condition.priority}
@@ -164,13 +176,16 @@
             <if test="condition.lastModDate!=null">
                 AND lastModDate = #{condition.lastModDate}
             </if>
+            <if test="condition.creatorName!=null">
+                AND creatorName = #{condition.creatorName}
+            </if>
         </trim>
     </update>
 
     <update id="updateNull" parameterType="cn.eatammy.cm.domain.sys.Category">
         UPDATE cm_sys_category
         <trim prefix="SET" suffixOverrides=",">
-            categoryName = #{categoryName},
+            name = #{name},
             priority = #{priority},
             type = #{type},
             status = #{status},
@@ -178,6 +193,7 @@
             createDate = #{createDate},
             lastModifier = #{lastModifier},
             lastModDate = #{lastModDate},
+            creatorName = #{creatorName},
         </trim>
         WHERE
         id = #{id}
@@ -205,8 +221,8 @@
             <if test="id!=null">
                 AND id = #{id}
             </if>
-            <if test="categoryName!=null">
-                AND categoryName = #{categoryName}
+            <if test="name!=null">
+                AND name = #{name}
             </if>
             <if test="priority!=null">
                 AND priority = #{priority}
@@ -228,6 +244,9 @@
             </if>
             <if test="lastModDate!=null">
                 AND lastModDate = #{lastModDate}
+            </if>
+            <if test="creatorName!=null">
+                AND creatorName = #{creatorName}
             </if>
         </trim>
     </delete>
@@ -287,8 +306,8 @@
             <if test="condition.id!=null">
                 ${condition.groupOp}   id  ${condition.id.op}  #{condition.id.data}
             </if>
-            <if test="condition.categoryName!=null">
-                ${condition.groupOp}   categoryName  ${condition.categoryName.op}  #{condition.categoryName.data}
+            <if test="condition.name!=null">
+                ${condition.groupOp}   name  ${condition.name.op}  #{condition.name.data}
             </if>
             <if test="condition.priority!=null">
                 ${condition.groupOp}   priority  ${condition.priority.op}  #{condition.priority.data}
@@ -311,6 +330,9 @@
             <if test="condition.lastModDate!=null">
                 ${condition.groupOp}   lastModDate  ${condition.lastModDate.op}  #{condition.lastModDate.data}
             </if>
+            <if test="condition.creatorName!=null">
+                ${condition.groupOp}   creatorName  ${condition.creatorName.op}  #{condition.creatorName.data}
+            </if>
 
 
     </where>
@@ -331,8 +353,8 @@
             <if test="id!=null">
                 AND id like CONCAT('%', #{id} , '%')
             </if>
-            <if test="categoryName!=null">
-                AND categoryName like CONCAT('%', #{categoryName} , '%')
+            <if test="name!=null">
+                AND name like CONCAT('%', #{name} , '%')
             </if>
             <if test="priority!=null">
                 AND priority like CONCAT('%', #{priority} , '%')
@@ -355,6 +377,9 @@
             <if test="lastModDate!=null">
                 AND lastModDate like CONCAT('%', #{lastModDate} , '%')
             </if>
+            <if test="creatorName!=null">
+                AND creatorName like CONCAT('%', #{creatorName} , '%')
+            </if>
         </trim>
         <if test="orderBy!=null">
         ORDER BY ${orderBy} ${sortBy}
@@ -370,8 +395,8 @@
             <if test="condition.id!=null">
                 AND id = #{condition.id}
             </if>
-            <if test="condition.categoryName!=null">
-                AND categoryName = #{condition.categoryName}
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
             </if>
             <if test="condition.priority!=null">
                 AND priority = #{condition.priority}
@@ -393,6 +418,9 @@
             </if>
             <if test="condition.lastModDate!=null">
                 AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.creatorName!=null">
+                AND creatorName = #{condition.creatorName}
             </if>
         </trim>
         <if test="orderBy!=null">
@@ -408,8 +436,8 @@
             <if test="condition.id!=null">
                 AND id = #{condition.id}
             </if>
-            <if test="condition.categoryName!=null">
-                AND categoryName = #{condition.categoryName}
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
             </if>
             <if test="condition.priority!=null">
                 AND priority = #{condition.priority}
@@ -432,6 +460,9 @@
             <if test="condition.lastModDate!=null">
                 AND lastModDate = #{condition.lastModDate}
             </if>
+            <if test="condition.creatorName!=null">
+                AND creatorName = #{condition.creatorName}
+            </if>
         </trim>
         limit 0,1
     </select>
@@ -442,8 +473,8 @@
            <if test="id!=null">
                ${groupOp} id ${id.op}  #{id.data}
            </if>
-           <if test="categoryName!=null">
-               ${groupOp} categoryName ${categoryName.op}  #{categoryName.data}
+           <if test="name!=null">
+               ${groupOp} name ${name.op}  #{name.data}
            </if>
            <if test="priority!=null">
                ${groupOp} priority ${priority.op}  #{priority.data}
@@ -465,6 +496,9 @@
            </if>
            <if test="lastModDate!=null">
                ${groupOp} lastModDate ${lastModDate.op}  #{lastModDate.data}
+           </if>
+           <if test="creatorName!=null">
+               ${groupOp} creatorName ${creatorName.op}  #{creatorName.data}
            </if>
 
        </where>
