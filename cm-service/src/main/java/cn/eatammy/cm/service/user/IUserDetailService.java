@@ -50,6 +50,13 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
     UserDetail isLogin(String username, String password, HttpSession session, HttpServletResponse response);
 
     /**
+     * 注销
+     * @param session session
+     * @return 返回操作码
+     */
+    String logout(HttpSession session);
+
+    /**
      * 用户注册
      * @param param         用户注册参数
      * @param verifiedCode  验证码

@@ -28,6 +28,7 @@ import cn.eatammy.cm.service.AbstractCMPageService;
 import cn.eatammy.cm.service.sys.IVerificationService;
 import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.exception.BizException;
+import cn.eatammy.common.sys.filter.CMRequestFilter;
 import cn.eatammy.common.utils.ERRORCODE;
 import cn.eatammy.common.utils.MD5Utils;
 import cn.eatammy.common.utils.RETURNCODE;
@@ -36,6 +37,8 @@ import com.alibaba.druid.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -80,6 +83,18 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
             //登录验证未通过，自动转化为系统异常
             throw new RuntimeException();
         }
+    }
+
+    @Override
+    public String logout(HttpSession session) {
+        HttpServletRequest request = CMRequestFilter.getRequest();
+        //获取access_token
+        Cookie cookie = HttpUtils.getCookie(request.getCookies(),HttpUtils.ACCESS_TOKEN);
+        if (cookie != null){
+            //清除session
+            session.removeAttribute(cookie.getValue());
+        }
+        return RETURNCODE.LOGOUT_SUCCESS.getMessage();
     }
 
     @Override
