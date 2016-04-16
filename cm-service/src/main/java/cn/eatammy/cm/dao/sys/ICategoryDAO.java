@@ -22,13 +22,38 @@ package cn.eatammy.cm.dao.sys;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.domain.sys.Category;
+import cn.eatammy.common.sys.database.DataSource;
+import org.apache.ibatis.annotations.Param;
 
- /**
+import java.util.List;
+
+/**
  * 《分类》 数据访问接口
- * @author 郭旭辉
  *
+ * @author 郭旭辉
  */
 public interface ICategoryDAO extends ICMBaseDAO<Category> {
 
+    /**
+     * 获取分类列表
+     * @param name      分类名称
+     * @param type      分类类型
+     * @param status    分类状态
+     * @param offset    偏移量
+     * @param rows      行数
+     * @return   返回，分类列表
+     */
+    @DataSource("read")
+    List<Category> queryListEx(@Param("name") String name, @Param("type") Integer type, @Param("status") Integer status, @Param("offset") int offset, @Param("rows") int rows);
+
+    /**
+     * 统计分类大小
+     * @param name      分类名称
+     * @param type      分类类型
+     * @param status    分类状态
+     * @return 返回，统计结果
+     */
+    @DataSource("read")
+    int countEx(@Param("name") String name, @Param("type") Integer type, @Param("status") Integer status);
 
 }

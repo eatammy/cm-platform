@@ -1,12 +1,15 @@
 package cn.eatammy.cm.controller.category;
 
+import cn.eatammy.cm.domain.sys.Category;
 import cn.eatammy.cm.param.sys.CategoryParam;
 import cn.eatammy.cm.service.sys.ICategoryService;
+import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.utils.User.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -19,11 +22,32 @@ public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
 
+    /**
+     * 保存分类
+     *
+     * @param param 分类实体参数
+     * @return 返回操作码
+     */
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String add(CategoryParam param){
+    public String add(CategoryParam param) {
         return categoryService.add(param, UserContext.getCurrentUser());
     }
 
+    /**
+     * 分页查询
+     *
+     * @param name     分类名称
+     * @param type     分类类型，1：食谱分类，2：商店分类,4：商品分类，8：活动分类
+     * @param status   状态，）：正常，1：审核
+     * @param pageNo   页码，默认1
+     * @param pageSize 页大小，默认10
+     * @return 返回分页结果
+     */
+    @ResponseBody
+    @RequestMapping(value = "/queryPage")
+    public BizData4Page<Category> queryPage(String name, Integer type, Integer status, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+        return categoryService.queryPage(name, type, status, pageNo, pageSize);
+    }
 
 }

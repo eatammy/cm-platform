@@ -3,5 +3,41 @@
 
 <mapper namespace="cn.eatammy.cm.dao.sys.ICategoryDAO">
 	<!-- 在这里存放用户自定义的映射配置（注：CategoryDAO.xml里各节点的ID不能在这里重复出现）  -->
-	
+	<select id="queryListEx" resultType="cn.eatammy.cm.domain.sys.Category">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM cm_sys_category
+		<where>
+			<if test="name != null and name != ''">
+				AND name like '%${name}%'
+			</if>
+			<if test="status != null and status != -1">
+				AND status = #{status}
+			</if>
+			<if test="type != null and status != -1">
+				AND  type = #{type}
+			</if>
+		</where>
+		GROUP BY Id
+		ORDER BY priority,createDate DESC
+		<if test="offset != null">
+			limit ${offset}, ${rows}
+		</if>
+	</select>
+
+	<select id="countEx" resultType="java.lang.Integer">
+		SELECT count(1)
+		FROM cm_sys_category
+		<where>
+			<if test="name != null and name != ''">
+				AND name like '%${name}%'
+			</if>
+			<if test="status != null and status != -1">
+				AND status = #{status}
+			</if>
+			<if test="type != null and status != -1">
+				AND  type = #{type}
+			</if>
+		</where>
+	</select>
 </mapper>
