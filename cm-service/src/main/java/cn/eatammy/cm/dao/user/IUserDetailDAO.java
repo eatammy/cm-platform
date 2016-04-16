@@ -22,6 +22,7 @@ package cn.eatammy.cm.dao.user;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.domain.user.UserDetail;
+import cn.eatammy.common.sys.database.DataSource;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -37,6 +38,7 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
      * @param password  密码
      * @return 返回，0：失败，1：成功
      */
+    @DataSource("write")
     int updateEx(@Param("username") String username, @Param("password") String password);
 
     /**
@@ -44,6 +46,7 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
      * @param user  用户修改参数
      * @return  返回，0：失败，1：成功
      */
+    @DataSource("write")
     int updateDetail(@Param("user") UserDetail user);
 
     /**
@@ -52,6 +55,7 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
      * @param id    当前用户id
      * @return 返回，0：失败，1：成功
      */
+    @DataSource("write")
     int updateFuns(@Param("count")int count, @Param("id") long id);
 
     /**
@@ -60,5 +64,6 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
      * @param id    当前用户id
      * @return 返回，0：失败，1：成功
      */
+    @DataSource("write")
     int updateAttentions(@Param("count")int count, @Param("id") long id);
 }
