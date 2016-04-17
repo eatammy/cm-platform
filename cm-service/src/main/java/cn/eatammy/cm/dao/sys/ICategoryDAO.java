@@ -56,4 +56,11 @@ public interface ICategoryDAO extends ICMBaseDAO<Category> {
     @DataSource("read")
     int countEx(@Param("name") String name, @Param("type") Integer type, @Param("status") Integer status);
 
+    /**
+     * 根据id更新分类
+     * @param param    分类实体参数
+     * @return 返回，0：失败，1：成功
+     */
+    @DataSource("write")
+    int updateById(@Param("param") Category param);
 }

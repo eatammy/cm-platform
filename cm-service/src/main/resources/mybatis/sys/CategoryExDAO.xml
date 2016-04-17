@@ -40,4 +40,11 @@
 			</if>
 		</where>
 	</select>
+
+	<update id="updateById">
+		UPDATE  cm_sys_category
+		SET name = #{param.name}, priority = #{param.priority}, type = #{param.type},
+		lastModifier = #{param.lastModifier}, lastModDate=#{param.lastModDate}
+		WHERE id = #{param.id}
+	</update>
 </mapper>

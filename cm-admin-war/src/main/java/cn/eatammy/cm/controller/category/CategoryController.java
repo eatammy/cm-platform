@@ -45,9 +45,31 @@ public class CategoryController {
      * @return 返回分页结果
      */
     @ResponseBody
-    @RequestMapping(value = "/queryPage")
+    @RequestMapping(value = "/queryPage", method = RequestMethod.POST)
     public BizData4Page<Category> queryPage(String name, Integer type, Integer status, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
         return categoryService.queryPage(name, type, status, pageNo, pageSize);
+    }
+
+    /**
+     * 根据id获取单个分类
+     * @param id 分类id
+     * @return 返回，分类值
+     */
+    @ResponseBody
+    @RequestMapping(value = "/queryOne", method = RequestMethod.GET)
+    public Category queryOne(int id){
+        return (Category) categoryService.findOne(CategoryParam.F_ID, id);
+    }
+
+    /**
+     * 更新分类
+     * @param param 分类实体参数
+     * @return，返回，操作码
+     */
+    @ResponseBody
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String update(CategoryParam param){
+        return categoryService.update(param, UserContext.getCurrentUser());
     }
 
 }

@@ -45,6 +45,14 @@ public interface ICategoryService<D extends ICMBaseDAO<T>, T extends BaseDomain>
     String add(CategoryParam param, AccountDto accountDto);
 
     /**
+     * 更新分类
+     * @param param         更新实体参数
+     * @param accountDto    当前操作用户
+     * @return 返回，操作码
+     */
+    String update(CategoryParam param, AccountDto accountDto);
+
+    /**
      * 分页查询
      * @param name      分类名称
      * @param type      分类类型，1：食谱分类，2：商店分类,4：商品分类，8：活动分类

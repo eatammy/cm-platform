@@ -70,10 +70,32 @@ public class CategoryServiceImpl extends AbstractCMPageService<ICMBaseDAO<Catego
     }
 
     @Override
+    public String update(CategoryParam param, AccountDto accountDto) {
+        Category category = null;
+        category = this.findOne(param.F_Name, param.getName());
+        if (category != null && category.getId() != param.getId()) {
+            throw new BizException(ERRORCODE.CATEGORY_EXIST.getCode(), ERRORCODE.CATEGORY_EXIST.getMessage());
+        } else{
+            category = new Category();
+            category.setId(param.getId());
+            category.setName(param.getName());
+            category.setPriority(param.getPriority());
+            category.setType(param.getType());
+            category.setLastModifier(accountDto.getUid());
+            category.setLastModDate(System.currentTimeMillis());
+            if(categoryDAO.updateById(category) == 1){
+                return RETURNCODE.UPDATE_COMPLETE.getMessage();
+            }else {
+                throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+            }
+        }
+    }
+
+    @Override
     public BizData4Page<Category> queryPage(String name, Integer type, Integer status, int pageNo, int pageSize) {
         List<Category> data = categoryDAO.queryListEx(name, type, status, (pageNo - 1) * pageSize, pageSize);
         int records = categoryDAO.countEx(name, type, status);
-        return PageUtils.toBizData4Page(data,pageNo, pageSize, records);
+        return PageUtils.toBizData4Page(data, pageNo, pageSize, records);
     }
 
     @Override
