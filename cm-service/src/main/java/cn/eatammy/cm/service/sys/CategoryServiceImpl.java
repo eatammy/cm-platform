@@ -92,6 +92,22 @@ public class CategoryServiceImpl extends AbstractCMPageService<ICMBaseDAO<Catego
     }
 
     @Override
+    public String disableOrEnable(long id, int status) {
+        if (categoryDAO.updateStatus(id, status) == 1){
+            return RETURNCODE.SUCCESS_COMPLETE.getMessage();
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+    }
+
+    @Override
+    public String deleteByIds(long[] ids) {
+        if (categoryDAO.deleteBatch(ids) != 0){
+            return RETURNCODE.DELETE_COMPLETE.getMessage();
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+    }
+
+    @Override
     public BizData4Page<Category> queryPage(String name, Integer type, Integer status, int pageNo, int pageSize) {
         List<Category> data = categoryDAO.queryListEx(name, type, status, (pageNo - 1) * pageSize, pageSize);
         int records = categoryDAO.countEx(name, type, status);

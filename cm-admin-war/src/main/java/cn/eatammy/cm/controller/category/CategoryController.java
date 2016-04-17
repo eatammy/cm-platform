@@ -4,6 +4,9 @@ import cn.eatammy.cm.domain.sys.Category;
 import cn.eatammy.cm.param.sys.CategoryParam;
 import cn.eatammy.cm.service.sys.ICategoryService;
 import cn.eatammy.common.domain.BizData4Page;
+import cn.eatammy.common.exception.BizException;
+import cn.eatammy.common.utils.ERRORCODE;
+import cn.eatammy.common.utils.RETURNCODE;
 import cn.eatammy.common.utils.User.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 /**
  * Created by 郭旭辉 on 2016/4/16.
  * 分类管理控制类
@@ -70,6 +72,33 @@ public class CategoryController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(CategoryParam param){
         return categoryService.update(param, UserContext.getCurrentUser());
+    }
+
+    /**
+     * 启用，停用分类
+     * @param id        分类id
+     * @param status    分类状态，0：启用，1：停用
+     * @return 返回操作码
+     */
+    @ResponseBody
+    @RequestMapping(value = "/disableOrEnable")
+    public String disableOrEnable(long id, int status){
+        return categoryService.disableOrEnable(id, status);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/deleteOne")
+    public String deleteOne(long id){
+        if(categoryService.deleteById(id) == 1){
+            return RETURNCODE.DELETE_COMPLETE.getMessage();
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/deleteByIds")
+    public String deleteByIds(long[] ids){
+        return categoryService.deleteByIds(ids);
     }
 
 }

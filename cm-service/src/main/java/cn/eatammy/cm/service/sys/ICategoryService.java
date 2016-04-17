@@ -53,6 +53,21 @@ public interface ICategoryService<D extends ICMBaseDAO<T>, T extends BaseDomain>
     String update(CategoryParam param, AccountDto accountDto);
 
     /**
+     * 启用或停用分类
+     * @param id        分类id
+     * @param status    分类装填
+     * @return  返回，操作码
+     */
+    String disableOrEnable(long id, int status);
+
+    /**
+     * 批量删除分类
+     * @param ids   分类id列表
+     * @return 返回，操作码
+     */
+    String deleteByIds(long[] ids);
+
+    /**
      * 分页查询
      * @param name      分类名称
      * @param type      分类类型，1：食谱分类，2：商店分类,4：商品分类，8：活动分类
