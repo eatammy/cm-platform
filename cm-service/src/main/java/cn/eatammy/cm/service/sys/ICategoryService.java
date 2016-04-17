@@ -76,7 +76,7 @@ public interface ICategoryService<D extends ICMBaseDAO<T>, T extends BaseDomain>
      * @param pageSize  页大小，默认10
      * @return  返回分页结果
      */
-    BizData4Page<Category> queryPage(String name, Integer type, Integer status, int pageNo, int pageSize);
+    BizData4Page<Category> queryPage(String name, int type, int status, int pageNo, int pageSize);
 
     /**
      * 判断是否存在某条记录

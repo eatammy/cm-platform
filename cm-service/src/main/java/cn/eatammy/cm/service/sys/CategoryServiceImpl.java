@@ -108,7 +108,7 @@ public class CategoryServiceImpl extends AbstractCMPageService<ICMBaseDAO<Catego
     }
 
     @Override
-    public BizData4Page<Category> queryPage(String name, Integer type, Integer status, int pageNo, int pageSize) {
+    public BizData4Page<Category> queryPage(String name, int type, int status, int pageNo, int pageSize) {
         List<Category> data = categoryDAO.queryListEx(name, type, status, (pageNo - 1) * pageSize, pageSize);
         int records = categoryDAO.countEx(name, type, status);
         return PageUtils.toBizData4Page(data, pageNo, pageSize, records);

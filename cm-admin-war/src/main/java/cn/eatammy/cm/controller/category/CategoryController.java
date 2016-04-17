@@ -48,7 +48,7 @@ public class CategoryController {
      */
     @ResponseBody
     @RequestMapping(value = "/queryPage", method = RequestMethod.POST)
-    public BizData4Page<Category> queryPage(String name, Integer type, Integer status, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+    public BizData4Page<Category> queryPage(String name, int type, int status, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
         return categoryService.queryPage(name, type, status, pageNo, pageSize);
     }
 

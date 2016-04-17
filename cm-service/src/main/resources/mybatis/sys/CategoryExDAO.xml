@@ -11,10 +11,10 @@
             <if test="name != null and name != ''">
                 AND name like '%${name}%'
             </if>
-            <if test="status != null and status != -1">
+            <if test="status != -1">
                 AND status = #{status}
             </if>
-            <if test="type != null and status != -1">
+            <if test="type != 0 and type != -1">
                 AND type = #{type}
             </if>
         </where>
@@ -35,7 +35,7 @@
             <if test="status != null and status != -1">
                 AND status = #{status}
             </if>
-            <if test="type != null and status != -1">
+            <if test="type != null and type != -1">
                 AND type = #{type}
             </if>
         </where>

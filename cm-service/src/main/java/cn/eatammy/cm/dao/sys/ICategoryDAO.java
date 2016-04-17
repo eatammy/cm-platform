@@ -44,7 +44,7 @@ public interface ICategoryDAO extends ICMBaseDAO<Category> {
      * @return   返回，分类列表
      */
     @DataSource("read")
-    List<Category> queryListEx(@Param("name") String name, @Param("type") Integer type, @Param("status") Integer status, @Param("offset") int offset, @Param("rows") int rows);
+    List<Category> queryListEx(@Param("name") String name, @Param("type") int type, @Param("status") int status, @Param("offset") int offset, @Param("rows") int rows);
 
     /**
      * 统计分类大小
