@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-31  郭旭辉        新建	
+{  2016-04-17  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -34,9 +34,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
 public class CookBook extends CMCreateBaseDomain<Long> {
 	private static final long serialVersionUID = 1L;
 	
-	private String cookBookName; //菜谱名称
+	private String name; //食谱名称
 	private String description; //菜谱简介
-	private Long materialId; //materialId
+	private Long materialId; //原材料表主键
 	private Long processId; //过程表主键
 	private Long categoryId; //菜谱所属类别主键
 	private String tips; //贴士
@@ -52,16 +52,16 @@ public class CookBook extends CMCreateBaseDomain<Long> {
 	}
 	 
 	/**
-	 * @return cookBookName 菜谱名称
+	 * @return name 食谱名称
 	 */
-	public String getCookBookName(){
-		return this.cookBookName;
+	public String getName(){
+		return this.name;
 	}
 	/**
-	 * @param cookBookName 菜谱名称
+	 * @param name 食谱名称
 	 */
-	public void setCookBookName(String cookBookName){
-		this.cookBookName = cookBookName;
+	public void setName(String name){
+		this.name = name;
 	}
 	/**
 	 * @return description 菜谱简介
@@ -76,13 +76,13 @@ public class CookBook extends CMCreateBaseDomain<Long> {
 		this.description = description;
 	}
 	/**
-	 * @return materialId materialId
+	 * @return materialId 原材料表主键
 	 */
 	public Long getMaterialId(){
 		return this.materialId;
 	}
 	/**
-	 * @param materialId materialId
+	 * @param materialId 原材料表主键
 	 */
 	public void setMaterialId(Long materialId){
 		this.materialId = materialId;
@@ -163,7 +163,7 @@ public class CookBook extends CMCreateBaseDomain<Long> {
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("id",getId())
-			.append("cookBookName",getCookBookName())
+			.append("name",getName())
 			.append("description",getDescription())
 			.append("materialId",getMaterialId())
 			.append("processId",getProcessId())
@@ -183,7 +183,7 @@ public class CookBook extends CMCreateBaseDomain<Long> {
 	public int hashCode() {
 		return new HashCodeBuilder()
 			.append(getId())
-			.append(getCookBookName())
+			.append(getName())
 			.append(getDescription())
 			.append(getMaterialId())
 			.append(getProcessId())

@@ -5,7 +5,7 @@
 
     <sql id="Base_Column_List">
         id,
-        cookBookName,
+        name,
         description,
         materialId,
         processId,
@@ -22,7 +22,7 @@
     </sql>
     <insert id="insert" parameterType="cn.eatammy.cm.domain.cook.CookBook">
         INSERT INTO cm_cook_cookBook (
-		    cookBookName
+		    name
 		    ,description
 		    ,materialId
 		    ,processId
@@ -37,7 +37,7 @@
 		    ,lastModifier
 		    ,status
         ) VALUES (
-		    	#{cookBookName}
+		    	#{name}
 		    	,#{description}
 		    	,#{materialId}
 		    	,#{processId}
@@ -59,7 +59,7 @@
 
     <insert id="insertMap" >
         INSERT INTO cm_cook_cookBook (
-		    cookBookName
+		    name
 		    ,description
 		    ,materialId
 		    ,processId
@@ -74,7 +74,7 @@
 		    ,lastModifier
 		    ,status
         ) VALUES (
-		    	#{map.cookBookName}
+		    	#{map.name}
 		    	,#{map.description}
 		    	,#{map.materialId}
 		    	,#{map.processId}
@@ -95,7 +95,7 @@
     <update id="update" parameterType="cn.eatammy.cm.domain.cook.CookBook">
         UPDATE cm_cook_cookBook
         <trim prefix="SET" suffixOverrides=",">
-		    cookBookName=#{cookBookName},
+		    name=#{name},
 		    description=#{description},
 		    materialId=#{materialId},
 		    processId=#{processId},
@@ -117,8 +117,8 @@
 	<update id="updateMap">
         UPDATE cm_cook_cookBook
         <trim prefix="SET" suffixOverrides=",">
-            <if test="map.cookBookName!=null">
-                cookBookName = #{map.cookBookName},
+            <if test="map.name!=null">
+                name = #{map.name},
             </if>
             <if test="map.description!=null">
                 description = #{map.description},
@@ -167,8 +167,8 @@
     <update id="updateByCondition">
         UPDATE cm_cook_cookBook
         <trim prefix="SET" suffixOverrides=",">
-            <if test="update.cookBookName!=null">
-                cookBookName = #{update.cookBookName},
+            <if test="update.name!=null">
+                name = #{update.name},
             </if>
             <if test="update.description!=null">
                 description = #{update.description},
@@ -212,8 +212,8 @@
         </trim>
 
         <trim prefix="WHERE" prefixOverrides="AND | OR">
-            <if test="condition.cookBookName!=null">
-                AND cookBookName = #{condition.cookBookName}
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
             </if>
             <if test="condition.description!=null">
                 AND description = #{condition.description}
@@ -260,7 +260,7 @@
     <update id="updateNull" parameterType="cn.eatammy.cm.domain.cook.CookBook">
         UPDATE cm_cook_cookBook
         <trim prefix="SET" suffixOverrides=",">
-            cookBookName = #{cookBookName},
+            name = #{name},
             description = #{description},
             materialId = #{materialId},
             processId = #{processId},
@@ -301,8 +301,8 @@
             <if test="id!=null">
                 AND id = #{id}
             </if>
-            <if test="cookBookName!=null">
-                AND cookBookName = #{cookBookName}
+            <if test="name!=null">
+                AND name = #{name}
             </if>
             <if test="description!=null">
                 AND description = #{description}
@@ -401,8 +401,8 @@
             <if test="condition.id!=null">
                 ${condition.groupOp}   id  ${condition.id.op}  #{condition.id.data}
             </if>
-            <if test="condition.cookBookName!=null">
-                ${condition.groupOp}   cookBookName  ${condition.cookBookName.op}  #{condition.cookBookName.data}
+            <if test="condition.name!=null">
+                ${condition.groupOp}   name  ${condition.name.op}  #{condition.name.data}
             </if>
             <if test="condition.description!=null">
                 ${condition.groupOp}   description  ${condition.description.op}  #{condition.description.data}
@@ -463,8 +463,8 @@
             <if test="id!=null">
                 AND id like CONCAT('%', #{id} , '%')
             </if>
-            <if test="cookBookName!=null">
-                AND cookBookName like CONCAT('%', #{cookBookName} , '%')
+            <if test="name!=null">
+                AND name like CONCAT('%', #{name} , '%')
             </if>
             <if test="description!=null">
                 AND description like CONCAT('%', #{description} , '%')
@@ -520,8 +520,8 @@
             <if test="condition.id!=null">
                 AND id = #{condition.id}
             </if>
-            <if test="condition.cookBookName!=null">
-                AND cookBookName = #{condition.cookBookName}
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
             </if>
             <if test="condition.description!=null">
                 AND description = #{condition.description}
@@ -576,8 +576,8 @@
             <if test="condition.id!=null">
                 AND id = #{condition.id}
             </if>
-            <if test="condition.cookBookName!=null">
-                AND cookBookName = #{condition.cookBookName}
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
             </if>
             <if test="condition.description!=null">
                 AND description = #{condition.description}
@@ -628,8 +628,8 @@
            <if test="id!=null">
                ${groupOp} id ${id.op}  #{id.data}
            </if>
-           <if test="cookBookName!=null">
-               ${groupOp} cookBookName ${cookBookName.op}  #{cookBookName.data}
+           <if test="name!=null">
+               ${groupOp} name ${name.op}  #{name.data}
            </if>
            <if test="description!=null">
                ${groupOp} description ${description.op}  #{description.data}

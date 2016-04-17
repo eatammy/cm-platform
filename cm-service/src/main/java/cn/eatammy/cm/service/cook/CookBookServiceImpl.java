@@ -63,7 +63,7 @@ public class CookBookServiceImpl extends AbstractCMPageService<ICMBaseDAO<CookBo
 
         CookBook cookBook = new CookBook();
         try {
-            cookBook.setCookBookName(cookBookParam.getCookBookName());
+            cookBook.setName(cookBookParam.getName());
             cookBook.setDescription(cookBookParam.getDescription());
             cookBook.setTips(cookBookParam.getTips());
             cookBook.setMaterialId(materialService.saveMaterial(user,materialParam));
@@ -143,7 +143,7 @@ public class CookBookServiceImpl extends AbstractCMPageService<ICMBaseDAO<CookBo
             processService.updateProcess(user,processParam);
 
             CookBook cookBook = this.findOne(CookBookParam.F_ID,cookBookParam.getId());
-            cookBook.setCookBookName(cookBookParam.getCookBookName());
+            cookBook.setName(cookBookParam.getName());
             cookBook.setDescription(cookBookParam.getDescription());
             cookBook.setTips(cookBookParam.getTips());
             cookBook.setCategoryId(cookBookParam.getCategoryId());

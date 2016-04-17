@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-31  郭旭辉        新建	
+{  2016-04-17  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -33,15 +33,15 @@ public class CookBookParam extends CreateBaseParam<Long> {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	*字段常量——菜谱名称
+	*字段常量——食谱名称
 	*/
-	public static final String F_CookBookName="cookBookName";
+	public static final String F_Name="name";
 	/**
 	*字段常量——菜谱简介
 	*/
 	public static final String F_Description="description";
 	/**
-	*字段常量——materialId
+	*字段常量——原材料表主键
 	*/
 	public static final String F_MaterialId="materialId";
 	/**
@@ -69,9 +69,9 @@ public class CookBookParam extends CreateBaseParam<Long> {
 	*/
 	public static final String F_Uid="uid";
 	
-	private String cookBookName; //菜谱名称
+	private String name; //食谱名称
 	private String description; //菜谱简介
-	private Long materialId; //materialId
+	private Long materialId; //原材料表主键
 	private Long processId; //过程表主键
 	private Long categoryId; //菜谱所属类别主键
 	private String tips; //贴士
@@ -87,16 +87,16 @@ public class CookBookParam extends CreateBaseParam<Long> {
 	}
 	 
 	/**
-	 * @return cookBookName 菜谱名称
+	 * @return name 食谱名称
 	 */
-	public String getCookBookName(){
-		return this.cookBookName;
+	public String getName(){
+		return this.name;
 	}
 	/**
-	 * @param cookBookName 菜谱名称
+	 * @param name 食谱名称
 	 */
-	public void setCookBookName(String cookBookName){
-		this.cookBookName = cookBookName;
+	public void setName(String name){
+		this.name = name;
 	}
 	/**
 	 * @return description 菜谱简介
@@ -111,13 +111,13 @@ public class CookBookParam extends CreateBaseParam<Long> {
 		this.description = description;
 	}
 	/**
-	 * @return materialId materialId
+	 * @return materialId 原材料表主键
 	 */
 	public Long getMaterialId(){
 		return this.materialId;
 	}
 	/**
-	 * @param materialId materialId
+	 * @param materialId 原材料表主键
 	 */
 	public void setMaterialId(Long materialId){
 		this.materialId = materialId;
@@ -198,7 +198,7 @@ public class CookBookParam extends CreateBaseParam<Long> {
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("id",getId())
-			.append("cookBookName",getCookBookName())
+			.append("name",getName())
 			.append("description",getDescription())
 			.append("materialId",getMaterialId())
 			.append("processId",getProcessId())
