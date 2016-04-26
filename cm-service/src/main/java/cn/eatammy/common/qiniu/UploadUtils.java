@@ -7,38 +7,46 @@ import com.qiniu.util.StringMap;
  * Created by 郭旭辉 on 2016/4/19.
  */
 public class UploadUtils {
-    public static final String ACCESS_KEY = "qVyMxFKzP0dwwTmMbnCkXfX0pfhnDQVoL3TxoKxR";
-    public static final String SECRET_KEY = "U_aQRil_1zMkFCyEOmaT5AX3lhnDbpjcUHFDe4lT";
+    public static final String ACCESS_KEY = "m4J_jaQvhVieQxlJfqPu6Imrn6Qu8aMTzWX7OJBK";
+    public static final String SECRET_KEY = "fBn9DJg1Lrpw6U9yQ8wLJW3na_ZH59wjMVq41LOY";
 
+    public static final Auth auth = Auth.create(UploadUtils.ACCESS_KEY, UploadUtils.SECRET_KEY);
     public UploadUtils() {
     }
+
 
     /**
      * 简单上传，使用默认策略
      *
-     * @param auth   auth
      * @param bucket 上传空间
      * @return 返回 token
      */
-    public static String generalToken(Auth auth, String bucket) {
+    public static String generalToken(String bucket) {
         return auth.uploadToken(bucket);
     }
 
     /**
      * 覆盖上传
-     * @param auth  auth
-     * @return 返回，token
+     *
+     * @param bucket       bucket位置
+     * @param key          文件名称
+     * @param timeout      token过期时间
+     * @param isInsertOnly 只能上传指定key的文件，并且不允许修改，那么可以将下面的 insertOnly 属性值设为 1。
+     * @return ，返回token
      */
-    public static String generalToken1(Auth auth) {
-        return auth.uploadToken("bucket", "auth");
+    public static String generalToken(String bucket, String key, long timeout, int isInsertOnly) {
+        if (isInsertOnly == 1) {
+            return auth.uploadToken(bucket, key, timeout, new StringMap().put("insertOnly", 1));
+        }
+        return auth.uploadToken(bucket, key, timeout, new StringMap().put("insertOnly", 0));
     }
 
     /**
      * 覆盖上传
-     * @param auth  auth
+     *
      * @return 返回，token
      */
-    public static String generalToken2(Auth auth){
+    public static String generalToken2() {
         return auth.uploadToken("bucket", null, 3600, new StringMap()
                 .put("callbackUrl", "call back url").putNotEmpty("callbackHost", "")
                 .put("callbackBody", "key=$(key)&hash=$(etag)"));
@@ -46,10 +54,10 @@ public class UploadUtils {
 
     /**
      * 覆盖上传
-     * @param auth  auth
+     *
      * @return 返回，token
      */
-    public static String generalToken3(Auth auth){
+    public static String generalToken3() {
         return auth.uploadToken("bucket", null, 3600, new StringMap()
                 .putNotEmpty("persistentOps", "").putNotEmpty("persistentNotifyUrl", "")
                 .putNotEmpty("persistentPipeline", ""), true);
@@ -62,10 +70,12 @@ public class UploadUtils {
      * @param key     key，可为 null
      * @param expires 有效时长，单位秒。默认3600s
      * @param policy  上传策略的其它参数，如 new StringMap().put("endUser", "uid").putNotEmpty("returnBody", "")。
-     *        scope通过 bucket、key间接设置，deadline 通过 expires 间接设置
+     *                scope通过 bucket、key间接设置，deadline 通过 expires 间接设置
      * @param strict  是否去除非限定的策略字段，默认true
      * @return 生成的上传token
      */
     @Deprecated
-    public String uploadToken(String bucket, String key, long expires, StringMap policy, boolean strict){return null;}
+    public String uploadToken(String bucket, String key, long expires, StringMap policy, boolean strict) {
+        return null;
+    }
 }
