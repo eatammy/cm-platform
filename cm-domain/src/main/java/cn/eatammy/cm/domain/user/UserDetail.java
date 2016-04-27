@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-31  郭旭辉        新建	
+{  2016-04-27  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -50,6 +50,7 @@ public class UserDetail extends CMCreateBaseDomain<Long> {
 	private String idCard; //身份证
 	private String idCardPic; //身份证图片链接
 	private String description; //个性签名
+	private Integer userTypes; //用户身份组合值，普通用户：1，商家用户：2，管理员：4
     
 	/**
 	 *默认空构造函数
@@ -250,6 +251,18 @@ public class UserDetail extends CMCreateBaseDomain<Long> {
 	public void setDescription(String description){
 		this.description = description;
 	}
+	/**
+	 * @return userTypes 用户身份组合值，普通用户：1，商家用户：2，管理员：4
+	 */
+	public Integer getUserTypes(){
+		return this.userTypes;
+	}
+	/**
+	 * @param userTypes 用户身份组合值，普通用户：1，商家用户：2，管理员：4
+	 */
+	public void setUserTypes(Integer userTypes){
+		this.userTypes = userTypes;
+	}
 	
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -275,6 +288,7 @@ public class UserDetail extends CMCreateBaseDomain<Long> {
 			.append("lastModifier",getLastModifier())
 			.append("lastModDate",getLastModDate())
 			.append("status",getStatus())
+			.append("userTypes",getUserTypes())
 			.toString();
 	}
 	
@@ -302,6 +316,7 @@ public class UserDetail extends CMCreateBaseDomain<Long> {
 			.append(getLastModifier())
 			.append(getLastModDate())
 			.append(getStatus())
+			.append(getUserTypes())
 			.toHashCode();
 	}
 	

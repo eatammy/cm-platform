@@ -25,7 +25,8 @@
         createDate,
         lastModifier,
         lastModDate,
-        status
+        status,
+        userTypes
     </sql>
     <insert id="insert" parameterType="cn.eatammy.cm.domain.user.UserDetail">
         INSERT INTO cm_user_detail (
@@ -50,6 +51,7 @@
 		    ,lastModifier
 		    ,lastModDate
 		    ,status
+		    ,userTypes
         ) VALUES (
 		    	#{username}
 		    	,#{password}
@@ -72,6 +74,7 @@
 		    	,#{lastModifier}
 		    	,#{lastModDate}
 		    	,#{status}
+		    	,#{userTypes}
         )
         <selectKey resultType="java.lang.Long" keyProperty="id">
         	SELECT LAST_INSERT_ID() AS ID
@@ -101,6 +104,7 @@
 		    ,lastModifier
 		    ,lastModDate
 		    ,status
+		    ,userTypes
         ) VALUES (
 		    	#{map.username}
 		    	,#{map.password}
@@ -123,6 +127,7 @@
 		    	,#{map.lastModifier}
 		    	,#{map.lastModDate}
 		    	,#{map.status}
+		    	,#{map.userTypes}
         )
     </insert>
     
@@ -151,6 +156,7 @@
 		    lastModifier=#{lastModifier},
 		    lastModDate=#{lastModDate},
 		    status=#{status},
+		    userTypes=#{userTypes},
         </trim>
         WHERE
         id = #{id}
@@ -221,6 +227,9 @@
             </if>
             <if test="map.status!=null">
                 status = #{map.status},
+            </if>
+            <if test="map.userTypes!=null">
+                userTypes = #{map.userTypes},
             </if>
         </trim>
         WHERE
@@ -293,6 +302,9 @@
             <if test="update.status!=null">
                 status = #{update.status},
             </if>
+            <if test="update.userTypes!=null">
+                userTypes = #{update.userTypes},
+            </if>
         </trim>
 
         <trim prefix="WHERE" prefixOverrides="AND | OR">
@@ -359,6 +371,9 @@
             <if test="condition.status!=null">
                 AND status = #{condition.status}
             </if>
+            <if test="condition.userTypes!=null">
+                AND userTypes = #{condition.userTypes}
+            </if>
         </trim>
     </update>
 
@@ -386,6 +401,7 @@
             lastModifier = #{lastModifier},
             lastModDate = #{lastModDate},
             status = #{status},
+            userTypes = #{userTypes},
         </trim>
         WHERE
         id = #{id}
@@ -475,6 +491,9 @@
             </if>
             <if test="status!=null">
                 AND status = #{status}
+            </if>
+            <if test="userTypes!=null">
+                AND userTypes = #{userTypes}
             </if>
         </trim>
     </delete>
@@ -597,6 +616,9 @@
             <if test="condition.status!=null">
                 ${condition.groupOp}   status  ${condition.status.op}  #{condition.status.data}
             </if>
+            <if test="condition.userTypes!=null">
+                ${condition.groupOp}   userTypes  ${condition.userTypes.op}  #{condition.userTypes.data}
+            </if>
 
 
     </where>
@@ -680,6 +702,9 @@
             <if test="status!=null">
                 AND status like CONCAT('%', #{status} , '%')
             </if>
+            <if test="userTypes!=null">
+                AND userTypes like CONCAT('%', #{userTypes} , '%')
+            </if>
         </trim>
         <if test="orderBy!=null">
         ORDER BY ${orderBy} ${sortBy}
@@ -758,6 +783,9 @@
             <if test="condition.status!=null">
                 AND status = #{condition.status}
             </if>
+            <if test="condition.userTypes!=null">
+                AND userTypes = #{condition.userTypes}
+            </if>
         </trim>
         <if test="orderBy!=null">
         ORDER BY ${orderBy} ${sortBy}
@@ -835,6 +863,9 @@
             <if test="condition.status!=null">
                 AND status = #{condition.status}
             </if>
+            <if test="condition.userTypes!=null">
+                AND userTypes = #{condition.userTypes}
+            </if>
         </trim>
         limit 0,1
     </select>
@@ -907,6 +938,9 @@
            </if>
            <if test="status!=null">
                ${groupOp} status ${status.op}  #{status.data}
+           </if>
+           <if test="userTypes!=null">
+               ${groupOp} userTypes ${userTypes.op}  #{userTypes.data}
            </if>
 
        </where>
