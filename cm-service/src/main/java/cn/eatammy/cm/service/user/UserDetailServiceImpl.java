@@ -27,6 +27,7 @@ import cn.eatammy.cm.param.user.UserDetailParam;
 import cn.eatammy.cm.service.AbstractCMPageService;
 import cn.eatammy.cm.service.sys.IVerificationService;
 import cn.eatammy.common.domain.AccountDto;
+import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.exception.BizException;
 import cn.eatammy.common.sys.filter.CMRequestFilter;
 import cn.eatammy.common.utils.ERRORCODE;
@@ -146,6 +147,11 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
         } catch (Exception e){
             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
         }
+    }
+
+    @Override
+    public BizData4Page<UserDetail> queryPage(UserDetailParam param, int pageNo, int pageSize) {
+        return null;
     }
 
     @Override

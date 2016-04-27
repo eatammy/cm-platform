@@ -27,4 +27,26 @@
         set attentions = attentions + #{count}
         WHERE id = #{id}
     </update>
+
+    <select id="queryPageEx" resultType="cn.eatammy.cm.domain.user.UserDetail">
+        SELECT <include refid="Base_Column_List"/>
+        FROM cm_user_detail
+        <where>
+            <if test="condition.username != null and condition.username != ''">
+                AND username = #{condition.username}
+            </if>
+            <if test="condition.phone != null and condition.phone != ''">
+                AND phone like '%${condition.phone}%'
+            </if>
+            <if test="condition.sex != null and condition.sex != -1">
+                AND  sex = #{condition.sex}
+            </if>
+            <if test="condition.userTypes != null and condition.userTypes != -1">
+                AND  userTypes &amp; #{condition.sex} > 0
+            </if>
+            <if test="condition.status != null and condition.status != -1">
+                AND status != #{status}
+            </if>
+        </where>
+    </select>
 </mapper>

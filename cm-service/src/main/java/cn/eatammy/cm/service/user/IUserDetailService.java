@@ -26,6 +26,7 @@ import cn.eatammy.cm.param.user.UserDetailParam;
 import cn.eatammy.cm.service.ICMBaseService;
 import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BaseDomain;
+import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.service.IPageService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -82,6 +83,15 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
      * @return 返回，最新用户实体
      */
     UserDetail update(UserDetailParam param, AccountDto currentUser);
+
+    /**
+     * 分页获取用户信息
+     * @param param     用户匹配参数
+     * @param pageNo    页码
+     * @param pageSize  页大小
+     * @return 返回，分页
+     */
+    BizData4Page<UserDetail> queryPage(UserDetailParam param, int pageNo, int pageSize);
 
     /**
      * 根据某个字段判断是否存在用户

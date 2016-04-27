@@ -25,6 +25,8 @@ import cn.eatammy.cm.domain.user.UserDetail;
 import cn.eatammy.common.sys.database.DataSource;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Map;
+import java.util.List;
 /**
  * 《用户》 数据访问接口
  *
@@ -66,4 +68,18 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
      */
     @DataSource("write")
     int updateAttentions(@Param("count")int count, @Param("id") long id);
+
+    /**
+     * 查询用户列表
+     * @param condition 条件
+     * @param offset    偏移量
+     * @param rows      页大小
+     * @return 返回，用户列表
+     */
+    @DataSource("read")
+    List<UserDetail> queryPageEx(@Param("condition")Map<String, Object> condition, @Param("offset")int offset, @Param("rows")int rows);
+
+    @DataSource("read")
+    int countEx(@Param("condition")Map<String, Object> condition);
+
 }

@@ -1,12 +1,15 @@
 package cn.eatammy.cm.controller.user;
 
 import cn.eatammy.cm.domain.user.UserDetail;
+import cn.eatammy.cm.param.user.UserDetailParam;
 import cn.eatammy.cm.service.user.IUserDetailService;
+import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.sms.SMSTYPE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
@@ -62,5 +65,9 @@ public class UserController {
         return userDetailService.forgetPasswd(username, password,verifiedCode, SMSTYPE.FORGET_PASSWD_SMS.getTypeValue());
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/queryPage")
+    public BizData4Page<UserDetail> queryPage(UserDetailParam param, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10")int pageSize){
 
+    }
 }
