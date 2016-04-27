@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
 public class UserController {
 
     @Autowired
-    private IUserDetailService  userDetailService;
+    private IUserDetailService userDetailService;
 
     /**
      * 用户登录
@@ -43,31 +43,40 @@ public class UserController {
 
     /**
      * 注销
+     *
      * @param session session
      * @return 返回，操作码
      */
     @ResponseBody
     @RequestMapping(value = "/logout")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         return userDetailService.logout(session);
     }
 
     /**
      * 找回密码
-     * @param username      用户名
-     * @param password      密码
-     * @param verifiedCode  验证码
+     *
+     * @param username     用户名
+     * @param password     密码
+     * @param verifiedCode 验证码
      * @return 返回，操作码
      */
     @ResponseBody
     @RequestMapping(value = "/forgetPassword")
-    public String forgetPassword(String username, String password, String verifiedCode){
-        return userDetailService.forgetPasswd(username, password,verifiedCode, SMSTYPE.FORGET_PASSWD_SMS.getTypeValue());
+    public String forgetPassword(String username, String password, String verifiedCode) {
+        return userDetailService.forgetPasswd(username, password, verifiedCode, SMSTYPE.FORGET_PASSWD_SMS.getTypeValue());
     }
 
+    /**
+     * 分页查询
+     * @param param     条件
+     * @param pageNo    页码
+     * @param pageSize  页大小
+     * @return 返回，分页结果
+     */
     @ResponseBody
     @RequestMapping(value = "/queryPage")
-    public BizData4Page<UserDetail> queryPage(UserDetailParam param, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10")int pageSize){
-
+    public BizData4Page queryPage(UserDetailParam param, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+        return userDetailService.queryPage(param, pageNo, pageSize);
     }
 }
