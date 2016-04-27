@@ -32,6 +32,7 @@ import cn.eatammy.common.exception.BizException;
 import cn.eatammy.common.sys.filter.CMRequestFilter;
 import cn.eatammy.common.utils.ERRORCODE;
 import cn.eatammy.common.utils.MD5Utils;
+import cn.eatammy.common.utils.PageUtils;
 import cn.eatammy.common.utils.RETURNCODE;
 import cn.eatammy.common.utils.http.HttpUtils;
 import com.alibaba.druid.util.StringUtils;
@@ -43,6 +44,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 《用户》 业务逻辑服务类
@@ -151,11 +153,13 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
 
     @Override
     public BizData4Page<UserDetail> queryPage(UserDetailParam param, int pageNo, int pageSize) {
-        return null;
+        List<UserDetail> data = userDetailDAO.queryPageEx(param.toMap(), (pageNo-1)*pageSize, pageSize);
+        int records = userDetailDAO.countEx(param.toMap());
+        return PageUtils.toBizData4Page(data, pageNo, pageSize, records);
     }
 
     @Override
     public boolean isExists(String property, Object value) {
-        return this.findOne(property,value) == null ? false : true;
+        return this.findOne(property, value) != null;
     }
 }
