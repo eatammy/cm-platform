@@ -7,6 +7,7 @@
         id,
         goodsName,
         price,
+        code,
         shopId,
         stock,
         sale,
@@ -21,6 +22,7 @@
         INSERT INTO cm_business_goods (
 		    goodsName
 		    ,price
+		    ,code
 		    ,shopId
 		    ,stock
 		    ,sale
@@ -33,6 +35,7 @@
         ) VALUES (
 		    	#{goodsName}
 		    	,#{price}
+		    	,#{code}
 		    	,#{shopId}
 		    	,#{stock}
 		    	,#{sale}
@@ -52,6 +55,7 @@
         INSERT INTO cm_business_goods (
 		    goodsName
 		    ,price
+		    ,code
 		    ,shopId
 		    ,stock
 		    ,sale
@@ -64,6 +68,7 @@
         ) VALUES (
 		    	#{map.goodsName}
 		    	,#{map.price}
+		    	,#{map.code}
 		    	,#{map.shopId}
 		    	,#{map.stock}
 		    	,#{map.sale}
@@ -82,6 +87,7 @@
         <trim prefix="SET" suffixOverrides=",">
 		    goodsName=#{goodsName},
 		    price=#{price},
+		    code=#{code},
 		    shopId=#{shopId},
 		    stock=#{stock},
 		    sale=#{sale},
@@ -104,6 +110,9 @@
             </if>
             <if test="map.price!=null">
                 price = #{map.price},
+            </if>
+            <if test="map.code!=null">
+                code = #{map.code},
             </if>
             <if test="map.shopId!=null">
                 shopId = #{map.shopId},
@@ -146,6 +155,9 @@
             <if test="update.price!=null">
                 price = #{update.price},
             </if>
+            <if test="update.code!=null">
+                code = #{update.code},
+            </if>
             <if test="update.shopId!=null">
                 shopId = #{update.shopId},
             </if>
@@ -182,6 +194,9 @@
             <if test="condition.price!=null">
                 AND price = #{condition.price}
             </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
             <if test="condition.shopId!=null">
                 AND shopId = #{condition.shopId}
             </if>
@@ -217,6 +232,7 @@
         <trim prefix="SET" suffixOverrides=",">
             goodsName = #{goodsName},
             price = #{price},
+            code = #{code},
             shopId = #{shopId},
             stock = #{stock},
             sale = #{sale},
@@ -258,6 +274,9 @@
             </if>
             <if test="price!=null">
                 AND price = #{price}
+            </if>
+            <if test="code!=null">
+                AND code = #{code}
             </if>
             <if test="shopId!=null">
                 AND shopId = #{shopId}
@@ -350,6 +369,9 @@
             <if test="condition.price!=null">
                 ${condition.groupOp}   price  ${condition.price.op}  #{condition.price.data}
             </if>
+            <if test="condition.code!=null">
+                ${condition.groupOp}   code  ${condition.code.op}  #{condition.code.data}
+            </if>
             <if test="condition.shopId!=null">
                 ${condition.groupOp}   shopId  ${condition.shopId.op}  #{condition.shopId.data}
             </if>
@@ -403,6 +425,9 @@
             <if test="price!=null">
                 AND price like CONCAT('%', #{price} , '%')
             </if>
+            <if test="code!=null">
+                AND code like CONCAT('%', #{code} , '%')
+            </if>
             <if test="shopId!=null">
                 AND shopId like CONCAT('%', #{shopId} , '%')
             </if>
@@ -451,6 +476,9 @@
             <if test="condition.price!=null">
                 AND price = #{condition.price}
             </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
             <if test="condition.shopId!=null">
                 AND shopId = #{condition.shopId}
             </if>
@@ -498,6 +526,9 @@
             <if test="condition.price!=null">
                 AND price = #{condition.price}
             </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
             <if test="condition.shopId!=null">
                 AND shopId = #{condition.shopId}
             </if>
@@ -540,6 +571,9 @@
            </if>
            <if test="price!=null">
                ${groupOp} price ${price.op}  #{price.data}
+           </if>
+           <if test="code!=null">
+               ${groupOp} code ${code.op}  #{code.data}
            </if>
            <if test="shopId!=null">
                ${groupOp} shopId ${shopId.op}  #{shopId.data}

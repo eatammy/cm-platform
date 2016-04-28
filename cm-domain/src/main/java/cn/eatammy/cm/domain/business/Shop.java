@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-31  郭旭辉        新建	
+{  2016-04-28  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -20,13 +20,11 @@
 
 package cn.eatammy.cm.domain.business;
 
+import cn.eatammy.common.domain.CMCreateBaseDomain;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import cn.eatammy.common.domain.CMCreateBaseDomain;
-
-import java.util.*;
 
 /**
  * 《商家》 实体
@@ -43,7 +41,8 @@ public class Shop extends CMCreateBaseDomain<Long> {
 	private String town; //所属区县
 	private Integer cover; //商店封面
 	private String owner; //商店名称
-	private Long uid; //商家信息
+	private String code; //商店code，UUID
+	private String uid; //商家uid，用户code
 	private String ownerPaperPic; //商店所有人证件照
 	private String ownerPaper; //商店所有人证件号
 	private String licensePic; //商店营业执照照片
@@ -146,15 +145,27 @@ public class Shop extends CMCreateBaseDomain<Long> {
 		this.owner = owner;
 	}
 	/**
-	 * @return uid 商家信息
+	 * @return code 商店code，UUID
 	 */
-	public Long getUid(){
+	public String getCode(){
+		return this.code;
+	}
+	/**
+	 * @param code 商店code，UUID
+	 */
+	public void setCode(String code){
+		this.code = code;
+	}
+	/**
+	 * @return uid 商家uid
+	 */
+	public String getUid(){
 		return this.uid;
 	}
 	/**
-	 * @param uid 商家信息
+	 * @param uid 商家uid
 	 */
-	public void setUid(Long uid){
+	public void setUid(String uid){
 		this.uid = uid;
 	}
 	/**
@@ -276,6 +287,7 @@ public class Shop extends CMCreateBaseDomain<Long> {
 			.append("town",getTown())
 			.append("cover",getCover())
 			.append("owner",getOwner())
+			.append("code",getCode())
 			.append("uid",getUid())
 			.append("ownerPaperPic",getOwnerPaperPic())
 			.append("ownerPaper",getOwnerPaper())
@@ -304,6 +316,7 @@ public class Shop extends CMCreateBaseDomain<Long> {
 			.append(getTown())
 			.append(getCover())
 			.append(getOwner())
+			.append(getCode())
 			.append(getUid())
 			.append(getOwnerPaperPic())
 			.append(getOwnerPaper())

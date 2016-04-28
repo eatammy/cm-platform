@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-31  郭旭辉        新建	
+{  2016-04-28  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -37,7 +37,7 @@ public class ArticleParam extends CreateBaseParam<Long> {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	*字段常量——所属用户
+	*字段常量——所属用户,用户code
 	*/
 	public static final String F_Uid="uid";
 	/**
@@ -61,7 +61,7 @@ public class ArticleParam extends CreateBaseParam<Long> {
 	*/
 	public static final String F_IsReport="isReport";
 	
-	private Long uid; //所属用户
+	private String uid; //所属用户,用户code
 	private String title; //文章标题
 	private String content; //文章内容
 	private Integer praiseNum; //点赞数
@@ -76,15 +76,15 @@ public class ArticleParam extends CreateBaseParam<Long> {
 	}
 	 
 	/**
-	 * @return uid 所属用户
+	 * @return uid 所属用户,用户code
 	 */
-	public Long getUid(){
+	public String getUid(){
 		return this.uid;
 	}
 	/**
-	 * @param uid 所属用户
+	 * @param uid 所属用户,用户code
 	 */
-	public void setUid(Long uid){
+	public void setUid(String uid){
 		this.uid = uid;
 	}
 	/**

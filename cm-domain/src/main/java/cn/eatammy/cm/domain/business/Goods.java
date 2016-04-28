@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-31  郭旭辉        新建	
+{  2016-04-28  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -20,13 +20,11 @@
 
 package cn.eatammy.cm.domain.business;
 
+import cn.eatammy.common.domain.CMCreateBaseDomain;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import cn.eatammy.common.domain.CMCreateBaseDomain;
-
-import java.util.*;
 
 /**
  * 《商品信息》 实体
@@ -38,7 +36,8 @@ public class Goods extends CMCreateBaseDomain<Long> {
 	
 	private String goodsName; //商品名称
 	private Double price; //商品单价
-	private Long shopId; //所属商店
+	private String code; //商品code，UUID
+	private String shopId; //所属商店,商店code
 	private Integer stock; //库存量
 	private Integer sale; //销售量
 	private String description; //描述
@@ -75,15 +74,27 @@ public class Goods extends CMCreateBaseDomain<Long> {
 		this.price = price;
 	}
 	/**
-	 * @return shopId 所属商店
+	 * @return code 商品code，UUID
 	 */
-	public Long getShopId(){
+	public String getCode(){
+		return this.code;
+	}
+	/**
+	 * @param code 商品code，UUID
+	 */
+	public void setCode(String code){
+		this.code = code;
+	}
+	/**
+	 * @return shopId 所属商店,商店code
+	 */
+	public String getShopId(){
 		return this.shopId;
 	}
 	/**
-	 * @param shopId 所属商店
+	 * @param shopId 所属商店,商店code
 	 */
-	public void setShopId(Long shopId){
+	public void setShopId(String shopId){
 		this.shopId = shopId;
 	}
 	/**
@@ -128,6 +139,7 @@ public class Goods extends CMCreateBaseDomain<Long> {
 			.append("id",getId())
 			.append("goodsName",getGoodsName())
 			.append("price",getPrice())
+			.append("code",getCode())
 			.append("shopId",getShopId())
 			.append("stock",getStock())
 			.append("sale",getSale())
@@ -145,6 +157,7 @@ public class Goods extends CMCreateBaseDomain<Long> {
 			.append(getId())
 			.append(getGoodsName())
 			.append(getPrice())
+			.append(getCode())
 			.append(getShopId())
 			.append(getStock())
 			.append(getSale())

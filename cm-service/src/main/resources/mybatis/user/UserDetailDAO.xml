@@ -21,12 +21,13 @@
         idCard,
         idCardPic,
         description,
+        code,
+        userTypes,
         creator,
         createDate,
         lastModifier,
         lastModDate,
-        status,
-        userTypes
+        status
     </sql>
     <insert id="insert" parameterType="cn.eatammy.cm.domain.user.UserDetail">
         INSERT INTO cm_user_detail (
@@ -46,12 +47,13 @@
 		    ,idCard
 		    ,idCardPic
 		    ,description
+		    ,code
+		    ,userTypes
 		    ,creator
 		    ,createDate
 		    ,lastModifier
 		    ,lastModDate
 		    ,status
-		    ,userTypes
         ) VALUES (
 		    	#{username}
 		    	,#{password}
@@ -69,12 +71,13 @@
 		    	,#{idCard}
 		    	,#{idCardPic}
 		    	,#{description}
+		    	,#{code}
+		    	,#{userTypes}
 		    	,#{creator}
 		    	,#{createDate}
 		    	,#{lastModifier}
 		    	,#{lastModDate}
 		    	,#{status}
-		    	,#{userTypes}
         )
         <selectKey resultType="java.lang.Long" keyProperty="id">
         	SELECT LAST_INSERT_ID() AS ID
@@ -99,12 +102,13 @@
 		    ,idCard
 		    ,idCardPic
 		    ,description
+		    ,code
+		    ,userTypes
 		    ,creator
 		    ,createDate
 		    ,lastModifier
 		    ,lastModDate
 		    ,status
-		    ,userTypes
         ) VALUES (
 		    	#{map.username}
 		    	,#{map.password}
@@ -122,12 +126,13 @@
 		    	,#{map.idCard}
 		    	,#{map.idCardPic}
 		    	,#{map.description}
+		    	,#{map.code}
+		    	,#{map.userTypes}
 		    	,#{map.creator}
 		    	,#{map.createDate}
 		    	,#{map.lastModifier}
 		    	,#{map.lastModDate}
 		    	,#{map.status}
-		    	,#{map.userTypes}
         )
     </insert>
     
@@ -151,12 +156,13 @@
 		    idCard=#{idCard},
 		    idCardPic=#{idCardPic},
 		    description=#{description},
+		    code=#{code},
+		    userTypes=#{userTypes},
 		    creator=#{creator},
 		    createDate=#{createDate},
 		    lastModifier=#{lastModifier},
 		    lastModDate=#{lastModDate},
 		    status=#{status},
-		    userTypes=#{userTypes},
         </trim>
         WHERE
         id = #{id}
@@ -213,6 +219,12 @@
             <if test="map.description!=null">
                 description = #{map.description},
             </if>
+            <if test="map.code!=null">
+                code = #{map.code},
+            </if>
+            <if test="map.userTypes!=null">
+                userTypes = #{map.userTypes},
+            </if>
             <if test="map.creator!=null">
                 creator = #{map.creator},
             </if>
@@ -227,9 +239,6 @@
             </if>
             <if test="map.status!=null">
                 status = #{map.status},
-            </if>
-            <if test="map.userTypes!=null">
-                userTypes = #{map.userTypes},
             </if>
         </trim>
         WHERE
@@ -287,6 +296,12 @@
             <if test="update.description!=null">
                 description = #{update.description},
             </if>
+            <if test="update.code!=null">
+                code = #{update.code},
+            </if>
+            <if test="update.userTypes!=null">
+                userTypes = #{update.userTypes},
+            </if>
             <if test="update.creator!=null">
                 creator = #{update.creator},
             </if>
@@ -301,9 +316,6 @@
             </if>
             <if test="update.status!=null">
                 status = #{update.status},
-            </if>
-            <if test="update.userTypes!=null">
-                userTypes = #{update.userTypes},
             </if>
         </trim>
 
@@ -356,6 +368,12 @@
             <if test="condition.description!=null">
                 AND description = #{condition.description}
             </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
+            <if test="condition.userTypes!=null">
+                AND userTypes = #{condition.userTypes}
+            </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
             </if>
@@ -370,9 +388,6 @@
             </if>
             <if test="condition.status!=null">
                 AND status = #{condition.status}
-            </if>
-            <if test="condition.userTypes!=null">
-                AND userTypes = #{condition.userTypes}
             </if>
         </trim>
     </update>
@@ -396,12 +411,13 @@
             idCard = #{idCard},
             idCardPic = #{idCardPic},
             description = #{description},
+            code = #{code},
+            userTypes = #{userTypes},
             creator = #{creator},
             createDate = #{createDate},
             lastModifier = #{lastModifier},
             lastModDate = #{lastModDate},
             status = #{status},
-            userTypes = #{userTypes},
         </trim>
         WHERE
         id = #{id}
@@ -477,6 +493,12 @@
             <if test="description!=null">
                 AND description = #{description}
             </if>
+            <if test="code!=null">
+                AND code = #{code}
+            </if>
+            <if test="userTypes!=null">
+                AND userTypes = #{userTypes}
+            </if>
             <if test="creator!=null">
                 AND creator = #{creator}
             </if>
@@ -491,9 +513,6 @@
             </if>
             <if test="status!=null">
                 AND status = #{status}
-            </if>
-            <if test="userTypes!=null">
-                AND userTypes = #{userTypes}
             </if>
         </trim>
     </delete>
@@ -601,6 +620,12 @@
             <if test="condition.description!=null">
                 ${condition.groupOp}   description  ${condition.description.op}  #{condition.description.data}
             </if>
+            <if test="condition.code!=null">
+                ${condition.groupOp}   code  ${condition.code.op}  #{condition.code.data}
+            </if>
+            <if test="condition.userTypes!=null">
+                ${condition.groupOp}   userTypes  ${condition.userTypes.op}  #{condition.userTypes.data}
+            </if>
             <if test="condition.creator!=null">
                 ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
             </if>
@@ -615,9 +640,6 @@
             </if>
             <if test="condition.status!=null">
                 ${condition.groupOp}   status  ${condition.status.op}  #{condition.status.data}
-            </if>
-            <if test="condition.userTypes!=null">
-                ${condition.groupOp}   userTypes  ${condition.userTypes.op}  #{condition.userTypes.data}
             </if>
 
 
@@ -687,6 +709,12 @@
             <if test="description!=null">
                 AND description like CONCAT('%', #{description} , '%')
             </if>
+            <if test="code!=null">
+                AND code like CONCAT('%', #{code} , '%')
+            </if>
+            <if test="userTypes!=null">
+                AND userTypes like CONCAT('%', #{userTypes} , '%')
+            </if>
             <if test="creator!=null">
                 AND creator like CONCAT('%', #{creator} , '%')
             </if>
@@ -701,9 +729,6 @@
             </if>
             <if test="status!=null">
                 AND status like CONCAT('%', #{status} , '%')
-            </if>
-            <if test="userTypes!=null">
-                AND userTypes like CONCAT('%', #{userTypes} , '%')
             </if>
         </trim>
         <if test="orderBy!=null">
@@ -768,6 +793,12 @@
             <if test="condition.description!=null">
                 AND description = #{condition.description}
             </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
+            <if test="condition.userTypes!=null">
+                AND userTypes = #{condition.userTypes}
+            </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
             </if>
@@ -782,9 +813,6 @@
             </if>
             <if test="condition.status!=null">
                 AND status = #{condition.status}
-            </if>
-            <if test="condition.userTypes!=null">
-                AND userTypes = #{condition.userTypes}
             </if>
         </trim>
         <if test="orderBy!=null">
@@ -848,6 +876,12 @@
             <if test="condition.description!=null">
                 AND description = #{condition.description}
             </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
+            <if test="condition.userTypes!=null">
+                AND userTypes = #{condition.userTypes}
+            </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
             </if>
@@ -862,9 +896,6 @@
             </if>
             <if test="condition.status!=null">
                 AND status = #{condition.status}
-            </if>
-            <if test="condition.userTypes!=null">
-                AND userTypes = #{condition.userTypes}
             </if>
         </trim>
         limit 0,1
@@ -924,6 +955,12 @@
            <if test="description!=null">
                ${groupOp} description ${description.op}  #{description.data}
            </if>
+           <if test="code!=null">
+               ${groupOp} code ${code.op}  #{code.data}
+           </if>
+           <if test="userTypes!=null">
+               ${groupOp} userTypes ${userTypes.op}  #{userTypes.data}
+           </if>
            <if test="creator!=null">
                ${groupOp} creator ${creator.op}  #{creator.data}
            </if>
@@ -938,9 +975,6 @@
            </if>
            <if test="status!=null">
                ${groupOp} status ${status.op}  #{status.data}
-           </if>
-           <if test="userTypes!=null">
-               ${groupOp} userTypes ${userTypes.op}  #{userTypes.data}
            </if>
 
        </where>

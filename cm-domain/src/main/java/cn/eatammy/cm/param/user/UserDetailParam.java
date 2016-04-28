@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-04-27  郭旭辉        新建	
+{  2016-04-28  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -97,6 +97,10 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 	*/
 	public static final String F_Description="description";
 	/**
+	*字段常量——用户code，默认UUID
+	*/
+	public static final String F_Code="code";
+	/**
 	*字段常量——用户身份组合值，普通用户：1，商家用户：2，管理员：4
 	*/
 	public static final String F_UserTypes="userTypes";
@@ -117,6 +121,7 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 	private String idCard; //身份证
 	private String idCardPic; //身份证图片链接
 	private String description; //个性签名
+	private String code; //用户code，默认UUID
 	private Integer userTypes; //用户身份组合值，普通用户：1，商家用户：2，管理员：4
     
 	/**
@@ -319,6 +324,18 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 		this.description = description;
 	}
 	/**
+	 * @return code 用户code，默认UUID
+	 */
+	public String getCode(){
+		return this.code;
+	}
+	/**
+	 * @param code 用户code，默认UUID
+	 */
+	public void setCode(String code){
+		this.code = code;
+	}
+	/**
 	 * @return userTypes 用户身份组合值，普通用户：1，商家用户：2，管理员：4
 	 */
 	public Integer getUserTypes(){
@@ -350,12 +367,13 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 			.append("idCard",getIdCard())
 			.append("idCardPic",getIdCardPic())
 			.append("description",getDescription())
+			.append("code",getCode())
+			.append("userTypes",getUserTypes())
 			.append("creator",getCreator())
 			.append("createDate",getCreateDate())
 			.append("lastModifier",getLastModifier())
 			.append("lastModDate",getLastModDate())
 			.append("status",getStatus())
-			.append("userTypes",getUserTypes())
 			.toString();
 	}
 	

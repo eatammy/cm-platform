@@ -13,6 +13,7 @@
         tips,
         praise,
         comment,
+        code,
         uid,
         createDate,
         creator,
@@ -30,6 +31,7 @@
 		    ,tips
 		    ,praise
 		    ,comment
+		    ,code
 		    ,uid
 		    ,createDate
 		    ,creator
@@ -45,6 +47,7 @@
 		    	,#{tips}
 		    	,#{praise}
 		    	,#{comment}
+		    	,#{code}
 		    	,#{uid}
 		    	,#{createDate}
 		    	,#{creator}
@@ -67,6 +70,7 @@
 		    ,tips
 		    ,praise
 		    ,comment
+		    ,code
 		    ,uid
 		    ,createDate
 		    ,creator
@@ -82,6 +86,7 @@
 		    	,#{map.tips}
 		    	,#{map.praise}
 		    	,#{map.comment}
+		    	,#{map.code}
 		    	,#{map.uid}
 		    	,#{map.createDate}
 		    	,#{map.creator}
@@ -103,6 +108,7 @@
 		    tips=#{tips},
 		    praise=#{praise},
 		    comment=#{comment},
+		    code=#{code},
 		    uid=#{uid},
 		    createDate=#{createDate},
 		    creator=#{creator},
@@ -140,6 +146,9 @@
             </if>
             <if test="map.comment!=null">
                 comment = #{map.comment},
+            </if>
+            <if test="map.code!=null">
+                code = #{map.code},
             </if>
             <if test="map.uid!=null">
                 uid = #{map.uid},
@@ -191,6 +200,9 @@
             <if test="update.comment!=null">
                 comment = #{update.comment},
             </if>
+            <if test="update.code!=null">
+                code = #{update.code},
+            </if>
             <if test="update.uid!=null">
                 uid = #{update.uid},
             </if>
@@ -236,6 +248,9 @@
             <if test="condition.comment!=null">
                 AND comment = #{condition.comment}
             </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
             <if test="condition.uid!=null">
                 AND uid = #{condition.uid}
             </if>
@@ -268,6 +283,7 @@
             tips = #{tips},
             praise = #{praise},
             comment = #{comment},
+            code = #{code},
             uid = #{uid},
             createDate = #{createDate},
             creator = #{creator},
@@ -324,6 +340,9 @@
             </if>
             <if test="comment!=null">
                 AND comment = #{comment}
+            </if>
+            <if test="code!=null">
+                AND code = #{code}
             </if>
             <if test="uid!=null">
                 AND uid = #{uid}
@@ -425,6 +444,9 @@
             <if test="condition.comment!=null">
                 ${condition.groupOp}   comment  ${condition.comment.op}  #{condition.comment.data}
             </if>
+            <if test="condition.code!=null">
+                ${condition.groupOp}   code  ${condition.code.op}  #{condition.code.data}
+            </if>
             <if test="condition.uid!=null">
                 ${condition.groupOp}   uid  ${condition.uid.op}  #{condition.uid.data}
             </if>
@@ -487,6 +509,9 @@
             <if test="comment!=null">
                 AND comment like CONCAT('%', #{comment} , '%')
             </if>
+            <if test="code!=null">
+                AND code like CONCAT('%', #{code} , '%')
+            </if>
             <if test="uid!=null">
                 AND uid like CONCAT('%', #{uid} , '%')
             </if>
@@ -544,6 +569,9 @@
             <if test="condition.comment!=null">
                 AND comment = #{condition.comment}
             </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
             <if test="condition.uid!=null">
                 AND uid = #{condition.uid}
             </if>
@@ -600,6 +628,9 @@
             <if test="condition.comment!=null">
                 AND comment = #{condition.comment}
             </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
             <if test="condition.uid!=null">
                 AND uid = #{condition.uid}
             </if>
@@ -651,6 +682,9 @@
            </if>
            <if test="comment!=null">
                ${groupOp} comment ${comment.op}  #{comment.data}
+           </if>
+           <if test="code!=null">
+               ${groupOp} code ${code.op}  #{code.data}
            </if>
            <if test="uid!=null">
                ${groupOp} uid ${uid.op}  #{uid.data}

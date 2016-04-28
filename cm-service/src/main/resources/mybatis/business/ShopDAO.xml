@@ -12,6 +12,7 @@
         town,
         cover,
         owner,
+        code,
         uid,
         ownerPaperPic,
         ownerPaper,
@@ -37,6 +38,7 @@
 		    ,town
 		    ,cover
 		    ,owner
+		    ,code
 		    ,uid
 		    ,ownerPaperPic
 		    ,ownerPaper
@@ -60,6 +62,7 @@
 		    	,#{town}
 		    	,#{cover}
 		    	,#{owner}
+		    	,#{code}
 		    	,#{uid}
 		    	,#{ownerPaperPic}
 		    	,#{ownerPaper}
@@ -90,6 +93,7 @@
 		    ,town
 		    ,cover
 		    ,owner
+		    ,code
 		    ,uid
 		    ,ownerPaperPic
 		    ,ownerPaper
@@ -113,6 +117,7 @@
 		    	,#{map.town}
 		    	,#{map.cover}
 		    	,#{map.owner}
+		    	,#{map.code}
 		    	,#{map.uid}
 		    	,#{map.ownerPaperPic}
 		    	,#{map.ownerPaper}
@@ -142,6 +147,7 @@
 		    town=#{town},
 		    cover=#{cover},
 		    owner=#{owner},
+		    code=#{code},
 		    uid=#{uid},
 		    ownerPaperPic=#{ownerPaperPic},
 		    ownerPaper=#{ownerPaper},
@@ -185,6 +191,9 @@
             </if>
             <if test="map.owner!=null">
                 owner = #{map.owner},
+            </if>
+            <if test="map.code!=null">
+                code = #{map.code},
             </if>
             <if test="map.uid!=null">
                 uid = #{map.uid},
@@ -260,6 +269,9 @@
             <if test="update.owner!=null">
                 owner = #{update.owner},
             </if>
+            <if test="update.code!=null">
+                code = #{update.code},
+            </if>
             <if test="update.uid!=null">
                 uid = #{update.uid},
             </if>
@@ -329,6 +341,9 @@
             <if test="condition.owner!=null">
                 AND owner = #{condition.owner}
             </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
             <if test="condition.uid!=null">
                 AND uid = #{condition.uid}
             </if>
@@ -387,6 +402,7 @@
             town = #{town},
             cover = #{cover},
             owner = #{owner},
+            code = #{code},
             uid = #{uid},
             ownerPaperPic = #{ownerPaperPic},
             ownerPaper = #{ownerPaper},
@@ -449,6 +465,9 @@
             </if>
             <if test="owner!=null">
                 AND owner = #{owner}
+            </if>
+            <if test="code!=null">
+                AND code = #{code}
             </if>
             <if test="uid!=null">
                 AND uid = #{uid}
@@ -574,6 +593,9 @@
             <if test="condition.owner!=null">
                 ${condition.groupOp}   owner  ${condition.owner.op}  #{condition.owner.data}
             </if>
+            <if test="condition.code!=null">
+                ${condition.groupOp}   code  ${condition.code.op}  #{condition.code.data}
+            </if>
             <if test="condition.uid!=null">
                 ${condition.groupOp}   uid  ${condition.uid.op}  #{condition.uid.data}
             </if>
@@ -660,6 +682,9 @@
             <if test="owner!=null">
                 AND owner like CONCAT('%', #{owner} , '%')
             </if>
+            <if test="code!=null">
+                AND code like CONCAT('%', #{code} , '%')
+            </if>
             <if test="uid!=null">
                 AND uid like CONCAT('%', #{uid} , '%')
             </if>
@@ -741,6 +766,9 @@
             <if test="condition.owner!=null">
                 AND owner = #{condition.owner}
             </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
             <if test="condition.uid!=null">
                 AND uid = #{condition.uid}
             </if>
@@ -821,6 +849,9 @@
             <if test="condition.owner!=null">
                 AND owner = #{condition.owner}
             </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
             <if test="condition.uid!=null">
                 AND uid = #{condition.uid}
             </if>
@@ -896,6 +927,9 @@
            </if>
            <if test="owner!=null">
                ${groupOp} owner ${owner.op}  #{owner.data}
+           </if>
+           <if test="code!=null">
+               ${groupOp} code ${code.op}  #{code.data}
            </if>
            <if test="uid!=null">
                ${groupOp} uid ${uid.op}  #{uid.data}
