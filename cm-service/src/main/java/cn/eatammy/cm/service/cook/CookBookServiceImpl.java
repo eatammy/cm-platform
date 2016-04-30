@@ -70,7 +70,7 @@ public class CookBookServiceImpl extends AbstractCMPageService<ICMBaseDAO<CookBo
             cookBook.setProcessId(processService.saveProcess(user,processParam));
             cookBook.setCategoryId(cookBookParam.getCategoryId());
             //获取用户主键
-            cookBook.setUid(456L);
+//            cookBook.setUid(456L);
             cookBook.setCreateDate(System.currentTimeMillis());
             //获取创建人
             cookBook.setCreator(user);

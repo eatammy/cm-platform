@@ -27,7 +27,16 @@ package cn.eatammy.cm.param.user;
  */
 public class UserDetailParamEx extends UserDetailParam {
 	private static final long serialVersionUID = 1L;
-	
+
+	private Integer[] userType;
 	//针对UserDetailParam实体在这里增加额外的属性和对应的get和set方法
-	
+
+
+	public Integer[] getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer[] userType) {
+		this.userType = userType;
+	}
 }

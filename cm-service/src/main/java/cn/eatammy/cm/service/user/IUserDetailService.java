@@ -23,6 +23,7 @@ package cn.eatammy.cm.service.user;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.domain.user.UserDetail;
 import cn.eatammy.cm.param.user.UserDetailParam;
+import cn.eatammy.cm.param.user.UserDetailParamEx;
 import cn.eatammy.cm.service.ICMBaseService;
 import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BaseDomain;
@@ -100,4 +101,12 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
      * @return  返回，true：存在，false：不存在
      */
     boolean isExists(String property, Object value);
+
+    /**
+     * 保存用户信息
+     * @param paramEx       用户信息参数
+     * @param currentUser   当前用户
+     * @return 返回，操作码
+     */
+    String add(UserDetailParamEx paramEx, AccountDto currentUser);
 }

@@ -5,11 +5,13 @@ import cn.eatammy.common.utils.ERRORCODE;
 import com.qiniu.common.QiniuException;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.model.FileInfo;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by 郭旭辉 on 2016/4/26.
  * 空间资源管理
  */
+@Component("bucketManagerService")
 public class BucketManagerService {
 
     private BucketManager bucketManager = null;

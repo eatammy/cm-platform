@@ -24,6 +24,7 @@ import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.user.IUserDetailDAO;
 import cn.eatammy.cm.domain.user.UserDetail;
 import cn.eatammy.cm.param.user.UserDetailParam;
+import cn.eatammy.cm.param.user.UserDetailParamEx;
 import cn.eatammy.cm.service.AbstractCMPageService;
 import cn.eatammy.cm.service.sys.IVerificationService;
 import cn.eatammy.common.domain.AccountDto;
@@ -64,7 +65,7 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     }
 
     private static final String CREATOR = "ADMIN";
-    private static final String NICKNAME = "萌萌的的吃货"+new Date().getYear();
+    private static final String NICKNAME = "萌萌的的吃货" + new Date().getYear();
 
 
     @Override
@@ -92,8 +93,8 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     public String logout(HttpSession session) {
         HttpServletRequest request = CMRequestFilter.getRequest();
         //获取access_token
-        Cookie cookie = HttpUtils.getCookie(request.getCookies(),HttpUtils.ACCESS_TOKEN);
-        if (cookie != null){
+        Cookie cookie = HttpUtils.getCookie(request.getCookies(), HttpUtils.ACCESS_TOKEN);
+        if (cookie != null) {
             //清除session
             session.removeAttribute(cookie.getValue());
         }
@@ -102,30 +103,30 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
 
     @Override
     public String register(UserDetailParam param, String verifiedCode, int typeValue) {
-        if (verificationService.checkVerifiedCode(param.getUsername(),verifiedCode,typeValue)){
+        if (verificationService.checkVerifiedCode(param.getUsername(), verifiedCode, typeValue)) {
             UserDetail user = new UserDetail();
-            if (StringUtils.isEmpty(param.getNickname())){
+            if (StringUtils.isEmpty(param.getNickname())) {
                 user.setNickname(NICKNAME);
             }
             user.setUsername(param.getUsername());
-            user.setPassword(MD5Utils.getMD5(param.getPassword()+MD5Utils.SALT));
+            user.setPassword(MD5Utils.getMD5(param.getPassword() + MD5Utils.SALT));
             user.setCreator(CREATOR);
             user.setCreateDate(System.currentTimeMillis());
             user.setStatus(0);
             insert(user);
             return RETURNCODE.REGISTER_SUCCESS.getMessage();
-        }else {
+        } else {
             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
         }
     }
 
     @Override
     public String forgetPasswd(String username, String password, String verifiedCode, int typeValue) {
-        if(verificationService.checkVerifiedCode(username,verifiedCode,typeValue)){
-            password = MD5Utils.getMD5(password+MD5Utils.SALT);
+        if (verificationService.checkVerifiedCode(username, verifiedCode, typeValue)) {
+            password = MD5Utils.getMD5(password + MD5Utils.SALT);
             userDetailDAO.updateEx(username, password);
             return RETURNCODE.UPDATE_COMPLETE.getMessage();
-        }else{
+        } else {
             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
         }
     }
@@ -146,14 +147,14 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
             userDetail.setHeadIcon(param.getHeadIcon());
             userDetailDAO.updateDetail(userDetail);
             return userDetail;
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
         }
     }
 
     @Override
     public BizData4Page<UserDetail> queryPage(UserDetailParam param, int pageNo, int pageSize) {
-        List<UserDetail> data = userDetailDAO.queryPageEx(param.toMap(), (pageNo-1)*pageSize, pageSize);
+        List<UserDetail> data = userDetailDAO.queryPageEx(param.toMap(), (pageNo - 1) * pageSize, pageSize);
         int records = userDetailDAO.countEx(param.toMap());
         return PageUtils.toBizData4Page(data, pageNo, pageSize, records);
     }
@@ -161,5 +162,38 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     @Override
     public boolean isExists(String property, Object value) {
         return this.findOne(property, value) != null;
+    }
+
+    @Override
+    public String add(UserDetailParamEx paramEx, AccountDto currentUser) {
+        if (!isExists(paramEx.F_Username, paramEx.getUsername())) {
+            UserDetail userDetail = new UserDetail();
+            userDetail.setUsername(paramEx.getUsername());
+            userDetail.setPassword(paramEx.getPassword());
+            userDetail.setHeadIcon(paramEx.getHeadIcon());
+            userDetail.setPhone(paramEx.getPhone());
+            userDetail.setAddress(paramEx.getAddress());
+            userDetail.setNickname(paramEx.getNickname());
+            userDetail.setSex(paramEx.getSex());
+            userDetail.setCode(paramEx.getCode());
+            userDetail.setUserTypes(getUserTypes(paramEx.getUserType()));
+            userDetail.setDescription(paramEx.getDescription());
+            userDetail.setCreator(currentUser.getUid());
+            userDetail.setCreateDate(System.currentTimeMillis());
+            userDetail.setStatus(0);
+            if (userDetailDAO.insert(userDetail) == 1) {
+                return RETURNCODE.ADD_COMPLETE.getMessage();
+            }
+        }
+        throw new BizException(ERRORCODE.ACCOUNT_EXISTS.getCode(), ERRORCODE.ACCOUNT_EXISTS.getMessage());
+
+    }
+
+    private int getUserTypes(Integer[] userType) {
+        int sum = 0;
+        for (Integer i : userType) {
+            sum += i;
+        }
+        return sum;
     }
 }

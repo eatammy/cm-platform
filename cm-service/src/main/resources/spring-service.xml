@@ -141,6 +141,9 @@
             <aop:before pointcut-ref="tx" method="before"/>
         </aop:aspect>
     </aop:config>
+
+    <!-- 配置七牛云空间管理服务 -->
+    <bean id="bucketManagerService" class="cn.eatammy.common.qiniu.BucketManagerService"/>
     <!--默认的redis配置，启动时会建立连接-->
     <!--<import resource="classpath*:spring-redis.xml"/>-->
     <!--&lt;!&ndash;依赖消费服务&ndash;&gt;-->
