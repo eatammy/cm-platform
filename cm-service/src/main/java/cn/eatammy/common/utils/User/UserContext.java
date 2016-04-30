@@ -88,7 +88,7 @@ public class UserContext {
 
     private static AccountDto setAccount(UserDetail userDetail){
         AccountDto accountDto = new AccountDto();
-        accountDto.setUid(userDetail.getId());
+        accountDto.setUid(userDetail.getCode());
         accountDto.setUsername(userDetail.getUsername());
         accountDto.setPassword(userDetail.getPassword());
         accountDto.setPhone(userDetail.getPhone());

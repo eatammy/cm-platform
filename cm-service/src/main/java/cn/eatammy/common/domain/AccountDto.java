@@ -4,7 +4,7 @@ package cn.eatammy.common.domain;
  * Created by 郭旭辉 on 2016/3/22.
  */
 public class AccountDto {
-    private long uid;   //uid
+    private String uid;   //uid
     private String username; //账号
     private String password; //密码
     private String phone; //电话
@@ -21,11 +21,11 @@ public class AccountDto {
     private String idCard; //身份证
     private String idCardPic; //身份证图片链接
 
-    public long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
