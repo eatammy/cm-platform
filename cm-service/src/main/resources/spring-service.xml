@@ -35,6 +35,7 @@
             <tx:method name="insert*" propagation="REQUIRED"/>
             <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
             <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="query*" propagation="SUPPORTS" read-only="true"/>
         </tx:attributes>
     </tx:advice>
 

@@ -47,12 +47,13 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
      * @param password 密码
      * @param session  session
      * @param response response
-     * @return 返回,userbean
+     * @return 返回, userbean
      */
     UserDetail isLogin(String username, String password, HttpSession session, HttpServletResponse response);
 
     /**
      * 注销
+     *
      * @param session session
      * @return 返回操作码
      */
@@ -60,53 +61,83 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
 
     /**
      * 用户注册
-     * @param param         用户注册参数
-     * @param verifiedCode  验证码
-     * @param typeValue     短信类型，1：注册短信，2：找回密码短信，4：商店认证短信
-     * @return  返回，操作码
+     *
+     * @param param        用户注册参数
+     * @param verifiedCode 验证码
+     * @param typeValue    短信类型，1：注册短信，2：找回密码短信，4：商店认证短信
+     * @return 返回，操作码
      */
     String register(UserDetailParam param, String verifiedCode, int typeValue);
 
     /**
      * 找回密码
-     * @param username      用户名
-     * @param password      新密码
-     * @param verifiedCode  验证码
-     * @param typeValue     短信类型，1：注册短信，2：找回密码短信，4：商店认证短信
+     *
+     * @param username     用户名
+     * @param password     新密码
+     * @param verifiedCode 验证码
+     * @param typeValue    短信类型，1：注册短信，2：找回密码短信，4：商店认证短信
      * @return 返回，操作码
      */
     String forgetPasswd(String username, String password, String verifiedCode, int typeValue);
 
     /**
      * 更新用户信息
-     * @param param         用户信息列表
-     * @param currentUser   当前操作用户
+     *
+     * @param param       用户信息列表
+     * @param currentUser 当前操作用户
      * @return 返回，最新用户实体
      */
     UserDetail update(UserDetailParam param, AccountDto currentUser);
 
     /**
      * 分页获取用户信息
-     * @param param     用户匹配参数
-     * @param pageNo    页码
-     * @param pageSize  页大小
+     *
+     * @param param    用户匹配参数
+     * @param pageNo   页码
+     * @param pageSize 页大小
      * @return 返回，分页
      */
     BizData4Page<UserDetail> queryPage(UserDetailParam param, int pageNo, int pageSize);
 
     /**
      * 根据某个字段判断是否存在用户
-     * @param property  字段名
-     * @param value     字段值
-     * @return  返回，true：存在，false：不存在
+     *
+     * @param property 字段名
+     * @param value    字段值
+     * @return 返回，true：存在，false：不存在
      */
     boolean isExists(String property, Object value);
 
     /**
+     * 启用，停用用户
+     *
+     * @param id     用户id
+     * @param status 用户状态，0：启用，1：停用
+     * @return 返回操作码
+     */
+    String disableOrEnable(long id, int status);
+
+    /**
      * 保存用户信息
-     * @param paramEx       用户信息参数
-     * @param currentUser   当前用户
+     *
+     * @param paramEx     用户信息参数
+     * @param currentUser 当前用户
      * @return 返回，操作码
      */
     String add(UserDetailParamEx paramEx, AccountDto currentUser);
+
+    /**
+     * 更新用户信息
+     * @param paramEx       用户信息参数
+     * @param currentUser   当前用户
+     * @return  返回，操作码
+     */
+    String update(UserDetailParamEx paramEx, AccountDto currentUser);
+
+    /**
+     * 更具用户code 重置用户密码
+     * @param code  用户code
+     * @return 返回， 新密码
+     */
+    String resetPasswd(String code);
 }

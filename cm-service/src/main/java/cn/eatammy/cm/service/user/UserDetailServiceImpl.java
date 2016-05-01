@@ -169,7 +169,7 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
         if (!isExists(paramEx.F_Username, paramEx.getUsername())) {
             UserDetail userDetail = new UserDetail();
             userDetail.setUsername(paramEx.getUsername());
-            userDetail.setPassword(paramEx.getPassword());
+            userDetail.setPassword(MD5Utils.getMD5(paramEx.getPassword() + MD5Utils.SALT));
             userDetail.setHeadIcon(paramEx.getHeadIcon());
             userDetail.setPhone(paramEx.getPhone());
             userDetail.setAddress(paramEx.getAddress());
@@ -181,12 +181,60 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
             userDetail.setCreator(currentUser.getUid());
             userDetail.setCreateDate(System.currentTimeMillis());
             userDetail.setStatus(0);
+            userDetail.setFuns(0);
+            userDetail.setAttentions(0);
+            userDetail.setScore(0);
             if (userDetailDAO.insert(userDetail) == 1) {
                 return RETURNCODE.ADD_COMPLETE.getMessage();
             }
         }
         throw new BizException(ERRORCODE.ACCOUNT_EXISTS.getCode(), ERRORCODE.ACCOUNT_EXISTS.getMessage());
 
+    }
+
+    @Override
+    public String update(UserDetailParamEx paramEx, AccountDto currentUser) {
+//        UserDetail userDetai = new UserDetail();
+//        userDetai.setId(paramEx.getId());
+//        userDetai.setUsername(paramEx.getUsername());
+//        userDetai.setPassword(MD5Utils.getMD5(paramEx.getPassword() + MD5Utils.SALT));
+//        userDetai.setHeadIcon(paramEx.getHeadIcon());
+//        userDetai.setPhone(paramEx.getPhone());
+//        userDetai.setAddress(paramEx.getAddress());
+//        userDetai.setNickname(paramEx.getNickname());
+//        userDetai.setSex(paramEx.getSex());
+//        userDetai.setUserTypes(getUserTypes(paramEx.getUserType()));
+//        userDetai.setDescription(paramEx.getDescription());
+//        userDetai.setLastModDate(System.currentTimeMillis());
+//        userDetai.setLastModifier(currentUser.getUid());
+        paramEx.setLastModDate(System.currentTimeMillis());
+        paramEx.setLastModifier(currentUser.getUid());
+        paramEx.setUserTypes(getUserTypes(paramEx.getUserType()));
+        paramEx.setPassword(MD5Utils.getMD5(paramEx.getPassword() + MD5Utils.SALT));
+        if (userDetailDAO.updateMap(paramEx.toMap()) == 1) {
+            return RETURNCODE.ADD_COMPLETE.getMessage();
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+    }
+
+    @Override
+    public String disableOrEnable(long id, int status) {
+        if (userDetailDAO.updateStatus(id, status) == 1){
+            return RETURNCODE.SUCCESS_COMPLETE.getMessage();
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+    }
+
+    @Override
+    public String resetPasswd(String code) {
+        String newPasswd = "";
+        while (newPasswd.length() < 6){
+            newPasswd = (int) (Math.random() * 1000000) + "";
+        }
+        if(userDetailDAO.updatePasswdByCode(code, MD5Utils.getMD5(newPasswd + MD5Utils.SALT)) == 1){
+            return newPasswd;
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
     }
 
     private int getUserTypes(Integer[] userType) {

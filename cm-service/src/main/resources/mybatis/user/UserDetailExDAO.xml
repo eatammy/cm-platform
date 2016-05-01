@@ -76,4 +76,16 @@
             </if>
         </where>
     </select>
+
+    <update id="updateStatus">
+        UPDATE cm_user_detail
+        set status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updatePasswdByCode">
+        UPDATE cm_user_detail
+        set password = #{newPasswd}
+        WHERE code = #{code}
+    </update>
 </mapper>
