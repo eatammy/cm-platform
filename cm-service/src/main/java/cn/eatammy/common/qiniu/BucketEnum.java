@@ -5,10 +5,12 @@ package cn.eatammy.common.qiniu;
  * bucketl类型
  */
 public enum BucketEnum {
+
     BUSINESS(1, "business"),
     COOKBOOK(2, "cookbook"),
     DISCOVER(3, "discover"),
-    HEADICON(4, "headicon");
+    HEADICON(4, "headicon"),
+    AUTH(5,"auth");
     private int type;
     private String bucketName;
 

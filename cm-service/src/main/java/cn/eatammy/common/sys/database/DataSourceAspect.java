@@ -34,6 +34,7 @@ public class DataSourceAspect {
                 DataSourceHandler.setDataSource(dataSource.value());
                 return;
             }
+            DataSourceHandler.setDataSource(null);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }

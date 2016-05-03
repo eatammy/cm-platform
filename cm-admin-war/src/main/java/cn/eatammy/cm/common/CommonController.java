@@ -34,6 +34,8 @@ public class CommonController {
                 return UploadUtils.generalToken(BucketEnum.DISCOVER.getBucketName(), key, 300000, 0);
             case 4:
                 return UploadUtils.generalToken(BucketEnum.HEADICON.getBucketName(), key, 300000, 0);
+            case 5:
+                return UploadUtils.generalToken(BucketEnum.AUTH.getBucketName(), key, 300000, 0);
             default:
                 throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
         }
