@@ -244,4 +244,9 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
         }
         return sum;
     }
+
+    @Override
+    public List<UserDetail> queryUser4Shop() {
+        return userDetailDAO.queryUser4Shop();
+    }
 }

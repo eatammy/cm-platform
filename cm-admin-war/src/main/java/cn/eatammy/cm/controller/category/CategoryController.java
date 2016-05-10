@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 /**
  * Created by 郭旭辉 on 2016/4/16.
  * 分类管理控制类
@@ -86,6 +88,11 @@ public class CategoryController {
         return categoryService.disableOrEnable(id, status);
     }
 
+    /**
+     * 根据id删除分类
+     * @param id    分类id
+     * @return 返回，操作码
+     */
     @ResponseBody
     @RequestMapping(value = "/deleteOne")
     public String deleteOne(long id){
@@ -95,10 +102,26 @@ public class CategoryController {
         throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
     }
 
+    /**
+     * 根据id列表批量删除分类
+     * @param ids   分类id列表
+     * @return 返回，操作码
+     */
     @ResponseBody
     @RequestMapping(value = "/deleteByIds")
     public String deleteByIds(long[] ids){
         return categoryService.deleteByIds(ids);
+    }
+
+    /**
+     * 根据type查询分类列表
+     * @param type '分类类别，1：食谱分类，2：商店分类,4：商品分类，8：活动分类'
+     * @return 返回，分类列表
+     */
+    @ResponseBody
+    @RequestMapping(value = "/queryCategory")
+    public List<Category> queryCategory(Integer type){
+        return categoryService.findList(CategoryParam.F_Type, type);
     }
 
 }

@@ -32,6 +32,7 @@ import cn.eatammy.common.service.IPageService;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 《用户》 业务逻辑服务接口
@@ -140,4 +141,10 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
      * @return 返回， 新密码
      */
     String resetPasswd(String code);
+
+    /**
+     * 查询商店用户
+     * @return 返回商店用户列表
+     */
+    List<UserDetail> queryUser4Shop();
 }

@@ -29,7 +29,8 @@
     </update>
 
     <select id="queryPageEx" resultType="cn.eatammy.cm.domain.user.UserDetail">
-        SELECT <include refid="Base_Column_List"/>
+        SELECT
+        <include refid="Base_Column_List"/>
         FROM cm_user_detail
         <where>
             <if test="condition.username != null and condition.username != ''">
@@ -39,10 +40,10 @@
                 AND phone like '%${condition.phone}%'
             </if>
             <if test="condition.sex != null and condition.sex != -1">
-                AND  sex = #{condition.sex}
+                AND sex = #{condition.sex}
             </if>
             <if test="condition.userTypes != null and condition.userTypes != -1">
-                AND  userTypes &amp; #{condition.sex} > 0
+                AND userTypes &amp; #{condition.sex} > 0
             </if>
             <if test="condition.status != null and condition.status != -1">
                 AND status != #{status}
@@ -66,10 +67,10 @@
                 AND phone like '%${condition.phone}%'
             </if>
             <if test="condition.sex != null and condition.sex != -1">
-                AND  sex = #{condition.sex}
+                AND sex = #{condition.sex}
             </if>
             <if test="condition.userTypes != null and condition.userTypes != -1">
-                AND  userTypes &amp; #{condition.sex} > 0
+                AND userTypes &amp; #{condition.sex} > 0
             </if>
             <if test="condition.status != null and condition.status != -1">
                 AND status != #{status}
@@ -88,4 +89,10 @@
         set password = #{newPasswd}
         WHERE code = #{code}
     </update>
+
+    <select id="queryUser4Shop" resultType="cn.eatammy.cm.domain.user.UserDetail">
+        SELECT cud.username as username, cud.nickname AS nickname, cud.`code` as code FROM cm_user_detail cud LEFT JOIN cm_business_shop cbs
+        ON cud.`code` = cbs.uid
+        WHERE cud.userTypes &amp; 2 > 0 AND cud.status = 0 AND cbs.uid is NULL;
+    </select>
 </mapper>

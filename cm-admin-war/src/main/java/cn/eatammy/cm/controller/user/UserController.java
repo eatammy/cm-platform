@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by 郭旭辉 on 2016/3/25.
@@ -195,5 +196,15 @@ public class UserController {
     public String deleteHeadIcon(String key) {
         bucketManagerService.deleteFile(BucketEnum.HEADICON.getBucketName(), key);
         return RETURNCODE.DELETE_COMPLETE.getMessage();
+    }
+
+    /**
+     * 查询商店用户
+     * @return  查询商店用户
+     */
+    @ResponseBody
+    @RequestMapping(value = "/queryUser4Shop")
+    public  List<UserDetail> queryUser4Shop(){
+        return userDetailService.queryUser4Shop();
     }
 }

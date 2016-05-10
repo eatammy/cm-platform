@@ -111,4 +111,11 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
      */
     @DataSource("write")
     int updatePasswdByCode(@Param("code") String code, @Param("newPasswd") String newPasswd);
+
+    /**
+     *  查询商店用户列表
+     * @return 返回商店用户列表
+     */
+    @DataSource("read")
+    List<UserDetail> queryUser4Shop();
 }
