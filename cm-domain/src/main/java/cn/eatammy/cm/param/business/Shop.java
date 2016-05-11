@@ -20,90 +20,19 @@
 
 package cn.eatammy.cm.param.business;
 
-import cn.eatammy.common.param.CreateBaseParam;
+import cn.eatammy.common.domain.CMCreateBaseDomain;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * 《商家》 查询参数实体
+ * 《商家》 实体
  * @author 郭旭辉
  *
  */
-public class ShopParam extends CreateBaseParam<Long> {
+public class Shop extends CMCreateBaseDomain<Long> {
 	private static final long serialVersionUID = 1L;
-	
-	/**
-	*字段常量——商店名称
-	*/
-	public static final String F_ShopName="shopName";
-	/**
-	*字段常量——商店详细地址
-	*/
-	public static final String F_Address="address";
-	/**
-	*字段常量——所属省
-	*/
-	public static final String F_Province="province";
-	/**
-	*字段常量——所属城市
-	*/
-	public static final String F_City="city";
-	/**
-	*字段常量——所属区县
-	*/
-	public static final String F_Town="town";
-	/**
-	*字段常量——商店封面
-	*/
-	public static final String F_Cover="cover";
-	/**
-	*字段常量——商店名称
-	*/
-	public static final String F_Owner="owner";
-	/**
-	*字段常量——商店code，UUID
-	*/
-	public static final String F_Code="code";
-	/**
-	*字段常量——商家uid
-	*/
-	public static final String F_Uid="uid";
-	/**
-	*字段常量——商店所有人证件照
-	*/
-	public static final String F_OwnerPaperPic="ownerPaperPic";
-	/**
-	*字段常量——商店所有人证件号
-	*/
-	public static final String F_OwnerPaper="ownerPaper";
-	/**
-	*字段常量——商店营业执照照片
-	*/
-	public static final String F_LicensePic="licensePic";
-	/**
-	*字段常量——商店营业执照号码
-	*/
-	public static final String F_License="license";
-	/**
-	*字段常量——商店类型
-	*/
-	public static final String F_CaegoryId="caegoryId";
-	/**
-	*字段常量——商店固定电话
-	*/
-	public static final String F_LinetTelephone="linetTelephone";
-	/**
-	*字段常量——商店联系电话
-	*/
-	public static final String F_Phone="phone";
-	/**
-	*字段常量——商家总收入，默认为0
-	*/
-	public static final String F_Income4Sum="income4Sum";
-	/**
-	*字段常量——商家可提现收入，默认为0
-	*/
-	public static final String F_Withdrawable="withdrawable";
 	
 	private String shopName; //商店名称
 	private String address; //商店详细地址
@@ -127,7 +56,7 @@ public class ShopParam extends CreateBaseParam<Long> {
 	/**
 	 *默认空构造函数
 	 */
-	public ShopParam() {
+	public Shop() {
 		super();
 	}
 	 
@@ -377,4 +306,41 @@ public class ShopParam extends CreateBaseParam<Long> {
 			.toString();
 	}
 	
+	public int hashCode() {
+		return new HashCodeBuilder()
+			.append(getId())
+			.append(getShopName())
+			.append(getAddress())
+			.append(getProvince())
+			.append(getCity())
+			.append(getTown())
+			.append(getCover())
+			.append(getOwner())
+			.append(getCode())
+			.append(getUid())
+			.append(getOwnerPaperPic())
+			.append(getOwnerPaper())
+			.append(getLicensePic())
+			.append(getLicense())
+			.append(getCaegoryId())
+			.append(getLinetTelephone())
+			.append(getPhone())
+			.append(getIncome4Sum())
+			.append(getWithdrawable())
+			.append(getCreator())
+			.append(getCreateDate())
+			.append(getLastModifier())
+			.append(getLastModDate())
+			.append(getStatus())
+			.toHashCode();
+	}
+	
+	public boolean equals(Object obj) {
+		if(obj instanceof Shop == false) return false;
+		if(this == obj) return true;
+		Shop other = (Shop)obj;
+		return new EqualsBuilder()
+			.append(getId(),other.getId())
+			.isEquals();
+	}
 }
