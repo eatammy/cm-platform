@@ -20,12 +20,6 @@
 
 package cn.eatammy.cm.param.business;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import java.util.*;
-
 /**
  * 《商家》 查询参数实体
  * @author 郭旭辉
@@ -33,7 +27,25 @@ import java.util.*;
  */
 public class ShopParamEx extends ShopParam {
 	private static final long serialVersionUID = 1L;
-	
+
+	private String authImg1;
+	private String authImg2;
 	//针对ShopParam实体在这里增加额外的属性和对应的get和set方法
-	
+
+
+	public String getAuthImg1() {
+		return authImg1;
+	}
+
+	public void setAuthImg1(String authImg1) {
+		this.authImg1 = authImg1;
+	}
+
+	public String getAuthImg2() {
+		return authImg2;
+	}
+
+	public void setAuthImg2(String authImg2) {
+		this.authImg2 = authImg2;
+	}
 }

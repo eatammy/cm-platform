@@ -20,16 +20,26 @@
 
 package cn.eatammy.cm.service.business;
 
+import cn.eatammy.cm.param.business.ShopParamEx;
+import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.service.ICMBaseService;
 import cn.eatammy.common.service.IPageService;
 
- /**
+/**
  * 《商家》 业务逻辑服务接口
- * @author 郭旭辉
  *
+ * @author 郭旭辉
  */
-public interface IShopService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>,IPageService<D, T>{
+public interface IShopService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>, IPageService<D, T> {
 
+    /**
+     * 保存商店信息
+     *
+     * @param paramEx    商店参数列表
+     * @param accountDto 当前操作用户
+     * @return 返回，操作码
+     */
+    String add(ShopParamEx paramEx, AccountDto accountDto);
 }

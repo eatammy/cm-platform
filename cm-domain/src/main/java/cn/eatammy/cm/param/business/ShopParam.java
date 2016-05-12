@@ -87,7 +87,7 @@ public class ShopParam extends CreateBaseParam<Long> {
 	/**
 	*字段常量——商店类型
 	*/
-	public static final String F_CaegoryId="caegoryId";
+	public static final String F_CategoryId="categoryId";
 	/**
 	*字段常量——商店固定电话
 	*/
@@ -118,7 +118,7 @@ public class ShopParam extends CreateBaseParam<Long> {
 	private String ownerPaper; //商店所有人证件号
 	private String licensePic; //商店营业执照照片
 	private String license; //商店营业执照号码
-	private Integer caegoryId; //商店类型
+	private Integer categoryId; //商店类型
 	private String linetTelephone; //商店固定电话
 	private String phone; //商店联系电话
 	private Double income4Sum; //商家总收入，默认为0
@@ -290,14 +290,14 @@ public class ShopParam extends CreateBaseParam<Long> {
 	/**
 	 * @return caegoryId 商店类型
 	 */
-	public Integer getCaegoryId(){
-		return this.caegoryId;
+	public Integer getCategoryId(){
+		return this.categoryId;
 	}
 	/**
-	 * @param caegoryId 商店类型
+	 * @param categoryId 商店类型
 	 */
-	public void setCaegoryId(Integer caegoryId){
-		this.caegoryId = caegoryId;
+	public void setCategoryId(Integer categoryId){
+		this.categoryId = categoryId;
 	}
 	/**
 	 * @return linetTelephone 商店固定电话
@@ -364,7 +364,7 @@ public class ShopParam extends CreateBaseParam<Long> {
 			.append("ownerPaper",getOwnerPaper())
 			.append("licensePic",getLicensePic())
 			.append("license",getLicense())
-			.append("caegoryId",getCaegoryId())
+			.append("caegoryId",getCategoryId())
 			.append("linetTelephone",getLinetTelephone())
 			.append("phone",getPhone())
 			.append("income4Sum",getIncome4Sum())

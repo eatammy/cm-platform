@@ -18,7 +18,7 @@
         ownerPaper,
         licensePic,
         license,
-        caegoryId,
+        categoryId,
         linetTelephone,
         phone,
         income4Sum,
@@ -44,7 +44,7 @@
 		    ,ownerPaper
 		    ,licensePic
 		    ,license
-		    ,caegoryId
+		    ,categoryId
 		    ,linetTelephone
 		    ,phone
 		    ,income4Sum
@@ -68,7 +68,7 @@
 		    	,#{ownerPaper}
 		    	,#{licensePic}
 		    	,#{license}
-		    	,#{caegoryId}
+		    	,#{categoryId}
 		    	,#{linetTelephone}
 		    	,#{phone}
 		    	,#{income4Sum}
@@ -99,7 +99,7 @@
 		    ,ownerPaper
 		    ,licensePic
 		    ,license
-		    ,caegoryId
+		    ,categoryId
 		    ,linetTelephone
 		    ,phone
 		    ,income4Sum
@@ -123,7 +123,7 @@
 		    	,#{map.ownerPaper}
 		    	,#{map.licensePic}
 		    	,#{map.license}
-		    	,#{map.caegoryId}
+		    	,#{map.categoryId}
 		    	,#{map.linetTelephone}
 		    	,#{map.phone}
 		    	,#{map.income4Sum}
@@ -153,7 +153,7 @@
 		    ownerPaper=#{ownerPaper},
 		    licensePic=#{licensePic},
 		    license=#{license},
-		    caegoryId=#{caegoryId},
+		    categoryId=#{categoryId},
 		    linetTelephone=#{linetTelephone},
 		    phone=#{phone},
 		    income4Sum=#{income4Sum},
@@ -210,8 +210,8 @@
             <if test="map.license!=null">
                 license = #{map.license},
             </if>
-            <if test="map.caegoryId!=null">
-                caegoryId = #{map.caegoryId},
+            <if test="map.categoryId!=null">
+                categoryId = #{map.categoryId},
             </if>
             <if test="map.linetTelephone!=null">
                 linetTelephone = #{map.linetTelephone},
@@ -287,8 +287,8 @@
             <if test="update.license!=null">
                 license = #{update.license},
             </if>
-            <if test="update.caegoryId!=null">
-                caegoryId = #{update.caegoryId},
+            <if test="update.categoryId!=null">
+                categoryId = #{update.categoryId},
             </if>
             <if test="update.linetTelephone!=null">
                 linetTelephone = #{update.linetTelephone},
@@ -359,8 +359,8 @@
             <if test="condition.license!=null">
                 AND license = #{condition.license}
             </if>
-            <if test="condition.caegoryId!=null">
-                AND caegoryId = #{condition.caegoryId}
+            <if test="condition.categoryId!=null">
+                AND categoryId = #{condition.categoryId}
             </if>
             <if test="condition.linetTelephone!=null">
                 AND linetTelephone = #{condition.linetTelephone}
@@ -408,7 +408,7 @@
             ownerPaper = #{ownerPaper},
             licensePic = #{licensePic},
             license = #{license},
-            caegoryId = #{caegoryId},
+            categoryId = #{categoryId},
             linetTelephone = #{linetTelephone},
             phone = #{phone},
             income4Sum = #{income4Sum},
@@ -484,8 +484,8 @@
             <if test="license!=null">
                 AND license = #{license}
             </if>
-            <if test="caegoryId!=null">
-                AND caegoryId = #{caegoryId}
+            <if test="categoryId!=null">
+                AND categoryId = #{categoryId}
             </if>
             <if test="linetTelephone!=null">
                 AND linetTelephone = #{linetTelephone}
@@ -611,8 +611,8 @@
             <if test="condition.license!=null">
                 ${condition.groupOp}   license  ${condition.license.op}  #{condition.license.data}
             </if>
-            <if test="condition.caegoryId!=null">
-                ${condition.groupOp}   caegoryId  ${condition.caegoryId.op}  #{condition.caegoryId.data}
+            <if test="condition.categoryId!=null">
+                ${condition.groupOp}   categoryId  ${condition.categoryId.op}  #{condition.categoryId.data}
             </if>
             <if test="condition.linetTelephone!=null">
                 ${condition.groupOp}   linetTelephone  ${condition.linetTelephone.op}  #{condition.linetTelephone.data}
@@ -700,8 +700,8 @@
             <if test="license!=null">
                 AND license like CONCAT('%', #{license} , '%')
             </if>
-            <if test="caegoryId!=null">
-                AND caegoryId like CONCAT('%', #{caegoryId} , '%')
+            <if test="categoryId!=null">
+                AND categoryId like CONCAT('%', #{categoryId} , '%')
             </if>
             <if test="linetTelephone!=null">
                 AND linetTelephone like CONCAT('%', #{linetTelephone} , '%')
@@ -784,8 +784,8 @@
             <if test="condition.license!=null">
                 AND license = #{condition.license}
             </if>
-            <if test="condition.caegoryId!=null">
-                AND caegoryId = #{condition.caegoryId}
+            <if test="condition.categoryId!=null">
+                AND categoryId = #{condition.categoryId}
             </if>
             <if test="condition.linetTelephone!=null">
                 AND linetTelephone = #{condition.linetTelephone}
@@ -867,8 +867,8 @@
             <if test="condition.license!=null">
                 AND license = #{condition.license}
             </if>
-            <if test="condition.caegoryId!=null">
-                AND caegoryId = #{condition.caegoryId}
+            <if test="condition.categoryId!=null">
+                AND categoryId = #{condition.categoryId}
             </if>
             <if test="condition.linetTelephone!=null">
                 AND linetTelephone = #{condition.linetTelephone}
@@ -946,8 +946,8 @@
            <if test="license!=null">
                ${groupOp} license ${license.op}  #{license.data}
            </if>
-           <if test="caegoryId!=null">
-               ${groupOp} caegoryId ${caegoryId.op}  #{caegoryId.data}
+           <if test="categoryId!=null">
+               ${groupOp} categoryId ${categoryId.op}  #{categoryId.data}
            </if>
            <if test="linetTelephone!=null">
                ${groupOp} linetTelephone ${linetTelephone.op}  #{linetTelephone.data}

@@ -20,31 +20,66 @@
 
 package cn.eatammy.cm.service.business;
 
-import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.business.IShopDAO;
+import cn.eatammy.cm.dao.user.IUserDetailDAO;
 import cn.eatammy.cm.domain.business.Shop;
-import cn.eatammy.cm.service.business.IShopService;
+import cn.eatammy.cm.param.business.ShopParam;
+import cn.eatammy.cm.param.business.ShopParamEx;
 import cn.eatammy.cm.service.AbstractCMPageService;
+import cn.eatammy.common.domain.AccountDto;
+import cn.eatammy.common.exception.BizException;
+import cn.eatammy.common.utils.ERRORCODE;
+import cn.eatammy.common.utils.RETURNCODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-
- /**
+/**
  * 《商家》 业务逻辑服务类
- * @author 郭旭辉
  *
+ * @author 郭旭辉
  */
 @Service("ShopServiceImpl")
-public class ShopServiceImpl extends AbstractCMPageService<ICMBaseDAO<Shop>, Shop> implements IShopService<ICMBaseDAO<Shop>,Shop>{
+public class ShopServiceImpl extends AbstractCMPageService<ICMBaseDAO<Shop>, Shop> implements IShopService<ICMBaseDAO<Shop>, Shop> {
     @Autowired
     private IShopDAO shopDAO;
+    @Autowired
+    private IUserDetailDAO userDetailDAO;
 
     @Override
     public ICMBaseDAO<Shop> getDao() {
         return shopDAO;
     }
 
+    @Override
+    public String add(ShopParamEx paramEx, AccountDto accountDto) {
+        if (!isExists(ShopParam.F_OwnerPaper, paramEx.getOwnerPaper())){  //  一个身份证号码只能申请一次
+            Shop shop = new Shop();
+            shop.setShopName(paramEx.getShopName());
+            shop.setAddress(paramEx.getAddress());
+            shop.setProvince(paramEx.getProvince());
+            shop.setCity(paramEx.getCity());
+            shop.setTown(paramEx.getTown());
+            shop.setOwner(paramEx.getOwner());
+            shop.setCode(paramEx.getCode());
+            shop.setUid(paramEx.getUid());
+            shop.setOwnerPaper(paramEx.getOwnerPaper());
+            shop.setOwnerPaperPic(paramEx.getAuthImg1() + "," + paramEx.getAuthImg2());
+            shop.setCategoryId(paramEx.getCategoryId());
+            shop.setLinetTelephone(paramEx.getLinetTelephone());
+            shop.setPhone(paramEx.getPhone());
+            shop.setCreator(accountDto.getUid());
+            shop.setCreateDate(System.currentTimeMillis());
+            shop.setStatus(1);
+            shopDAO.insert(shop);
+            userDetailDAO.updateUserTypes(paramEx.getUid(), 2);
+            return RETURNCODE.ADD_COMPLETE.getMessage();
+        }else{
+            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+        }
+    }
+
+    private boolean isExists(String property, Object value) {
+        return this.findOne(property, value) != null;
+    }
 }

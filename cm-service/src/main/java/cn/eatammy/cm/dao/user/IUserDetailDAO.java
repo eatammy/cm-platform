@@ -118,4 +118,13 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
      */
     @DataSource("read")
     List<UserDetail> queryUser4Shop();
+
+    /**
+     * 根据用户code更新用户身份
+     * @param code      用户code
+     * @param userType  用户身份值，普通用户：1，商家用户：2，管理员：4
+     * @return
+     */
+    @DataSource("write")
+    int updateUserTypes(@Param("code") String code, @Param("userType") int userType);
 }

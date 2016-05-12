@@ -95,4 +95,10 @@
         ON cud.`code` = cbs.uid
         WHERE cud.userTypes &amp; 2 > 0 AND cud.status = 0 AND cbs.uid is NULL;
     </select>
+    
+    <update id="updateUserTypes">
+        UPDATE cm_user_detail cud
+        SET cud.userTypes = cud.userTypes | #{userType}
+        WHERE cud.code = #{code} AND cud.userTypes &amp; #{userType} = 0
+    </update>
 </mapper>

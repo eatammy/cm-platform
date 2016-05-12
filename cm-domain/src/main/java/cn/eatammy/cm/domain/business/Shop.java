@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-04-28  郭旭辉        新建	
+{  2016-05-11  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -36,18 +36,18 @@ public class Shop extends CMCreateBaseDomain<Long> {
 	
 	private String shopName; //商店名称
 	private String address; //商店详细地址
-	private String province; //所属省
-	private String city; //所属城市
-	private String town; //所属区县
+	private Integer province; //所属省
+	private Integer city; //所属城市
+	private Integer town; //所属区县
 	private Integer cover; //商店封面
 	private String owner; //商店名称
 	private String code; //商店code，UUID
-	private String uid; //商家uid，用户code
+	private String uid; //商家uid
 	private String ownerPaperPic; //商店所有人证件照
 	private String ownerPaper; //商店所有人证件号
 	private String licensePic; //商店营业执照照片
 	private String license; //商店营业执照号码
-	private Integer shopCategoryId; //商店类型
+	private Integer categoryId; //商店类型
 	private String linetTelephone; //商店固定电话
 	private String phone; //商店联系电话
 	private Double income4Sum; //商家总收入，默认为0
@@ -87,37 +87,37 @@ public class Shop extends CMCreateBaseDomain<Long> {
 	/**
 	 * @return province 所属省
 	 */
-	public String getProvince(){
+	public Integer getProvince(){
 		return this.province;
 	}
 	/**
 	 * @param province 所属省
 	 */
-	public void setProvince(String province){
+	public void setProvince(Integer province){
 		this.province = province;
 	}
 	/**
 	 * @return city 所属城市
 	 */
-	public String getCity(){
+	public Integer getCity(){
 		return this.city;
 	}
 	/**
 	 * @param city 所属城市
 	 */
-	public void setCity(String city){
+	public void setCity(Integer city){
 		this.city = city;
 	}
 	/**
 	 * @return town 所属区县
 	 */
-	public String getTown(){
+	public Integer getTown(){
 		return this.town;
 	}
 	/**
 	 * @param town 所属区县
 	 */
-	public void setTown(String town){
+	public void setTown(Integer town){
 		this.town = town;
 	}
 	/**
@@ -217,16 +217,16 @@ public class Shop extends CMCreateBaseDomain<Long> {
 		this.license = license;
 	}
 	/**
-	 * @return shopCategoryId 商店类型
+	 * @return caegoryId 商店类型
 	 */
-	public Integer getShopCategoryId(){
-		return this.shopCategoryId;
+	public Integer getCategoryId(){
+		return this.categoryId;
 	}
 	/**
-	 * @param shopCategoryId 商店类型
+	 * @param categoryId 商店类型
 	 */
-	public void setShopCategoryId(Integer shopCategoryId){
-		this.shopCategoryId = shopCategoryId;
+	public void setCategoryId(Integer categoryId){
+		this.categoryId = categoryId;
 	}
 	/**
 	 * @return linetTelephone 商店固定电话
@@ -293,7 +293,7 @@ public class Shop extends CMCreateBaseDomain<Long> {
 			.append("ownerPaper",getOwnerPaper())
 			.append("licensePic",getLicensePic())
 			.append("license",getLicense())
-			.append("shopCategoryId",getShopCategoryId())
+			.append("caegoryId",getCategoryId())
 			.append("linetTelephone",getLinetTelephone())
 			.append("phone",getPhone())
 			.append("income4Sum",getIncome4Sum())
@@ -322,7 +322,7 @@ public class Shop extends CMCreateBaseDomain<Long> {
 			.append(getOwnerPaper())
 			.append(getLicensePic())
 			.append(getLicense())
-			.append(getShopCategoryId())
+			.append(getCategoryId())
 			.append(getLinetTelephone())
 			.append(getPhone())
 			.append(getIncome4Sum())
