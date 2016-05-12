@@ -2,6 +2,69 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.eatammy.cm.dao.business.IShopDAO">
-	<!-- 在这里存放用户自定义的映射配置（注：ShopDAO.xml里各节点的ID不能在这里重复出现）  -->
-	
+    <!-- 在这里存放用户自定义的映射配置（注：ShopDAO.xml里各节点的ID不能在这里重复出现）  -->
+
+    <select id="queryPageEx" resultType="cn.eatammy.cm.domain.business.ShopEx">
+		SELECT cbs.shopName as shopName,cbs.`code` as code, cbs.address as address,
+		cbs.createDate as createDate, cbs.`status` as `status`,
+		csc.`name` AS categoryName,cud.nickname AS nickname
+	    FROM cm_business_shop cbs LEFT JOIN cm_user_detail cud on cbs.uid = cud.`code`
+	    LEFT JOIN cm_sys_category csc ON cbs.categoryId = csc.id
+        <where>
+            csc.status = 0 AND cbs.status = 0 AND cud.status = 0
+            <if test="condition.shopName != null and shopName != ''">
+              AND cbs.shopName = #{condition.shopName}
+            </if>
+            <if test="condition.username != null and username != ''">
+              AND cud.username = #{condition.username}
+            </if>
+            <if test="condition.categoryId != null and shopName != -1">
+              AND cbs.categoryId = #{condition.categoryId}
+            </if>
+            <if test="condition.province != null and shopName != -1">
+              AND cbs.province = #{condition.province}
+            </if>
+            <if test="condition.city != null and city != -1">
+              AND cbs.city = #{condition.city}
+            </if>
+            <if test="condition.town != null and town != -1">
+              AND cbs.town = #{condition.town}
+            </if>
+        </where>
+        group by cbs.id
+        order by cbs.id desc
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+	</select>
+
+    <select id="countEx" resultType="java.lang.Integer">
+        SELECT cbs.shopName as shopName,cbs.`code` as code, cbs.address as address,
+        cbs.createDate as createDate, cbs.`status` as `status`,
+        csc.`name` AS categoryName,cud.nickname AS nickname
+        FROM cm_business_shop cbs LEFT JOIN cm_user_detail cud on cbs.uid = cud.`code`
+        LEFT JOIN cm_sys_category csc ON cbs.categoryId = csc.id
+        <where>
+            csc.status = 0 AND cbs.status = 0 AND cud.status = 0
+            <if test="condition.shopName != null and shopName != ''">
+                AND cbs.shopName = #{condition.shopName}
+            </if>
+            <if test="condition.username != null and username != ''">
+                AND cud.username = #{condition.username}
+            </if>
+            <if test="condition.categoryId != null and shopName != -1">
+                AND cbs.categoryId = #{condition.categoryId}
+            </if>
+            <if test="condition.province != null and shopName != -1">
+                AND cbs.province = #{condition.province}
+            </if>
+            <if test="condition.city != null and city != -1">
+                AND cbs.city = #{condition.city}
+            </if>
+            <if test="condition.town != null and town != -1">
+                AND cbs.town = #{condition.town}
+            </if>
+        </where>
+        group by cbs.id
+    </select>
 </mapper>

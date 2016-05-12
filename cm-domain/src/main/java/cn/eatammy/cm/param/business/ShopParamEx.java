@@ -28,8 +28,9 @@ package cn.eatammy.cm.param.business;
 public class ShopParamEx extends ShopParam {
 	private static final long serialVersionUID = 1L;
 
-	private String authImg1;
-	private String authImg2;
+	private String authImg1;	//身份证正面URL
+	private String authImg2;	//身份证反面URL
+	private String username;	//商店账号
 	//针对ShopParam实体在这里增加额外的属性和对应的get和set方法
 
 
@@ -47,5 +48,13 @@ public class ShopParamEx extends ShopParam {
 
 	public void setAuthImg2(String authImg2) {
 		this.authImg2 = authImg2;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }

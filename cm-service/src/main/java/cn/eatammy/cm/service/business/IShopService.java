@@ -20,11 +20,14 @@
 
 package cn.eatammy.cm.service.business;
 
+import cn.eatammy.cm.dao.ICMBaseDAO;
+import cn.eatammy.cm.domain.business.Shop;
+import cn.eatammy.cm.param.business.ShopParam;
 import cn.eatammy.cm.param.business.ShopParamEx;
+import cn.eatammy.cm.service.ICMBaseService;
 import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BaseDomain;
-import cn.eatammy.cm.dao.ICMBaseDAO;
-import cn.eatammy.cm.service.ICMBaseService;
+import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.service.IPageService;
 
 /**
@@ -42,4 +45,6 @@ public interface IShopService<D extends ICMBaseDAO<T>, T extends BaseDomain> ext
      * @return 返回，操作码
      */
     String add(ShopParamEx paramEx, AccountDto accountDto);
+
+    BizData4Page<Shop> queryPage(ShopParam param, int pageNo, int pageSize);
 }

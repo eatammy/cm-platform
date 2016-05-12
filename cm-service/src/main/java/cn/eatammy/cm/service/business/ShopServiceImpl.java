@@ -28,6 +28,7 @@ import cn.eatammy.cm.param.business.ShopParam;
 import cn.eatammy.cm.param.business.ShopParamEx;
 import cn.eatammy.cm.service.AbstractCMPageService;
 import cn.eatammy.common.domain.AccountDto;
+import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.exception.BizException;
 import cn.eatammy.common.utils.ERRORCODE;
 import cn.eatammy.common.utils.RETURNCODE;
@@ -49,6 +50,11 @@ public class ShopServiceImpl extends AbstractCMPageService<ICMBaseDAO<Shop>, Sho
     @Override
     public ICMBaseDAO<Shop> getDao() {
         return shopDAO;
+    }
+
+    @Override
+    public BizData4Page<Shop> queryPage(ShopParam param, int pageNo, int pageSize) {
+        return null;
     }
 
     @Override

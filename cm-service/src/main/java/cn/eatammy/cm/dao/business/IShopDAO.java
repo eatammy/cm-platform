@@ -22,13 +22,36 @@ package cn.eatammy.cm.dao.business;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.domain.business.Shop;
+import cn.eatammy.cm.domain.business.ShopEx;
+import cn.eatammy.common.sys.database.DataSource;
+import org.apache.ibatis.annotations.Param;
 
- /**
+import java.util.List;
+import java.util.Map;
+
+/**
  * 《商家》 数据访问接口
- * @author 郭旭辉
  *
+ * @author 郭旭辉
  */
 public interface IShopDAO extends ICMBaseDAO<Shop> {
 
+    /**
+     * 分页查询商店接口
+     *
+     * @param condition
+     * @param rows
+     * @param offset
+     * @return
+     */
+    @DataSource("read")
+    List<ShopEx> queryPageEx(@Param("condition") Map<String, Object> condition, @Param("rows") int rows, @Param("offset") int offset);
 
+    /**
+     * 统计分页行数
+     * @param condition 分页查询条件
+     * @return 返回，统计结果
+     */
+    @DataSource("read")
+    int countEx(@Param("condition") Map<String, Object> condition);
 }
