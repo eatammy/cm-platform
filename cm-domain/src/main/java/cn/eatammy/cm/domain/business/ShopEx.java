@@ -20,13 +20,6 @@
 
 package cn.eatammy.cm.domain.business;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
-import java.util.*;
-
 /**
  * 《商家》扩展实体
  * @author 郭旭辉
@@ -34,6 +27,34 @@ import java.util.*;
  */
 public class ShopEx extends Shop {
 	private static final long serialVersionUID = 1L;
-	
+
+	private String categoryName;		//分类名称
+	private String username;		//用户账号
+	private String nickName;		//归属者昵称
 	//针对Shop实体在这里增加额外的属性和对应的get和set方法
+
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
 }

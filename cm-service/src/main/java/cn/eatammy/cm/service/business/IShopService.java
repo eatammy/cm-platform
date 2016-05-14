@@ -22,6 +22,7 @@ package cn.eatammy.cm.service.business;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.domain.business.Shop;
+import cn.eatammy.cm.domain.business.ShopEx;
 import cn.eatammy.cm.param.business.ShopParam;
 import cn.eatammy.cm.param.business.ShopParamEx;
 import cn.eatammy.cm.service.ICMBaseService;
@@ -46,5 +47,27 @@ public interface IShopService<D extends ICMBaseDAO<T>, T extends BaseDomain> ext
      */
     String add(ShopParamEx paramEx, AccountDto accountDto);
 
+    /**
+     * 批量查询商店
+     * @param param         查询参数
+     * @param pageNo        页码
+     * @param pageSize      页大小
+     * @return 返回，分页数据
+     */
     BizData4Page<Shop> queryPage(ShopParam param, int pageNo, int pageSize);
+
+    /**
+     * 审核商店
+     * @param code      商店code
+     * @param status    状态，0：通过，1：审核
+     * @return  返回，操作码
+     */
+    String disableOrEnable(String code, int status);
+
+    /**
+     * 根据code查询商店信息
+     * @param code  商店code
+     * @return  返回，商店信息
+     */
+    ShopEx queryOne(String code);
 }

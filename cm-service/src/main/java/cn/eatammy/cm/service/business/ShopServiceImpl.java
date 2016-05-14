@@ -24,6 +24,7 @@ import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.business.IShopDAO;
 import cn.eatammy.cm.dao.user.IUserDetailDAO;
 import cn.eatammy.cm.domain.business.Shop;
+import cn.eatammy.cm.domain.business.ShopEx;
 import cn.eatammy.cm.param.business.ShopParam;
 import cn.eatammy.cm.param.business.ShopParamEx;
 import cn.eatammy.cm.service.AbstractCMPageService;
@@ -31,10 +32,12 @@ import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.exception.BizException;
 import cn.eatammy.common.utils.ERRORCODE;
+import cn.eatammy.common.utils.PageUtils;
 import cn.eatammy.common.utils.RETURNCODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 /**
  * 《商家》 业务逻辑服务类
  *
@@ -54,7 +57,9 @@ public class ShopServiceImpl extends AbstractCMPageService<ICMBaseDAO<Shop>, Sho
 
     @Override
     public BizData4Page<Shop> queryPage(ShopParam param, int pageNo, int pageSize) {
-        return null;
+        List<ShopEx> data = shopDAO.queryPageEx(param.toMap(), (pageNo -1)*pageSize, pageSize);
+        int records = shopDAO.countEx(param.toMap());
+        return PageUtils.toBizData4Page(data, pageNo, pageSize, records);
     }
 
     @Override
@@ -83,6 +88,20 @@ public class ShopServiceImpl extends AbstractCMPageService<ICMBaseDAO<Shop>, Sho
         }else{
             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
         }
+    }
+
+    @Override
+    public String disableOrEnable(String code, int status) {
+        if(shopDAO.updateShopStatus(code, status) == 1){
+            return RETURNCODE.UPDATE_COMPLETE.getMessage();
+        }else{
+            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+        }
+    }
+
+    @Override
+    public ShopEx queryOne(String code) {
+        return shopDAO.queryOneEx(code);
     }
 
     private boolean isExists(String property, Object value) {

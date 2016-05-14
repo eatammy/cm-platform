@@ -192,7 +192,7 @@ public class UserController {
      * @return 返回，操作码
      */
     @ResponseBody
-    @RequestMapping(value = "deleteHeadIcon")
+    @RequestMapping(value = "/deleteHeadIcon")
     public String deleteHeadIcon(String key) {
         bucketManagerService.deleteFile(BucketEnum.HEADICON.getBucketName(), key);
         return RETURNCODE.DELETE_COMPLETE.getMessage();

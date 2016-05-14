@@ -45,7 +45,7 @@ public interface IShopDAO extends ICMBaseDAO<Shop> {
      * @return
      */
     @DataSource("read")
-    List<ShopEx> queryPageEx(@Param("condition") Map<String, Object> condition, @Param("rows") int rows, @Param("offset") int offset);
+    List<ShopEx> queryPageEx(@Param("condition") Map<String, Object> condition, @Param("offset") int offset, @Param("rows") int rows);
 
     /**
      * 统计分页行数
@@ -54,4 +54,21 @@ public interface IShopDAO extends ICMBaseDAO<Shop> {
      */
     @DataSource("read")
     int countEx(@Param("condition") Map<String, Object> condition);
+
+    /**
+     * 跟新商店状态
+     * @param code      商店code
+     * @param status    状态，0：营业，1：审核
+     * @return 返回，0：失败，1：成功
+     */
+    @DataSource("write")
+    int updateShopStatus(@Param("code")String code, @Param("status")int status);
+
+    /**
+     * 查询单个商店
+     * @param code  商店
+     * @return 返回，商店信息
+     */
+    @DataSource("read")
+    ShopEx queryOneEx(@Param("code") String code);
 }
