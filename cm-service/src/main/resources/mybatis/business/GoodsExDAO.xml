@@ -3,5 +3,47 @@
 
 <mapper namespace="cn.eatammy.cm.dao.business.IGoodsDAO">
 	<!-- 在这里存放用户自定义的映射配置（注：GoodsDAO.xml里各节点的ID不能在这里重复出现）  -->
-	
+
+	<select id="queryPageEx" resultType="cn.eatammy.cm.domain.business.GoodsEx">
+		SELECT cbg.*,csc. from cm_business_goods cbg LEFT JOIN cm_business_shop cbs
+		ON cbg.shopId = cbs.`code`
+		LEFT JOIN cm_sys_category csc
+		ON cbg.categoryId = csc.id
+		<where>
+			cbs.status = 0 AND csc.status = 0 AND cbg.status = 0
+			<if test="condition.shopId != null and condition.shopId != ''">
+				AND cbg.shopId = #{condition.shopId}
+			</if>
+			<if test="condition.name != null and conditon.name != ''">
+				AND cbg.NAME LIKE '%${condition.name}}%'
+			</if>
+			<if test="condition.low != null and condition != 0">
+				AND cbg.price &gt;= #{condition.low} and cbg.price &lt;= #{condition.high}
+			</if>
+		</where>
+		group by id
+		order by id desc
+		<if test="offset != null">
+			limit ${offset}, #{rows}
+		</if>
+	</select>
+
+	<select id="countEx" resultType="java.lang.Integer">
+		SELECT cbg.*,csc. from cm_business_goods cbg LEFT JOIN cm_business_shop cbs
+		ON cbg.shopId = cbs.`code`
+		LEFT JOIN cm_sys_category csc
+		ON cbg.categoryId = csc.id
+		<where>
+			cbs.status = 0 AND csc.status = 0 AND cbg.status = 0
+			<if test="condition.shopId != null and condition.shopId != ''">
+				AND cbg.shopId = #{condition.shopId}
+			</if>
+			<if test="condition.name != null and conditon.name != ''">
+				AND cbg.NAME LIKE '%${condition.name}}%'
+			</if>
+			<if test="condition.low != null and condition != 0">
+				AND cbg.price &gt;= #{condition.low} and cbg.price &lt;= #{condition.high}
+			</if>
+		</where>
+	</select>
 </mapper>
