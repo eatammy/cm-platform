@@ -31,6 +31,8 @@ import cn.eatammy.cm.service.AbstractCMPageService;
 import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.exception.BizException;
+import cn.eatammy.common.qiniu.BucketEnum;
+import cn.eatammy.common.qiniu.BucketManagerService;
 import cn.eatammy.common.utils.ERRORCODE;
 import cn.eatammy.common.utils.PageUtils;
 import cn.eatammy.common.utils.RETURNCODE;
@@ -49,6 +51,8 @@ public class ShopServiceImpl extends AbstractCMPageService<ICMBaseDAO<Shop>, Sho
     private IShopDAO shopDAO;
     @Autowired
     private IUserDetailDAO userDetailDAO;
+    @Autowired
+    private BucketManagerService bucketManagerService;
 
     @Override
     public ICMBaseDAO<Shop> getDao() {
@@ -91,8 +95,8 @@ public class ShopServiceImpl extends AbstractCMPageService<ICMBaseDAO<Shop>, Sho
     }
 
     @Override
-    public String disableOrEnable(String code, int status) {
-        if(shopDAO.updateShopStatus(code, status) == 1){
+    public String disableOrEnable(long id, int status) {
+        if(shopDAO.updateShopStatus(id, status) == 1){
             return RETURNCODE.UPDATE_COMPLETE.getMessage();
         }else{
             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
@@ -102,6 +106,19 @@ public class ShopServiceImpl extends AbstractCMPageService<ICMBaseDAO<Shop>, Sho
     @Override
     public ShopEx queryOne(String code) {
         return shopDAO.queryOneEx(code);
+    }
+
+    @Override
+    public String deleteOne(long id, String code) {
+        if(this.deleteById(id) == 1){
+            //删除证件照
+            for(int i=1;i<3;i++){
+                bucketManagerService.deleteFile(BucketEnum.AUTH.getBucketName(), code+"_"+i);
+            }
+            return RETURNCODE.DELETE_COMPLETE.getMessage();
+        }else{
+            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+        }
     }
 
     private boolean isExists(String property, Object value) {

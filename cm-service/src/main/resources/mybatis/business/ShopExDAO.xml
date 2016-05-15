@@ -4,7 +4,7 @@
 <mapper namespace="cn.eatammy.cm.dao.business.IShopDAO">
 
     <select id="queryPageEx" resultType="cn.eatammy.cm.domain.business.ShopEx">
-		SELECT cbs.shopName as shopName,cbs.`code` as code, cbs.address as address,
+		SELECT cbs.id as id, cbs.shopName as shopName,cbs.`code` as code, cbs.address as address,
 		cbs.createDate as createDate, cbs.`status` as `status`,
 		csc.`name` AS categoryName,cbs.owner AS owner
 	    FROM cm_business_shop cbs LEFT JOIN cm_user_detail cud on cbs.uid = cud.`code`
@@ -68,7 +68,6 @@
                 and cbs.status = condition.status
             </if>
         </where>
-        group by cbs.id
     </select>
 
     <select id="queryOneEx" resultType="cn.eatammy.cm.domain.business.ShopEx">
@@ -81,7 +80,7 @@
     <update id="updateShopStatus">
         UPDATE  cm_business_shop
         set status = #{status}
-        where code = #{code}
+        where id = #{id}
     </update>
 
 </mapper>

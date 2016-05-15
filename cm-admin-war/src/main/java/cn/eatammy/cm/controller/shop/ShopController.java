@@ -4,9 +4,6 @@ import cn.eatammy.cm.domain.business.ShopEx;
 import cn.eatammy.cm.param.business.ShopParamEx;
 import cn.eatammy.cm.service.business.IShopService;
 import cn.eatammy.common.domain.BizData4Page;
-import cn.eatammy.common.exception.BizException;
-import cn.eatammy.common.utils.ERRORCODE;
-import cn.eatammy.common.utils.RETURNCODE;
 import cn.eatammy.common.utils.User.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,14 +49,14 @@ public class ShopController {
 
     /**
      * 审核商店
-     * @param code      商店code
+     * @param id      商店code
      * @param status    状态，0：通过，1：审核
      * @return  返回，操作码
      */
     @ResponseBody
     @RequestMapping(value = "/disableOrEnable")
-    public String disableOrEnable(String code, @RequestParam(defaultValue = "0")int status){
-        return shopService.disableOrEnable(code, status);
+    public String disableOrEnable(long id, @RequestParam(defaultValue = "0")int status){
+        return shopService.disableOrEnable(id, status);
     }
 
     /**
@@ -76,15 +73,12 @@ public class ShopController {
     /**
      * 根据用户id删除商店
      * @param id    商店id
+     * @param code  商店code
      * @return  返回，操作码
      */
     @ResponseBody
     @RequestMapping(value = "/deleteOne")
-    public String deleteOne(long id){
-        if (shopService.deleteById(id) == 1){
-            return RETURNCODE.DELETE_COMPLETE.getMessage();
-        } else {
-            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
-        }
+    public String deleteOne(long id, String code){
+        return shopService.deleteOne(id, code);
     }
 }

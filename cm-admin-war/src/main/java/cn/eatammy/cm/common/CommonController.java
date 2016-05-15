@@ -57,19 +57,19 @@ public class CommonController {
     public String deleteImg(int type, String key){
         switch (type) {
             case 1:
-                bucketManagerService.deleteFile(BucketEnum.HEADICON.getBucketName(), key);
+                bucketManagerService.deleteFile(BucketEnum.BUSINESS.getBucketName(), key);
                 return RETURNCODE.DELETE_COMPLETE.getMessage();
             case 2:
-                bucketManagerService.deleteFile(BucketEnum.HEADICON.getBucketName(), key);
+                bucketManagerService.deleteFile(BucketEnum.COOKBOOK.getBucketName(), key);
                 return RETURNCODE.DELETE_COMPLETE.getMessage();
             case 3:
-                bucketManagerService.deleteFile(BucketEnum.HEADICON.getBucketName(), key);
+                bucketManagerService.deleteFile(BucketEnum.DISCOVER.getBucketName(), key);
                 return RETURNCODE.DELETE_COMPLETE.getMessage();
             case 4:
                 bucketManagerService.deleteFile(BucketEnum.HEADICON.getBucketName(), key);
                 return RETURNCODE.DELETE_COMPLETE.getMessage();
             case 5:
-                bucketManagerService.deleteFile(BucketEnum.HEADICON.getBucketName(), key);
+                bucketManagerService.deleteFile(BucketEnum.AUTH.getBucketName(), key);
                 return RETURNCODE.DELETE_COMPLETE.getMessage();
             default:
                 throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());

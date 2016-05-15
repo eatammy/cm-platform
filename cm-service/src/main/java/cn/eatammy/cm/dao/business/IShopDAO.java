@@ -56,13 +56,13 @@ public interface IShopDAO extends ICMBaseDAO<Shop> {
     int countEx(@Param("condition") Map<String, Object> condition);
 
     /**
-     * 跟新商店状态
-     * @param code      商店code
+     * 更新商店状态
+     * @param id      商店id
      * @param status    状态，0：营业，1：审核
      * @return 返回，0：失败，1：成功
      */
     @DataSource("write")
-    int updateShopStatus(@Param("code")String code, @Param("status")int status);
+    int updateShopStatus(@Param("id")long id, @Param("status")int status);
 
     /**
      * 查询单个商店

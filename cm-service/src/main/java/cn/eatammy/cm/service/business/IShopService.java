@@ -58,11 +58,11 @@ public interface IShopService<D extends ICMBaseDAO<T>, T extends BaseDomain> ext
 
     /**
      * 审核商店
-     * @param code      商店code
+     * @param id      商店code
      * @param status    状态，0：通过，1：审核
      * @return  返回，操作码
      */
-    String disableOrEnable(String code, int status);
+    String disableOrEnable(long id, int status);
 
     /**
      * 根据code查询商店信息
@@ -70,4 +70,12 @@ public interface IShopService<D extends ICMBaseDAO<T>, T extends BaseDomain> ext
      * @return  返回，商店信息
      */
     ShopEx queryOne(String code);
+
+    /**
+     * 根据id删除商店信息
+     * @param id        商店id
+     * @param code      商店code
+     * @return  返回，操作码
+     */
+    String deleteOne(long id, String code);
 }
