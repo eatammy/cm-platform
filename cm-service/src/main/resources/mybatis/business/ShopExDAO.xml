@@ -76,6 +76,12 @@
 	    LEFT JOIN cm_sys_category csc ON cbs.categoryId = csc.id
         WHERE cbs.code = #{code}
     </select>
+    <select id="queryShopByUid" resultType="cn.eatammy.cm.domain.business.ShopEx">
+        SELECT cbs.*,csc.`name` AS categoryName,cud.username as username, cud.nickname as nickname
+	    FROM cm_business_shop cbs LEFT JOIN cm_user_detail cud on cbs.uid = cud.`code`
+	    LEFT JOIN cm_sys_category csc ON cbs.categoryId = csc.id
+        WHERE cbs.uid = #{uid} and cbs.status = 0;
+    </select>
 
     <update id="updateShopStatus">
         UPDATE  cm_business_shop

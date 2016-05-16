@@ -81,4 +81,10 @@ public class ShopController {
     public String deleteOne(long id, String code){
         return shopService.deleteOne(id, code);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/initShop")
+    public ShopEx initShop(String uid){
+        return shopService.findOne(uid);
+    }
 }

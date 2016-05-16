@@ -78,4 +78,11 @@ public interface IShopService<D extends ICMBaseDAO<T>, T extends BaseDomain> ext
      * @return  返回，操作码
      */
     String deleteOne(long id, String code);
+
+    /**
+     * 根据用户id查询商店
+     * @param uid 用户id
+     * @return  返回，商店信息
+     */
+    ShopEx findOne(String uid);
 }

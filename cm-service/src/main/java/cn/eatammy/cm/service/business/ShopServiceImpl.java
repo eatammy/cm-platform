@@ -124,4 +124,9 @@ public class ShopServiceImpl extends AbstractCMPageService<ICMBaseDAO<Shop>, Sho
     private boolean isExists(String property, Object value) {
         return this.findOne(property, value) != null;
     }
+
+    @Override
+    public ShopEx findOne(String uid) {
+        return shopDAO.queryShopByUid(uid);
+    }
 }

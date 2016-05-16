@@ -71,4 +71,7 @@ public interface IShopDAO extends ICMBaseDAO<Shop> {
      */
     @DataSource("read")
     ShopEx queryOneEx(@Param("code") String code);
+
+    @DataSource("read")
+    ShopEx queryShopByUid(@Param("uid") String uid);
 }
