@@ -20,25 +20,28 @@
 
 package cn.eatammy.cm.service.business;
 
-import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.business.IGoodsDAO;
 import cn.eatammy.cm.domain.business.Goods;
-import cn.eatammy.cm.service.business.IGoodsService;
+import cn.eatammy.cm.domain.business.GoodsEx;
+import cn.eatammy.cm.param.business.GoodsParam;
+import cn.eatammy.cm.param.business.GoodsParamEx;
 import cn.eatammy.cm.service.AbstractCMPageService;
+import cn.eatammy.common.domain.AccountDto;
+import cn.eatammy.common.domain.BizData4Page;
+import cn.eatammy.common.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
- /**
+/**
  * 《商品信息》 业务逻辑服务类
- * @author 郭旭辉
  *
+ * @author 郭旭辉
  */
 @Service("GoodsServiceImpl")
-public class GoodsServiceImpl extends AbstractCMPageService<ICMBaseDAO<Goods>, Goods> implements IGoodsService<ICMBaseDAO<Goods>,Goods>{
+public class GoodsServiceImpl extends AbstractCMPageService<ICMBaseDAO<Goods>, Goods> implements IGoodsService<ICMBaseDAO<Goods>, Goods> {
     @Autowired
     private IGoodsDAO goodsDAO;
 
@@ -47,4 +50,16 @@ public class GoodsServiceImpl extends AbstractCMPageService<ICMBaseDAO<Goods>, G
         return goodsDAO;
     }
 
+    @Override
+    public BizData4Page queryPage(GoodsParamEx paramEx, int pageNo, int pageSize) {
+        List<GoodsEx> data = goodsDAO.queryPageEx(paramEx.toMap(), (pageNo - 1) * pageNo, pageSize);
+        int records = goodsDAO.countEx(paramEx.toMap());
+        return PageUtils.toBizData4Page(data, pageNo, pageSize, records);
+    }
+
+    @Override
+    public String add(GoodsParam param, AccountDto currentUser) {
+
+        return null;
+    }
 }
