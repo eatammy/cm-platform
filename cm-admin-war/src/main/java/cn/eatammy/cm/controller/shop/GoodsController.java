@@ -1,5 +1,6 @@
 package cn.eatammy.cm.controller.shop;
 
+import cn.eatammy.cm.domain.business.Goods;
 import cn.eatammy.cm.param.business.GoodsParam;
 import cn.eatammy.cm.param.business.GoodsParamEx;
 import cn.eatammy.cm.service.business.IGoodsService;
@@ -43,5 +44,17 @@ public class GoodsController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add(GoodsParam param){
         return goodsService.add(param, UserContext.getCurrentUser());
+    }
+
+
+    /**
+     * 根据id返回商品信息
+     * @param id    商品id
+     * @return 返回，商品信息
+     */
+    @ResponseBody
+    @RequestMapping(value = "/queryOne")
+    public Goods queryOne(long id){
+        return (Goods) goodsService.findOne(GoodsParam.F_ID, id);
     }
 }
