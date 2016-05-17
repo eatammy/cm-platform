@@ -29,7 +29,10 @@ import cn.eatammy.cm.param.business.GoodsParamEx;
 import cn.eatammy.cm.service.AbstractCMPageService;
 import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BizData4Page;
+import cn.eatammy.common.exception.BizException;
+import cn.eatammy.common.utils.ERRORCODE;
 import cn.eatammy.common.utils.PageUtils;
+import cn.eatammy.common.utils.RETURNCODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +62,30 @@ public class GoodsServiceImpl extends AbstractCMPageService<ICMBaseDAO<Goods>, G
 
     @Override
     public String add(GoodsParam param, AccountDto currentUser) {
+        if(! isExists(param.F_GoodsName, param.getGoodsName())){
+            Goods goods = new Goods();
+            goods.setGoodsName(param.getGoodsName());
+            goods.setPrice(param.getPrice());
+            goods.setCode(param.getCode());
+            goods.setShopId(param.getShopId());
+            goods.setStock(param.getStock());
+            goods.setSale(0);
+            goods.setDescription(param.getDescription());
+            goods.setPicture(param.getPicture());
+            goods.setCategoryId(param.getCategoryId());
+            goods.setCreator(currentUser.getUid());
+            goods.setCreateDate(System.currentTimeMillis());
+            goods.setStatus(0);
+            if(goodsDAO.insert(goods) == 1){
+                return RETURNCODE.ADD_COMPLETE.getMessage();
+            }
+            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+        } else{
+            throw new BizException(ERRORCODE.GOODSNAME_EXISTS.getCode(), ERRORCODE.GOODSNAME_EXISTS.getMessage());
+        }
+    }
 
-        return null;
+    private boolean isExists(String property, Object value){
+        return this.findOne(property, value) != null;
     }
 }

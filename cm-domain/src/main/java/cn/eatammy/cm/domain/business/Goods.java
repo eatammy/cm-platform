@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-04-28  郭旭辉        新建	
+{  2016-05-17  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -41,6 +41,8 @@ public class Goods extends CMCreateBaseDomain<Long> {
 	private Integer stock; //库存量
 	private Integer sale; //销售量
 	private String description; //描述
+	private String picture; //商品图片
+	private Long categoryId; //商品分类id
     
 	/**
 	 *默认空构造函数
@@ -133,6 +135,30 @@ public class Goods extends CMCreateBaseDomain<Long> {
 	public void setDescription(String description){
 		this.description = description;
 	}
+	/**
+	 * @return picture 商品图片
+	 */
+	public String getPicture(){
+		return this.picture;
+	}
+	/**
+	 * @param picture 商品图片
+	 */
+	public void setPicture(String picture){
+		this.picture = picture;
+	}
+	/**
+	 * @return categoryId 商品分类id
+	 */
+	public Long getCategoryId(){
+		return this.categoryId;
+	}
+	/**
+	 * @param categoryId 商品分类id
+	 */
+	public void setCategoryId(Long categoryId){
+		this.categoryId = categoryId;
+	}
 	
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -144,6 +170,8 @@ public class Goods extends CMCreateBaseDomain<Long> {
 			.append("stock",getStock())
 			.append("sale",getSale())
 			.append("description",getDescription())
+			.append("picture",getPicture())
+			.append("categoryId",getCategoryId())
 			.append("creator",getCreator())
 			.append("createDate",getCreateDate())
 			.append("lastModifier",getLastModifier())
@@ -162,6 +190,8 @@ public class Goods extends CMCreateBaseDomain<Long> {
 			.append(getStock())
 			.append(getSale())
 			.append(getDescription())
+			.append(getPicture())
+			.append(getCategoryId())
 			.append(getCreator())
 			.append(getCreateDate())
 			.append(getLastModifier())

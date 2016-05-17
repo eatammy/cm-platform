@@ -12,6 +12,8 @@
         stock,
         sale,
         description,
+        picture,
+        categoryId,
         creator,
         createDate,
         lastModifier,
@@ -27,6 +29,8 @@
 		    ,stock
 		    ,sale
 		    ,description
+		    ,picture
+		    ,categoryId
 		    ,creator
 		    ,createDate
 		    ,lastModifier
@@ -40,6 +44,8 @@
 		    	,#{stock}
 		    	,#{sale}
 		    	,#{description}
+		    	,#{picture}
+		    	,#{categoryId}
 		    	,#{creator}
 		    	,#{createDate}
 		    	,#{lastModifier}
@@ -60,6 +66,8 @@
 		    ,stock
 		    ,sale
 		    ,description
+		    ,picture
+		    ,categoryId
 		    ,creator
 		    ,createDate
 		    ,lastModifier
@@ -73,6 +81,8 @@
 		    	,#{map.stock}
 		    	,#{map.sale}
 		    	,#{map.description}
+		    	,#{map.picture}
+		    	,#{map.categoryId}
 		    	,#{map.creator}
 		    	,#{map.createDate}
 		    	,#{map.lastModifier}
@@ -92,6 +102,8 @@
 		    stock=#{stock},
 		    sale=#{sale},
 		    description=#{description},
+		    picture=#{picture},
+		    categoryId=#{categoryId},
 		    creator=#{creator},
 		    createDate=#{createDate},
 		    lastModifier=#{lastModifier},
@@ -125,6 +137,12 @@
             </if>
             <if test="map.description!=null">
                 description = #{map.description},
+            </if>
+            <if test="map.picture!=null">
+                picture = #{map.picture},
+            </if>
+            <if test="map.categoryId!=null">
+                categoryId = #{map.categoryId},
             </if>
             <if test="map.creator!=null">
                 creator = #{map.creator},
@@ -170,6 +188,12 @@
             <if test="update.description!=null">
                 description = #{update.description},
             </if>
+            <if test="update.picture!=null">
+                picture = #{update.picture},
+            </if>
+            <if test="update.categoryId!=null">
+                categoryId = #{update.categoryId},
+            </if>
             <if test="update.creator!=null">
                 creator = #{update.creator},
             </if>
@@ -209,6 +233,12 @@
             <if test="condition.description!=null">
                 AND description = #{condition.description}
             </if>
+            <if test="condition.picture!=null">
+                AND picture = #{condition.picture}
+            </if>
+            <if test="condition.categoryId!=null">
+                AND categoryId = #{condition.categoryId}
+            </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
             </if>
@@ -237,6 +267,8 @@
             stock = #{stock},
             sale = #{sale},
             description = #{description},
+            picture = #{picture},
+            categoryId = #{categoryId},
             creator = #{creator},
             createDate = #{createDate},
             lastModifier = #{lastModifier},
@@ -289,6 +321,12 @@
             </if>
             <if test="description!=null">
                 AND description = #{description}
+            </if>
+            <if test="picture!=null">
+                AND picture = #{picture}
+            </if>
+            <if test="categoryId!=null">
+                AND categoryId = #{categoryId}
             </if>
             <if test="creator!=null">
                 AND creator = #{creator}
@@ -384,6 +422,12 @@
             <if test="condition.description!=null">
                 ${condition.groupOp}   description  ${condition.description.op}  #{condition.description.data}
             </if>
+            <if test="condition.picture!=null">
+                ${condition.groupOp}   picture  ${condition.picture.op}  #{condition.picture.data}
+            </if>
+            <if test="condition.categoryId!=null">
+                ${condition.groupOp}   categoryId  ${condition.categoryId.op}  #{condition.categoryId.data}
+            </if>
             <if test="condition.creator!=null">
                 ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
             </if>
@@ -440,6 +484,12 @@
             <if test="description!=null">
                 AND description like CONCAT('%', #{description} , '%')
             </if>
+            <if test="picture!=null">
+                AND picture like CONCAT('%', #{picture} , '%')
+            </if>
+            <if test="categoryId!=null">
+                AND categoryId like CONCAT('%', #{categoryId} , '%')
+            </if>
             <if test="creator!=null">
                 AND creator like CONCAT('%', #{creator} , '%')
             </if>
@@ -491,6 +541,12 @@
             <if test="condition.description!=null">
                 AND description = #{condition.description}
             </if>
+            <if test="condition.picture!=null">
+                AND picture = #{condition.picture}
+            </if>
+            <if test="condition.categoryId!=null">
+                AND categoryId = #{condition.categoryId}
+            </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
             </if>
@@ -541,6 +597,12 @@
             <if test="condition.description!=null">
                 AND description = #{condition.description}
             </if>
+            <if test="condition.picture!=null">
+                AND picture = #{condition.picture}
+            </if>
+            <if test="condition.categoryId!=null">
+                AND categoryId = #{condition.categoryId}
+            </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
             </if>
@@ -586,6 +648,12 @@
            </if>
            <if test="description!=null">
                ${groupOp} description ${description.op}  #{description.data}
+           </if>
+           <if test="picture!=null">
+               ${groupOp} picture ${picture.op}  #{picture.data}
+           </if>
+           <if test="categoryId!=null">
+               ${groupOp} categoryId ${categoryId.op}  #{categoryId.data}
            </if>
            <if test="creator!=null">
                ${groupOp} creator ${creator.op}  #{creator.data}

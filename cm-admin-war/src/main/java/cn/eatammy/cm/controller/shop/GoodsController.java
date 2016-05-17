@@ -1,11 +1,14 @@
 package cn.eatammy.cm.controller.shop;
 
+import cn.eatammy.cm.param.business.GoodsParam;
 import cn.eatammy.cm.param.business.GoodsParamEx;
 import cn.eatammy.cm.service.business.IGoodsService;
 import cn.eatammy.common.domain.BizData4Page;
+import cn.eatammy.common.utils.User.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,5 +32,16 @@ public class GoodsController {
     @RequestMapping(value = "/queryPage")
     public BizData4Page queryPage(GoodsParamEx paramEx, @RequestParam(defaultValue = "1") int pageNO, @RequestParam(defaultValue = "10")int pageSize){
         return goodsService.queryPage(paramEx, pageNO, pageSize);
+    }
+
+    /**
+     * 保存商品
+     * @param param 商品信息参数
+     * @return 返回，操作码
+     */
+    @ResponseBody
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String add(GoodsParam param){
+        return goodsService.add(param, UserContext.getCurrentUser());
     }
 }

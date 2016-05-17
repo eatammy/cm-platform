@@ -23,6 +23,7 @@ package cn.eatammy.cm.dao.business;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.domain.business.Goods;
 import cn.eatammy.cm.domain.business.GoodsEx;
+import cn.eatammy.common.sys.database.DataSource;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -44,6 +45,7 @@ public interface IGoodsDAO extends ICMBaseDAO<Goods> {
      * @param rows      行数
      * @return  返回，查询列表
      */
+    @DataSource("read")
     List<GoodsEx> queryPageEx(@Param("condition") Map<String, Object> condition, @Param("offset") int offset, @Param("rows") int rows);
 
 
@@ -52,5 +54,6 @@ public interface IGoodsDAO extends ICMBaseDAO<Goods> {
      * @param condition 查询条件
      * @return  返回，统计结果
      */
+    @DataSource("read")
     int countEx(@Param("condition") Map<String, Object> condition);
 }
