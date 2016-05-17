@@ -23,6 +23,7 @@ package cn.eatammy.cm.service.sys;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.sys.ICategoryDAO;
 import cn.eatammy.cm.domain.sys.Category;
+import cn.eatammy.cm.domain.sys.CategoryEx;
 import cn.eatammy.cm.param.sys.CategoryParam;
 import cn.eatammy.cm.service.AbstractCMPageService;
 import cn.eatammy.common.domain.AccountDto;
@@ -35,6 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 《分类》 业务逻辑服务类
@@ -60,10 +62,12 @@ public class CategoryServiceImpl extends AbstractCMPageService<ICMBaseDAO<Catego
             category.setType(param.getType());
             category.setStatus(0);
             category.setCreator(accountDto.getUid());
-            category.setCreatorName(accountDto.getNickname());
             category.setCreateDate(System.currentTimeMillis());
-            categoryDAO.insert(category);
-            return RETURNCODE.ADD_COMPLETE.getMessage();
+            if(categoryDAO.insert(category) == 1){
+                return RETURNCODE.ADD_COMPLETE.getMessage();
+            }else{
+                throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+            }
         } else {
             throw new BizException(ERRORCODE.CATEGORY_EXIST.getCode(), ERRORCODE.CATEGORY_EXIST.getMessage());
         }
@@ -71,9 +75,9 @@ public class CategoryServiceImpl extends AbstractCMPageService<ICMBaseDAO<Catego
 
     @Override
     public String update(CategoryParam param, AccountDto accountDto) {
-        Category category = null;
+        Category category;
         category = this.findOne(param.F_Name, param.getName());
-        if (category != null && category.getId() != param.getId()) {
+        if (category != null && !Objects.equals(category.getId(), param.getId())) {
             throw new BizException(ERRORCODE.CATEGORY_EXIST.getCode(), ERRORCODE.CATEGORY_EXIST.getMessage());
         } else{
             category = new Category();
@@ -108,14 +112,14 @@ public class CategoryServiceImpl extends AbstractCMPageService<ICMBaseDAO<Catego
     }
 
     @Override
-    public BizData4Page<Category> queryPage(String name, int type, int status, int pageNo, int pageSize) {
-        List<Category> data = categoryDAO.queryListEx(name, type, status, (pageNo - 1) * pageSize, pageSize);
+    public BizData4Page<CategoryEx> queryPage(String name, int type, int status, int pageNo, int pageSize) {
+        List<CategoryEx> data = categoryDAO.queryListEx(name, type, status, (pageNo - 1) * pageSize, pageSize);
         int records = categoryDAO.countEx(name, type, status);
         return PageUtils.toBizData4Page(data, pageNo, pageSize, records);
     }
 
     @Override
     public boolean isExist(String property, Object value) {
-        return this.findOne(property, value) == null ? false : true;
+        return this.findOne(property, value) != null;
     }
 }

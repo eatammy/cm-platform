@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-04-15  郭旭辉        新建	
+{  2016-05-17  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -44,15 +44,10 @@ public class CategoryParam extends CreateBaseParam<Long> {
 	*字段常量——分类类别，1：食谱分类，2：商店分类,4：商品分类，8：活动分类
 	*/
 	public static final String F_Type="type";
-	/**
-	*字段常量——创建人名称
-	*/
-	public static final String F_CreatorName="creatorName";
 	
 	private String name; //
 	private Integer priority; //排序字段
 	private Integer type; //分类类别，1：食谱分类，2：商店分类,4：商品分类，8：活动分类
-	private String creatorName; //创建人名称
     
 	/**
 	 *默认空构造函数
@@ -97,18 +92,6 @@ public class CategoryParam extends CreateBaseParam<Long> {
 	public void setType(Integer type){
 		this.type = type;
 	}
-	/**
-	 * @return creatorName 创建人名称
-	 */
-	public String getCreatorName(){
-		return this.creatorName;
-	}
-	/**
-	 * @param creatorName 创建人名称
-	 */
-	public void setCreatorName(String creatorName){
-		this.creatorName = creatorName;
-	}
 	
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -121,7 +104,6 @@ public class CategoryParam extends CreateBaseParam<Long> {
 			.append("createDate",getCreateDate())
 			.append("lastModifier",getLastModifier())
 			.append("lastModDate",getLastModDate())
-			.append("creatorName",getCreatorName())
 			.toString();
 	}
 	

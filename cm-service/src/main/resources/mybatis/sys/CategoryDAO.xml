@@ -12,8 +12,7 @@
         creator,
         createDate,
         lastModifier,
-        lastModDate,
-        creatorName
+        lastModDate
     </sql>
     <insert id="insert" parameterType="cn.eatammy.cm.domain.sys.Category">
         INSERT INTO cm_sys_category (
@@ -25,7 +24,6 @@
 		    ,createDate
 		    ,lastModifier
 		    ,lastModDate
-		    ,creatorName
         ) VALUES (
 		    	#{name}
 		    	,#{priority}
@@ -35,7 +33,6 @@
 		    	,#{createDate}
 		    	,#{lastModifier}
 		    	,#{lastModDate}
-		    	,#{creatorName}
         )
         <selectKey resultType="java.lang.Long" keyProperty="id">
         	SELECT LAST_INSERT_ID() AS ID
@@ -52,7 +49,6 @@
 		    ,createDate
 		    ,lastModifier
 		    ,lastModDate
-		    ,creatorName
         ) VALUES (
 		    	#{map.name}
 		    	,#{map.priority}
@@ -62,7 +58,6 @@
 		    	,#{map.createDate}
 		    	,#{map.lastModifier}
 		    	,#{map.lastModDate}
-		    	,#{map.creatorName}
         )
     </insert>
     
@@ -78,7 +73,6 @@
 		    createDate=#{createDate},
 		    lastModifier=#{lastModifier},
 		    lastModDate=#{lastModDate},
-		    creatorName=#{creatorName},
         </trim>
         WHERE
         id = #{id}
@@ -110,9 +104,6 @@
             </if>
             <if test="map.lastModDate!=null">
                 lastModDate = #{map.lastModDate},
-            </if>
-            <if test="map.creatorName!=null">
-                creatorName = #{map.creatorName},
             </if>
         </trim>
         WHERE
@@ -146,9 +137,6 @@
             <if test="update.lastModDate!=null">
                 lastModDate = #{update.lastModDate},
             </if>
-            <if test="update.creatorName!=null">
-                creatorName = #{update.creatorName},
-            </if>
         </trim>
 
         <trim prefix="WHERE" prefixOverrides="AND | OR">
@@ -176,9 +164,6 @@
             <if test="condition.lastModDate!=null">
                 AND lastModDate = #{condition.lastModDate}
             </if>
-            <if test="condition.creatorName!=null">
-                AND creatorName = #{condition.creatorName}
-            </if>
         </trim>
     </update>
 
@@ -193,7 +178,6 @@
             createDate = #{createDate},
             lastModifier = #{lastModifier},
             lastModDate = #{lastModDate},
-            creatorName = #{creatorName},
         </trim>
         WHERE
         id = #{id}
@@ -244,9 +228,6 @@
             </if>
             <if test="lastModDate!=null">
                 AND lastModDate = #{lastModDate}
-            </if>
-            <if test="creatorName!=null">
-                AND creatorName = #{creatorName}
             </if>
         </trim>
     </delete>
@@ -330,9 +311,6 @@
             <if test="condition.lastModDate!=null">
                 ${condition.groupOp}   lastModDate  ${condition.lastModDate.op}  #{condition.lastModDate.data}
             </if>
-            <if test="condition.creatorName!=null">
-                ${condition.groupOp}   creatorName  ${condition.creatorName.op}  #{condition.creatorName.data}
-            </if>
 
 
     </where>
@@ -377,9 +355,6 @@
             <if test="lastModDate!=null">
                 AND lastModDate like CONCAT('%', #{lastModDate} , '%')
             </if>
-            <if test="creatorName!=null">
-                AND creatorName like CONCAT('%', #{creatorName} , '%')
-            </if>
         </trim>
         <if test="orderBy!=null">
         ORDER BY ${orderBy} ${sortBy}
@@ -419,9 +394,6 @@
             <if test="condition.lastModDate!=null">
                 AND lastModDate = #{condition.lastModDate}
             </if>
-            <if test="condition.creatorName!=null">
-                AND creatorName = #{condition.creatorName}
-            </if>
         </trim>
         <if test="orderBy!=null">
         ORDER BY ${orderBy} ${sortBy}
@@ -460,9 +432,6 @@
             <if test="condition.lastModDate!=null">
                 AND lastModDate = #{condition.lastModDate}
             </if>
-            <if test="condition.creatorName!=null">
-                AND creatorName = #{condition.creatorName}
-            </if>
         </trim>
         limit 0,1
     </select>
@@ -496,9 +465,6 @@
            </if>
            <if test="lastModDate!=null">
                ${groupOp} lastModDate ${lastModDate.op}  #{lastModDate.data}
-           </if>
-           <if test="creatorName!=null">
-               ${groupOp} creatorName ${creatorName.op}  #{creatorName.data}
            </if>
 
        </where>

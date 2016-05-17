@@ -3,10 +3,11 @@
 
 <mapper namespace="cn.eatammy.cm.dao.sys.ICategoryDAO">
     <!-- 在这里存放用户自定义的映射配置（注：CategoryDAO.xml里各节点的ID不能在这里重复出现）  -->
-    <select id="queryListEx" resultType="cn.eatammy.cm.domain.sys.Category">
+    <select id="queryListEx" resultType="cn.eatammy.cm.domain.sys.CategoryEx">
         SELECT
-        <include refid="Base_Column_List"/>
-        FROM cm_sys_category
+        csc.*,cud.nickName As creatorName
+        FROM cm_sys_category csc LEFT JOIN cm_user_detail cud
+        ON csc.creator = cud.code
         <where>
             <if test="name != null and name != ''">
                 AND name like '%${name}%'

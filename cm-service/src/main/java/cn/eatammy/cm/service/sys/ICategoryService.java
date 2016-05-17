@@ -21,7 +21,7 @@
 package cn.eatammy.cm.service.sys;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
-import cn.eatammy.cm.domain.sys.Category;
+import cn.eatammy.cm.domain.sys.CategoryEx;
 import cn.eatammy.cm.param.sys.CategoryParam;
 import cn.eatammy.cm.service.ICMBaseService;
 import cn.eatammy.common.domain.AccountDto;
@@ -76,7 +76,7 @@ public interface ICategoryService<D extends ICMBaseDAO<T>, T extends BaseDomain>
      * @param pageSize  页大小，默认10
      * @return  返回分页结果
      */
-    BizData4Page<Category> queryPage(String name, int type, int status, int pageNo, int pageSize);
+    BizData4Page<CategoryEx> queryPage(String name, int type, int status, int pageNo, int pageSize);
 
     /**
      * 判断是否存在某条记录

@@ -1,6 +1,7 @@
 package cn.eatammy.cm.controller.category;
 
 import cn.eatammy.cm.domain.sys.Category;
+import cn.eatammy.cm.domain.sys.CategoryEx;
 import cn.eatammy.cm.param.sys.CategoryParam;
 import cn.eatammy.cm.service.sys.ICategoryService;
 import cn.eatammy.common.domain.BizData4Page;
@@ -50,7 +51,7 @@ public class CategoryController {
      */
     @ResponseBody
     @RequestMapping(value = "/queryPage", method = RequestMethod.POST)
-    public BizData4Page<Category> queryPage(String name, int type, int status, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+    public BizData4Page<CategoryEx> queryPage(String name, int type, int status, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
         return categoryService.queryPage(name, type, status, pageNo, pageSize);
     }
 
