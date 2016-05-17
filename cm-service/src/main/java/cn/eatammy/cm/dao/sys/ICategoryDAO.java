@@ -81,4 +81,13 @@ public interface ICategoryDAO extends ICMBaseDAO<Category> {
      */
     @DataSource("write")
     int deleteBatch(@Param("ids") long[] ids);
+
+    /**
+     * 根据type
+     * @param type          分类类别，1：食谱分类，2：商店分类,4：商品分类，8：活动分类',
+     * @param status        0：启用，1：禁用
+     * @return 返回，分类集合
+     */
+    @DataSource("read")
+    List<Category> findListEx(@Param("type") int type,@Param("status")int status);
 }

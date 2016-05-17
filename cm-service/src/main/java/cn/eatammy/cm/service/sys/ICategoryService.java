@@ -21,6 +21,7 @@
 package cn.eatammy.cm.service.sys;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
+import cn.eatammy.cm.domain.sys.Category;
 import cn.eatammy.cm.domain.sys.CategoryEx;
 import cn.eatammy.cm.param.sys.CategoryParam;
 import cn.eatammy.cm.service.ICMBaseService;
@@ -28,7 +29,7 @@ import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.service.IPageService;
-
+import java.util.List;
 /**
  * 《分类》 业务逻辑服务接口
  *
@@ -85,4 +86,11 @@ public interface ICategoryService<D extends ICMBaseDAO<T>, T extends BaseDomain>
      * @return 返回，true： 存在，false：不存在
      */
     boolean isExist(String property, Object value);
+
+    /**
+     * 根据type查询分类列表
+     * @param type  分类类别，1：食谱分类，2：商店分类,4：商品分类，8：活动分类',
+     * @return 返回，分类集合
+     */
+    List<Category> findList(int type);
 }

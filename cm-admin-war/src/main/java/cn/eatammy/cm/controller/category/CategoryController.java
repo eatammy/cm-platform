@@ -122,7 +122,7 @@ public class CategoryController {
     @ResponseBody
     @RequestMapping(value = "/queryCategory")
     public List<Category> queryCategory(Integer type){
-        return categoryService.findList(CategoryParam.F_Type, type);
+        return categoryService.findList(type);
     }
 
 }

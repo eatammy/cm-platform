@@ -41,6 +41,12 @@
             </if>
         </where>
     </select>
+    <select id="findListEx" resultType="cn.eatammy.cm.domain.sys.Category">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM cm_sys_category
+        WHERE type = #{type} and status = #{status}
+    </select>
 
     <update id="updateById">
 		UPDATE  cm_sys_category

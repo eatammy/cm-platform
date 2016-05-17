@@ -122,4 +122,9 @@ public class CategoryServiceImpl extends AbstractCMPageService<ICMBaseDAO<Catego
     public boolean isExist(String property, Object value) {
         return this.findOne(property, value) != null;
     }
+
+    @Override
+    public List<Category> findList(int type) {
+        return categoryDAO.findListEx(type, 0);
+    }
 }
