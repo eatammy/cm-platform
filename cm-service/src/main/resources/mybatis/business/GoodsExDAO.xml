@@ -17,8 +17,8 @@
 			<if test="condition.goodsName != null and condition.goodsName != ''">
 				AND cbg.goodsName LIKE '%${condition.goodsName}%'
 			</if>
-			<if test="condition.plow != null and condition.plow > 0">
-				AND cbg.price &gt;= #{condition.plow} and cbg.price &lt;= #{condition.phigh}
+			<if test="condition.pLow != null and condition.pLow > 0">
+				AND cbg.price &gt;= #{condition.pLow} and cbg.price &lt;= #{condition.pHigh}
 			</if>
 		</where>
 		group by id
@@ -40,8 +40,8 @@
 			<if test="condition.goodsName != null and condition.goodsName != ''">
 				AND cbg.goodsName LIKE '%${condition.goodsName}%'
 			</if>
-			<if test="condition.plow != null and condition.plow > 0">
-				AND cbg.price &gt;= #{condition.plow} and cbg.price &lt;= #{condition.phigh}
+			<if test="condition.pLow != null and condition.pLow > 0">
+				AND cbg.price &gt;= #{condition.pLow} and cbg.price &lt;= #{condition.pHigh}
 			</if>
 		</where>
 	</select>

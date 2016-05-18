@@ -28,24 +28,24 @@ package cn.eatammy.cm.param.business;
 public class GoodsParamEx extends GoodsParam {
 	private static final long serialVersionUID = 1L;
 
-	private Float plow;
-	private Float phigh;
+	private Float pLow;
+	private Float pHigh;
 	//针对GoodsParam实体在这里增加额外的属性和对应的get和set方法
 
 
-	public float getPlow() {
-		return plow;
+	public Float getpLow() {
+		return pLow;
 	}
 
-	public void setPlow(Float plow) {
-		this.plow = plow;
+	public void setpLow(Float pLow) {
+		this.pLow = pLow;
 	}
 
-	public float getPhigh() {
-		return phigh;
+	public Float getpHigh() {
+		return pHigh;
 	}
 
-	public void setPhigh(Float phigh) {
-		this.phigh = phigh;
+	public void setpHigh(Float pHigh) {
+		this.pHigh = pHigh;
 	}
 }
