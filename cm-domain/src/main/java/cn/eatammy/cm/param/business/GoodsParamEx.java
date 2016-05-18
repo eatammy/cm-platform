@@ -20,12 +20,6 @@
 
 package cn.eatammy.cm.param.business;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-import java.util.*;
-
 /**
  * 《商品信息》 查询参数实体
  * @author 郭旭辉
@@ -33,7 +27,25 @@ import java.util.*;
  */
 public class GoodsParamEx extends GoodsParam {
 	private static final long serialVersionUID = 1L;
-	
+
+	private Float plow;
+	private Float phigh;
 	//针对GoodsParam实体在这里增加额外的属性和对应的get和set方法
-	
+
+
+	public float getPlow() {
+		return plow;
+	}
+
+	public void setPlow(Float plow) {
+		this.plow = plow;
+	}
+
+	public float getPhigh() {
+		return phigh;
+	}
+
+	public void setPhigh(Float phigh) {
+		this.phigh = phigh;
+	}
 }

@@ -56,4 +56,13 @@ public interface IGoodsDAO extends ICMBaseDAO<Goods> {
      */
     @DataSource("read")
     int countEx(@Param("condition") Map<String, Object> condition);
+
+    /**
+     * 启用，停用商品
+     * @param id        商品id
+     * @param status    商品状态，0：启用，1：停用
+     * @return 返回， 0：失败，1：成功
+     */
+    @DataSource("write")
+    int disableOrEnable(@Param("id")long id, @Param("status")int status);
 }

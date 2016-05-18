@@ -47,9 +47,25 @@ public interface IGoodsService<D extends ICMBaseDAO<T>, T extends BaseDomain> ex
 
     /**
      * 保存商品
-     * @param param
-     * @param currentUser
-     * @return
+     * @param param         商品参数
+     * @param currentUser   当前操作用户
+     * @return 返回，操作码
      */
     String add(GoodsParam param, AccountDto currentUser);
+
+    /**
+     * 更新商品信息
+     * @param param             更新参数
+     * @param currentUser       当前操作用户
+     * @return 返回，操作码
+     */
+    String update(GoodsParam param, AccountDto currentUser);
+
+    /**
+     * 启用，停用商品
+     * @param id        商品id
+     * @param status    商品状态，0：启用，1：停用
+     * @return 返回， 操作码
+     */
+    String disableOrEnable(Long id, Integer status);
 }

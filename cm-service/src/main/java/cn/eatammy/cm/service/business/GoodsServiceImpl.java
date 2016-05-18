@@ -85,6 +85,31 @@ public class GoodsServiceImpl extends AbstractCMPageService<ICMBaseDAO<Goods>, G
         }
     }
 
+    @Override
+    public String update(GoodsParam param, AccountDto currentUser) {
+        Goods goods = this.findOne(param.F_GoodsName, param.getGoodsName());
+        if(goods != null && goods.getCode().equalsIgnoreCase(param.getCode())){
+            param.setLastModifier(currentUser.getUid());
+            param.setLastModDate(System.currentTimeMillis());
+            if(goodsDAO.updateMap(param.toMap()) == 1){
+                return RETURNCODE.UPDATE_COMPLETE.getMessage();
+            }else{
+                throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+            }
+        }else{
+            throw new BizException(ERRORCODE.GOODSNAME_EXISTS.getCode(), ERRORCODE.GOODSNAME_EXISTS.getMessage());
+        }
+    }
+
+    @Override
+    public String disableOrEnable(Long id, Integer status) {
+        if(goodsDAO.disableOrEnable(id, status) == 1){
+            return RETURNCODE.SUCCESS_COMPLETE.getMessage();
+        }else {
+            throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+        }
+    }
+
     private boolean isExists(String property, Object value){
         return this.findOne(property, value) != null;
     }
