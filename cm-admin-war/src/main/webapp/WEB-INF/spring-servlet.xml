@@ -57,7 +57,9 @@
         </property>
     </bean>
 
-    <context:component-scan base-package="cn.eatammy"/>
+    <context:component-scan base-package="cn.eatammy">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
 
     <bean id="exceptionResolver" class="cn.eatammy.common.sys.resolver.CMSimpleMappingExceptionResolver">
         <property name="exceptionMappings">
