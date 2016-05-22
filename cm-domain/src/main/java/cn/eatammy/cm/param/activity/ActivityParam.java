@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-05-18  郭旭辉        新建	
+{  2016-05-22  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -51,8 +51,8 @@ public class ActivityParam extends CreateBaseParam<Integer> {
 	
 	private String name; //活动名称
 	private Long categoryId; //活动类型
-	private Long startTime; //活动起始时间
-	private Long endTime; //活动结束时间
+	private String startTime; //活动起始时间
+	private String endTime; //活动结束时间
     
 	/**
 	 *默认空构造函数
@@ -88,25 +88,25 @@ public class ActivityParam extends CreateBaseParam<Integer> {
 	/**
 	 * @return startTime 活动起始时间
 	 */
-	public Long getStartTime(){
+	public String getStartTime(){
 		return this.startTime;
 	}
 	/**
 	 * @param startTime 活动起始时间
 	 */
-	public void setStartTime(Long startTime){
+	public void setStartTime(String startTime){
 		this.startTime = startTime;
 	}
 	/**
 	 * @return endTime 活动结束时间
 	 */
-	public Long getEndTime(){
+	public String getEndTime(){
 		return this.endTime;
 	}
 	/**
 	 * @param endTime 活动结束时间
 	 */
-	public void setEndTime(Long endTime){
+	public void setEndTime(String endTime){
 		this.endTime = endTime;
 	}
 	
