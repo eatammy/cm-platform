@@ -39,6 +39,7 @@ import cn.eatammy.common.utils.http.HttpUtils;
 import com.alibaba.druid.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -102,6 +103,7 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class})
     public String register(UserDetailParam param, String verifiedCode, int typeValue) {
         if (verificationService.checkVerifiedCode(param.getUsername(), verifiedCode, typeValue)) {
             UserDetail user = new UserDetail();
@@ -121,6 +123,7 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class})
     public String forgetPasswd(String username, String password, String verifiedCode, int typeValue) {
         if (verificationService.checkVerifiedCode(username, verifiedCode, typeValue)) {
             password = MD5Utils.getMD5(password + MD5Utils.SALT);
@@ -218,6 +221,7 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class})
     public String disableOrEnable(long id, int status) {
         if (userDetailDAO.updateStatus(id, status) == 1){
             return RETURNCODE.SUCCESS_COMPLETE.getMessage();
@@ -226,6 +230,7 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class})
     public String resetPasswd(String code) {
         String newPasswd = "";
         while (newPasswd.length() < 6){
