@@ -3,5 +3,42 @@
 
 <mapper namespace="cn.eatammy.cm.dao.activity.IActivityDAO">
 	<!-- 在这里存放用户自定义的映射配置（注：ActivityDAO.xml里各节点的ID不能在这里重复出现）  -->
-	
+
+	<select id="queryPageEx" resultType="cn.eatammy.cm.domain.activity.Activity">
+		SELECT <include refid="Base_Column_List"/>
+		FROM cm_activity
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE '%${condition.name}%'
+			</if>
+			<if test="condition.startTime != null">
+				AND startTime &lt;= #{condition.endTime} AND endTime &gt;= #{condition.startTime}
+			</if>
+			<if test="condition.status != null and condition.status != -1">
+				AND status = #{condition.status}
+			</if>
+		</where>
+		order by id desc
+		<if test="offset != null">
+			LIMIT ${offset}, ${rows}
+		</if>
+	</select>
+
+	<select id="countEx" resultType="java.lang.Integer">
+		SELECT count(1)
+		FROM
+		cm_activity
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				AND name LIKE '%${condition.name}%'
+			</if>
+			<if test="condition.startTime != null">
+				AND startTime &lt;= #{condition.endTime} AND endTime &gt;= #{condition.startTime}
+			</if>
+			<if test="condition.status != null and condition.status != -1">
+				AND status = #{condition.status}
+			</if>
+		</where>
+	</select>
+
 </mapper>

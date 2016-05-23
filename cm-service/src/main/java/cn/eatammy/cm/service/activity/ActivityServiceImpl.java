@@ -20,18 +20,20 @@
 
 package cn.eatammy.cm.service.activity;
 
-import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.activity.IActivityDAO;
 import cn.eatammy.cm.domain.activity.Activity;
-import cn.eatammy.cm.service.activity.IActivityService;
+import cn.eatammy.cm.param.activity.ActivityParam;
 import cn.eatammy.cm.service.AbstractCMPageService;
+import cn.eatammy.common.domain.AccountDto;
+import cn.eatammy.common.domain.BizData4Page;
+import cn.eatammy.common.exception.BizException;
+import cn.eatammy.common.utils.ERRORCODE;
+import cn.eatammy.common.utils.PageUtils;
+import cn.eatammy.common.utils.RETURNCODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Map;
-
  /**
  * 《活动》 业务逻辑服务类
  * @author 郭旭辉
@@ -47,4 +49,27 @@ public class ActivityServiceImpl extends AbstractCMPageService<ICMBaseDAO<Activi
         return activityDAO;
     }
 
-}
+     @Override
+     public BizData4Page queryPage(ActivityParam param, int pageNo, int pageSize) {
+         List<Activity> data = activityDAO.queryPageEx(param.toMap(), (pageNo -1) * pageSize, pageSize);
+         int records = activityDAO.countEx(param.toMap());
+         return PageUtils.toBizData4Page(data, pageNo, pageSize, records);
+     }
+
+     @Override
+     public String add(ActivityParam param, AccountDto accountDto) {
+         Activity activity = new Activity();
+         activity.setName(param.getName());
+         activity.setCategoryId(param.getCategoryId());
+         activity.setStartTime(param.getStartTime());
+         activity.setEndTime(param.getEndTime());
+         activity.setStatus(0);
+         activity.setCreator(accountDto.getUid());
+         activity.setCreateDate(System.currentTimeMillis());
+         if (activityDAO.insert(activity) == 1){
+             return RETURNCODE.ADD_COMPLETE.getMessage();
+         }else{
+             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+         }
+     }
+ }
