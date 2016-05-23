@@ -34,6 +34,7 @@ import cn.eatammy.common.utils.PageUtils;
 import cn.eatammy.common.utils.RETURNCODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -96,6 +97,7 @@ public class CategoryServiceImpl extends AbstractCMPageService<ICMBaseDAO<Catego
     }
 
     @Override
+    @Transactional(rollbackFor = {Exception.class})
     public String disableOrEnable(long id, int status) {
         if (categoryDAO.updateStatus(id, status) == 1){
             return RETURNCODE.SUCCESS_COMPLETE.getMessage();

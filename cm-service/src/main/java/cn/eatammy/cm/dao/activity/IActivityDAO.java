@@ -22,6 +22,7 @@ package cn.eatammy.cm.dao.activity;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.domain.activity.Activity;
+import cn.eatammy.cm.domain.activity.ActivityEx;
 import cn.eatammy.common.sys.database.DataSource;
 import org.apache.ibatis.annotations.Param;
 
@@ -44,7 +45,7 @@ public interface IActivityDAO extends ICMBaseDAO<Activity> {
      * @return  返回，分页列表
      */
     @DataSource("read")
-    List<Activity> queryPageEx(@Param("condition") Map<String, Object> condition, @Param("offset") int offset, @Param("rows") int rows);
+    List<ActivityEx> queryPageEx(@Param("condition") Map<String, Object> condition, @Param("offset") int offset, @Param("rows") int rows);
 
     /**
      * 统计结果
@@ -53,5 +54,14 @@ public interface IActivityDAO extends ICMBaseDAO<Activity> {
      */
     @DataSource("read")
     int countEx(@Param("condition") Map<String, Object> condition);
+
+    /**
+     * 启用或停用分活动
+     * @param id        活动id
+     * @param status    活动状态， 0：启用，1：停用
+     * @return  返回，0：失败，1：成功
+     */
+    @DataSource("write")
+    int updateStatus(@Param("id") long id, @Param("status")int status);
 
 }

@@ -39,7 +39,7 @@
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="delete*" propagation="REQUIRED" read-only="false"
-                       rollback-for="java.lang.Exception" no-rollback-for="java.lang.RuntimeException"/>
+                       rollback-for="java.lang.Exception"/>
             <tx:method name="insert*" propagation="REQUIRED" read-only="false"
                        rollback-for="java.lang.RuntimeException" />
             <tx:method name="update*" propagation="REQUIRED" read-only="false"
@@ -47,12 +47,12 @@
             <tx:method name="add*" propagation="REQUIRED" read-only="false"
                        rollback-for="java.lang.Exception" />
 
-            <tx:method name="find*" propagation="SUPPORTS"/>
+            <tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
             <tx:method name="query*" propagation="REQUIRED" read-only="true"/>
-            <tx:method name="count*" propagation="SUPPORTS"/>
-            <tx:method name="get*" propagation="SUPPORTS"/>
-            <tx:method name="select*" propagation="SUPPORTS"/>
-            <tx:method name="is*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="count*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="is*" propagation="SUPPORTS" read-only="true" />
         </tx:attributes>
     </tx:advice>
 

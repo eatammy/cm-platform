@@ -20,13 +20,6 @@
 
 package cn.eatammy.cm.domain.activity;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
-import java.util.*;
-
 /**
  * 《活动》扩展实体
  * @author 郭旭辉
@@ -34,6 +27,15 @@ import java.util.*;
  */
 public class ActivityEx extends Activity {
 	private static final long serialVersionUID = 1L;
-	
+
+	private String categoryName;
 	//针对Activity实体在这里增加额外的属性和对应的get和set方法
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 }

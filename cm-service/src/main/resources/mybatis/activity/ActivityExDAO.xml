@@ -2,20 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.eatammy.cm.dao.activity.IActivityDAO">
+
 	<!-- 在这里存放用户自定义的映射配置（注：ActivityDAO.xml里各节点的ID不能在这里重复出现）  -->
 
-	<select id="queryPageEx" resultType="cn.eatammy.cm.domain.activity.Activity">
-		SELECT <include refid="Base_Column_List"/>
-		FROM cm_activity
+	<select id="queryPageEx" resultType="cn.eatammy.cm.domain.activity.ActivityEx">
+		SELECT ca.*, csc.name AS categoryName
+		FROM cm_activity ca LEFT JOIN cm_sys_category csc
+		ON ca.categoryId = csc.id left JOIN cm_activity_BusinessActivicty cab
+		ON ca.id = cab.activityId AND cab.activityId is NULL
 		<where>
 			<if test="condition.name != null and condition.name != ''">
-				AND name LIKE '%${condition.name}%'
+				AND ca.name LIKE '%${condition.name}%'
 			</if>
-			<if test="condition.startTime != null">
-				AND startTime &lt;= #{condition.endTime} AND endTime &gt;= #{condition.startTime}
+			<if test="condition.categoryId != null and condition.categoryId != -1">
+				AND ca.categoryId = #{condition.categoryId}
+			</if>
+			<if test="condition.startTime != null and condition.startTime!= ''">
+				AND ca.startTime &lt;= #{condition.endTime} AND ca.endTime &gt;= #{condition.startTime}
 			</if>
 			<if test="condition.status != null and condition.status != -1">
-				AND status = #{condition.status}
+				AND ca.status = #{condition.status}
 			</if>
 		</where>
 		order by id desc
@@ -26,19 +32,28 @@
 
 	<select id="countEx" resultType="java.lang.Integer">
 		SELECT count(1)
-		FROM
-		cm_activity
+		FROM cm_activity ca LEFT JOIN cm_sys_category csc
+		ON ca.categoryId = csc.id left JOIN cm_activity_BusinessActivicty cab
+		ON ca.id = cab.activityId AND cab.activityId is NULL
 		<where>
 			<if test="condition.name != null and condition.name != ''">
-				AND name LIKE '%${condition.name}%'
+				AND ca.name LIKE '%${condition.name}%'
+			</if>
+			<if test="condition.categoryId != null and condition.categoryId != -1">
+				AND ca.categoryId = #{condition.categoryId}
 			</if>
 			<if test="condition.startTime != null">
-				AND startTime &lt;= #{condition.endTime} AND endTime &gt;= #{condition.startTime}
+				AND ca.startTime &lt;= #{condition.endTime} AND ca.endTime &gt;= #{condition.startTime}
 			</if>
 			<if test="condition.status != null and condition.status != -1">
-				AND status = #{condition.status}
+				AND ca.status = #{condition.status}
 			</if>
 		</where>
 	</select>
 
+	<update id="updateStatus">
+		UPDATE cm_activity
+		set status = #{status}
+		WHERE id = #{id}
+	</update>
 </mapper>

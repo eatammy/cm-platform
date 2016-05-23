@@ -23,6 +23,7 @@ package cn.eatammy.cm.service.activity;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.activity.IActivityDAO;
 import cn.eatammy.cm.domain.activity.Activity;
+import cn.eatammy.cm.domain.activity.ActivityEx;
 import cn.eatammy.cm.param.activity.ActivityParam;
 import cn.eatammy.cm.service.AbstractCMPageService;
 import cn.eatammy.common.domain.AccountDto;
@@ -33,6 +34,8 @@ import cn.eatammy.common.utils.PageUtils;
 import cn.eatammy.common.utils.RETURNCODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
  /**
  * 《活动》 业务逻辑服务类
@@ -51,7 +54,7 @@ public class ActivityServiceImpl extends AbstractCMPageService<ICMBaseDAO<Activi
 
      @Override
      public BizData4Page queryPage(ActivityParam param, int pageNo, int pageSize) {
-         List<Activity> data = activityDAO.queryPageEx(param.toMap(), (pageNo -1) * pageSize, pageSize);
+         List<ActivityEx> data = activityDAO.queryPageEx(param.toMap(), (pageNo -1) * pageSize, pageSize);
          int records = activityDAO.countEx(param.toMap());
          return PageUtils.toBizData4Page(data, pageNo, pageSize, records);
      }
@@ -63,7 +66,7 @@ public class ActivityServiceImpl extends AbstractCMPageService<ICMBaseDAO<Activi
          activity.setCategoryId(param.getCategoryId());
          activity.setStartTime(param.getStartTime());
          activity.setEndTime(param.getEndTime());
-         activity.setStatus(0);
+         activity.setStatus(1);     //默认为审核状态
          activity.setCreator(accountDto.getUid());
          activity.setCreateDate(System.currentTimeMillis());
          if (activityDAO.insert(activity) == 1){
@@ -71,5 +74,25 @@ public class ActivityServiceImpl extends AbstractCMPageService<ICMBaseDAO<Activi
          }else{
              throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
          }
+     }
+
+     @Override
+     public String update(ActivityParam param, AccountDto accountDto) {
+         param.setLastModifier(accountDto.getUid());
+         param.setLastModDate(System.currentTimeMillis());
+         if(this.updateMap(param.toMap()) == 1){
+             return RETURNCODE.UPDATE_COMPLETE.getMessage();
+         }else{
+             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+         }
+     }
+
+     @Override
+     @Transactional(rollbackFor = {Exception.class})
+     public String disableOrEnable(long id, int status) {
+         if (activityDAO.updateStatus(id, status) == 1){
+             return RETURNCODE.SUCCESS_COMPLETE.getMessage();
+         }
+         throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
      }
  }

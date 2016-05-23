@@ -51,4 +51,20 @@ public interface IActivityService<D extends ICMBaseDAO<T>, T extends BaseDomain>
      * @return  返回，操作码
      */
     String add(ActivityParam param, AccountDto accountDto);
+
+    /**
+     * 更新活动
+     * @param param         新增参数
+     * @param accountDto    当前作用用户
+     * @return 返回，操作码
+     */
+    String update(ActivityParam param, AccountDto accountDto);
+
+    /**
+     * 启用或停用分活动
+     * @param id        活动id
+     * @param status    活动状态， 0：启用，1：停用
+     * @return  返回，操作码
+     */
+    String disableOrEnable(long id, int status);
 }

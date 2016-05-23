@@ -6,6 +6,7 @@
     <sql id="Base_Column_List">
         id,
         shopId,
+        activityId,
         name,
         piece,
         picture,
@@ -27,6 +28,7 @@
     <insert id="insert" parameterType="cn.eatammy.cm.domain.activity.BusinessActivicty">
         INSERT INTO cm_activity_BusinessActivicty (
 		    shopId
+		    ,activityId
 		    ,name
 		    ,piece
 		    ,picture
@@ -46,6 +48,7 @@
 		    ,status
         ) VALUES (
 		    	#{shopId}
+		    	,#{activityId}
 		    	,#{name}
 		    	,#{piece}
 		    	,#{picture}
@@ -72,6 +75,7 @@
     <insert id="insertMap" >
         INSERT INTO cm_activity_BusinessActivicty (
 		    shopId
+		    ,activityId
 		    ,name
 		    ,piece
 		    ,picture
@@ -91,6 +95,7 @@
 		    ,status
         ) VALUES (
 		    	#{map.shopId}
+		    	,#{map.activityId}
 		    	,#{map.name}
 		    	,#{map.piece}
 		    	,#{map.picture}
@@ -116,6 +121,7 @@
         UPDATE cm_activity_BusinessActivicty
         <trim prefix="SET" suffixOverrides=",">
 		    shopId=#{shopId},
+		    activityId=#{activityId},
 		    name=#{name},
 		    piece=#{piece},
 		    picture=#{picture},
@@ -143,6 +149,9 @@
         <trim prefix="SET" suffixOverrides=",">
             <if test="map.shopId!=null">
                 shopId = #{map.shopId},
+            </if>
+            <if test="map.activityId!=null">
+                activityId = #{map.activityId},
             </if>
             <if test="map.name!=null">
                 name = #{map.name},
@@ -206,6 +215,9 @@
             <if test="update.shopId!=null">
                 shopId = #{update.shopId},
             </if>
+            <if test="update.activityId!=null">
+                activityId = #{update.activityId},
+            </if>
             <if test="update.name!=null">
                 name = #{update.name},
             </if>
@@ -262,6 +274,9 @@
         <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="condition.shopId!=null">
                 AND shopId = #{condition.shopId}
+            </if>
+            <if test="condition.activityId!=null">
+                AND activityId = #{condition.activityId}
             </if>
             <if test="condition.name!=null">
                 AND name = #{condition.name}
@@ -321,6 +336,7 @@
         UPDATE cm_activity_BusinessActivicty
         <trim prefix="SET" suffixOverrides=",">
             shopId = #{shopId},
+            activityId = #{activityId},
             name = #{name},
             piece = #{piece},
             picture = #{picture},
@@ -367,6 +383,9 @@
             </if>
             <if test="shopId!=null">
                 AND shopId = #{shopId}
+            </if>
+            <if test="activityId!=null">
+                AND activityId = #{activityId}
             </if>
             <if test="name!=null">
                 AND name = #{name}
@@ -480,6 +499,9 @@
             <if test="condition.shopId!=null">
                 ${condition.groupOp}   shopId  ${condition.shopId.op}  #{condition.shopId.data}
             </if>
+            <if test="condition.activityId!=null">
+                ${condition.groupOp}   activityId  ${condition.activityId.op}  #{condition.activityId.data}
+            </if>
             <if test="condition.name!=null">
                 ${condition.groupOp}   name  ${condition.name.op}  #{condition.name.data}
             </if>
@@ -554,6 +576,9 @@
             <if test="shopId!=null">
                 AND shopId like CONCAT('%', #{shopId} , '%')
             </if>
+            <if test="activityId!=null">
+                AND activityId like CONCAT('%', #{activityId} , '%')
+            </if>
             <if test="name!=null">
                 AND name like CONCAT('%', #{name} , '%')
             </if>
@@ -623,6 +648,9 @@
             <if test="condition.shopId!=null">
                 AND shopId = #{condition.shopId}
             </if>
+            <if test="condition.activityId!=null">
+                AND activityId = #{condition.activityId}
+            </if>
             <if test="condition.name!=null">
                 AND name = #{condition.name}
             </if>
@@ -691,6 +719,9 @@
             <if test="condition.shopId!=null">
                 AND shopId = #{condition.shopId}
             </if>
+            <if test="condition.activityId!=null">
+                AND activityId = #{condition.activityId}
+            </if>
             <if test="condition.name!=null">
                 AND name = #{condition.name}
             </if>
@@ -754,6 +785,9 @@
            </if>
            <if test="shopId!=null">
                ${groupOp} shopId ${shopId.op}  #{shopId.data}
+           </if>
+           <if test="activityId!=null">
+               ${groupOp} activityId ${activityId.op}  #{activityId.data}
            </if>
            <if test="name!=null">
                ${groupOp} name ${name.op}  #{name.data}

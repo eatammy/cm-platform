@@ -20,17 +20,12 @@
 
 package cn.eatammy.cm.service.activity;
 
-import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.activity.IBusinessActivictyDAO;
 import cn.eatammy.cm.domain.activity.BusinessActivicty;
-import cn.eatammy.cm.service.activity.IBusinessActivictyService;
 import cn.eatammy.cm.service.AbstractCMPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
 
  /**
  * 《商城活动》 业务逻辑服务类

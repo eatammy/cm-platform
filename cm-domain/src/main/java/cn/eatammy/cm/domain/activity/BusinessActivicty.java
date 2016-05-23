@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-05-18  郭旭辉        新建	
+{  2016-05-23  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -20,13 +20,11 @@
 
 package cn.eatammy.cm.domain.activity;
 
+import cn.eatammy.common.domain.CMCreateBaseDomain;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import cn.eatammy.common.domain.CMCreateBaseDomain;
-
-import java.util.*;
 
 /**
  * 《商城活动》 实体
@@ -37,6 +35,7 @@ public class BusinessActivicty extends CMCreateBaseDomain<Long> {
 	private static final long serialVersionUID = 1L;
 	
 	private Long shopId; //商店id
+	private Long activityId; //所属活动id
 	private String name; //活动名称
 	private Double piece; //活动价格
 	private String picture; //活动图片
@@ -44,8 +43,8 @@ public class BusinessActivicty extends CMCreateBaseDomain<Long> {
 	private String description; //活动介绍
 	private Integer stock; //活动库存
 	private Integer sale; //活动销售量
-	private Long startTime; //使用开始时间
-	private Long endTime; //使用结束时间
+	private String startTime; //使用开始时间
+	private String endTime; //使用结束时间
 	private String rules; //使用规则
 	private Integer pNum; //使用人数上限
 	private String code; //活动代码，UUID
@@ -68,6 +67,18 @@ public class BusinessActivicty extends CMCreateBaseDomain<Long> {
 	 */
 	public void setShopId(Long shopId){
 		this.shopId = shopId;
+	}
+	/**
+	 * @return activityId 所属活动id
+	 */
+	public Long getActivityId(){
+		return this.activityId;
+	}
+	/**
+	 * @param activityId 所属活动id
+	 */
+	public void setActivityId(Long activityId){
+		this.activityId = activityId;
 	}
 	/**
 	 * @return name 活动名称
@@ -156,25 +167,25 @@ public class BusinessActivicty extends CMCreateBaseDomain<Long> {
 	/**
 	 * @return startTime 使用开始时间
 	 */
-	public Long getStartTime(){
+	public String getStartTime(){
 		return this.startTime;
 	}
 	/**
 	 * @param startTime 使用开始时间
 	 */
-	public void setStartTime(Long startTime){
+	public void setStartTime(String startTime){
 		this.startTime = startTime;
 	}
 	/**
 	 * @return endTime 使用结束时间
 	 */
-	public Long getEndTime(){
+	public String getEndTime(){
 		return this.endTime;
 	}
 	/**
 	 * @param endTime 使用结束时间
 	 */
-	public void setEndTime(Long endTime){
+	public void setEndTime(String endTime){
 		this.endTime = endTime;
 	}
 	/**
@@ -218,6 +229,7 @@ public class BusinessActivicty extends CMCreateBaseDomain<Long> {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("id",getId())
 			.append("shopId",getShopId())
+			.append("activityId",getActivityId())
 			.append("name",getName())
 			.append("piece",getPiece())
 			.append("picture",getPicture())
@@ -242,6 +254,7 @@ public class BusinessActivicty extends CMCreateBaseDomain<Long> {
 		return new HashCodeBuilder()
 			.append(getId())
 			.append(getShopId())
+			.append(getActivityId())
 			.append(getName())
 			.append(getPiece())
 			.append(getPicture())
