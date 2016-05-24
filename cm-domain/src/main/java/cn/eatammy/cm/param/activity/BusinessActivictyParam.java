@@ -47,7 +47,7 @@ public class BusinessActivictyParam extends CreateBaseParam<Long> {
 	/**
 	*字段常量——活动价格
 	*/
-	public static final String F_Piece="piece";
+	public static final String F_Price="price";
 	/**
 	*字段常量——活动图片
 	*/
@@ -92,7 +92,7 @@ public class BusinessActivictyParam extends CreateBaseParam<Long> {
 	private Long shopId; //商店id
 	private Long activityId; //所属活动id
 	private String name; //活动名称
-	private Double piece; //活动价格
+	private Double price; //活动价格
 	private String picture; //活动图片
 	private Integer score; //活动评分
 	private String description; //活动介绍
@@ -150,14 +150,14 @@ public class BusinessActivictyParam extends CreateBaseParam<Long> {
 	/**
 	 * @return piece 活动价格
 	 */
-	public Double getPiece(){
-		return this.piece;
+	public Double getPrice(){
+		return this.price;
 	}
 	/**
-	 * @param piece 活动价格
+	 * @param price 活动价格
 	 */
-	public void setPiece(Double piece){
-		this.piece = piece;
+	public void setPrice(Double price){
+		this.price = price;
 	}
 	/**
 	 * @return picture 活动图片
@@ -286,7 +286,7 @@ public class BusinessActivictyParam extends CreateBaseParam<Long> {
 			.append("shopId",getShopId())
 			.append("activityId",getActivityId())
 			.append("name",getName())
-			.append("piece",getPiece())
+			.append("piece",getPrice())
 			.append("picture",getPicture())
 			.append("score",getScore())
 			.append("description",getDescription())

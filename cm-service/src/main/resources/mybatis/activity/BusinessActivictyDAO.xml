@@ -8,7 +8,7 @@
         shopId,
         activityId,
         name,
-        piece,
+        price,
         picture,
         score,
         description,
@@ -30,7 +30,7 @@
 		    shopId
 		    ,activityId
 		    ,name
-		    ,piece
+		    ,price
 		    ,picture
 		    ,score
 		    ,description
@@ -50,7 +50,7 @@
 		    	#{shopId}
 		    	,#{activityId}
 		    	,#{name}
-		    	,#{piece}
+		    	,#{price}
 		    	,#{picture}
 		    	,#{score}
 		    	,#{description}
@@ -77,7 +77,7 @@
 		    shopId
 		    ,activityId
 		    ,name
-		    ,piece
+		    ,price
 		    ,picture
 		    ,score
 		    ,description
@@ -97,7 +97,7 @@
 		    	#{map.shopId}
 		    	,#{map.activityId}
 		    	,#{map.name}
-		    	,#{map.piece}
+		    	,#{map.price}
 		    	,#{map.picture}
 		    	,#{map.score}
 		    	,#{map.description}
@@ -123,7 +123,7 @@
 		    shopId=#{shopId},
 		    activityId=#{activityId},
 		    name=#{name},
-		    piece=#{piece},
+		    price=#{price},
 		    picture=#{picture},
 		    score=#{score},
 		    description=#{description},
@@ -156,8 +156,8 @@
             <if test="map.name!=null">
                 name = #{map.name},
             </if>
-            <if test="map.piece!=null">
-                piece = #{map.piece},
+            <if test="map.price!=null">
+                price = #{map.price},
             </if>
             <if test="map.picture!=null">
                 picture = #{map.picture},
@@ -221,8 +221,8 @@
             <if test="update.name!=null">
                 name = #{update.name},
             </if>
-            <if test="update.piece!=null">
-                piece = #{update.piece},
+            <if test="update.price!=null">
+                price = #{update.price},
             </if>
             <if test="update.picture!=null">
                 picture = #{update.picture},
@@ -281,8 +281,8 @@
             <if test="condition.name!=null">
                 AND name = #{condition.name}
             </if>
-            <if test="condition.piece!=null">
-                AND piece = #{condition.piece}
+            <if test="condition.price!=null">
+                AND price = #{condition.price}
             </if>
             <if test="condition.picture!=null">
                 AND picture = #{condition.picture}
@@ -338,7 +338,7 @@
             shopId = #{shopId},
             activityId = #{activityId},
             name = #{name},
-            piece = #{piece},
+            price = #{price},
             picture = #{picture},
             score = #{score},
             description = #{description},
@@ -390,8 +390,8 @@
             <if test="name!=null">
                 AND name = #{name}
             </if>
-            <if test="piece!=null">
-                AND piece = #{piece}
+            <if test="price!=null">
+                AND price = #{price}
             </if>
             <if test="picture!=null">
                 AND picture = #{picture}
@@ -505,8 +505,8 @@
             <if test="condition.name!=null">
                 ${condition.groupOp}   name  ${condition.name.op}  #{condition.name.data}
             </if>
-            <if test="condition.piece!=null">
-                ${condition.groupOp}   piece  ${condition.piece.op}  #{condition.piece.data}
+            <if test="condition.price!=null">
+                ${condition.groupOp}   price  ${condition.price.op}  #{condition.price.data}
             </if>
             <if test="condition.picture!=null">
                 ${condition.groupOp}   picture  ${condition.picture.op}  #{condition.picture.data}
@@ -582,8 +582,8 @@
             <if test="name!=null">
                 AND name like CONCAT('%', #{name} , '%')
             </if>
-            <if test="piece!=null">
-                AND piece like CONCAT('%', #{piece} , '%')
+            <if test="price!=null">
+                AND price like CONCAT('%', #{price} , '%')
             </if>
             <if test="picture!=null">
                 AND picture like CONCAT('%', #{picture} , '%')
@@ -654,8 +654,8 @@
             <if test="condition.name!=null">
                 AND name = #{condition.name}
             </if>
-            <if test="condition.piece!=null">
-                AND piece = #{condition.piece}
+            <if test="condition.price!=null">
+                AND price = #{condition.price}
             </if>
             <if test="condition.picture!=null">
                 AND picture = #{condition.picture}
@@ -725,8 +725,8 @@
             <if test="condition.name!=null">
                 AND name = #{condition.name}
             </if>
-            <if test="condition.piece!=null">
-                AND piece = #{condition.piece}
+            <if test="condition.price!=null">
+                AND price = #{condition.price}
             </if>
             <if test="condition.picture!=null">
                 AND picture = #{condition.picture}
@@ -792,8 +792,8 @@
            <if test="name!=null">
                ${groupOp} name ${name.op}  #{name.data}
            </if>
-           <if test="piece!=null">
-               ${groupOp} piece ${piece.op}  #{piece.data}
+           <if test="price!=null">
+               ${groupOp} price ${price.op}  #{price.data}
            </if>
            <if test="picture!=null">
                ${groupOp} picture ${picture.op}  #{picture.data}

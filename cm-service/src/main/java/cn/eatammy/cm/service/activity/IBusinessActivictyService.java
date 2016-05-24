@@ -20,16 +20,44 @@
 
 package cn.eatammy.cm.service.activity;
 
+import cn.eatammy.cm.param.activity.BusinessActivictyParam;
+import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.service.ICMBaseService;
+import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.service.IPageService;
 
- /**
+/**
  * 《商城活动》 业务逻辑服务接口
- * @author 郭旭辉
  *
+ * @author 郭旭辉
  */
-public interface IBusinessActivictyService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>,IPageService<D, T>{
+public interface IBusinessActivictyService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>, IPageService<D, T> {
+
+    /**
+     * 分页查询
+     * @param param     查询参数
+     * @param pageNo    页码
+     * @param pageSize  页大小
+     * @return 返回，分页列表
+     */
+    BizData4Page queryPage(BusinessActivictyParam param, int pageNo, int pageSize);
+
+    /**
+     * 新增商家活动
+     * @param param         新增参数
+     * @param currentUser   当前操作用户
+     * @return 返回，操作码
+     */
+    String add(BusinessActivictyParam param, AccountDto currentUser);
+
+    /**
+     * 更新商家活动
+     * @param param         更新参数
+     * @param currentUser   当前操作用户
+     * @return  返回，操作码
+     */
+    String update(BusinessActivictyParam param, AccountDto currentUser);
 
 }

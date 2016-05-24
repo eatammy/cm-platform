@@ -22,13 +22,36 @@ package cn.eatammy.cm.dao.activity;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.domain.activity.BusinessActivicty;
+import cn.eatammy.common.sys.database.DataSource;
+import org.apache.ibatis.annotations.Param;
 
- /**
+import java.util.List;
+import java.util.Map;
+
+/**
  * 《商城活动》 数据访问接口
- * @author 郭旭辉
  *
+ * @author 郭旭辉
  */
 public interface IBusinessActivictyDAO extends ICMBaseDAO<BusinessActivicty> {
 
+    /**
+     * 分页查询
+     *
+     * @param condition 查询参数
+     * @param offset    偏移量
+     * @param rows      行数
+     * @return 返回，分页列表
+     */
+    @DataSource("read")
+    List<BusinessActivicty> queryPageEx(@Param("condition") Map<String, Object> condition, @Param("offset") long offset, @Param("rows") long rows);
 
+    /**
+     * 分页统计
+     *
+     * @param condition 查询参数
+     * @return 返回，统计结果
+     */
+    @DataSource("read")
+    int countEx(@Param("condition") Map<String, Object> condition);
 }
