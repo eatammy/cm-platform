@@ -24,6 +24,7 @@ import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.activity.IBusinessActivictyDAO;
 import cn.eatammy.cm.domain.activity.BusinessActivicty;
 import cn.eatammy.cm.param.activity.BusinessActivictyParam;
+import cn.eatammy.cm.param.activity.BusinessActivictyParamEx;
 import cn.eatammy.cm.service.AbstractCMPageService;
 import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BizData4Page;
@@ -33,6 +34,7 @@ import cn.eatammy.common.utils.PageUtils;
 import cn.eatammy.common.utils.RETURNCODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -52,9 +54,9 @@ public class BusinessActivictyServiceImpl extends AbstractCMPageService<ICMBaseD
     }
 
     @Override
-    public BizData4Page queryPage(BusinessActivictyParam param, int pageNo, int pageSize) {
-        List<BusinessActivicty> data = businessActivictyDAO.queryPageEx(param.toMap(), (pageNo - 1) * pageSize, pageSize);
-        int records = businessActivictyDAO.countEx(param.toMap());
+    public BizData4Page queryPage(BusinessActivictyParamEx paramEx, int pageNo, int pageSize) {
+        List<BusinessActivicty> data = businessActivictyDAO.queryPageEx(paramEx.toMap(), (pageNo - 1) * pageSize, pageSize);
+        int records = businessActivictyDAO.countEx(paramEx.toMap());
         return PageUtils.toBizData4Page(data, pageNo, pageSize, records);
     }
 
@@ -72,13 +74,15 @@ public class BusinessActivictyServiceImpl extends AbstractCMPageService<ICMBaseD
         businessActivicty.setSale(param.getSale());
         businessActivicty.setStartTime(param.getStartTime());
         businessActivicty.setEndTime(param.getEndTime());
-        businessActivicty.getRules();
+        businessActivicty.setRules(param.getRules());
+        businessActivicty.setScore(0);
+        businessActivicty.setSale(0);
         businessActivicty.setPNum(param.getPNum());
         businessActivicty.setCode(param.getCode());
         businessActivicty.setCreator(currentUser.getUid());
         businessActivicty.setCreateDate(System.currentTimeMillis());
         businessActivicty.setStatus(0);
-        if(this.insert(businessActivicty) == 1){
+        if(businessActivictyDAO.insert(businessActivicty) == 1){
             return RETURNCODE.ADD_COMPLETE.getMessage();
         }
         throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
@@ -90,6 +94,15 @@ public class BusinessActivictyServiceImpl extends AbstractCMPageService<ICMBaseD
         param.setLastModDate(System.currentTimeMillis());
         if(businessActivictyDAO.updateMap(param.toMap()) == 1){
             return RETURNCODE.UPDATE_COMPLETE.getMessage();
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public String disableOrEnable(long id, int status) {
+        if (businessActivictyDAO.updateStatus(id, status) == 1){
+            return RETURNCODE.SUCCESS_COMPLETE.getMessage();
         }
         throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
     }
