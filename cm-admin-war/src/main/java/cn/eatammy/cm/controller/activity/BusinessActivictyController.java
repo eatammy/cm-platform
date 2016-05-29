@@ -2,6 +2,7 @@ package cn.eatammy.cm.controller.activity;
 
 import cn.eatammy.cm.domain.activity.BusinessActivicty;
 import cn.eatammy.cm.param.activity.BusinessActivictyParam;
+import cn.eatammy.cm.param.activity.BusinessActivictyParamEx;
 import cn.eatammy.cm.service.activity.IBusinessActivictyService;
 import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.utils.User.UserContext;
@@ -24,15 +25,15 @@ public class BusinessActivictyController {
 
     /**
      * 分页查询
-     * @param param     查询参数
+     * @param paramEx     查询参数
      * @param pageNo    页码
      * @param pageSize  页大小
      * @return  返回，分页结果
      */
     @ResponseBody
     @RequestMapping(value = "/queryPage", method = RequestMethod.POST)
-    public BizData4Page queryPage(BusinessActivictyParam param, @RequestParam(defaultValue = "1")int pageNo, @RequestParam(defaultValue = "10")int pageSize){
-        return businessActivictyService.queryPage(param, pageNo, pageSize);
+    public BizData4Page queryPage(BusinessActivictyParamEx paramEx, @RequestParam(defaultValue = "1")int pageNo, @RequestParam(defaultValue = "10")int pageSize){
+        return businessActivictyService.queryPage(paramEx, pageNo, pageSize);
     }
 
     /**

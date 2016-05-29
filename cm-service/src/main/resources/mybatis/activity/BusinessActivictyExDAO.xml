@@ -12,11 +12,14 @@
 			<if test="condition.name != null and condition.name != ''">
 				cab.NAME LIKE '%${condition.name}%'
 			</if>
-			<if test="condition.status != null and condition != -1">
+			<if test="condition.status != null and condition.status != -1">
 				cab.status = #{condition.status}
 			</if>
 			<if test="condition.low != null and condition.low > 0">
 				AND cbg.price &gt;= #{condition.low} and cbg.price &lt;= #{condition.high}
+			</if>
+			<if test="condition.startTime != null">
+				AND ca.startTime &lt;= #{condition.endTime} AND ca.endTime &gt;= #{condition.startTime}
 			</if>
 		</where>
 		order by cab.id desc
@@ -34,12 +37,21 @@
 			<if test="condition.name != null and condition.name != ''">
 				cab.NAME LIKE '%${condition.name}%'
 			</if>
-			<if test="condition.status != null and condition != -1">
+			<if test="condition.status != null and condition.status != -1">
 				cab.status = #{condition.status}
 			</if>
 			<if test="condition.low != null and condition.low > 0">
 				AND cbg.price &gt;= #{condition.low} and cbg.price &lt;= #{condition.high}
 			</if>
+			<if test="condition.startTime != null">
+				AND ca.startTime &lt;= #{condition.endTime} AND ca.endTime &gt;= #{condition.startTime}
+			</if>
 		</where>
 	</select>
+
+	<update id="updateStatus">
+		UPDATE cm_activity
+		set status = #{status}
+		WHERE id = #{id}
+	</update>
 </mapper>

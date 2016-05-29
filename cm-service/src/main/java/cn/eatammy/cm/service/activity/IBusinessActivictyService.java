@@ -21,6 +21,7 @@
 package cn.eatammy.cm.service.activity;
 
 import cn.eatammy.cm.param.activity.BusinessActivictyParam;
+import cn.eatammy.cm.param.activity.BusinessActivictyParamEx;
 import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
@@ -37,12 +38,12 @@ public interface IBusinessActivictyService<D extends ICMBaseDAO<T>, T extends Ba
 
     /**
      * 分页查询
-     * @param param     查询参数
+     * @param paramEx     查询参数
      * @param pageNo    页码
      * @param pageSize  页大小
      * @return 返回，分页列表
      */
-    BizData4Page queryPage(BusinessActivictyParam param, int pageNo, int pageSize);
+    BizData4Page queryPage(BusinessActivictyParamEx paramEx, int pageNo, int pageSize);
 
     /**
      * 新增商家活动
@@ -60,4 +61,11 @@ public interface IBusinessActivictyService<D extends ICMBaseDAO<T>, T extends Ba
      */
     String update(BusinessActivictyParam param, AccountDto currentUser);
 
+    /**
+     * 启用或停用分活动
+     * @param id        活动id
+     * @param status    活动状态， 0：启用，1：停用
+     * @return  返回，操作码
+     */
+    String disableOrEnable(long id, int status);
 }

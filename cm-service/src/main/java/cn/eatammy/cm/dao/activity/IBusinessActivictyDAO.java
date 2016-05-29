@@ -54,4 +54,13 @@ public interface IBusinessActivictyDAO extends ICMBaseDAO<BusinessActivicty> {
      */
     @DataSource("read")
     int countEx(@Param("condition") Map<String, Object> condition);
+
+    /**
+     * 启用或停用分活动
+     * @param id        活动id
+     * @param status    活动状态， 0：启用，1：停用
+     * @return  返回，0：失败，1：成功
+     */
+    @DataSource("write")
+    int updateStatus(@Param("id") long id, @Param("status")int status);
 }
