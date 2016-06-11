@@ -69,6 +69,7 @@
     <mybatis:scan base-package="cn.eatammy.cm.dao" factory-ref="sqlSessionFactory"/>
 
     <!--加载db.properties-->
+    <!--<context:property-placeholder location="classpath:db_local.properties"/>-->
     <context:property-placeholder location="classpath:db.properties"/>
 
     <bean id="writeDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
@@ -158,6 +159,7 @@
         <aop:aspect id="c" ref="dataSourceAspect">
             <aop:pointcut id="tx" expression="execution(public * cn.eatammy.cm.dao..*.*(..))"/>
             <aop:before pointcut-ref="tx" method="before"/>
+            <aop:after pointcut-ref="tx" method="after"/>
         </aop:aspect>
     </aop:config>
 

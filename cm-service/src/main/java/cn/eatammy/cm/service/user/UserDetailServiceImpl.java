@@ -78,9 +78,9 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
             //验证通过
             String token = MD5Utils.getToken(username, password);
             //设置session
-            HttpUtils.generalUserSession(session, user, token, 30 * 60);
+            HttpUtils.generalUserSession(session, user, token, 2 * 60 * 60);
             //设置cookie
-            HttpUtils.setCookie(response, token, 30 * 60);
+            HttpUtils.setCookie(response, token, 2 * 60 * 60);
             //设置缓存
 //            UserContext.initUser();
             return user;
@@ -223,7 +223,7 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public String disableOrEnable(long id, int status) {
-        if (userDetailDAO.updateStatus(id, status) == 1){
+        if (userDetailDAO.updateStatus(id, status) == 1) {
             return RETURNCODE.SUCCESS_COMPLETE.getMessage();
         }
         throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
@@ -233,10 +233,10 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     @Transactional(rollbackFor = {Exception.class})
     public String resetPasswd(String code) {
         String newPasswd = "";
-        while (newPasswd.length() < 6){
+        while (newPasswd.length() < 6) {
             newPasswd = (int) (Math.random() * 1000000) + "";
         }
-        if(userDetailDAO.updatePasswdByCode(code, MD5Utils.getMD5(newPasswd + MD5Utils.SALT)) == 1){
+        if (userDetailDAO.updatePasswdByCode(code, MD5Utils.getMD5(newPasswd + MD5Utils.SALT)) == 1) {
             return newPasswd;
         }
         throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
