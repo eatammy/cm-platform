@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-05-23  郭旭辉        新建	
+{  2016-06-11  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -48,6 +48,7 @@ public class BusinessActivicty extends CMCreateBaseDomain<Long> {
 	private String rules; //使用规则
 	private Integer pNum; //使用人数上限
 	private String code; //活动代码，UUID
+	private Integer isAttend; //是否参加活动，0：是，1：否
     
 	/**
 	 *默认空构造函数
@@ -93,13 +94,13 @@ public class BusinessActivicty extends CMCreateBaseDomain<Long> {
 		this.name = name;
 	}
 	/**
-	 * @return piece 活动价格
+	 * @return price 活动价格
 	 */
 	public Double getPrice(){
 		return this.price;
 	}
 	/**
-	 * @param piece 活动价格
+	 * @param price 活动价格
 	 */
 	public void setPrice(Double price){
 		this.price = price;
@@ -224,6 +225,18 @@ public class BusinessActivicty extends CMCreateBaseDomain<Long> {
 	public void setCode(String code){
 		this.code = code;
 	}
+	/**
+	 * @return isAttend 是否参加活动，0：是，1：否
+	 */
+	public Integer getIsAttend(){
+		return this.isAttend;
+	}
+	/**
+	 * @param isAttend 是否参加活动，0：是，1：否
+	 */
+	public void setIsAttend(Integer isAttend){
+		this.isAttend = isAttend;
+	}
 	
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -242,6 +255,7 @@ public class BusinessActivicty extends CMCreateBaseDomain<Long> {
 			.append("rules",getRules())
 			.append("pNum",getPNum())
 			.append("code",getCode())
+			.append("isAttend",getIsAttend())
 			.append("creator",getCreator())
 			.append("createDate",getCreateDate())
 			.append("lastModifier",getLastModifier())
@@ -267,6 +281,7 @@ public class BusinessActivicty extends CMCreateBaseDomain<Long> {
 			.append(getRules())
 			.append(getPNum())
 			.append(getCode())
+			.append(getIsAttend())
 			.append(getCreator())
 			.append(getCreateDate())
 			.append(getLastModifier())

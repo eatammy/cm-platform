@@ -20,13 +20,6 @@
 
 package cn.eatammy.cm.domain.activity;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
-import java.util.*;
-
 /**
  * 《商城活动》扩展实体
  * @author 郭旭辉
@@ -34,6 +27,24 @@ import java.util.*;
  */
 public class BusinessActivictyEx extends BusinessActivicty {
 	private static final long serialVersionUID = 1L;
-	
+	private String activityName;		//所属活动名称
+	private String shopName;		//所属商家名称
 	//针对BusinessActivicty实体在这里增加额外的属性和对应的get和set方法
+
+
+	public String getActivityName() {
+		return activityName;
+	}
+
+	public void setActivityName(String activityName) {
+		this.activityName = activityName;
+	}
+
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
 }

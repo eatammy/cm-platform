@@ -24,7 +24,20 @@ public class BusinessActivictyController {
     private IBusinessActivictyService businessActivictyService;
 
     /**
-     * 分页查询
+     * 我的活动分页
+     * @param paramEx     查询参数
+     * @param pageNo    页码
+     * @param pageSize  页大小
+     * @return  返回，分页结果
+     */
+    @ResponseBody
+    @RequestMapping(value = "/queryPage4Me", method = RequestMethod.POST)
+    public BizData4Page queryPage4Me(BusinessActivictyParamEx paramEx, @RequestParam(defaultValue = "1")int pageNo, @RequestParam(defaultValue = "10")int pageSize){
+        return businessActivictyService.queryPage4Me(paramEx, pageNo, pageSize);
+    }
+
+    /**
+     * 商家活动
      * @param paramEx     查询参数
      * @param pageNo    页码
      * @param pageSize  页大小
@@ -32,7 +45,7 @@ public class BusinessActivictyController {
      */
     @ResponseBody
     @RequestMapping(value = "/queryPage", method = RequestMethod.POST)
-    public BizData4Page queryPage(BusinessActivictyParamEx paramEx, @RequestParam(defaultValue = "1")int pageNo, @RequestParam(defaultValue = "10")int pageSize){
+    public BizData4Page queryPage(BusinessActivictyParamEx paramEx, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize){
         return businessActivictyService.queryPage(paramEx, pageNo, pageSize);
     }
 
@@ -67,5 +80,17 @@ public class BusinessActivictyController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String update(BusinessActivictyParam param){
         return businessActivictyService.update(param, UserContext.getCurrentUser());
+    }
+
+    /**
+     * 停用启用商城活动
+     * @param id        活动id
+     * @param status    活动
+     * @return 返回操作码
+     */
+    @ResponseBody
+    @RequestMapping(value= "/disableOrEnable")
+    public String disableOrEnable(long id, int status){
+        return businessActivictyService.disableOrEnable(id, status);
     }
 }

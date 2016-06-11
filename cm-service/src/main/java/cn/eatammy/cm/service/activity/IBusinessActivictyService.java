@@ -37,8 +37,17 @@ import cn.eatammy.common.service.IPageService;
 public interface IBusinessActivictyService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>, IPageService<D, T> {
 
     /**
-     * 分页查询
+     * 分页查询--我的活动
      * @param paramEx     查询参数
+     * @param pageNo    页码
+     * @param pageSize  页大小
+     * @return 返回，分页列表
+     */
+    BizData4Page queryPage4Me(BusinessActivictyParamEx paramEx, int pageNo, int pageSize);
+
+    /**
+     * 商家活动分页
+     * @param paramEx   查询参数
      * @param pageNo    页码
      * @param pageSize  页大小
      * @return 返回，分页列表

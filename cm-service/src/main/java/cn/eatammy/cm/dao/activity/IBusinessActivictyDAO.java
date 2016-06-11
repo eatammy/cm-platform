@@ -22,6 +22,7 @@ package cn.eatammy.cm.dao.activity;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.domain.activity.BusinessActivicty;
+import cn.eatammy.cm.domain.activity.BusinessActivictyEx;
 import cn.eatammy.common.sys.database.DataSource;
 import org.apache.ibatis.annotations.Param;
 
@@ -36,7 +37,7 @@ import java.util.Map;
 public interface IBusinessActivictyDAO extends ICMBaseDAO<BusinessActivicty> {
 
     /**
-     * 分页查询
+     * 分页查询 -- 我的活动
      *
      * @param condition 查询参数
      * @param offset    偏移量
@@ -44,10 +45,30 @@ public interface IBusinessActivictyDAO extends ICMBaseDAO<BusinessActivicty> {
      * @return 返回，分页列表
      */
     @DataSource("read")
-    List<BusinessActivicty> queryPageEx(@Param("condition") Map<String, Object> condition, @Param("offset") long offset, @Param("rows") long rows);
+    List<BusinessActivictyEx> queryPage4Me(@Param("condition") Map<String, Object> condition, @Param("offset") long offset, @Param("rows") long rows);
 
     /**
-     * 分页统计
+     * 分页查询 -- 商家活动
+     *
+     * @param condition 查询参数
+     * @param offset    偏移量
+     * @param rows      行数
+     * @return 返回，分页列表
+     */
+    @DataSource("read")
+    List<BusinessActivictyEx> queryPageEx(@Param("condition") Map<String, Object> condition, @Param("offset") long offset, @Param("rows") long rows);
+
+    /**
+     * 分页统计--我的活动
+     *
+     * @param condition 查询参数
+     * @return 返回，统计结果
+     */
+    @DataSource("read")
+    int count4Me(@Param("condition") Map<String, Object> condition);
+
+    /**
+     * 分页统计--商家活动
      *
      * @param condition 查询参数
      * @return 返回，统计结果

@@ -28,7 +28,9 @@ package cn.eatammy.cm.domain.activity;
 public class ActivityEx extends Activity {
 	private static final long serialVersionUID = 1L;
 
-	private String categoryName;
+	private String categoryName;	//所属分类名称
+	private Integer isAttend;		// 是否参加活动，0：是，1：否
+
 	//针对Activity实体在这里增加额外的属性和对应的get和set方法
 
 	public String getCategoryName() {
@@ -37,5 +39,13 @@ public class ActivityEx extends Activity {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+
+	public Integer getIsAttend() {
+		return isAttend;
+	}
+
+	public void setIsAttend(Integer isAttend) {
+		this.isAttend = isAttend;
 	}
 }

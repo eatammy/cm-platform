@@ -19,6 +19,7 @@
         rules,
         pNum,
         code,
+        isAttend,
         creator,
         createDate,
         lastModifier,
@@ -41,6 +42,7 @@
 		    ,rules
 		    ,pNum
 		    ,code
+		    ,isAttend
 		    ,creator
 		    ,createDate
 		    ,lastModifier
@@ -61,6 +63,7 @@
 		    	,#{rules}
 		    	,#{pNum}
 		    	,#{code}
+		    	,#{isAttend}
 		    	,#{creator}
 		    	,#{createDate}
 		    	,#{lastModifier}
@@ -88,6 +91,7 @@
 		    ,rules
 		    ,pNum
 		    ,code
+		    ,isAttend
 		    ,creator
 		    ,createDate
 		    ,lastModifier
@@ -108,6 +112,7 @@
 		    	,#{map.rules}
 		    	,#{map.pNum}
 		    	,#{map.code}
+		    	,#{map.isAttend}
 		    	,#{map.creator}
 		    	,#{map.createDate}
 		    	,#{map.lastModifier}
@@ -134,6 +139,7 @@
 		    rules=#{rules},
 		    pNum=#{pNum},
 		    code=#{code},
+		    isAttend=#{isAttend},
 		    creator=#{creator},
 		    createDate=#{createDate},
 		    lastModifier=#{lastModifier},
@@ -188,6 +194,9 @@
             </if>
             <if test="map.code!=null">
                 code = #{map.code},
+            </if>
+            <if test="map.isAttend!=null">
+                isAttend = #{map.isAttend},
             </if>
             <if test="map.creator!=null">
                 creator = #{map.creator},
@@ -254,6 +263,9 @@
             <if test="update.code!=null">
                 code = #{update.code},
             </if>
+            <if test="update.isAttend!=null">
+                isAttend = #{update.isAttend},
+            </if>
             <if test="update.creator!=null">
                 creator = #{update.creator},
             </if>
@@ -314,6 +326,9 @@
             <if test="condition.code!=null">
                 AND code = #{condition.code}
             </if>
+            <if test="condition.isAttend!=null">
+                AND isAttend = #{condition.isAttend}
+            </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
             </if>
@@ -349,6 +364,7 @@
             rules = #{rules},
             pNum = #{pNum},
             code = #{code},
+            isAttend = #{isAttend},
             creator = #{creator},
             createDate = #{createDate},
             lastModifier = #{lastModifier},
@@ -422,6 +438,9 @@
             </if>
             <if test="code!=null">
                 AND code = #{code}
+            </if>
+            <if test="isAttend!=null">
+                AND isAttend = #{isAttend}
             </if>
             <if test="creator!=null">
                 AND creator = #{creator}
@@ -538,6 +557,9 @@
             <if test="condition.code!=null">
                 ${condition.groupOp}   code  ${condition.code.op}  #{condition.code.data}
             </if>
+            <if test="condition.isAttend!=null">
+                ${condition.groupOp}   isAttend  ${condition.isAttend.op}  #{condition.isAttend.data}
+            </if>
             <if test="condition.creator!=null">
                 ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
             </if>
@@ -615,6 +637,9 @@
             <if test="code!=null">
                 AND code like CONCAT('%', #{code} , '%')
             </if>
+            <if test="isAttend!=null">
+                AND isAttend like CONCAT('%', #{isAttend} , '%')
+            </if>
             <if test="creator!=null">
                 AND creator like CONCAT('%', #{creator} , '%')
             </if>
@@ -687,6 +712,9 @@
             <if test="condition.code!=null">
                 AND code = #{condition.code}
             </if>
+            <if test="condition.isAttend!=null">
+                AND isAttend = #{condition.isAttend}
+            </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
             </if>
@@ -758,6 +786,9 @@
             <if test="condition.code!=null">
                 AND code = #{condition.code}
             </if>
+            <if test="condition.isAttend!=null">
+                AND isAttend = #{condition.isAttend}
+            </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
             </if>
@@ -824,6 +855,9 @@
            </if>
            <if test="code!=null">
                ${groupOp} code ${code.op}  #{code.data}
+           </if>
+           <if test="isAttend!=null">
+               ${groupOp} isAttend ${isAttend.op}  #{isAttend.data}
            </if>
            <if test="creator!=null">
                ${groupOp} creator ${creator.op}  #{creator.data}

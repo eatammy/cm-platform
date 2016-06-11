@@ -23,6 +23,7 @@ package cn.eatammy.cm.service.activity;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.activity.IBusinessActivictyDAO;
 import cn.eatammy.cm.domain.activity.BusinessActivicty;
+import cn.eatammy.cm.domain.activity.BusinessActivictyEx;
 import cn.eatammy.cm.param.activity.BusinessActivictyParam;
 import cn.eatammy.cm.param.activity.BusinessActivictyParamEx;
 import cn.eatammy.cm.service.AbstractCMPageService;
@@ -54,8 +55,15 @@ public class BusinessActivictyServiceImpl extends AbstractCMPageService<ICMBaseD
     }
 
     @Override
+    public BizData4Page queryPage4Me(BusinessActivictyParamEx paramEx, int pageNo, int pageSize) {
+        List<BusinessActivictyEx> data = businessActivictyDAO.queryPage4Me(paramEx.toMap(), (pageNo - 1) * pageSize, pageSize);
+        int records = businessActivictyDAO.count4Me(paramEx.toMap());
+        return PageUtils.toBizData4Page(data, pageNo, pageSize, records);
+    }
+
+    @Override
     public BizData4Page queryPage(BusinessActivictyParamEx paramEx, int pageNo, int pageSize) {
-        List<BusinessActivicty> data = businessActivictyDAO.queryPageEx(paramEx.toMap(), (pageNo - 1) * pageSize, pageSize);
+        List<BusinessActivictyEx> data = businessActivictyDAO.queryPageEx(paramEx.toMap(), (pageNo - 1) * pageSize, pageSize);
         int records = businessActivictyDAO.countEx(paramEx.toMap());
         return PageUtils.toBizData4Page(data, pageNo, pageSize, records);
     }
@@ -81,7 +89,7 @@ public class BusinessActivictyServiceImpl extends AbstractCMPageService<ICMBaseD
         businessActivicty.setCode(param.getCode());
         businessActivicty.setCreator(currentUser.getUid());
         businessActivicty.setCreateDate(System.currentTimeMillis());
-        businessActivicty.setStatus(0);
+        businessActivicty.setStatus(1);
         if(businessActivictyDAO.insert(businessActivicty) == 1){
             return RETURNCODE.ADD_COMPLETE.getMessage();
         }

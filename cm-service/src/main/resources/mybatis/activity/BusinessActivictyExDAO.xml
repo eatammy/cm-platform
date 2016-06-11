@@ -4,22 +4,25 @@
 <mapper namespace="cn.eatammy.cm.dao.activity.IBusinessActivictyDAO">
 	<!-- 在这里存放用户自定义的映射配置（注：BusinessActivictyDAO.xml里各节点的ID不能在这里重复出现）  -->
 
-	<select id="queryPageEx" resultType="cn.eatammy.cm.domain.activity.BusinessActivicty">
+	<select id="queryPage4Me" resultType="cn.eatammy.cm.domain.activity.BusinessActivictyEx">
 		select cab.*, ca.`name` AS activityName FROM cm_activity_BusinessActivicty cab
 		LEFT JOIN cm_activity ca
 		ON cab.activityId = ca.id
 		<where>
 			<if test="condition.name != null and condition.name != ''">
-				cab.NAME LIKE '%${condition.name}%'
+				cab.name LIKE '%${condition.name}%'
 			</if>
 			<if test="condition.status != null and condition.status != -1">
 				cab.status = #{condition.status}
 			</if>
 			<if test="condition.low != null and condition.low > 0">
-				AND cbg.price &gt;= #{condition.low} and cbg.price &lt;= #{condition.high}
+				AND cab.price &gt;= #{condition.low} and cab.price &lt;= #{condition.high}
 			</if>
-			<if test="condition.startTime != null">
-				AND ca.startTime &lt;= #{condition.endTime} AND ca.endTime &gt;= #{condition.startTime}
+			<if test="condition.endTime != null and condition.endTime != ''">
+				AND cab.startTime &lt;= #{condition.endTime}
+			</if>
+			<if test="condition.startTime != null and condition.startTime != ''">
+				AND cab.endTime &gt;= #{condition.startTime}
 			</if>
 		</where>
 		order by cab.id desc
@@ -28,29 +31,83 @@
 		</if>
 	</select>
 
-	<select id="countEx" resultType="java.lang.Integer">
+	<select id="count4Me" resultType="java.lang.Integer">
 		SELECT count(1)
 		FROM cm_activity_BusinessActivicty cab
 		LEFT JOIN cm_activity ca
 		ON cab.activityId = ca.id
 		<where>
 			<if test="condition.name != null and condition.name != ''">
-				cab.NAME LIKE '%${condition.name}%'
+				cab.name LIKE '%${condition.name}%'
 			</if>
 			<if test="condition.status != null and condition.status != -1">
 				cab.status = #{condition.status}
 			</if>
 			<if test="condition.low != null and condition.low > 0">
-				AND cbg.price &gt;= #{condition.low} and cbg.price &lt;= #{condition.high}
+				AND cab.price &gt;= #{condition.low} and cab.price &lt;= #{condition.high}
 			</if>
-			<if test="condition.startTime != null">
-				AND ca.startTime &lt;= #{condition.endTime} AND ca.endTime &gt;= #{condition.startTime}
+			<if test="condition.endTime != null and condition.endTime != ''">
+				AND cab.startTime &lt;= #{condition.endTime}
+			</if>
+			<if test="condition.startTime != null and condition.startTime != ''">
+				AND cab.endTime &gt;= #{condition.startTime}
+			</if>
+		</where>
+
+	</select>
+
+	<select id="queryPageEx" resultType="cn.eatammy.cm.domain.activity.BusinessActivictyEx">
+		SELECT cab.id AS id, cab.`name` AS `name`,cab.price AS price,cab.startTime as startTime,
+		cab.endTime AS endTime,cab.`status` AS `status`,ca.`name` as activityName,cbs.shopName as shopName
+		FROM cm_activity_BusinessActivicty cab LEFT JOIN cm_activity ca ON cab.activityId = ca.id
+		LEFT JOIN cm_business_shop cbs ON cab.shopId = cbs.id
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				cab.name LIKE '%${condition.name}%'
+			</if>
+			<if test="condition.status != null and condition.status != -1">
+				cab.status = #{condition.status}
+			</if>
+			<if test="condition.low != null and condition.low > 0">
+				AND cab.price &gt;= #{condition.low} and cab.price &lt;= #{condition.high}
+			</if>
+			<if test="condition.endTime != null and condition.endTime != ''">
+				AND cab.startTime &lt;= #{condition.endTime}
+			</if>
+			<if test="condition.startTime != null and condition.startTime != ''">
+				AND cab.endTime &gt;= #{condition.startTime}
+			</if>
+		</where>
+		order by cab.id desc
+		<if test="offset != null">
+			LIMIT ${offset}, ${rows}
+		</if>
+	</select>
+	<select id="countEx" resultType="java.lang.Integer">
+		SELECT count(1)
+		FROM cm_activity_BusinessActivicty cab LEFT JOIN cm_activity ca ON cab.activityId = ca.id
+		LEFT JOIN cm_business_shop cbs ON cab.shopId = cbs.id
+		<where>
+			<if test="condition.name != null and condition.name != ''">
+				cab.name LIKE '%${condition.name}%'
+			</if>
+			<if test="condition.status != null and condition.status != -1">
+				cab.status = #{condition.status}
+			</if>
+			<if test="condition.low != null and condition.low > 0">
+				AND cab.price &gt;= #{condition.low} and cab.price &lt;= #{condition.high}
+			</if>
+			<if test="condition.endTime != null and condition.endTime != ''">
+				AND cab.startTime &lt;= #{condition.endTime}
+			</if>
+			<if test="condition.startTime != null and condition.startTime != ''">
+				AND cab.endTime &gt;= #{condition.startTime}
 			</if>
 		</where>
 	</select>
 
 	<update id="updateStatus">
-		UPDATE cm_activity
+		UPDATE cm_activity_BusinessActivicty
 		set status = #{status}
 		WHERE id = #{id}
 	</update>

@@ -6,11 +6,12 @@
 	<!-- 在这里存放用户自定义的映射配置（注：ActivityDAO.xml里各节点的ID不能在这里重复出现）  -->
 
 	<select id="queryPageEx" resultType="cn.eatammy.cm.domain.activity.ActivityEx">
-		SELECT ca.*, csc.name AS categoryName
+		SELECT ca.*, csc.name AS categoryName, cab.isAttend AS isAttend
 		FROM cm_activity ca LEFT JOIN cm_sys_category csc
 		ON ca.categoryId = csc.id left JOIN cm_activity_BusinessActivicty cab
-		ON ca.id = cab.activityId AND cab.activityId is NULL
+		ON ca.id = cab.activityId
 		<where>
+
 			<if test="condition.name != null and condition.name != ''">
 				AND ca.name LIKE '%${condition.name}%'
 			</if>
