@@ -5,6 +5,9 @@ import cn.eatammy.cm.param.activity.BusinessActivictyParam;
 import cn.eatammy.cm.param.activity.BusinessActivictyParamEx;
 import cn.eatammy.cm.service.activity.IBusinessActivictyService;
 import cn.eatammy.common.domain.BizData4Page;
+import cn.eatammy.common.exception.BizException;
+import cn.eatammy.common.utils.ERRORCODE;
+import cn.eatammy.common.utils.RETURNCODE;
 import cn.eatammy.common.utils.User.UserContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Arrays;
 
 /**
  * Created by 郭旭辉 on 2016/5/23.
@@ -92,5 +97,33 @@ public class BusinessActivictyController {
     @RequestMapping(value= "/disableOrEnable")
     public String disableOrEnable(long id, int status){
         return businessActivictyService.disableOrEnable(id, status);
+    }
+
+    /**
+     * 删除单个活动
+     * @param id    活动id
+     * @return  返回，操作码
+     */
+    @ResponseBody
+    @RequestMapping(value="/deleteOne")
+    public String deleteOne(long id){
+        if(businessActivictyService.deleteById(id) == 1){
+            return RETURNCODE.DELETE_COMPLETE.getMessage();
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+    }
+
+    /**
+     * 批量删除活动
+     * @param ids   活动ids
+     * @return  返回，操作码
+     */
+    @ResponseBody
+    @RequestMapping(value = "deleteByIds")
+    public String deletebyIds(Long[] ids){
+        if (businessActivictyService.deleteByIds(Arrays.asList(ids)) == 1){
+            return RETURNCODE.DELETE_COMPLETE.getMessage();
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
     }
 }
