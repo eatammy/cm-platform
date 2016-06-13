@@ -6,13 +6,9 @@
     <sql id="Base_Column_List">
         id,
         uid,
-        shopId,
+        serialNumber,
         address,
-        goodsId,
-        goodsName,
-        count,
         total,
-        piece,
         isTraded,
         creator,
         createDate,
@@ -23,13 +19,9 @@
     <insert id="insert" parameterType="cn.eatammy.cm.domain.business.Indent">
         INSERT INTO cm_business_indent (
 		    uid
-		    ,shopId
+		    ,serialNumber
 		    ,address
-		    ,goodsId
-		    ,goodsName
-		    ,count
 		    ,total
-		    ,piece
 		    ,isTraded
 		    ,creator
 		    ,createDate
@@ -38,13 +30,9 @@
 		    ,status
         ) VALUES (
 		    	#{uid}
-		    	,#{shopId}
+		    	,#{serialNumber}
 		    	,#{address}
-		    	,#{goodsId}
-		    	,#{goodsName}
-		    	,#{count}
 		    	,#{total}
-		    	,#{piece}
 		    	,#{isTraded}
 		    	,#{creator}
 		    	,#{createDate}
@@ -60,13 +48,9 @@
     <insert id="insertMap" >
         INSERT INTO cm_business_indent (
 		    uid
-		    ,shopId
+		    ,serialNumber
 		    ,address
-		    ,goodsId
-		    ,goodsName
-		    ,count
 		    ,total
-		    ,piece
 		    ,isTraded
 		    ,creator
 		    ,createDate
@@ -75,13 +59,9 @@
 		    ,status
         ) VALUES (
 		    	#{map.uid}
-		    	,#{map.shopId}
+		    	,#{map.serialNumber}
 		    	,#{map.address}
-		    	,#{map.goodsId}
-		    	,#{map.goodsName}
-		    	,#{map.count}
 		    	,#{map.total}
-		    	,#{map.piece}
 		    	,#{map.isTraded}
 		    	,#{map.creator}
 		    	,#{map.createDate}
@@ -96,13 +76,9 @@
         UPDATE cm_business_indent
         <trim prefix="SET" suffixOverrides=",">
 		    uid=#{uid},
-		    shopId=#{shopId},
+		    serialNumber=#{serialNumber},
 		    address=#{address},
-		    goodsId=#{goodsId},
-		    goodsName=#{goodsName},
-		    count=#{count},
 		    total=#{total},
-		    piece=#{piece},
 		    isTraded=#{isTraded},
 		    creator=#{creator},
 		    createDate=#{createDate},
@@ -120,26 +96,14 @@
             <if test="map.uid!=null">
                 uid = #{map.uid},
             </if>
-            <if test="map.shopId!=null">
-                shopId = #{map.shopId},
+            <if test="map.serialNumber!=null">
+                serialNumber = #{map.serialNumber},
             </if>
             <if test="map.address!=null">
                 address = #{map.address},
             </if>
-            <if test="map.goodsId!=null">
-                goodsId = #{map.goodsId},
-            </if>
-            <if test="map.goodsName!=null">
-                goodsName = #{map.goodsName},
-            </if>
-            <if test="map.count!=null">
-                count = #{map.count},
-            </if>
             <if test="map.total!=null">
                 total = #{map.total},
-            </if>
-            <if test="map.piece!=null">
-                piece = #{map.piece},
             </if>
             <if test="map.isTraded!=null">
                 isTraded = #{map.isTraded},
@@ -170,26 +134,14 @@
             <if test="update.uid!=null">
                 uid = #{update.uid},
             </if>
-            <if test="update.shopId!=null">
-                shopId = #{update.shopId},
+            <if test="update.serialNumber!=null">
+                serialNumber = #{update.serialNumber},
             </if>
             <if test="update.address!=null">
                 address = #{update.address},
             </if>
-            <if test="update.goodsId!=null">
-                goodsId = #{update.goodsId},
-            </if>
-            <if test="update.goodsName!=null">
-                goodsName = #{update.goodsName},
-            </if>
-            <if test="update.count!=null">
-                count = #{update.count},
-            </if>
             <if test="update.total!=null">
                 total = #{update.total},
-            </if>
-            <if test="update.piece!=null">
-                piece = #{update.piece},
             </if>
             <if test="update.isTraded!=null">
                 isTraded = #{update.isTraded},
@@ -215,26 +167,14 @@
             <if test="condition.uid!=null">
                 AND uid = #{condition.uid}
             </if>
-            <if test="condition.shopId!=null">
-                AND shopId = #{condition.shopId}
+            <if test="condition.serialNumber!=null">
+                AND serialNumber = #{condition.serialNumber}
             </if>
             <if test="condition.address!=null">
                 AND address = #{condition.address}
             </if>
-            <if test="condition.goodsId!=null">
-                AND goodsId = #{condition.goodsId}
-            </if>
-            <if test="condition.goodsName!=null">
-                AND goodsName = #{condition.goodsName}
-            </if>
-            <if test="condition.count!=null">
-                AND count = #{condition.count}
-            </if>
             <if test="condition.total!=null">
                 AND total = #{condition.total}
-            </if>
-            <if test="condition.piece!=null">
-                AND piece = #{condition.piece}
             </if>
             <if test="condition.isTraded!=null">
                 AND isTraded = #{condition.isTraded}
@@ -261,13 +201,9 @@
         UPDATE cm_business_indent
         <trim prefix="SET" suffixOverrides=",">
             uid = #{uid},
-            shopId = #{shopId},
+            serialNumber = #{serialNumber},
             address = #{address},
-            goodsId = #{goodsId},
-            goodsName = #{goodsName},
-            count = #{count},
             total = #{total},
-            piece = #{piece},
             isTraded = #{isTraded},
             creator = #{creator},
             createDate = #{createDate},
@@ -304,26 +240,14 @@
             <if test="uid!=null">
                 AND uid = #{uid}
             </if>
-            <if test="shopId!=null">
-                AND shopId = #{shopId}
+            <if test="serialNumber!=null">
+                AND serialNumber = #{serialNumber}
             </if>
             <if test="address!=null">
                 AND address = #{address}
             </if>
-            <if test="goodsId!=null">
-                AND goodsId = #{goodsId}
-            </if>
-            <if test="goodsName!=null">
-                AND goodsName = #{goodsName}
-            </if>
-            <if test="count!=null">
-                AND count = #{count}
-            </if>
             <if test="total!=null">
                 AND total = #{total}
-            </if>
-            <if test="piece!=null">
-                AND piece = #{piece}
             </if>
             <if test="isTraded!=null">
                 AND isTraded = #{isTraded}
@@ -404,26 +328,14 @@
             <if test="condition.uid!=null">
                 ${condition.groupOp}   uid  ${condition.uid.op}  #{condition.uid.data}
             </if>
-            <if test="condition.shopId!=null">
-                ${condition.groupOp}   shopId  ${condition.shopId.op}  #{condition.shopId.data}
+            <if test="condition.serialNumber!=null">
+                ${condition.groupOp}   serialNumber  ${condition.serialNumber.op}  #{condition.serialNumber.data}
             </if>
             <if test="condition.address!=null">
                 ${condition.groupOp}   address  ${condition.address.op}  #{condition.address.data}
             </if>
-            <if test="condition.goodsId!=null">
-                ${condition.groupOp}   goodsId  ${condition.goodsId.op}  #{condition.goodsId.data}
-            </if>
-            <if test="condition.goodsName!=null">
-                ${condition.groupOp}   goodsName  ${condition.goodsName.op}  #{condition.goodsName.data}
-            </if>
-            <if test="condition.count!=null">
-                ${condition.groupOp}   count  ${condition.count.op}  #{condition.count.data}
-            </if>
             <if test="condition.total!=null">
                 ${condition.groupOp}   total  ${condition.total.op}  #{condition.total.data}
-            </if>
-            <if test="condition.piece!=null">
-                ${condition.groupOp}   piece  ${condition.piece.op}  #{condition.piece.data}
             </if>
             <if test="condition.isTraded!=null">
                 ${condition.groupOp}   isTraded  ${condition.isTraded.op}  #{condition.isTraded.data}
@@ -466,26 +378,14 @@
             <if test="uid!=null">
                 AND uid like CONCAT('%', #{uid} , '%')
             </if>
-            <if test="shopId!=null">
-                AND shopId like CONCAT('%', #{shopId} , '%')
+            <if test="serialNumber!=null">
+                AND serialNumber like CONCAT('%', #{serialNumber} , '%')
             </if>
             <if test="address!=null">
                 AND address like CONCAT('%', #{address} , '%')
             </if>
-            <if test="goodsId!=null">
-                AND goodsId like CONCAT('%', #{goodsId} , '%')
-            </if>
-            <if test="goodsName!=null">
-                AND goodsName like CONCAT('%', #{goodsName} , '%')
-            </if>
-            <if test="count!=null">
-                AND count like CONCAT('%', #{count} , '%')
-            </if>
             <if test="total!=null">
                 AND total like CONCAT('%', #{total} , '%')
-            </if>
-            <if test="piece!=null">
-                AND piece like CONCAT('%', #{piece} , '%')
             </if>
             <if test="isTraded!=null">
                 AND isTraded like CONCAT('%', #{isTraded} , '%')
@@ -523,26 +423,14 @@
             <if test="condition.uid!=null">
                 AND uid = #{condition.uid}
             </if>
-            <if test="condition.shopId!=null">
-                AND shopId = #{condition.shopId}
+            <if test="condition.serialNumber!=null">
+                AND serialNumber = #{condition.serialNumber}
             </if>
             <if test="condition.address!=null">
                 AND address = #{condition.address}
             </if>
-            <if test="condition.goodsId!=null">
-                AND goodsId = #{condition.goodsId}
-            </if>
-            <if test="condition.goodsName!=null">
-                AND goodsName = #{condition.goodsName}
-            </if>
-            <if test="condition.count!=null">
-                AND count = #{condition.count}
-            </if>
             <if test="condition.total!=null">
                 AND total = #{condition.total}
-            </if>
-            <if test="condition.piece!=null">
-                AND piece = #{condition.piece}
             </if>
             <if test="condition.isTraded!=null">
                 AND isTraded = #{condition.isTraded}
@@ -579,26 +467,14 @@
             <if test="condition.uid!=null">
                 AND uid = #{condition.uid}
             </if>
-            <if test="condition.shopId!=null">
-                AND shopId = #{condition.shopId}
+            <if test="condition.serialNumber!=null">
+                AND serialNumber = #{condition.serialNumber}
             </if>
             <if test="condition.address!=null">
                 AND address = #{condition.address}
             </if>
-            <if test="condition.goodsId!=null">
-                AND goodsId = #{condition.goodsId}
-            </if>
-            <if test="condition.goodsName!=null">
-                AND goodsName = #{condition.goodsName}
-            </if>
-            <if test="condition.count!=null">
-                AND count = #{condition.count}
-            </if>
             <if test="condition.total!=null">
                 AND total = #{condition.total}
-            </if>
-            <if test="condition.piece!=null">
-                AND piece = #{condition.piece}
             </if>
             <if test="condition.isTraded!=null">
                 AND isTraded = #{condition.isTraded}
@@ -631,26 +507,14 @@
            <if test="uid!=null">
                ${groupOp} uid ${uid.op}  #{uid.data}
            </if>
-           <if test="shopId!=null">
-               ${groupOp} shopId ${shopId.op}  #{shopId.data}
+           <if test="serialNumber!=null">
+               ${groupOp} serialNumber ${serialNumber.op}  #{serialNumber.data}
            </if>
            <if test="address!=null">
                ${groupOp} address ${address.op}  #{address.data}
            </if>
-           <if test="goodsId!=null">
-               ${groupOp} goodsId ${goodsId.op}  #{goodsId.data}
-           </if>
-           <if test="goodsName!=null">
-               ${groupOp} goodsName ${goodsName.op}  #{goodsName.data}
-           </if>
-           <if test="count!=null">
-               ${groupOp} count ${count.op}  #{count.data}
-           </if>
            <if test="total!=null">
                ${groupOp} total ${total.op}  #{total.data}
-           </if>
-           <if test="piece!=null">
-               ${groupOp} piece ${piece.op}  #{piece.data}
            </if>
            <if test="isTraded!=null">
                ${groupOp} isTraded ${isTraded.op}  #{isTraded.data}

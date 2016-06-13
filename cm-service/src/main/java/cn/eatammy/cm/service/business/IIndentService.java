@@ -20,16 +20,27 @@
 
 package cn.eatammy.cm.service.business;
 
+import cn.eatammy.cm.param.business.IndentParamEx;
+import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.service.ICMBaseService;
 import cn.eatammy.common.service.IPageService;
 
- /**
+/**
  * 《订单》 业务逻辑服务接口
- * @author 郭旭辉
  *
+ * @author 郭旭辉
  */
-public interface IIndentService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>,IPageService<D, T>{
+public interface IIndentService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>, IPageService<D, T> {
 
+
+    /**
+     * 保存订单
+     *
+     * @param paramEx    保存参数
+     * @param accountDto 当前操作用户
+     * @return 返回，操作码
+     */
+    String add(IndentParamEx paramEx, AccountDto accountDto);
 }

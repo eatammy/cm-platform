@@ -11,7 +11,7 @@
 {  维护历史:													
 {  日期        维护人        维护类型						
 {  ---------------------------------------------------------------------------	
-{  2016-03-31  郭旭辉        新建	
+{  2016-06-13  郭旭辉        新建	
 { 	                                                                     
 {  ---------------------------------------------------------------------------
 {  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
@@ -20,13 +20,9 @@
 
 package cn.eatammy.cm.param.business;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import cn.eatammy.common.param.CreateBaseParam;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import cn.eatammy.common.param.CreateBaseParam;
-
-import java.util.*;
 
 /**
  * 《订单》 查询参数实体
@@ -41,46 +37,26 @@ public class IndentParam extends CreateBaseParam<Long> {
 	*/
 	public static final String F_Uid="uid";
 	/**
-	*字段常量——商店id
+	*字段常量——订单流水号
 	*/
-	public static final String F_ShopId="shopId";
+	public static final String F_SerialNumber="serialNumber";
 	/**
 	*字段常量——订单地址
 	*/
 	public static final String F_Address="address";
 	/**
-	*字段常量——商品id
-	*/
-	public static final String F_GoodsId="goodsId";
-	/**
-	*字段常量——商店名称
-	*/
-	public static final String F_GoodsName="goodsName";
-	/**
-	*字段常量——数量
-	*/
-	public static final String F_Count="count";
-	/**
 	*字段常量——总额
 	*/
 	public static final String F_Total="total";
-	/**
-	*字段常量——单价
-	*/
-	public static final String F_Piece="piece";
 	/**
 	*字段常量——是否完成交易，0：未完成，1：完成
 	*/
 	public static final String F_IsTraded="isTraded";
 	
 	private Long uid; //用户id
-	private Long shopId; //商店id
+	private Long serialNumber; //订单流水号
 	private String address; //订单地址
-	private Long goodsId; //商品id
-	private String goodsName; //商店名称
-	private Integer count; //数量
-	private Integer total; //总额
-	private Double piece; //单价
+	private Float total; //总额
 	private Integer isTraded; //是否完成交易，0：未完成，1：完成
     
 	/**
@@ -103,16 +79,16 @@ public class IndentParam extends CreateBaseParam<Long> {
 		this.uid = uid;
 	}
 	/**
-	 * @return shopId 商店id
+	 * @return serialNumber 订单流水号
 	 */
-	public Long getShopId(){
-		return this.shopId;
+	public Long getSerialNumber(){
+		return this.serialNumber;
 	}
 	/**
-	 * @param shopId 商店id
+	 * @param serialNumber 订单流水号
 	 */
-	public void setShopId(Long shopId){
-		this.shopId = shopId;
+	public void setSerialNumber(Long serialNumber){
+		this.serialNumber = serialNumber;
 	}
 	/**
 	 * @return address 订单地址
@@ -127,64 +103,16 @@ public class IndentParam extends CreateBaseParam<Long> {
 		this.address = address;
 	}
 	/**
-	 * @return goodsId 商品id
-	 */
-	public Long getGoodsId(){
-		return this.goodsId;
-	}
-	/**
-	 * @param goodsId 商品id
-	 */
-	public void setGoodsId(Long goodsId){
-		this.goodsId = goodsId;
-	}
-	/**
-	 * @return goodsName 商店名称
-	 */
-	public String getGoodsName(){
-		return this.goodsName;
-	}
-	/**
-	 * @param goodsName 商店名称
-	 */
-	public void setGoodsName(String goodsName){
-		this.goodsName = goodsName;
-	}
-	/**
-	 * @return count 数量
-	 */
-	public Integer getCount(){
-		return this.count;
-	}
-	/**
-	 * @param count 数量
-	 */
-	public void setCount(Integer count){
-		this.count = count;
-	}
-	/**
 	 * @return total 总额
 	 */
-	public Integer getTotal(){
+	public Float getTotal(){
 		return this.total;
 	}
 	/**
 	 * @param total 总额
 	 */
-	public void setTotal(Integer total){
+	public void setTotal(Float total){
 		this.total = total;
-	}
-	/**
-	 * @return piece 单价
-	 */
-	public Double getPiece(){
-		return this.piece;
-	}
-	/**
-	 * @param piece 单价
-	 */
-	public void setPiece(Double piece){
-		this.piece = piece;
 	}
 	/**
 	 * @return isTraded 是否完成交易，0：未完成，1：完成
@@ -203,13 +131,9 @@ public class IndentParam extends CreateBaseParam<Long> {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("id",getId())
 			.append("uid",getUid())
-			.append("shopId",getShopId())
+			.append("serialNumber",getSerialNumber())
 			.append("address",getAddress())
-			.append("goodsId",getGoodsId())
-			.append("goodsName",getGoodsName())
-			.append("count",getCount())
 			.append("total",getTotal())
-			.append("piece",getPiece())
 			.append("isTraded",getIsTraded())
 			.append("creator",getCreator())
 			.append("createDate",getCreateDate())

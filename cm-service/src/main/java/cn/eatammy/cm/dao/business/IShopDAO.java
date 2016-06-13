@@ -79,4 +79,12 @@ public interface IShopDAO extends ICMBaseDAO<Shop> {
      */
     @DataSource("read")
     ShopEx queryShopByUid(@Param("uid") String uid);
+
+    /**
+     * 更新商家收入
+     * @param income    收入
+     * @return 返回，0：失败，1：成功
+     */
+    @DataSource("write")
+    int updateIncome(@Param("income") Float income);
 }

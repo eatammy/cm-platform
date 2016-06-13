@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.eatammy.cm.dao.business.IIndentRelationDAO">
+
+    <sql id="Base_Column_List">
+        id,
+        indentId,
+        shopId,
+        goodsId,
+        num,
+        price
+    </sql>
+    <insert id="insert" parameterType="cn.eatammy.cm.domain.business.IndentRelation">
+        INSERT INTO cm_business_indentRelation (
+		    indentId
+		    ,shopId
+		    ,goodsId
+		    ,num
+		    ,price
+        ) VALUES (
+		    	#{indentId}
+		    	,#{shopId}
+		    	,#{goodsId}
+		    	,#{num}
+		    	,#{price}
+        )
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+        	SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <insert id="insertMap" >
+        INSERT INTO cm_business_indentRelation (
+		    indentId
+		    ,shopId
+		    ,goodsId
+		    ,num
+		    ,price
+        ) VALUES (
+		    	#{map.indentId}
+		    	,#{map.shopId}
+		    	,#{map.goodsId}
+		    	,#{map.num}
+		    	,#{map.price}
+        )
+    </insert>
+    
+    <!-- 更新 -->
+    <update id="update" parameterType="cn.eatammy.cm.domain.business.IndentRelation">
+        UPDATE cm_business_indentRelation
+        <trim prefix="SET" suffixOverrides=",">
+		    indentId=#{indentId},
+		    shopId=#{shopId},
+		    goodsId=#{goodsId},
+		    num=#{num},
+		    price=#{price},
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+	
+	<update id="updateMap">
+        UPDATE cm_business_indentRelation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="map.indentId!=null">
+                indentId = #{map.indentId},
+            </if>
+            <if test="map.shopId!=null">
+                shopId = #{map.shopId},
+            </if>
+            <if test="map.goodsId!=null">
+                goodsId = #{map.goodsId},
+            </if>
+            <if test="map.num!=null">
+                num = #{map.num},
+            </if>
+            <if test="map.price!=null">
+                price = #{map.price},
+            </if>
+        </trim>
+        WHERE
+        id = #{map.id}
+    </update>
+
+    <update id="updateByCondition">
+        UPDATE cm_business_indentRelation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="update.indentId!=null">
+                indentId = #{update.indentId},
+            </if>
+            <if test="update.shopId!=null">
+                shopId = #{update.shopId},
+            </if>
+            <if test="update.goodsId!=null">
+                goodsId = #{update.goodsId},
+            </if>
+            <if test="update.num!=null">
+                num = #{update.num},
+            </if>
+            <if test="update.price!=null">
+                price = #{update.price},
+            </if>
+        </trim>
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.indentId!=null">
+                AND indentId = #{condition.indentId}
+            </if>
+            <if test="condition.shopId!=null">
+                AND shopId = #{condition.shopId}
+            </if>
+            <if test="condition.goodsId!=null">
+                AND goodsId = #{condition.goodsId}
+            </if>
+            <if test="condition.num!=null">
+                AND num = #{condition.num}
+            </if>
+            <if test="condition.price!=null">
+                AND price = #{condition.price}
+            </if>
+        </trim>
+    </update>
+
+    <update id="updateNull" parameterType="cn.eatammy.cm.domain.business.IndentRelation">
+        UPDATE cm_business_indentRelation
+        <trim prefix="SET" suffixOverrides=",">
+            indentId = #{indentId},
+            shopId = #{shopId},
+            goodsId = #{goodsId},
+            num = #{num},
+            price = #{price},
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+    
+    
+    <!-- 按Id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM cm_business_indentRelation
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </delete>
+
+    <!--根据list(ids)删除对象-->
+    <delete id="deleteByIds">
+        DELETE FROM cm_business_indentRelation
+        WHERE id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+
+    <delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM cm_business_indentRelation
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="indentId!=null">
+                AND indentId = #{indentId}
+            </if>
+            <if test="shopId!=null">
+                AND shopId = #{shopId}
+            </if>
+            <if test="goodsId!=null">
+                AND goodsId = #{goodsId}
+            </if>
+            <if test="num!=null">
+                AND num = #{num}
+            </if>
+            <if test="price!=null">
+                AND price = #{price}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM cm_business_indentRelation WHERE
+        ${property} = #{value}
+    </delete>
+    
+    <!--查询相关 -->
+    <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.business.IndentRelation">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_business_indentRelation
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.business.IndentRelation">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_business_indentRelation WHERE
+        ${property} = #{value}
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.business.IndentRelation">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_business_indentRelation WHERE
+        ${property} = #{value}
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="findAll" resultType="IndentRelation">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_business_indentRelation
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryPage" resultType="cn.eatammy.cm.domain.business.IndentRelation">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_business_indentRelation
+        <where>
+
+            <if test="condition.whereSql != null">
+                and id in (#{condition.whereSql})
+            </if>
+
+            <if test="condition.id!=null">
+                ${condition.groupOp}   id  ${condition.id.op}  #{condition.id.data}
+            </if>
+            <if test="condition.indentId!=null">
+                ${condition.groupOp}   indentId  ${condition.indentId.op}  #{condition.indentId.data}
+            </if>
+            <if test="condition.shopId!=null">
+                ${condition.groupOp}   shopId  ${condition.shopId.op}  #{condition.shopId.data}
+            </if>
+            <if test="condition.goodsId!=null">
+                ${condition.groupOp}   goodsId  ${condition.goodsId.op}  #{condition.goodsId.data}
+            </if>
+            <if test="condition.num!=null">
+                ${condition.groupOp}   num  ${condition.num.op}  #{condition.num.data}
+            </if>
+            <if test="condition.price!=null">
+                ${condition.groupOp}   price  ${condition.price.op}  #{condition.price.data}
+            </if>
+
+
+    </where>
+
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.business.IndentRelation">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_business_indentRelation
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id like CONCAT('%', #{id} , '%')
+            </if>
+            <if test="indentId!=null">
+                AND indentId like CONCAT('%', #{indentId} , '%')
+            </if>
+            <if test="shopId!=null">
+                AND shopId like CONCAT('%', #{shopId} , '%')
+            </if>
+            <if test="goodsId!=null">
+                AND goodsId like CONCAT('%', #{goodsId} , '%')
+            </if>
+            <if test="num!=null">
+                AND num like CONCAT('%', #{num} , '%')
+            </if>
+            <if test="price!=null">
+                AND price like CONCAT('%', #{price} , '%')
+            </if>
+        </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+
+    <select id="queryList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.business.IndentRelation">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_business_indentRelation
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.indentId!=null">
+                AND indentId = #{condition.indentId}
+            </if>
+            <if test="condition.shopId!=null">
+                AND shopId = #{condition.shopId}
+            </if>
+            <if test="condition.goodsId!=null">
+                AND goodsId = #{condition.goodsId}
+            </if>
+            <if test="condition.num!=null">
+                AND num = #{condition.num}
+            </if>
+            <if test="condition.price!=null">
+                AND price = #{condition.price}
+            </if>
+        </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.business.IndentRelation">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_business_indentRelation
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.indentId!=null">
+                AND indentId = #{condition.indentId}
+            </if>
+            <if test="condition.shopId!=null">
+                AND shopId = #{condition.shopId}
+            </if>
+            <if test="condition.goodsId!=null">
+                AND goodsId = #{condition.goodsId}
+            </if>
+            <if test="condition.num!=null">
+                AND num = #{condition.num}
+            </if>
+            <if test="condition.price!=null">
+                AND price = #{condition.price}
+            </if>
+        </trim>
+        limit 0,1
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(1) FROM cm_business_indentRelation
+       <where>
+           <if test="id!=null">
+               ${groupOp} id ${id.op}  #{id.data}
+           </if>
+           <if test="indentId!=null">
+               ${groupOp} indentId ${indentId.op}  #{indentId.data}
+           </if>
+           <if test="shopId!=null">
+               ${groupOp} shopId ${shopId.op}  #{shopId.data}
+           </if>
+           <if test="goodsId!=null">
+               ${groupOp} goodsId ${goodsId.op}  #{goodsId.data}
+           </if>
+           <if test="num!=null">
+               ${groupOp} num ${num.op}  #{num.data}
+           </if>
+           <if test="price!=null">
+               ${groupOp} price ${price.op}  #{price.data}
+           </if>
+
+       </where>
+    <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+    </if>
+    </select>
+
+    <select id="selectMaxId" resultType="java.lang.Long">
+        SELECT
+        MAX(id)
+        FROM cm_business_indentRelation
+    </select>
+   
+</mapper>
