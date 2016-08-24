@@ -50,9 +50,9 @@ public class MD5Utils {
      * @return 返回，的加密字符串
      */
     private static String byteToString(byte[] bByte) {
-        StringBuffer sBuffer = new StringBuffer();
-        for (int i = 0; i < bByte.length; i++) {
-            sBuffer.append(byteToArrayString(bByte[i]));
+        StringBuilder sBuffer = new StringBuilder();
+        for (byte aBByte : bByte) {
+            sBuffer.append(byteToArrayString(aBByte));
         }
         return sBuffer.toString();
     }
@@ -60,7 +60,7 @@ public class MD5Utils {
     public static String getMD5(String str) {
         String result = null;
         try {
-            result = new String(str);
+            result = str;
             MessageDigest md = MessageDigest.getInstance("MD5");
             result = byteToString(md.digest(str.getBytes()));
         } catch (NoSuchAlgorithmException ex) {

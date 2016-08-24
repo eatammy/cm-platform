@@ -6,6 +6,7 @@ import cn.eatammy.common.exception.BizException;
 import cn.eatammy.common.sys.filter.CMRequestFilter;
 import cn.eatammy.common.utils.ERRORCODE;
 import cn.eatammy.common.utils.http.HttpUtils;
+import org.apache.shiro.SecurityUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -58,9 +59,10 @@ public class UserContext {
         Cookie cookie = HttpUtils.getCookie(request.getCookies(),HttpUtils.ACCESS_TOKEN);
         if (cookie != null){
             String token = cookie.getValue();
-            UserDetail userDetail = (UserDetail) request.getSession().getAttribute(token);
-            if (userDetail != null){
-                return setAccount(userDetail);
+            AccountDto accountDto = (AccountDto) SecurityUtils.getSubject().getSession().getAttribute(token);
+//            UserDetail userDetail = (UserDetail) request.getSession().getAttribute(token);
+            if (accountDto != null){
+                return accountDto;
             }else {
                 throw new BizException(ERRORCODE.ILLEGAL_LOGIN.getCode(), ERRORCODE.ILLEGAL_LOGIN.getMessage());
             }
@@ -99,9 +101,6 @@ public class UserContext {
         accountDto.setFuns(userDetail.getFuns());
         accountDto.setAttentions(userDetail.getAttentions());
         accountDto.setScore(userDetail.getScore());
-        accountDto.setStudent(userDetail.getIsStudent());
-        accountDto.setStudentId(userDetail.getStudentId());
-        accountDto.setStudentPic(userDetail.getStudentPic());
         accountDto.setIdCard(userDetail.getIdCard());
         accountDto.setIdCardPic(userDetail.getIdCardPic());
         return accountDto;

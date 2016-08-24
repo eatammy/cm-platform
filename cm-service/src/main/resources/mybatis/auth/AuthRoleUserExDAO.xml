@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.eatammy.cm.dao.auth.IAuthRoleUserDAO">
+	<!-- 在这里存放用户自定义的映射配置（注：AuthRoleUserDAO.xml里各节点的ID不能在这里重复出现）  -->
+
+	<insert id="insertBatch">
+		INSERT INTO cm_auth_role_user
+		(userCode
+		,roleCode
+		,userType
+		,creator
+		,createDate
+		,status
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.userCode}
+			,#{item.roleCode}
+			,#{item.userType}
+			,#{item.creator}
+			,#{item.createDate}
+			,#{item.status})
+		</foreach>
+	</insert>
+
+	<delete id="deleteBatchByProperty">
+		DELETE FROM cm_auth_role_user
+		WHERE  #{property} IN
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<select id="querySelectedRoles" resultType="java.lang.String">
+		SELECT DISTINCT  caru.roleCode
+		FROM cm_auth_role_user caru
+		LEFT JOIN cm_auth_role car
+		ON (car.code = caru.roleCode AND  car.isDefault = 0 AND car.status = 0)
+		WHERE caru.userCode = #{userCode} and caru.userType = #{userType}
+	</select>
+</mapper>

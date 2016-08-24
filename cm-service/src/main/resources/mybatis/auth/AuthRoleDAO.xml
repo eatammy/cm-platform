@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.eatammy.cm.dao.auth.IAuthRoleDAO">
+
+    <sql id="Base_Column_List">
+        id,
+        code,
+        name,
+        isSuper,
+        isDefault,
+        description,
+        creator,
+        createDate,
+        lastModifer,
+        lastModDate,
+        status
+    </sql>
+    <insert id="insert" parameterType="cn.eatammy.cm.domain.auth.AuthRole">
+        INSERT INTO cm_auth_role (
+        code
+        ,name
+        ,isSuper
+        ,isDefault
+        ,description
+        ,creator
+        ,createDate
+        ,lastModifer
+        ,lastModDate
+        ,status
+        ) VALUES (
+        #{code}
+        ,#{name}
+        ,#{isSuper}
+        ,#{isDefault}
+        ,#{description}
+        ,#{creator}
+        ,#{createDate}
+        ,#{lastModifer}
+        ,#{lastModDate}
+        ,#{status}
+        )
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <insert id="insertMap" >
+        INSERT INTO cm_auth_role (
+        code
+        ,name
+        ,isSuper
+        ,isDefault
+        ,description
+        ,creator
+        ,createDate
+        ,lastModifer
+        ,lastModDate
+        ,status
+        ) VALUES (
+        #{map.code}
+        ,#{map.name}
+        ,#{map.isSuper}
+        ,#{map.isDefault}
+        ,#{map.description}
+        ,#{map.creator}
+        ,#{map.createDate}
+        ,#{map.lastModifer}
+        ,#{map.lastModDate}
+        ,#{map.status}
+        )
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="cn.eatammy.cm.domain.auth.AuthRole">
+        UPDATE cm_auth_role
+        <trim prefix="SET" suffixOverrides=",">
+            code=#{code},
+            name=#{name},
+            isSuper=#{isSuper},
+            isDefault=#{isDefault},
+            description=#{description},
+            creator=#{creator},
+            createDate=#{createDate},
+            lastModifer=#{lastModifer},
+            lastModDate=#{lastModDate},
+            status=#{status},
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateMap">
+        UPDATE cm_auth_role
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="map.code!=null">
+                code = #{map.code},
+            </if>
+            <if test="map.name!=null">
+                name = #{map.name},
+            </if>
+            <if test="map.isSuper!=null">
+                isSuper = #{map.isSuper},
+            </if>
+            <if test="map.isDefault!=null">
+                isDefault = #{map.isDefault},
+            </if>
+            <if test="map.description!=null">
+                description = #{map.description},
+            </if>
+            <if test="map.creator!=null">
+                creator = #{map.creator},
+            </if>
+            <if test="map.createDate!=null">
+                createDate = #{map.createDate},
+            </if>
+            <if test="map.lastModifer!=null">
+                lastModifer = #{map.lastModifer},
+            </if>
+            <if test="map.lastModDate!=null">
+                lastModDate = #{map.lastModDate},
+            </if>
+            <if test="map.status!=null">
+                status = #{map.status},
+            </if>
+        </trim>
+        WHERE
+        id = #{map.id}
+    </update>
+
+    <update id="updateByCondition">
+        UPDATE cm_auth_role
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="update.code!=null">
+                code = #{update.code},
+            </if>
+            <if test="update.name!=null">
+                name = #{update.name},
+            </if>
+            <if test="update.isSuper!=null">
+                isSuper = #{update.isSuper},
+            </if>
+            <if test="update.isDefault!=null">
+                isDefault = #{update.isDefault},
+            </if>
+            <if test="update.description!=null">
+                description = #{update.description},
+            </if>
+            <if test="update.creator!=null">
+                creator = #{update.creator},
+            </if>
+            <if test="update.createDate!=null">
+                createDate = #{update.createDate},
+            </if>
+            <if test="update.lastModifer!=null">
+                lastModifer = #{update.lastModifer},
+            </if>
+            <if test="update.lastModDate!=null">
+                lastModDate = #{update.lastModDate},
+            </if>
+            <if test="update.status!=null">
+                status = #{update.status},
+            </if>
+        </trim>
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
+            </if>
+            <if test="condition.isSuper!=null">
+                AND isSuper = #{condition.isSuper}
+            </if>
+            <if test="condition.isDefault!=null">
+                AND isDefault = #{condition.isDefault}
+            </if>
+            <if test="condition.description!=null">
+                AND description = #{condition.description}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifer!=null">
+                AND lastModifer = #{condition.lastModifer}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+        </trim>
+    </update>
+
+    <update id="updateNull" parameterType="cn.eatammy.cm.domain.auth.AuthRole">
+        UPDATE cm_auth_role
+        <trim prefix="SET" suffixOverrides=",">
+            code = #{code},
+            name = #{name},
+            isSuper = #{isSuper},
+            isDefault = #{isDefault},
+            description = #{description},
+            creator = #{creator},
+            createDate = #{createDate},
+            lastModifer = #{lastModifer},
+            lastModDate = #{lastModDate},
+            status = #{status},
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+
+
+    <!-- 按Id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM cm_auth_role
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </delete>
+
+    <!--根据list(ids)删除对象-->
+    <delete id="deleteByIds">
+        DELETE FROM cm_auth_role
+        WHERE id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+
+    <delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM cm_auth_role
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="code!=null">
+                AND code = #{code}
+            </if>
+            <if test="name!=null">
+                AND name = #{name}
+            </if>
+            <if test="isSuper!=null">
+                AND isSuper = #{isSuper}
+            </if>
+            <if test="isDefault!=null">
+                AND isDefault = #{isDefault}
+            </if>
+            <if test="description!=null">
+                AND description = #{description}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifer!=null">
+                AND lastModifer = #{lastModifer}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="status!=null">
+                AND status = #{status}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM cm_auth_role WHERE
+        ${property} = #{value}
+    </delete>
+
+    <!--查询相关 -->
+    <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.auth.AuthRole">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_role
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.auth.AuthRole">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_role WHERE
+        ${property} = #{value}
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.auth.AuthRole">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_role WHERE
+        ${property} = #{value}
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="findAll" resultType="AuthRole">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_role
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryPage" resultType="cn.eatammy.cm.domain.auth.AuthRole">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_role
+        <where>
+
+            <if test="condition.whereSql != null">
+                and id in (#{condition.whereSql})
+            </if>
+
+            <if test="condition.id!=null">
+                ${condition.groupOp}   id  ${condition.id.op}  #{condition.id.data}
+            </if>
+            <if test="condition.code!=null">
+                ${condition.groupOp}   code  ${condition.code.op}  #{condition.code.data}
+            </if>
+            <if test="condition.name!=null">
+                ${condition.groupOp}   name  ${condition.name.op}  #{condition.name.data}
+            </if>
+            <if test="condition.isSuper!=null">
+                ${condition.groupOp}   isSuper  ${condition.isSuper.op}  #{condition.isSuper.data}
+            </if>
+            <if test="condition.isDefault!=null">
+                ${condition.groupOp}   isDefault  ${condition.isDefault.op}  #{condition.isDefault.data}
+            </if>
+            <if test="condition.description!=null">
+                ${condition.groupOp}   description  ${condition.description.op}  #{condition.description.data}
+            </if>
+            <if test="condition.creator!=null">
+                ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
+            </if>
+            <if test="condition.createDate!=null">
+                ${condition.groupOp}   createDate  ${condition.createDate.op}  #{condition.createDate.data}
+            </if>
+            <if test="condition.lastModifer!=null">
+                ${condition.groupOp}   lastModifer  ${condition.lastModifer.op}  #{condition.lastModifer.data}
+            </if>
+            <if test="condition.lastModDate!=null">
+                ${condition.groupOp}   lastModDate  ${condition.lastModDate.op}  #{condition.lastModDate.data}
+            </if>
+            <if test="condition.status!=null">
+                ${condition.groupOp}   status  ${condition.status.op}  #{condition.status.data}
+            </if>
+
+
+        </where>
+
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.auth.AuthRole">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_role
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id like CONCAT('%', #{id} , '%')
+            </if>
+            <if test="code!=null">
+                AND code like CONCAT('%', #{code} , '%')
+            </if>
+            <if test="name!=null">
+                AND name like CONCAT('%', #{name} , '%')
+            </if>
+            <if test="isSuper!=null">
+                AND isSuper like CONCAT('%', #{isSuper} , '%')
+            </if>
+            <if test="isDefault!=null">
+                AND isDefault like CONCAT('%', #{isDefault} , '%')
+            </if>
+            <if test="description!=null">
+                AND description like CONCAT('%', #{description} , '%')
+            </if>
+            <if test="creator!=null">
+                AND creator like CONCAT('%', #{creator} , '%')
+            </if>
+            <if test="createDate!=null">
+                AND createDate like CONCAT('%', #{createDate} , '%')
+            </if>
+            <if test="lastModifer!=null">
+                AND lastModifer like CONCAT('%', #{lastModifer} , '%')
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate like CONCAT('%', #{lastModDate} , '%')
+            </if>
+            <if test="status!=null">
+                AND status like CONCAT('%', #{status} , '%')
+            </if>
+        </trim>
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+
+    <select id="queryList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.auth.AuthRole">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_role
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
+            </if>
+            <if test="condition.isSuper!=null">
+                AND isSuper = #{condition.isSuper}
+            </if>
+            <if test="condition.isDefault!=null">
+                AND isDefault = #{condition.isDefault}
+            </if>
+            <if test="condition.description!=null">
+                AND description = #{condition.description}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifer!=null">
+                AND lastModifer = #{condition.lastModifer}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+        </trim>
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.auth.AuthRole">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_role
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
+            </if>
+            <if test="condition.isSuper!=null">
+                AND isSuper = #{condition.isSuper}
+            </if>
+            <if test="condition.isDefault!=null">
+                AND isDefault = #{condition.isDefault}
+            </if>
+            <if test="condition.description!=null">
+                AND description = #{condition.description}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifer!=null">
+                AND lastModifer = #{condition.lastModifer}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+        </trim>
+        limit 0,1
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(1) FROM cm_auth_role
+        <where>
+            <if test="id!=null">
+                ${groupOp} id ${id.op}  #{id.data}
+            </if>
+            <if test="code!=null">
+                ${groupOp} code ${code.op}  #{code.data}
+            </if>
+            <if test="name!=null">
+                ${groupOp} name ${name.op}  #{name.data}
+            </if>
+            <if test="isSuper!=null">
+                ${groupOp} isSuper ${isSuper.op}  #{isSuper.data}
+            </if>
+            <if test="isDefault!=null">
+                ${groupOp} isDefault ${isDefault.op}  #{isDefault.data}
+            </if>
+            <if test="description!=null">
+                ${groupOp} description ${description.op}  #{description.data}
+            </if>
+            <if test="creator!=null">
+                ${groupOp} creator ${creator.op}  #{creator.data}
+            </if>
+            <if test="createDate!=null">
+                ${groupOp} createDate ${createDate.op}  #{createDate.data}
+            </if>
+            <if test="lastModifer!=null">
+                ${groupOp} lastModifer ${lastModifer.op}  #{lastModifer.data}
+            </if>
+            <if test="lastModDate!=null">
+                ${groupOp} lastModDate ${lastModDate.op}  #{lastModDate.data}
+            </if>
+            <if test="status!=null">
+                ${groupOp} status ${status.op}  #{status.data}
+            </if>
+
+        </where>
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="selectMaxId" resultType="java.lang.Long">
+        SELECT
+        MAX(id)
+        FROM cm_auth_role
+    </select>
+
+</mapper>

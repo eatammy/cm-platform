@@ -4,6 +4,7 @@ import cn.eatammy.cm.domain.user.UserDetail;
 import cn.eatammy.cm.param.user.UserDetailParam;
 import cn.eatammy.cm.param.user.UserDetailParamEx;
 import cn.eatammy.cm.service.user.IUserDetailService;
+import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.exception.BizException;
 import cn.eatammy.common.qiniu.BucketEnum;
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,20 +39,33 @@ public class UserController {
     @Autowired
     private BucketManagerService bucketManagerService;
 
-    /**
-     * 用户登录
-     *
-     * @param username 用户名
-     * @param password 密码
-     * @param session
-     * @param response
-     * @return 返回，userBean
-     */
+//    /**
+//     * 用户登录
+//     *
+//     * @param username 用户名
+//     * @param password 密码
+//     * @param session
+//     * @param response
+//     * @return 返回，userBean
+//     */
+//    @ResponseBody
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public UserDetail isLogin(String username, String password, HttpSession session, HttpServletResponse response) {
+//        return userDetailService.isLogin(username, password, session, response);
+//    }
+
     @ResponseBody
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public UserDetail isLogin(String username, String password, HttpSession session, HttpServletResponse response) {
-        return userDetailService.isLogin(username, password, session, response);
+    @RequestMapping(value = "/login")
+    public AccountDto isLogin( HttpServletRequest request, HttpServletResponse response) {
+        return userDetailService.isLogin(request, response);
     }
+
+    @ResponseBody
+    @RequestMapping(value="/initUser")
+    public String initUser(@RequestParam(required = true) String uid, @RequestParam(required = true) Integer userType){
+        return userDetailService.initUser(uid, userType);
+    }
+
 
     /**
      * 注销
@@ -59,11 +73,11 @@ public class UserController {
      * @param session session
      * @return 返回，操作码
      */
-    @ResponseBody
-    @RequestMapping(value = "/logout")
-    public String logout(HttpSession session) {
-        return userDetailService.logout(session);
-    }
+//    @ResponseBody
+//    @RequestMapping(value = "/logout")
+//    public String logout(HttpSession session) {
+//        return userDetailService.logout(session);
+//    }
 
     /**
      * 找回密码

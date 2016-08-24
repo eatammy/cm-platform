@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.eatammy.cm.dao.auth.IAuthModuleDAO">
+	<!-- 在这里存放用户自定义的映射配置（注：AuthModuleDAO.xml里各节点的ID不能在这里重复出现）  -->
+
+	<update id="updateStatus">
+		UPDATE cm_auth_module
+		SET status = #{status}, lastModDate = #{lastModDate}, lastModifier = #{lastModifier}
+		where fullCode like '%${pCode}%'
+	</update>
+	<select id="queryModulesByUser" resultType="cn.eatammy.cm.domain.auth.AuthModule">
+		SELECT * FROM
+		cm_auth_module cam
+		WHERE code in(
+			select DISTINCT caa.resourceCode
+			FROM cm_auth_role_user caru LEFT JOIN cm_auth_role car ON (car.`status` = 0 AND car.`code` = caru.roleCode)
+			LEFT JOIN cm_auth_acl caa ON (caa.subjectCode = car.`code` AND caa.subjectType = 0 )
+			WHERE caa.subjectCode is NOT null and caa.resourceType = 0
+			AND caru.userCode = #{userCode} AND caru.userType = #{userType})
+		and cam.status = 0
+		order by cam.level,cam.priority
+		<if test="offset != null">
+			limit ${offset}, ${rows}
+		</if>
+	</select>
+</mapper>

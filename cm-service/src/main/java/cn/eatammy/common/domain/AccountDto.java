@@ -2,6 +2,7 @@ package cn.eatammy.common.domain;
 
 /**
  * Created by 郭旭辉 on 2016/3/22.
+ * 用户信息dto
  */
 public class AccountDto {
     private String uid;   //uid
@@ -15,11 +16,12 @@ public class AccountDto {
     private Integer funs; //粉丝数
     private Integer attentions; //关注数
     private Integer score; //积分
-    private Integer isStudent; //是否为学生，0：学生，1：非学生
-    private String studentId; //学生证号码
-    private String studentPic; //学生证图片链接
     private String idCard; //身份证
     private String idCardPic; //身份证图片链接
+    private Integer userTypes;    //用户身份值
+    private String salt;        //加密盐
+    private String token;   //数字签名
+    private Integer userType; //当前身份
 
     public String getUid() {
         return uid;
@@ -109,30 +111,6 @@ public class AccountDto {
         this.score = score;
     }
 
-    public Integer getStudent() {
-        return isStudent;
-    }
-
-    public void setStudent(Integer student) {
-        isStudent = student;
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getStudentPic() {
-        return studentPic;
-    }
-
-    public void setStudentPic(String studentPic) {
-        this.studentPic = studentPic;
-    }
-
     public String getIdCard() {
         return idCard;
     }
@@ -147,5 +125,37 @@ public class AccountDto {
 
     public void setIdCardPic(String idCardPic) {
         this.idCardPic = idCardPic;
+    }
+
+    public Integer getUserTypes() {
+        return userTypes;
+    }
+
+    public void setUserTypes(Integer userTypes) {
+        this.userTypes = userTypes;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
     }
 }

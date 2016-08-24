@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.eatammy.cm.dao.auth.IAuthOperationDAO">
+	<!-- 在这里存放用户自定义的映射配置（注：AuthOperationDAO.xml里各节点的ID不能在这里重复出现）  -->
+
+	<delete id="deleteOperationByCodes">
+		DELETE FROM cm_auth_operation
+		WHERE moduleCode IN
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<select id="queryPageEx" resultType="cn.eatammy.cm.domain.auth.AuthOperationEx">
+		SELECT cao.*, cam.name as moduleName
+		FROM cm_auth_operation cao LEFT JOIN cm_auth_module cam
+		ON cao.moduleCode = cam.code
+		<where>
+			<if test="condition.name != null and condition.name !=''">
+				AND cao.name like '%${condition.name}%'
+			</if>
+			<if test="condition.moduleCode != null and condition.moduleCode !=''">
+				AND cao.moduleCode = #{condition.moduleCode}
+			</if>
+		</where>
+		ORDER BY cao.createDate DESC
+		<if test="offset != null">
+			limit ${offset}, ${rows}
+		</if>
+	</select>
+
+	<select id="countEx" resultType="java.lang.Integer">
+		SELECT count(1)
+		FROM cm_auth_operation cao LEFT JOIN cm_auth_module cam
+		ON cao.moduleCode = cam.code
+		<where>
+			<if test="condition.name != null and condition.name !=''">
+				AND cao.name like '%${condition.name}%'
+			</if>
+			<if test="condition.moduleCode != null and condition.moduleCode !=''">
+				AND cao.moduleCode = #{condition.moduleCode}
+			</if>
+		</where>
+	</select>
+	<select id="queryOperationsByUser" resultType="cn.eatammy.cm.domain.auth.AuthOperation">
+		SELECT * FROM
+		cm_auth_operation cao
+		WHERE code in(
+			select DISTINCT caa.resourceCode
+			FROM cm_auth_role_user caru LEFT JOIN cm_auth_role car ON (car.`status` = 0 AND car.`code` = caru.roleCode)
+			LEFT JOIN cm_auth_acl caa ON (caa.subjectCode = car.`code` AND caa.subjectType = 0 )
+			WHERE caa.subjectCode is NOT null and caa.resourceType = 1
+			AND caru.userCode = #{userCode} AND caru.userType = #{userType})
+		and cao.status = 0
+		order by cao.id
+		<if test="offset != null">
+			limit ${offset}, #{rows}
+		</if>
+	</select>
+</mapper>

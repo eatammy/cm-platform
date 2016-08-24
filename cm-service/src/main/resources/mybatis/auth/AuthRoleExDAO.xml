@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.eatammy.cm.dao.auth.IAuthRoleDAO">
+	<!-- 在这里存放用户自定义的映射配置（注：AuthRoleDAO.xml里各节点的ID不能在这里重复出现）  -->
+
+	<update id="updateStatus">
+		UPDATE cm_auth_role
+		SET status = #{status}
+		where id = #{id}
+	</update>
+	<select id="queryRoles" resultType="cn.eatammy.cm.domain.auth.AuthRole">
+		SELECT * FROM cm_auth_role car
+		LEFT JOIN cm_auth_role_user caru
+		ON(caru.roleCode = car.`code` and car.`status` = 0)
+		WHERE caru.userCode = #{userCode} and caru.userType = #{userType}
+	</select>
+</mapper>

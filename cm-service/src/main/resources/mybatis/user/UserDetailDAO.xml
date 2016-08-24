@@ -8,6 +8,9 @@
         username,
         password,
         phone,
+        province,
+        city,
+        town,
         address,
         nickname,
         sex,
@@ -15,14 +18,12 @@
         funs,
         attentions,
         score,
-        isStudent,
-        studentId,
-        studentPic,
         idCard,
         idCardPic,
         description,
         code,
         userTypes,
+        salt,
         creator,
         createDate,
         lastModifier,
@@ -34,6 +35,9 @@
 		    username
 		    ,password
 		    ,phone
+		    ,province
+		    ,city
+		    ,town
 		    ,address
 		    ,nickname
 		    ,sex
@@ -41,14 +45,12 @@
 		    ,funs
 		    ,attentions
 		    ,score
-		    ,isStudent
-		    ,studentId
-		    ,studentPic
 		    ,idCard
 		    ,idCardPic
 		    ,description
 		    ,code
 		    ,userTypes
+		    ,salt
 		    ,creator
 		    ,createDate
 		    ,lastModifier
@@ -58,6 +60,9 @@
 		    	#{username}
 		    	,#{password}
 		    	,#{phone}
+		    	,#{province}
+		    	,#{city}
+		    	,#{town}
 		    	,#{address}
 		    	,#{nickname}
 		    	,#{sex}
@@ -65,14 +70,12 @@
 		    	,#{funs}
 		    	,#{attentions}
 		    	,#{score}
-		    	,#{isStudent}
-		    	,#{studentId}
-		    	,#{studentPic}
 		    	,#{idCard}
 		    	,#{idCardPic}
 		    	,#{description}
 		    	,#{code}
 		    	,#{userTypes}
+		    	,#{salt}
 		    	,#{creator}
 		    	,#{createDate}
 		    	,#{lastModifier}
@@ -89,6 +92,9 @@
 		    username
 		    ,password
 		    ,phone
+		    ,province
+		    ,city
+		    ,town
 		    ,address
 		    ,nickname
 		    ,sex
@@ -96,14 +102,12 @@
 		    ,funs
 		    ,attentions
 		    ,score
-		    ,isStudent
-		    ,studentId
-		    ,studentPic
 		    ,idCard
 		    ,idCardPic
 		    ,description
 		    ,code
 		    ,userTypes
+		    ,salt
 		    ,creator
 		    ,createDate
 		    ,lastModifier
@@ -113,6 +117,9 @@
 		    	#{map.username}
 		    	,#{map.password}
 		    	,#{map.phone}
+		    	,#{map.province}
+		    	,#{map.city}
+		    	,#{map.town}
 		    	,#{map.address}
 		    	,#{map.nickname}
 		    	,#{map.sex}
@@ -120,14 +127,12 @@
 		    	,#{map.funs}
 		    	,#{map.attentions}
 		    	,#{map.score}
-		    	,#{map.isStudent}
-		    	,#{map.studentId}
-		    	,#{map.studentPic}
 		    	,#{map.idCard}
 		    	,#{map.idCardPic}
 		    	,#{map.description}
 		    	,#{map.code}
 		    	,#{map.userTypes}
+		    	,#{map.salt}
 		    	,#{map.creator}
 		    	,#{map.createDate}
 		    	,#{map.lastModifier}
@@ -143,6 +148,9 @@
 		    username=#{username},
 		    password=#{password},
 		    phone=#{phone},
+		    province=#{province},
+		    city=#{city},
+		    town=#{town},
 		    address=#{address},
 		    nickname=#{nickname},
 		    sex=#{sex},
@@ -150,14 +158,12 @@
 		    funs=#{funs},
 		    attentions=#{attentions},
 		    score=#{score},
-		    isStudent=#{isStudent},
-		    studentId=#{studentId},
-		    studentPic=#{studentPic},
 		    idCard=#{idCard},
 		    idCardPic=#{idCardPic},
 		    description=#{description},
 		    code=#{code},
 		    userTypes=#{userTypes},
+		    salt=#{salt},
 		    creator=#{creator},
 		    createDate=#{createDate},
 		    lastModifier=#{lastModifier},
@@ -180,6 +186,15 @@
             <if test="map.phone!=null">
                 phone = #{map.phone},
             </if>
+            <if test="map.province!=null">
+                province = #{map.province},
+            </if>
+            <if test="map.city!=null">
+                city = #{map.city},
+            </if>
+            <if test="map.town!=null">
+                town = #{map.town},
+            </if>
             <if test="map.address!=null">
                 address = #{map.address},
             </if>
@@ -201,15 +216,6 @@
             <if test="map.score!=null">
                 score = #{map.score},
             </if>
-            <if test="map.isStudent!=null">
-                isStudent = #{map.isStudent},
-            </if>
-            <if test="map.studentId!=null">
-                studentId = #{map.studentId},
-            </if>
-            <if test="map.studentPic!=null">
-                studentPic = #{map.studentPic},
-            </if>
             <if test="map.idCard!=null">
                 idCard = #{map.idCard},
             </if>
@@ -224,6 +230,9 @@
             </if>
             <if test="map.userTypes!=null">
                 userTypes = #{map.userTypes},
+            </if>
+            <if test="map.salt!=null">
+                salt = #{map.salt},
             </if>
             <if test="map.creator!=null">
                 creator = #{map.creator},
@@ -257,6 +266,15 @@
             <if test="update.phone!=null">
                 phone = #{update.phone},
             </if>
+            <if test="update.province!=null">
+                province = #{update.province},
+            </if>
+            <if test="update.city!=null">
+                city = #{update.city},
+            </if>
+            <if test="update.town!=null">
+                town = #{update.town},
+            </if>
             <if test="update.address!=null">
                 address = #{update.address},
             </if>
@@ -278,15 +296,6 @@
             <if test="update.score!=null">
                 score = #{update.score},
             </if>
-            <if test="update.isStudent!=null">
-                isStudent = #{update.isStudent},
-            </if>
-            <if test="update.studentId!=null">
-                studentId = #{update.studentId},
-            </if>
-            <if test="update.studentPic!=null">
-                studentPic = #{update.studentPic},
-            </if>
             <if test="update.idCard!=null">
                 idCard = #{update.idCard},
             </if>
@@ -301,6 +310,9 @@
             </if>
             <if test="update.userTypes!=null">
                 userTypes = #{update.userTypes},
+            </if>
+            <if test="update.salt!=null">
+                salt = #{update.salt},
             </if>
             <if test="update.creator!=null">
                 creator = #{update.creator},
@@ -329,6 +341,15 @@
             <if test="condition.phone!=null">
                 AND phone = #{condition.phone}
             </if>
+            <if test="condition.province!=null">
+                AND province = #{condition.province}
+            </if>
+            <if test="condition.city!=null">
+                AND city = #{condition.city}
+            </if>
+            <if test="condition.town!=null">
+                AND town = #{condition.town}
+            </if>
             <if test="condition.address!=null">
                 AND address = #{condition.address}
             </if>
@@ -350,15 +371,6 @@
             <if test="condition.score!=null">
                 AND score = #{condition.score}
             </if>
-            <if test="condition.isStudent!=null">
-                AND isStudent = #{condition.isStudent}
-            </if>
-            <if test="condition.studentId!=null">
-                AND studentId = #{condition.studentId}
-            </if>
-            <if test="condition.studentPic!=null">
-                AND studentPic = #{condition.studentPic}
-            </if>
             <if test="condition.idCard!=null">
                 AND idCard = #{condition.idCard}
             </if>
@@ -373,6 +385,9 @@
             </if>
             <if test="condition.userTypes!=null">
                 AND userTypes = #{condition.userTypes}
+            </if>
+            <if test="condition.salt!=null">
+                AND salt = #{condition.salt}
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
@@ -398,6 +413,9 @@
             username = #{username},
             password = #{password},
             phone = #{phone},
+            province = #{province},
+            city = #{city},
+            town = #{town},
             address = #{address},
             nickname = #{nickname},
             sex = #{sex},
@@ -405,14 +423,12 @@
             funs = #{funs},
             attentions = #{attentions},
             score = #{score},
-            isStudent = #{isStudent},
-            studentId = #{studentId},
-            studentPic = #{studentPic},
             idCard = #{idCard},
             idCardPic = #{idCardPic},
             description = #{description},
             code = #{code},
             userTypes = #{userTypes},
+            salt = #{salt},
             creator = #{creator},
             createDate = #{createDate},
             lastModifier = #{lastModifier},
@@ -454,6 +470,15 @@
             <if test="phone!=null">
                 AND phone = #{phone}
             </if>
+            <if test="province!=null">
+                AND province = #{province}
+            </if>
+            <if test="city!=null">
+                AND city = #{city}
+            </if>
+            <if test="town!=null">
+                AND town = #{town}
+            </if>
             <if test="address!=null">
                 AND address = #{address}
             </if>
@@ -475,15 +500,6 @@
             <if test="score!=null">
                 AND score = #{score}
             </if>
-            <if test="isStudent!=null">
-                AND isStudent = #{isStudent}
-            </if>
-            <if test="studentId!=null">
-                AND studentId = #{studentId}
-            </if>
-            <if test="studentPic!=null">
-                AND studentPic = #{studentPic}
-            </if>
             <if test="idCard!=null">
                 AND idCard = #{idCard}
             </if>
@@ -498,6 +514,9 @@
             </if>
             <if test="userTypes!=null">
                 AND userTypes = #{userTypes}
+            </if>
+            <if test="salt!=null">
+                AND salt = #{salt}
             </if>
             <if test="creator!=null">
                 AND creator = #{creator}
@@ -581,6 +600,15 @@
             <if test="condition.phone!=null">
                 ${condition.groupOp}   phone  ${condition.phone.op}  #{condition.phone.data}
             </if>
+            <if test="condition.province!=null">
+                ${condition.groupOp}   province  ${condition.province.op}  #{condition.province.data}
+            </if>
+            <if test="condition.city!=null">
+                ${condition.groupOp}   city  ${condition.city.op}  #{condition.city.data}
+            </if>
+            <if test="condition.town!=null">
+                ${condition.groupOp}   town  ${condition.town.op}  #{condition.town.data}
+            </if>
             <if test="condition.address!=null">
                 ${condition.groupOp}   address  ${condition.address.op}  #{condition.address.data}
             </if>
@@ -602,15 +630,6 @@
             <if test="condition.score!=null">
                 ${condition.groupOp}   score  ${condition.score.op}  #{condition.score.data}
             </if>
-            <if test="condition.isStudent!=null">
-                ${condition.groupOp}   isStudent  ${condition.isStudent.op}  #{condition.isStudent.data}
-            </if>
-            <if test="condition.studentId!=null">
-                ${condition.groupOp}   studentId  ${condition.studentId.op}  #{condition.studentId.data}
-            </if>
-            <if test="condition.studentPic!=null">
-                ${condition.groupOp}   studentPic  ${condition.studentPic.op}  #{condition.studentPic.data}
-            </if>
             <if test="condition.idCard!=null">
                 ${condition.groupOp}   idCard  ${condition.idCard.op}  #{condition.idCard.data}
             </if>
@@ -625,6 +644,9 @@
             </if>
             <if test="condition.userTypes!=null">
                 ${condition.groupOp}   userTypes  ${condition.userTypes.op}  #{condition.userTypes.data}
+            </if>
+            <if test="condition.salt!=null">
+                ${condition.groupOp}   salt  ${condition.salt.op}  #{condition.salt.data}
             </if>
             <if test="condition.creator!=null">
                 ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
@@ -670,6 +692,15 @@
             <if test="phone!=null">
                 AND phone like CONCAT('%', #{phone} , '%')
             </if>
+            <if test="province!=null">
+                AND province like CONCAT('%', #{province} , '%')
+            </if>
+            <if test="city!=null">
+                AND city like CONCAT('%', #{city} , '%')
+            </if>
+            <if test="town!=null">
+                AND town like CONCAT('%', #{town} , '%')
+            </if>
             <if test="address!=null">
                 AND address like CONCAT('%', #{address} , '%')
             </if>
@@ -691,15 +722,6 @@
             <if test="score!=null">
                 AND score like CONCAT('%', #{score} , '%')
             </if>
-            <if test="isStudent!=null">
-                AND isStudent like CONCAT('%', #{isStudent} , '%')
-            </if>
-            <if test="studentId!=null">
-                AND studentId like CONCAT('%', #{studentId} , '%')
-            </if>
-            <if test="studentPic!=null">
-                AND studentPic like CONCAT('%', #{studentPic} , '%')
-            </if>
             <if test="idCard!=null">
                 AND idCard like CONCAT('%', #{idCard} , '%')
             </if>
@@ -714,6 +736,9 @@
             </if>
             <if test="userTypes!=null">
                 AND userTypes like CONCAT('%', #{userTypes} , '%')
+            </if>
+            <if test="salt!=null">
+                AND salt like CONCAT('%', #{salt} , '%')
             </if>
             <if test="creator!=null">
                 AND creator like CONCAT('%', #{creator} , '%')
@@ -754,6 +779,15 @@
             <if test="condition.phone!=null">
                 AND phone = #{condition.phone}
             </if>
+            <if test="condition.province!=null">
+                AND province = #{condition.province}
+            </if>
+            <if test="condition.city!=null">
+                AND city = #{condition.city}
+            </if>
+            <if test="condition.town!=null">
+                AND town = #{condition.town}
+            </if>
             <if test="condition.address!=null">
                 AND address = #{condition.address}
             </if>
@@ -775,15 +809,6 @@
             <if test="condition.score!=null">
                 AND score = #{condition.score}
             </if>
-            <if test="condition.isStudent!=null">
-                AND isStudent = #{condition.isStudent}
-            </if>
-            <if test="condition.studentId!=null">
-                AND studentId = #{condition.studentId}
-            </if>
-            <if test="condition.studentPic!=null">
-                AND studentPic = #{condition.studentPic}
-            </if>
             <if test="condition.idCard!=null">
                 AND idCard = #{condition.idCard}
             </if>
@@ -798,6 +823,9 @@
             </if>
             <if test="condition.userTypes!=null">
                 AND userTypes = #{condition.userTypes}
+            </if>
+            <if test="condition.salt!=null">
+                AND salt = #{condition.salt}
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
@@ -837,6 +865,15 @@
             <if test="condition.phone!=null">
                 AND phone = #{condition.phone}
             </if>
+            <if test="condition.province!=null">
+                AND province = #{condition.province}
+            </if>
+            <if test="condition.city!=null">
+                AND city = #{condition.city}
+            </if>
+            <if test="condition.town!=null">
+                AND town = #{condition.town}
+            </if>
             <if test="condition.address!=null">
                 AND address = #{condition.address}
             </if>
@@ -858,15 +895,6 @@
             <if test="condition.score!=null">
                 AND score = #{condition.score}
             </if>
-            <if test="condition.isStudent!=null">
-                AND isStudent = #{condition.isStudent}
-            </if>
-            <if test="condition.studentId!=null">
-                AND studentId = #{condition.studentId}
-            </if>
-            <if test="condition.studentPic!=null">
-                AND studentPic = #{condition.studentPic}
-            </if>
             <if test="condition.idCard!=null">
                 AND idCard = #{condition.idCard}
             </if>
@@ -881,6 +909,9 @@
             </if>
             <if test="condition.userTypes!=null">
                 AND userTypes = #{condition.userTypes}
+            </if>
+            <if test="condition.salt!=null">
+                AND salt = #{condition.salt}
             </if>
             <if test="condition.creator!=null">
                 AND creator = #{condition.creator}
@@ -916,6 +947,15 @@
            <if test="phone!=null">
                ${groupOp} phone ${phone.op}  #{phone.data}
            </if>
+           <if test="province!=null">
+               ${groupOp} province ${province.op}  #{province.data}
+           </if>
+           <if test="city!=null">
+               ${groupOp} city ${city.op}  #{city.data}
+           </if>
+           <if test="town!=null">
+               ${groupOp} town ${town.op}  #{town.data}
+           </if>
            <if test="address!=null">
                ${groupOp} address ${address.op}  #{address.data}
            </if>
@@ -937,15 +977,6 @@
            <if test="score!=null">
                ${groupOp} score ${score.op}  #{score.data}
            </if>
-           <if test="isStudent!=null">
-               ${groupOp} isStudent ${isStudent.op}  #{isStudent.data}
-           </if>
-           <if test="studentId!=null">
-               ${groupOp} studentId ${studentId.op}  #{studentId.data}
-           </if>
-           <if test="studentPic!=null">
-               ${groupOp} studentPic ${studentPic.op}  #{studentPic.data}
-           </if>
            <if test="idCard!=null">
                ${groupOp} idCard ${idCard.op}  #{idCard.data}
            </if>
@@ -960,6 +991,9 @@
            </if>
            <if test="userTypes!=null">
                ${groupOp} userTypes ${userTypes.op}  #{userTypes.data}
+           </if>
+           <if test="salt!=null">
+               ${groupOp} salt ${salt.op}  #{salt.data}
            </if>
            <if test="creator!=null">
                ${groupOp} creator ${creator.op}  #{creator.data}

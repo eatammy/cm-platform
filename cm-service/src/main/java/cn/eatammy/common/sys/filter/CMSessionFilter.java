@@ -6,6 +6,7 @@ import cn.eatammy.common.utils.ERRORCODE;
 import cn.eatammy.common.utils.PropertiesUtil;
 import cn.eatammy.common.utils.http.HttpUtils;
 import com.alibaba.fastjson.JSONArray;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -18,6 +19,7 @@ import java.io.PrintWriter;
 
 /**
  * Created by 郭旭辉 on 2016/3/16.
+ *
  */
 public class CMSessionFilter extends OncePerRequestFilter{
 
@@ -31,7 +33,7 @@ public class CMSessionFilter extends OncePerRequestFilter{
         //是否过滤
         boolean doFilter = true;
         for (String s : ignoreUrlPattern) {
-            if (uri.indexOf(s) != -1) {
+            if (uri.contains(s)) {
                 doFilter = false;
                 break;
             }
@@ -54,12 +56,12 @@ public class CMSessionFilter extends OncePerRequestFilter{
                 getExceptionJson(request, response, bizException);
                 return;
             }
-            Object obj = request.getSession().getAttribute(cookie.getValue());
-            if (null == obj) {
+//            Object obj = request.getSession().getAttribute(cookie.getValue());
+            Object obj = SecurityUtils.getSubject().getSession().getAttribute(cookie.getValue());
+                if (null == obj) {
                 //如果不存在session对象，统一抛出登录异常
                 bizException =  new BizException(ERRORCODE.ILLEGAL_LOGIN.getCode(), ERRORCODE.ILLEGAL_LOGIN.getMessage());
                 getExceptionJson(request, response, bizException);
-                return;
             }else {
                 //如果session中存在登录实体，则继续登录
                 filterChain.doFilter(request, response);

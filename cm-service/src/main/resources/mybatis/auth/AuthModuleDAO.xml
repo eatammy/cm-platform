@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.eatammy.cm.dao.auth.IAuthModuleDAO">
+
+    <sql id="Base_Column_List">
+        id,
+        code,
+        name,
+        pCode,
+        pId,
+        url,
+        icon,
+        isMenu,
+        level,
+        fullCode,
+        fullName,
+        priority,
+        creator,
+        createDate,
+        lastModifier,
+        lastModDate,
+        status
+    </sql>
+    <insert id="insert" parameterType="cn.eatammy.cm.domain.auth.AuthModule">
+        INSERT INTO cm_auth_module (
+        code
+        ,name
+        ,pCode
+        ,pId
+        ,url
+        ,icon
+        ,isMenu
+        ,level
+        ,fullCode
+        ,fullName
+        ,priority
+        ,creator
+        ,createDate
+        ,lastModifier
+        ,lastModDate
+        ,status
+        ) VALUES (
+        #{code}
+        ,#{name}
+        ,#{pCode}
+        ,#{pId}
+        ,#{url}
+        ,#{icon}
+        ,#{isMenu}
+        ,#{level}
+        ,#{fullCode}
+        ,#{fullName}
+        ,#{priority}
+        ,#{creator}
+        ,#{createDate}
+        ,#{lastModifier}
+        ,#{lastModDate}
+        ,#{status}
+        )
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <insert id="insertMap" >
+        INSERT INTO cm_auth_module (
+        code
+        ,name
+        ,pCode
+        ,pId
+        ,url
+        ,icon
+        ,isMenu
+        ,level
+        ,fullCode
+        ,fullName
+        ,priority
+        ,creator
+        ,createDate
+        ,lastModifier
+        ,lastModDate
+        ,status
+        ) VALUES (
+        #{map.code}
+        ,#{map.name}
+        ,#{map.pCode}
+        ,#{map.pId}
+        ,#{map.url}
+        ,#{map.icon}
+        ,#{map.isMenu}
+        ,#{map.level}
+        ,#{map.fullCode}
+        ,#{map.fullName}
+        ,#{map.priority}
+        ,#{map.creator}
+        ,#{map.createDate}
+        ,#{map.lastModifier}
+        ,#{map.lastModDate}
+        ,#{map.status}
+        )
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="cn.eatammy.cm.domain.auth.AuthModule">
+        UPDATE cm_auth_module
+        <trim prefix="SET" suffixOverrides=",">
+            code=#{code},
+            name=#{name},
+            pCode=#{pCode},
+            pId=#{pId},
+            url=#{url},
+            icon=#{icon},
+            isMenu=#{isMenu},
+            level=#{level},
+            fullCode=#{fullCode},
+            fullName=#{fullName},
+            priority=#{priority},
+            creator=#{creator},
+            createDate=#{createDate},
+            lastModifier=#{lastModifier},
+            lastModDate=#{lastModDate},
+            status=#{status},
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateMap">
+        UPDATE cm_auth_module
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="map.code!=null">
+                code = #{map.code},
+            </if>
+            <if test="map.name!=null">
+                name = #{map.name},
+            </if>
+            <if test="map.pCode!=null">
+                pCode = #{map.pCode},
+            </if>
+            <if test="map.pId!=null">
+                pId = #{map.pId},
+            </if>
+            <if test="map.url!=null">
+                url = #{map.url},
+            </if>
+            <if test="map.icon!=null">
+                icon = #{map.icon},
+            </if>
+            <if test="map.isMenu!=null">
+                isMenu = #{map.isMenu},
+            </if>
+            <if test="map.level!=null">
+                level = #{map.level},
+            </if>
+            <if test="map.fullCode!=null">
+                fullCode = #{map.fullCode},
+            </if>
+            <if test="map.fullName!=null">
+                fullName = #{map.fullName},
+            </if>
+            <if test="map.priority!=null">
+                priority = #{map.priority},
+            </if>
+            <if test="map.creator!=null">
+                creator = #{map.creator},
+            </if>
+            <if test="map.createDate!=null">
+                createDate = #{map.createDate},
+            </if>
+            <if test="map.lastModifier!=null">
+                lastModifier = #{map.lastModifier},
+            </if>
+            <if test="map.lastModDate!=null">
+                lastModDate = #{map.lastModDate},
+            </if>
+            <if test="map.status!=null">
+                status = #{map.status},
+            </if>
+        </trim>
+        WHERE
+        id = #{map.id}
+    </update>
+
+    <update id="updateByCondition">
+        UPDATE cm_auth_module
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="update.code!=null">
+                code = #{update.code},
+            </if>
+            <if test="update.name!=null">
+                name = #{update.name},
+            </if>
+            <if test="update.pCode!=null">
+                pCode = #{update.pCode},
+            </if>
+            <if test="update.pId!=null">
+                pId = #{update.pId},
+            </if>
+            <if test="update.url!=null">
+                url = #{update.url},
+            </if>
+            <if test="update.icon!=null">
+                icon = #{update.icon},
+            </if>
+            <if test="update.isMenu!=null">
+                isMenu = #{update.isMenu},
+            </if>
+            <if test="update.level!=null">
+                level = #{update.level},
+            </if>
+            <if test="update.fullCode!=null">
+                fullCode = #{update.fullCode},
+            </if>
+            <if test="update.fullName!=null">
+                fullName = #{update.fullName},
+            </if>
+            <if test="update.priority!=null">
+                priority = #{update.priority},
+            </if>
+            <if test="update.creator!=null">
+                creator = #{update.creator},
+            </if>
+            <if test="update.createDate!=null">
+                createDate = #{update.createDate},
+            </if>
+            <if test="update.lastModifier!=null">
+                lastModifier = #{update.lastModifier},
+            </if>
+            <if test="update.lastModDate!=null">
+                lastModDate = #{update.lastModDate},
+            </if>
+            <if test="update.status!=null">
+                status = #{update.status},
+            </if>
+        </trim>
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
+            </if>
+            <if test="condition.pCode!=null">
+                AND pCode = #{condition.pCode}
+            </if>
+            <if test="condition.pId!=null">
+                AND pId = #{condition.pId}
+            </if>
+            <if test="condition.url!=null">
+                AND url = #{condition.url}
+            </if>
+            <if test="condition.icon!=null">
+                AND icon = #{condition.icon}
+            </if>
+            <if test="condition.isMenu!=null">
+                AND isMenu = #{condition.isMenu}
+            </if>
+            <if test="condition.level!=null">
+                AND level = #{condition.level}
+            </if>
+            <if test="condition.fullCode!=null">
+                AND fullCode = #{condition.fullCode}
+            </if>
+            <if test="condition.fullName!=null">
+                AND fullName = #{condition.fullName}
+            </if>
+            <if test="condition.priority!=null">
+                AND priority = #{condition.priority}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+        </trim>
+    </update>
+
+    <update id="updateNull" parameterType="cn.eatammy.cm.domain.auth.AuthModule">
+        UPDATE cm_auth_module
+        <trim prefix="SET" suffixOverrides=",">
+            code = #{code},
+            name = #{name},
+            pCode = #{pCode},
+            pId = #{pId},
+            url = #{url},
+            icon = #{icon},
+            isMenu = #{isMenu},
+            level = #{level},
+            fullCode = #{fullCode},
+            fullName = #{fullName},
+            priority = #{priority},
+            creator = #{creator},
+            createDate = #{createDate},
+            lastModifier = #{lastModifier},
+            lastModDate = #{lastModDate},
+            status = #{status},
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+
+
+    <!-- 按Id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM cm_auth_module
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </delete>
+
+    <!--根据list(ids)删除对象-->
+    <delete id="deleteByIds">
+        DELETE FROM cm_auth_module
+        WHERE id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+
+    <delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM cm_auth_module
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="code!=null">
+                AND code = #{code}
+            </if>
+            <if test="name!=null">
+                AND name = #{name}
+            </if>
+            <if test="pCode!=null">
+                AND pCode = #{pCode}
+            </if>
+            <if test="pId!=null">
+                AND pId = #{pId}
+            </if>
+            <if test="url!=null">
+                AND url = #{url}
+            </if>
+            <if test="icon!=null">
+                AND icon = #{icon}
+            </if>
+            <if test="isMenu!=null">
+                AND isMenu = #{isMenu}
+            </if>
+            <if test="level!=null">
+                AND level = #{level}
+            </if>
+            <if test="fullCode!=null">
+                AND fullCode = #{fullCode}
+            </if>
+            <if test="fullName!=null">
+                AND fullName = #{fullName}
+            </if>
+            <if test="priority!=null">
+                AND priority = #{priority}
+            </if>
+            <if test="creator!=null">
+                AND creator = #{creator}
+            </if>
+            <if test="createDate!=null">
+                AND createDate = #{createDate}
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier = #{lastModifier}
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate = #{lastModDate}
+            </if>
+            <if test="status!=null">
+                AND status = #{status}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM cm_auth_module WHERE
+        ${property} = #{value}
+    </delete>
+
+    <!--查询相关 -->
+    <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.auth.AuthModule">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_module
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.auth.AuthModule">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_module WHERE
+        ${property} = #{value}
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.auth.AuthModule">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_module WHERE
+        ${property} = #{value}
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="findAll" resultType="AuthModule">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_module
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryPage" resultType="cn.eatammy.cm.domain.auth.AuthModule">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_module
+        <where>
+
+            <if test="condition.whereSql != null">
+                and id in (#{condition.whereSql})
+            </if>
+
+            <if test="condition.id!=null">
+                ${condition.groupOp}   id  ${condition.id.op}  #{condition.id.data}
+            </if>
+            <if test="condition.code!=null">
+                ${condition.groupOp}   code  ${condition.code.op}  #{condition.code.data}
+            </if>
+            <if test="condition.name!=null">
+                ${condition.groupOp}   name  ${condition.name.op}  #{condition.name.data}
+            </if>
+            <if test="condition.pCode!=null">
+                ${condition.groupOp}   pCode  ${condition.pCode.op}  #{condition.pCode.data}
+            </if>
+            <if test="condition.pId!=null">
+                ${condition.groupOp}   pId  ${condition.pId.op}  #{condition.pId.data}
+            </if>
+            <if test="condition.url!=null">
+                ${condition.groupOp}   url  ${condition.url.op}  #{condition.url.data}
+            </if>
+            <if test="condition.icon!=null">
+                ${condition.groupOp}   icon  ${condition.icon.op}  #{condition.icon.data}
+            </if>
+            <if test="condition.isMenu!=null">
+                ${condition.groupOp}   isMenu  ${condition.isMenu.op}  #{condition.isMenu.data}
+            </if>
+            <if test="condition.level!=null">
+                ${condition.groupOp}   level  ${condition.level.op}  #{condition.level.data}
+            </if>
+            <if test="condition.fullCode!=null">
+                ${condition.groupOp}   fullCode  ${condition.fullCode.op}  #{condition.fullCode.data}
+            </if>
+            <if test="condition.fullName!=null">
+                ${condition.groupOp}   fullName  ${condition.fullName.op}  #{condition.fullName.data}
+            </if>
+            <if test="condition.priority!=null">
+                ${condition.groupOp}   priority  ${condition.priority.op}  #{condition.priority.data}
+            </if>
+            <if test="condition.creator!=null">
+                ${condition.groupOp}   creator  ${condition.creator.op}  #{condition.creator.data}
+            </if>
+            <if test="condition.createDate!=null">
+                ${condition.groupOp}   createDate  ${condition.createDate.op}  #{condition.createDate.data}
+            </if>
+            <if test="condition.lastModifier!=null">
+                ${condition.groupOp}   lastModifier  ${condition.lastModifier.op}  #{condition.lastModifier.data}
+            </if>
+            <if test="condition.lastModDate!=null">
+                ${condition.groupOp}   lastModDate  ${condition.lastModDate.op}  #{condition.lastModDate.data}
+            </if>
+            <if test="condition.status!=null">
+                ${condition.groupOp}   status  ${condition.status.op}  #{condition.status.data}
+            </if>
+
+
+        </where>
+
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.auth.AuthModule">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_module
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id like CONCAT('%', #{id} , '%')
+            </if>
+            <if test="code!=null">
+                AND code like CONCAT('%', #{code} , '%')
+            </if>
+            <if test="name!=null">
+                AND name like CONCAT('%', #{name} , '%')
+            </if>
+            <if test="pCode!=null">
+                AND pCode like CONCAT('%', #{pCode} , '%')
+            </if>
+            <if test="pId!=null">
+                AND pId like CONCAT('%', #{pId} , '%')
+            </if>
+            <if test="url!=null">
+                AND url like CONCAT('%', #{url} , '%')
+            </if>
+            <if test="icon!=null">
+                AND icon like CONCAT('%', #{icon} , '%')
+            </if>
+            <if test="isMenu!=null">
+                AND isMenu like CONCAT('%', #{isMenu} , '%')
+            </if>
+            <if test="level!=null">
+                AND level like CONCAT('%', #{level} , '%')
+            </if>
+            <if test="fullCode!=null">
+                AND fullCode like CONCAT('%', #{fullCode} , '%')
+            </if>
+            <if test="fullName!=null">
+                AND fullName like CONCAT('%', #{fullName} , '%')
+            </if>
+            <if test="priority!=null">
+                AND priority like CONCAT('%', #{priority} , '%')
+            </if>
+            <if test="creator!=null">
+                AND creator like CONCAT('%', #{creator} , '%')
+            </if>
+            <if test="createDate!=null">
+                AND createDate like CONCAT('%', #{createDate} , '%')
+            </if>
+            <if test="lastModifier!=null">
+                AND lastModifier like CONCAT('%', #{lastModifier} , '%')
+            </if>
+            <if test="lastModDate!=null">
+                AND lastModDate like CONCAT('%', #{lastModDate} , '%')
+            </if>
+            <if test="status!=null">
+                AND status like CONCAT('%', #{status} , '%')
+            </if>
+        </trim>
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+
+    <select id="queryList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.auth.AuthModule">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_module
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
+            </if>
+            <if test="condition.pCode!=null">
+                AND pCode = #{condition.pCode}
+            </if>
+            <if test="condition.pId!=null">
+                AND pId = #{condition.pId}
+            </if>
+            <if test="condition.url!=null">
+                AND url = #{condition.url}
+            </if>
+            <if test="condition.icon!=null">
+                AND icon = #{condition.icon}
+            </if>
+            <if test="condition.isMenu!=null">
+                AND isMenu = #{condition.isMenu}
+            </if>
+            <if test="condition.level!=null">
+                AND level = #{condition.level}
+            </if>
+            <if test="condition.fullCode!=null">
+                AND fullCode = #{condition.fullCode}
+            </if>
+            <if test="condition.fullName!=null">
+                AND fullName = #{condition.fullName}
+            </if>
+            <if test="condition.priority!=null">
+                AND priority = #{condition.priority}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+        </trim>
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.auth.AuthModule">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_auth_module
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.code!=null">
+                AND code = #{condition.code}
+            </if>
+            <if test="condition.name!=null">
+                AND name = #{condition.name}
+            </if>
+            <if test="condition.pCode!=null">
+                AND pCode = #{condition.pCode}
+            </if>
+            <if test="condition.pId!=null">
+                AND pId = #{condition.pId}
+            </if>
+            <if test="condition.url!=null">
+                AND url = #{condition.url}
+            </if>
+            <if test="condition.icon!=null">
+                AND icon = #{condition.icon}
+            </if>
+            <if test="condition.isMenu!=null">
+                AND isMenu = #{condition.isMenu}
+            </if>
+            <if test="condition.level!=null">
+                AND level = #{condition.level}
+            </if>
+            <if test="condition.fullCode!=null">
+                AND fullCode = #{condition.fullCode}
+            </if>
+            <if test="condition.fullName!=null">
+                AND fullName = #{condition.fullName}
+            </if>
+            <if test="condition.priority!=null">
+                AND priority = #{condition.priority}
+            </if>
+            <if test="condition.creator!=null">
+                AND creator = #{condition.creator}
+            </if>
+            <if test="condition.createDate!=null">
+                AND createDate = #{condition.createDate}
+            </if>
+            <if test="condition.lastModifier!=null">
+                AND lastModifier = #{condition.lastModifier}
+            </if>
+            <if test="condition.lastModDate!=null">
+                AND lastModDate = #{condition.lastModDate}
+            </if>
+            <if test="condition.status!=null">
+                AND status = #{condition.status}
+            </if>
+        </trim>
+        limit 0,1
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(1) FROM cm_auth_module
+        <where>
+            <if test="id!=null">
+                ${groupOp} id ${id.op}  #{id.data}
+            </if>
+            <if test="code!=null">
+                ${groupOp} code ${code.op}  #{code.data}
+            </if>
+            <if test="name!=null">
+                ${groupOp} name ${name.op}  #{name.data}
+            </if>
+            <if test="pCode!=null">
+                ${groupOp} pCode ${pCode.op}  #{pCode.data}
+            </if>
+            <if test="pId!=null">
+                ${groupOp} pId ${pId.op}  #{pId.data}
+            </if>
+            <if test="url!=null">
+                ${groupOp} url ${url.op}  #{url.data}
+            </if>
+            <if test="icon!=null">
+                ${groupOp} icon ${icon.op}  #{icon.data}
+            </if>
+            <if test="isMenu!=null">
+                ${groupOp} isMenu ${isMenu.op}  #{isMenu.data}
+            </if>
+            <if test="level!=null">
+                ${groupOp} level ${level.op}  #{level.data}
+            </if>
+            <if test="fullCode!=null">
+                ${groupOp} fullCode ${fullCode.op}  #{fullCode.data}
+            </if>
+            <if test="fullName!=null">
+                ${groupOp} fullName ${fullName.op}  #{fullName.data}
+            </if>
+            <if test="priority!=null">
+                ${groupOp} priority ${priority.op}  #{priority.data}
+            </if>
+            <if test="creator!=null">
+                ${groupOp} creator ${creator.op}  #{creator.data}
+            </if>
+            <if test="createDate!=null">
+                ${groupOp} createDate ${createDate.op}  #{createDate.data}
+            </if>
+            <if test="lastModifier!=null">
+                ${groupOp} lastModifier ${lastModifier.op}  #{lastModifier.data}
+            </if>
+            <if test="lastModDate!=null">
+                ${groupOp} lastModDate ${lastModDate.op}  #{lastModDate.data}
+            </if>
+            <if test="status!=null">
+                ${groupOp} status ${status.op}  #{status.data}
+            </if>
+
+        </where>
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="selectMaxId" resultType="java.lang.Long">
+        SELECT
+        MAX(id)
+        FROM cm_auth_module
+    </select>
+
+</mapper>

@@ -42,8 +42,17 @@
             <if test="condition.sex != null and condition.sex != -1">
                 AND sex = #{condition.sex}
             </if>
+            <if test="condition.province != null and condition.province != '-1'">
+                AND province = #{condition.province}
+            </if>
+            <if test="condition.city != null and condition.city != '-1'">
+                AND city = #{condition.city}
+            </if>
+            <if test="condition.town != null and condition.town != '-1'">
+                AND town = #{condition.town}
+            </if>
             <if test="condition.userTypes != null and condition.userTypes != -1">
-                AND userTypes &amp; #{condition.sex} > 0
+                AND userTypes &amp; #{condition.userType} > 0
             </if>
             <if test="condition.status != null and condition.status != -1">
                 AND status != #{status}
@@ -69,8 +78,17 @@
             <if test="condition.sex != null and condition.sex != -1">
                 AND sex = #{condition.sex}
             </if>
+            <if test="condition.province != null and condition.province != '-1'">
+                AND province = #{condition.province}
+            </if>
+            <if test="condition.city != null and condition.city != '-1'">
+                AND city = #{condition.city}
+            </if>
+            <if test="condition.town != null and condition.town != '-1'">
+                AND town = #{condition.town}
+            </if>
             <if test="condition.userTypes != null and condition.userTypes != -1">
-                AND userTypes &amp; #{condition.sex} > 0
+                AND userTypes &amp; #{condition.userType} > 0
             </if>
             <if test="condition.status != null and condition.status != -1">
                 AND status != #{status}

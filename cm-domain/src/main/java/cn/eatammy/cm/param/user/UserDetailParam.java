@@ -1,21 +1,20 @@
 /*
 {*****************************************************************************
 {  吃咩主平台 v1.0													
-{  版权信息 (c) 2005-2016 广东全通教育股份有限公司. 保留所有权利.					
+{  版权信息 (c) 2016-2016 郭旭辉-詹晓锋. 保留所有权利.
 {  创建人：  郭旭辉
 {  审查人：
-{  模块：用户表											
-{  功能描述:										
-{															
-{  ---------------------------------------------------------------------------	
-{  维护历史:													
-{  日期        维护人        维护类型						
-{  ---------------------------------------------------------------------------	
-{  2016-04-28  郭旭辉        新建	
-{ 	                                                                     
+{  模块：用户表
+{  功能描述:
+{
 {  ---------------------------------------------------------------------------
-{  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
-{*****************************************************************************	
+{  维护历史:
+{  日期        维护人        维护类型
+{  ---------------------------------------------------------------------------
+{  2016-08-09  郭旭辉        新建
+{
+{  ---------------------------------------------------------------------------
+{*****************************************************************************
 */
 
 package cn.eatammy.cm.param.user;
@@ -31,7 +30,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public class UserDetailParam extends CreateBaseParam<Long> {
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	*字段常量——账号
 	*/
@@ -44,6 +43,18 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 	*字段常量——电话
 	*/
 	public static final String F_Phone="phone";
+	/**
+	*字段常量——省代码
+	*/
+	public static final String F_Province="province";
+	/**
+	*字段常量——市代码
+	*/
+	public static final String F_City="city";
+	/**
+	*字段常量——区县代码
+	*/
+	public static final String F_Town="town";
 	/**
 	*字段常量——地址
 	*/
@@ -73,18 +84,6 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 	*/
 	public static final String F_Score="score";
 	/**
-	*字段常量——是否为学生，0:学生，1：非学生
-	*/
-	public static final String F_IsStudent="isStudent";
-	/**
-	*字段常量——学生证号码
-	*/
-	public static final String F_StudentId="studentId";
-	/**
-	*字段常量——学生证图片链接
-	*/
-	public static final String F_StudentPic="studentPic";
-	/**
 	*字段常量——身份证
 	*/
 	public static final String F_IdCard="idCard";
@@ -97,17 +96,24 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 	*/
 	public static final String F_Description="description";
 	/**
-	*字段常量——用户code，默认UUID
+	*字段常量——用户代码，默认为UUID
 	*/
 	public static final String F_Code="code";
 	/**
-	*字段常量——用户身份组合值，普通用户：1，商家用户：2，管理员：4
+	*字段常量——用户类型
 	*/
 	public static final String F_UserTypes="userTypes";
-	
+	/**
+	*字段常量——加密盐
+	*/
+	public static final String F_Salt="salt";
+
 	private String username; //账号
 	private String password; //密码
 	private String phone; //电话
+	private String province; //省代码
+	private String city; //市代码
+	private String town; //区县代码
 	private String address; //地址
 	private String nickname; //昵称
 	private Integer sex; //性别,0:man,1:fumale
@@ -115,22 +121,20 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 	private Integer funs; //粉丝数
 	private Integer attentions; //关注数
 	private Integer score; //积分
-	private Integer isStudent; //是否为学生，0:学生，1：非学生
-	private String studentId; //学生证号码
-	private String studentPic; //学生证图片链接
 	private String idCard; //身份证
 	private String idCardPic; //身份证图片链接
 	private String description; //个性签名
-	private String code; //用户code，默认UUID
-	private Integer userTypes; //用户身份组合值，普通用户：1，商家用户：2，管理员：4
-    
+	private String code; //用户代码，默认为UUID
+	private Integer userTypes; //用户类型
+	private String salt; //加密盐
+
 	/**
 	 *默认空构造函数
 	 */
 	public UserDetailParam() {
 		super();
 	}
-	 
+
 	/**
 	 * @return username 账号
 	 */
@@ -166,6 +170,42 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 	 */
 	public void setPhone(String phone){
 		this.phone = phone;
+	}
+	/**
+	 * @return province 省代码
+	 */
+	public String getProvince(){
+		return this.province;
+	}
+	/**
+	 * @param province 省代码
+	 */
+	public void setProvince(String province){
+		this.province = province;
+	}
+	/**
+	 * @return city 市代码
+	 */
+	public String getCity(){
+		return this.city;
+	}
+	/**
+	 * @param city 市代码
+	 */
+	public void setCity(String city){
+		this.city = city;
+	}
+	/**
+	 * @return town 区县代码
+	 */
+	public String getTown(){
+		return this.town;
+	}
+	/**
+	 * @param town 区县代码
+	 */
+	public void setTown(String town){
+		this.town = town;
 	}
 	/**
 	 * @return address 地址
@@ -252,42 +292,6 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 		this.score = score;
 	}
 	/**
-	 * @return isStudent 是否为学生，0:学生，1：非学生
-	 */
-	public Integer getIsStudent(){
-		return this.isStudent;
-	}
-	/**
-	 * @param isStudent 是否为学生，0:学生，1：非学生
-	 */
-	public void setIsStudent(Integer isStudent){
-		this.isStudent = isStudent;
-	}
-	/**
-	 * @return studentId 学生证号码
-	 */
-	public String getStudentId(){
-		return this.studentId;
-	}
-	/**
-	 * @param studentId 学生证号码
-	 */
-	public void setStudentId(String studentId){
-		this.studentId = studentId;
-	}
-	/**
-	 * @return studentPic 学生证图片链接
-	 */
-	public String getStudentPic(){
-		return this.studentPic;
-	}
-	/**
-	 * @param studentPic 学生证图片链接
-	 */
-	public void setStudentPic(String studentPic){
-		this.studentPic = studentPic;
-	}
-	/**
 	 * @return idCard 身份证
 	 */
 	public String getIdCard(){
@@ -324,36 +328,51 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 		this.description = description;
 	}
 	/**
-	 * @return code 用户code，默认UUID
+	 * @return code 用户代码，默认为UUID
 	 */
 	public String getCode(){
 		return this.code;
 	}
 	/**
-	 * @param code 用户code，默认UUID
+	 * @param code 用户代码，默认为UUID
 	 */
 	public void setCode(String code){
 		this.code = code;
 	}
 	/**
-	 * @return userTypes 用户身份组合值，普通用户：1，商家用户：2，管理员：4
+	 * @return userTypes 用户类型
 	 */
 	public Integer getUserTypes(){
 		return this.userTypes;
 	}
 	/**
-	 * @param userTypes 用户身份组合值，普通用户：1，商家用户：2，管理员：4
+	 * @param userTypes 用户类型
 	 */
 	public void setUserTypes(Integer userTypes){
 		this.userTypes = userTypes;
 	}
-	
+	/**
+	 * @return salt 加密盐
+	 */
+	public String getSalt(){
+		return this.salt;
+	}
+	/**
+	 * @param salt 加密盐
+	 */
+	public void setSalt(String salt){
+		this.salt = salt;
+	}
+
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("id",getId())
 			.append("username",getUsername())
 			.append("password",getPassword())
 			.append("phone",getPhone())
+			.append("province",getProvince())
+			.append("city",getCity())
+			.append("town",getTown())
 			.append("address",getAddress())
 			.append("nickname",getNickname())
 			.append("sex",getSex())
@@ -361,14 +380,12 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 			.append("funs",getFuns())
 			.append("attentions",getAttentions())
 			.append("score",getScore())
-			.append("isStudent",getIsStudent())
-			.append("studentId",getStudentId())
-			.append("studentPic",getStudentPic())
 			.append("idCard",getIdCard())
 			.append("idCardPic",getIdCardPic())
 			.append("description",getDescription())
 			.append("code",getCode())
 			.append("userTypes",getUserTypes())
+			.append("salt",getSalt())
 			.append("creator",getCreator())
 			.append("createDate",getCreateDate())
 			.append("lastModifier",getLastModifier())

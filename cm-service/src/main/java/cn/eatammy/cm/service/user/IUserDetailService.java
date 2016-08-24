@@ -30,6 +30,7 @@ import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.service.IPageService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -52,6 +53,9 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
      */
     UserDetail isLogin(String username, String password, HttpSession session, HttpServletResponse response);
 
+    AccountDto isLogin( HttpServletRequest request, HttpServletResponse response);
+
+    String initUser(String uid, Integer userType);
     /**
      * 注销
      *
