@@ -37,6 +37,11 @@ import cn.eatammy.common.utils.PageUtils;
 import cn.eatammy.common.utils.RETURNCODE;
 import cn.eatammy.common.utils.http.HttpUtils;
 import com.alibaba.druid.util.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,6 +93,52 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
             //登录验证未通过，自动转化为系统异常
             throw new RuntimeException();
         }
+    }
+
+    @Override
+    public AccountDto isLogin( HttpServletRequest request, HttpServletResponse response) {
+        //如果登陆失败从request中获取认证异常信息，shiroLoginFailure就是shiro异常类的全限定名
+        String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
+        //根据shiro返回的异常类路径判断，抛出指定异常信息
+        if(!StringUtils.isEmpty(exceptionClassName)){
+            if(UnknownAccountException.class.getName().equals(exceptionClassName)){
+                throw new BizException(ERRORCODE.ACCOUNT_ILLEGAL.getCode(), ERRORCODE.ACCOUNT_ILLEGAL.getMessage());
+            }else if(IncorrectCredentialsException.class.getName().equals(exceptionClassName)){
+                throw new BizException(ERRORCODE.ACCOUNT_PASSWD_UNMATCH.getCode(), ERRORCODE.ACCOUNT_PASSWD_UNMATCH.getMessage());
+            }else {//未知异常
+                throw new RuntimeException();
+            }
+        }
+        //从shiro的session给货品获取到session并进行设置
+        Subject subject = SecurityUtils.getSubject();
+        //得到用户信息
+        AccountDto accountDto = (AccountDto) subject.getPrincipal();
+
+        //生产token
+        String token = MD5Utils.getToken(accountDto.getUsername(), accountDto.getPassword());
+        accountDto.setToken(token);
+        Session session = subject.getSession();
+        session.setAttribute(token, accountDto);
+        //设置cookie
+        HttpUtils.setCookie(response, token, 60 * 60);
+        return  accountDto;
+    }
+
+    @Override
+    public String initUser(String uid, Integer userType) {
+        //从shiro的session给货品获取到session并进行设置
+        Subject subject = SecurityUtils.getSubject();
+        //得到用户信息
+        String token = ((AccountDto) subject.getPrincipal()).getToken();
+        Session session = subject.getSession();
+        AccountDto accountDto = (AccountDto) session.getAttribute(token);
+        if (accountDto.getUid().equals(uid)) {
+            accountDto.setUserType(userType);
+        } else {
+            throw new BizException(ERRORCODE.INITIAL_EXC.getCode(), "用户" + ERRORCODE.INITIAL_EXC.getMessage());
+        }
+        session.setAttribute(token, accountDto);
+        return RETURNCODE.SUCCESS_COMPLETE.getMessage();
     }
 
     @Override
