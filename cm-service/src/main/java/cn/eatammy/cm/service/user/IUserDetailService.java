@@ -132,6 +132,13 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
     String add(UserDetailParamEx paramEx, AccountDto currentUser);
 
     /**
+     * 批量添加用户（生产数据）
+     * @param userDetails   用户列表
+     * @return
+     */
+    String addUsers(List<UserDetail> userDetails);
+
+    /**
      * 更新用户信息
      * @param paramEx       用户信息参数
      * @param currentUser   当前用户
@@ -151,4 +158,12 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
      * @return 返回商店用户列表
      */
     List<UserDetail> queryUser4Shop();
+
+
+
+//    /**
+//     * 查找全国各地用户分布数量（BI分析）
+//     * @return  返回，结果列表
+//     */
+//    List<BiResultDto> queryUserMap();
 }

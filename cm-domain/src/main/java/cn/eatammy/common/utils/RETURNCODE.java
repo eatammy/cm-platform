@@ -15,7 +15,8 @@ public enum RETURNCODE {
     REGISTER_SUCCESS("0000006", "注册成功"),
     ATTACH_SUCCESS("0000007", "关注成功"),
     INATTACH_SUCCESS("0000008","取消关注成功"),
-    LOGOUT_SUCCESS("0000009","注销成功")
+    LOGOUT_SUCCESS("0000009","注销成功"),
+    AUTH_SUCCESS("0000010","授权成功")
     ;
 
     /**

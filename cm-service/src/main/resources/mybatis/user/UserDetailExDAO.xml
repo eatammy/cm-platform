@@ -2,6 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cn.eatammy.cm.dao.user.IUserDetailDAO">
+    <insert id="addUsers">
+        INSERT cm_user_detail(
+        username,
+        password,
+        phone,
+        province,
+        code,
+        nickname,
+        age,
+        sex,
+        score,
+        userTypes,
+        salt,
+        creator,
+        createDate,
+        status
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.username}
+            ,#{item.password}
+            ,#{item.phone}
+            ,#{item.province}
+            ,#{item.code}
+            ,#{item.nickname}
+            ,#{item.age}
+            ,#{item.sex}
+            ,#{item.score}
+            ,#{item.userTypes}
+            ,#{item.salt}
+            ,#{item.creator}
+            ,#{item.createDate}
+            ,#{item.status}
+            )
+        </foreach>
+    </insert>
     <!-- 在这里存放用户自定义的映射配置（注：UserDetailDAO.xml里各节点的ID不能在这里重复出现）  -->
     <update id="updateEx">
 		UPDATE cm_user_detail
@@ -113,10 +148,53 @@
         ON cud.`code` = cbs.uid
         WHERE cud.userTypes &amp; 2 > 0 AND cud.status = 0 AND cbs.uid is NULL;
     </select>
-    
+
     <update id="updateUserTypes">
         UPDATE cm_user_detail cud
         SET cud.userTypes = cud.userTypes | #{userType}
         WHERE cud.code = #{code} AND cud.userTypes &amp; #{userType} = 0
     </update>
+
+    <select id="queryUserMap" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
+        select province as name ,count(1) as value
+        FROM cm_user_detail
+        <where>
+            <if test="sex != null and sex != -1">
+                AND sex = #{sex}
+            </if>
+            <if test="minAge != null">
+                AND age &gt;= #{minAge}
+            </if>
+            <if test="maxAge != null">
+                AND age &lt;= #{maxAge}
+            </if>
+        </where>
+        GROUP BY province
+        HAVING province is NOT NULL
+    </select>
+
+    <select id="queryRegister" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
+        SELECT DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%d日')as name, count(id) as value
+        FROM cm_user_detail
+        WHERE date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
+        GROUP BY name
+    </select>
+
+    <select id="countCurMonthRegister" resultType="java.lang.Integer">
+        SELECT count(CASE month(FROM_UNIXTIME(createDate/1000)) WHEN month(CURDATE()) THEN id END)
+        FROM cm_user_detail
+    </select>
+
+    <select id="countCurWeekRegister" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
+        select DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%u周') as name,count(id) as value
+        From cm_user_detail
+        group by name
+        order BY name DESC
+    </select>
+
+    <select id="countCurDayRegister" resultType="java.lang.Integer">
+        select count(1) from cm_user_detail where date(FROM_UNIXTIME(createDate/1000)) = curdate();
+    </select>
+
+
 </mapper>

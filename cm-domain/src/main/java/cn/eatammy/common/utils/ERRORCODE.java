@@ -32,8 +32,9 @@ public enum ERRORCODE {
     REPEAT_CODE("0100021", "代码已存在"),
     MODULE_NOT_EXIST("0100022", "模块不存在"),
     INITIAL_EXC("0100023", "初始化异常"),
-    AUTH_INSUFFICIENT("0100024", "权限不足")
-    ;
+    AUTH_INSUFFICIENT("0100024", "权限不足"),
+    DIRTY_DATA("0100025", "数据存在异常"),
+    NO_DATA("0100026", "暂无数据");
 
     /**
      * 操作码

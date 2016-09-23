@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.eatammy.cm.dao.bi.IBusinessFlowDAO">
+
+    <sql id="Base_Column_List">
+        id,
+        operatorType,
+        targetType,
+        targetCode,
+        createTime,
+        duringTime,
+        eventType,
+        eventValue
+    </sql>
+    <insert id="insert" parameterType="cn.eatammy.cm.domain.bi.BusinessFlow">
+        INSERT INTO cm_bi_business_flow (
+        operatorType
+        ,targetType
+        ,targetCode
+        ,createTime
+        ,duringTime
+        ,eventType
+        ,eventValue
+        ) VALUES (
+        #{operatorType}
+        ,#{targetType}
+        ,#{targetCode}
+        ,#{createTime}
+        ,#{duringTime}
+        ,#{eventType}
+        ,#{eventValue}
+        )
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <insert id="insertMap" >
+        INSERT INTO cm_bi_business_flow (
+        operatorType
+        ,targetType
+        ,targetCode
+        ,createTime
+        ,duringTime
+        ,eventType
+        ,eventValue
+        ) VALUES (
+        #{map.operatorType}
+        ,#{map.targetType}
+        ,#{map.targetCode}
+        ,#{map.createTime}
+        ,#{map.duringTime}
+        ,#{map.eventType}
+        ,#{map.eventValue}
+        )
+    </insert>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="cn.eatammy.cm.domain.bi.BusinessFlow">
+        UPDATE cm_bi_business_flow
+        <trim prefix="SET" suffixOverrides=",">
+            operatorType=#{operatorType},
+            targetType=#{targetType},
+            targetCode=#{targetCode},
+            createTime=#{createTime},
+            duringTime=#{duringTime},
+            eventType=#{eventType},
+            eventValue=#{eventValue},
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateMap">
+        UPDATE cm_bi_business_flow
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="map.operatorType!=null">
+                operatorType = #{map.operatorType},
+            </if>
+            <if test="map.targetType!=null">
+                targetType = #{map.targetType},
+            </if>
+            <if test="map.targetCode!=null">
+                targetCode = #{map.targetCode},
+            </if>
+            <if test="map.createTime!=null">
+                createTime = #{map.createTime},
+            </if>
+            <if test="map.duringTime!=null">
+                duringTime = #{map.duringTime},
+            </if>
+            <if test="map.eventType!=null">
+                eventType = #{map.eventType},
+            </if>
+            <if test="map.eventValue!=null">
+                eventValue = #{map.eventValue},
+            </if>
+        </trim>
+        WHERE
+        id = #{map.id}
+    </update>
+
+    <update id="updateByCondition">
+        UPDATE cm_bi_business_flow
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="update.operatorType!=null">
+                operatorType = #{update.operatorType},
+            </if>
+            <if test="update.targetType!=null">
+                targetType = #{update.targetType},
+            </if>
+            <if test="update.targetCode!=null">
+                targetCode = #{update.targetCode},
+            </if>
+            <if test="update.createTime!=null">
+                createTime = #{update.createTime},
+            </if>
+            <if test="update.duringTime!=null">
+                duringTime = #{update.duringTime},
+            </if>
+            <if test="update.eventType!=null">
+                eventType = #{update.eventType},
+            </if>
+            <if test="update.eventValue!=null">
+                eventValue = #{update.eventValue},
+            </if>
+        </trim>
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.operatorType!=null">
+                AND operatorType = #{condition.operatorType}
+            </if>
+            <if test="condition.targetType!=null">
+                AND targetType = #{condition.targetType}
+            </if>
+            <if test="condition.targetCode!=null">
+                AND targetCode = #{condition.targetCode}
+            </if>
+            <if test="condition.createTime!=null">
+                AND createTime = #{condition.createTime}
+            </if>
+            <if test="condition.duringTime!=null">
+                AND duringTime = #{condition.duringTime}
+            </if>
+            <if test="condition.eventType!=null">
+                AND eventType = #{condition.eventType}
+            </if>
+            <if test="condition.eventValue!=null">
+                AND eventValue = #{condition.eventValue}
+            </if>
+        </trim>
+    </update>
+
+    <update id="updateNull" parameterType="cn.eatammy.cm.domain.bi.BusinessFlow">
+        UPDATE cm_bi_business_flow
+        <trim prefix="SET" suffixOverrides=",">
+            operatorType = #{operatorType},
+            targetType = #{targetType},
+            targetCode = #{targetCode},
+            createTime = #{createTime},
+            duringTime = #{duringTime},
+            eventType = #{eventType},
+            eventValue = #{eventValue},
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+
+
+    <!-- 按Id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM cm_bi_business_flow
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </delete>
+
+    <!--根据list(ids)删除对象-->
+    <delete id="deleteByIds">
+        DELETE FROM cm_bi_business_flow
+        WHERE id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+
+    <delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM cm_bi_business_flow
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="operatorType!=null">
+                AND operatorType = #{operatorType}
+            </if>
+            <if test="targetType!=null">
+                AND targetType = #{targetType}
+            </if>
+            <if test="targetCode!=null">
+                AND targetCode = #{targetCode}
+            </if>
+            <if test="createTime!=null">
+                AND createTime = #{createTime}
+            </if>
+            <if test="duringTime!=null">
+                AND duringTime = #{duringTime}
+            </if>
+            <if test="eventType!=null">
+                AND eventType = #{eventType}
+            </if>
+            <if test="eventValue!=null">
+                AND eventValue = #{eventValue}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM cm_bi_business_flow WHERE
+        ${property} = #{value}
+    </delete>
+
+    <!--查询相关 -->
+    <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.bi.BusinessFlow">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_bi_business_flow
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.bi.BusinessFlow">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_bi_business_flow WHERE
+        ${property} = #{value}
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.bi.BusinessFlow">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_bi_business_flow WHERE
+        ${property} = #{value}
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="findAll" resultType="BusinessFlow">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_bi_business_flow
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryPage" resultType="cn.eatammy.cm.domain.bi.BusinessFlow">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_bi_business_flow
+        <where>
+
+            <if test="condition.whereSql != null">
+                and id in (#{condition.whereSql})
+            </if>
+
+            <if test="condition.id!=null">
+                ${condition.groupOp}   id  ${condition.id.op}  #{condition.id.data}
+            </if>
+            <if test="condition.operatorType!=null">
+                ${condition.groupOp}   operatorType  ${condition.operatorType.op}  #{condition.operatorType.data}
+            </if>
+            <if test="condition.targetType!=null">
+                ${condition.groupOp}   targetType  ${condition.targetType.op}  #{condition.targetType.data}
+            </if>
+            <if test="condition.targetCode!=null">
+                ${condition.groupOp}   targetCode  ${condition.targetCode.op}  #{condition.targetCode.data}
+            </if>
+            <if test="condition.createTime!=null">
+                ${condition.groupOp}   createTime  ${condition.createTime.op}  #{condition.createTime.data}
+            </if>
+            <if test="condition.duringTime!=null">
+                ${condition.groupOp}   duringTime  ${condition.duringTime.op}  #{condition.duringTime.data}
+            </if>
+            <if test="condition.eventType!=null">
+                ${condition.groupOp}   eventType  ${condition.eventType.op}  #{condition.eventType.data}
+            </if>
+            <if test="condition.eventValue!=null">
+                ${condition.groupOp}   eventValue  ${condition.eventValue.op}  #{condition.eventValue.data}
+            </if>
+
+
+        </where>
+
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.bi.BusinessFlow">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_bi_business_flow
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id like CONCAT('%', #{id} , '%')
+            </if>
+            <if test="operatorType!=null">
+                AND operatorType like CONCAT('%', #{operatorType} , '%')
+            </if>
+            <if test="targetType!=null">
+                AND targetType like CONCAT('%', #{targetType} , '%')
+            </if>
+            <if test="targetCode!=null">
+                AND targetCode like CONCAT('%', #{targetCode} , '%')
+            </if>
+            <if test="createTime!=null">
+                AND createTime like CONCAT('%', #{createTime} , '%')
+            </if>
+            <if test="duringTime!=null">
+                AND duringTime like CONCAT('%', #{duringTime} , '%')
+            </if>
+            <if test="eventType!=null">
+                AND eventType like CONCAT('%', #{eventType} , '%')
+            </if>
+            <if test="eventValue!=null">
+                AND eventValue like CONCAT('%', #{eventValue} , '%')
+            </if>
+        </trim>
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+
+    <select id="queryList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.bi.BusinessFlow">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_bi_business_flow
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.operatorType!=null">
+                AND operatorType = #{condition.operatorType}
+            </if>
+            <if test="condition.targetType!=null">
+                AND targetType = #{condition.targetType}
+            </if>
+            <if test="condition.targetCode!=null">
+                AND targetCode = #{condition.targetCode}
+            </if>
+            <if test="condition.createTime!=null">
+                AND createTime = #{condition.createTime}
+            </if>
+            <if test="condition.duringTime!=null">
+                AND duringTime = #{condition.duringTime}
+            </if>
+            <if test="condition.eventType!=null">
+                AND eventType = #{condition.eventType}
+            </if>
+            <if test="condition.eventValue!=null">
+                AND eventValue = #{condition.eventValue}
+            </if>
+        </trim>
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.bi.BusinessFlow">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_bi_business_flow
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.operatorType!=null">
+                AND operatorType = #{condition.operatorType}
+            </if>
+            <if test="condition.targetType!=null">
+                AND targetType = #{condition.targetType}
+            </if>
+            <if test="condition.targetCode!=null">
+                AND targetCode = #{condition.targetCode}
+            </if>
+            <if test="condition.createTime!=null">
+                AND createTime = #{condition.createTime}
+            </if>
+            <if test="condition.duringTime!=null">
+                AND duringTime = #{condition.duringTime}
+            </if>
+            <if test="condition.eventType!=null">
+                AND eventType = #{condition.eventType}
+            </if>
+            <if test="condition.eventValue!=null">
+                AND eventValue = #{condition.eventValue}
+            </if>
+        </trim>
+        limit 0,1
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(1) FROM cm_bi_business_flow
+        <where>
+            <if test="id!=null">
+                ${groupOp} id ${id.op}  #{id.data}
+            </if>
+            <if test="operatorType!=null">
+                ${groupOp} operatorType ${operatorType.op}  #{operatorType.data}
+            </if>
+            <if test="targetType!=null">
+                ${groupOp} targetType ${targetType.op}  #{targetType.data}
+            </if>
+            <if test="targetCode!=null">
+                ${groupOp} targetCode ${targetCode.op}  #{targetCode.data}
+            </if>
+            <if test="createTime!=null">
+                ${groupOp} createTime ${createTime.op}  #{createTime.data}
+            </if>
+            <if test="duringTime!=null">
+                ${groupOp} duringTime ${duringTime.op}  #{duringTime.data}
+            </if>
+            <if test="eventType!=null">
+                ${groupOp} eventType ${eventType.op}  #{eventType.data}
+            </if>
+            <if test="eventValue!=null">
+                ${groupOp} eventValue ${eventValue.op}  #{eventValue.data}
+            </if>
+
+        </where>
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="selectMaxId" resultType="java.lang.Long">
+        SELECT
+        MAX(id)
+        FROM cm_bi_business_flow
+    </select>
+
+</mapper>

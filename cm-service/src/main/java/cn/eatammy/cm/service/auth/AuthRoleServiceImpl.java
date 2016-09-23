@@ -218,7 +218,7 @@ public class AuthRoleServiceImpl extends AbstractCMPageService<ICMBaseDAO<AuthRo
         }
         //在这里更新权限缓存
 
-        return RETURNCODE.ADD_COMPLETE.getMessage();
+        return RETURNCODE.AUTH_SUCCESS.getMessage();
     }
 
     @Override

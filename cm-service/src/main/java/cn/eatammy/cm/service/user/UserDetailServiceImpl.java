@@ -247,20 +247,15 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     }
 
     @Override
+    public String addUsers(List<UserDetail> userDetails) {
+        if(userDetailDAO.addUsers(userDetails) > 0){
+            return RETURNCODE.ADD_COMPLETE.getMessage();
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+    }
+
+    @Override
     public String update(UserDetailParamEx paramEx, AccountDto currentUser) {
-//        UserDetail userDetai = new UserDetail();
-//        userDetai.setId(paramEx.getId());
-//        userDetai.setUsername(paramEx.getUsername());
-//        userDetai.setPassword(MD5Utils.getMD5(paramEx.getPassword() + MD5Utils.SALT));
-//        userDetai.setHeadIcon(paramEx.getHeadIcon());
-//        userDetai.setPhone(paramEx.getPhone());
-//        userDetai.setAddress(paramEx.getAddress());
-//        userDetai.setNickname(paramEx.getNickname());
-//        userDetai.setSex(paramEx.getSex());
-//        userDetai.setUserTypes(getUserTypes(paramEx.getUserType()));
-//        userDetai.setDescription(paramEx.getDescription());
-//        userDetai.setLastModDate(System.currentTimeMillis());
-//        userDetai.setLastModifier(currentUser.getUid());
         paramEx.setLastModDate(System.currentTimeMillis());
         paramEx.setLastModifier(currentUser.getUid());
         paramEx.setUserTypes(getUserTypes(paramEx.getUserType()));
@@ -305,4 +300,9 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
     public List<UserDetail> queryUser4Shop() {
         return userDetailDAO.queryUser4Shop();
     }
+
+//    @Override
+//    public List<BiResultDto> queryUserMap() {
+//        return userDetailDAO.queryUserMap();
+//    }
 }

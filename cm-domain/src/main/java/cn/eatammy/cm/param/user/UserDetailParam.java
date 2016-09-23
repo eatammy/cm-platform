@@ -1,6 +1,6 @@
 /*
 {*****************************************************************************
-{  吃咩主平台 v1.0													
+{  主平台 v1.0
 {  版权信息 (c) 2016-2016 郭旭辉-詹晓锋. 保留所有权利.
 {  创建人：  郭旭辉
 {  审查人：
@@ -11,7 +11,7 @@
 {  维护历史:
 {  日期        维护人        维护类型
 {  ---------------------------------------------------------------------------
-{  2016-08-09  郭旭辉        新建
+{  2016-09-14  郭旭辉        新建
 {
 {  ---------------------------------------------------------------------------
 {*****************************************************************************
@@ -32,90 +32,95 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	*字段常量——账号
-	*/
+	 *字段常量——账号
+	 */
 	public static final String F_Username="username";
 	/**
-	*字段常量——密码
-	*/
+	 *字段常量——密码
+	 */
 	public static final String F_Password="password";
 	/**
-	*字段常量——电话
-	*/
+	 *字段常量——电话
+	 */
 	public static final String F_Phone="phone";
 	/**
-	*字段常量——省代码
-	*/
+	 *字段常量——省代码
+	 */
 	public static final String F_Province="province";
 	/**
-	*字段常量——市代码
-	*/
+	 *字段常量——市代码
+	 */
 	public static final String F_City="city";
 	/**
-	*字段常量——区县代码
-	*/
+	 *字段常量——区县代码
+	 */
 	public static final String F_Town="town";
 	/**
-	*字段常量——地址
-	*/
+	 *字段常量——地址
+	 */
 	public static final String F_Address="address";
 	/**
-	*字段常量——昵称
-	*/
+	 *字段常量——昵称
+	 */
 	public static final String F_Nickname="nickname";
 	/**
-	*字段常量——性别,0:man,1:fumale
-	*/
+	 *字段常量——年龄
+	 */
+	public static final String F_Age="age";
+	/**
+	 *字段常量——性别,0:man,1:fumale
+	 */
 	public static final String F_Sex="sex";
 	/**
-	*字段常量——头像
-	*/
+	 *字段常量——头像
+	 */
 	public static final String F_HeadIcon="headIcon";
 	/**
-	*字段常量——粉丝数
-	*/
+	 *字段常量——粉丝数
+	 */
 	public static final String F_Funs="funs";
 	/**
-	*字段常量——关注数
-	*/
+	 *字段常量——关注数
+	 */
 	public static final String F_Attentions="attentions";
 	/**
-	*字段常量——积分
-	*/
+	 *字段常量——积分
+	 */
 	public static final String F_Score="score";
 	/**
-	*字段常量——身份证
-	*/
+	 *字段常量——身份证
+	 */
 	public static final String F_IdCard="idCard";
 	/**
-	*字段常量——身份证图片链接
-	*/
+	 *字段常量——身份证图片链接
+	 */
 	public static final String F_IdCardPic="idCardPic";
 	/**
-	*字段常量——个性签名
-	*/
+	 *字段常量——个性签名
+	 */
 	public static final String F_Description="description";
 	/**
-	*字段常量——用户代码，默认为UUID
-	*/
+	 *字段常量——用户代码，默认为UUID
+	 */
 	public static final String F_Code="code";
 	/**
-	*字段常量——用户类型
-	*/
+	 *字段常量——用户类型
+	 */
 	public static final String F_UserTypes="userTypes";
 	/**
-	*字段常量——加密盐
-	*/
+	 *字段常量——加密盐
+	 */
 	public static final String F_Salt="salt";
 
 	private String username; //账号
 	private String password; //密码
 	private String phone; //电话
-	private String province; //省代码
-	private String city; //市代码
-	private String town; //区县代码
+	private Integer province; //省代码
+	private Integer city; //市代码
+	private Integer town; //区县代码
 	private String address; //地址
 	private String nickname; //昵称
+	private Integer age; //年龄
 	private Integer sex; //性别,0:man,1:fumale
 	private String headIcon; //头像
 	private Integer funs; //粉丝数
@@ -174,37 +179,37 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 	/**
 	 * @return province 省代码
 	 */
-	public String getProvince(){
+	public Integer getProvince(){
 		return this.province;
 	}
 	/**
 	 * @param province 省代码
 	 */
-	public void setProvince(String province){
+	public void setProvince(Integer province){
 		this.province = province;
 	}
 	/**
 	 * @return city 市代码
 	 */
-	public String getCity(){
+	public Integer getCity(){
 		return this.city;
 	}
 	/**
 	 * @param city 市代码
 	 */
-	public void setCity(String city){
+	public void setCity(Integer city){
 		this.city = city;
 	}
 	/**
 	 * @return town 区县代码
 	 */
-	public String getTown(){
+	public Integer getTown(){
 		return this.town;
 	}
 	/**
 	 * @param town 区县代码
 	 */
-	public void setTown(String town){
+	public void setTown(Integer town){
 		this.town = town;
 	}
 	/**
@@ -230,6 +235,18 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 	 */
 	public void setNickname(String nickname){
 		this.nickname = nickname;
+	}
+	/**
+	 * @return age 年龄
+	 */
+	public Integer getAge(){
+		return this.age;
+	}
+	/**
+	 * @param age 年龄
+	 */
+	public void setAge(Integer age){
+		this.age = age;
 	}
 	/**
 	 * @return sex 性别,0:man,1:fumale
@@ -366,32 +383,33 @@ public class UserDetailParam extends CreateBaseParam<Long> {
 
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-			.append("id",getId())
-			.append("username",getUsername())
-			.append("password",getPassword())
-			.append("phone",getPhone())
-			.append("province",getProvince())
-			.append("city",getCity())
-			.append("town",getTown())
-			.append("address",getAddress())
-			.append("nickname",getNickname())
-			.append("sex",getSex())
-			.append("headIcon",getHeadIcon())
-			.append("funs",getFuns())
-			.append("attentions",getAttentions())
-			.append("score",getScore())
-			.append("idCard",getIdCard())
-			.append("idCardPic",getIdCardPic())
-			.append("description",getDescription())
-			.append("code",getCode())
-			.append("userTypes",getUserTypes())
-			.append("salt",getSalt())
-			.append("creator",getCreator())
-			.append("createDate",getCreateDate())
-			.append("lastModifier",getLastModifier())
-			.append("lastModDate",getLastModDate())
-			.append("status",getStatus())
-			.toString();
+				.append("id",getId())
+				.append("username",getUsername())
+				.append("password",getPassword())
+				.append("phone",getPhone())
+				.append("province",getProvince())
+				.append("city",getCity())
+				.append("town",getTown())
+				.append("address",getAddress())
+				.append("nickname",getNickname())
+				.append("age",getAge())
+				.append("sex",getSex())
+				.append("headIcon",getHeadIcon())
+				.append("funs",getFuns())
+				.append("attentions",getAttentions())
+				.append("score",getScore())
+				.append("idCard",getIdCard())
+				.append("idCardPic",getIdCardPic())
+				.append("description",getDescription())
+				.append("code",getCode())
+				.append("userTypes",getUserTypes())
+				.append("salt",getSalt())
+				.append("creator",getCreator())
+				.append("createDate",getCreateDate())
+				.append("lastModifier",getLastModifier())
+				.append("lastModDate",getLastModDate())
+				.append("status",getStatus())
+				.toString();
 	}
-	
+
 }

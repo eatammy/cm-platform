@@ -1,20 +1,20 @@
 /*
 {*****************************************************************************
-{  吃咩主平台 v1.0													
+{  主平台 v1.0
 {  版权信息 (c) 2016-2016 郭旭辉-詹晓锋. 保留所有权利.
 {  创建人：  郭旭辉
 {  审查人：
-{  模块：用户表											
-{  功能描述:										
-{															
-{  ---------------------------------------------------------------------------	
-{  维护历史:													
-{  日期        维护人        维护类型						
-{  ---------------------------------------------------------------------------	
-{  2016-08-09  郭旭辉        新建	
-{ 	                                                                     
+{  模块：用户表
+{  功能描述:
+{
 {  ---------------------------------------------------------------------------
-{*****************************************************************************	
+{  维护历史:
+{  日期        维护人        维护类型
+{  ---------------------------------------------------------------------------
+{  2016-09-14  郭旭辉        新建
+{
+{  ---------------------------------------------------------------------------
+{*****************************************************************************
 */
 
 package cn.eatammy.cm.domain.user;
@@ -32,15 +32,16 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public class UserDetail extends CMCreateBaseDomain<Long> {
 	private static final long serialVersionUID = 1L;
-	
+
 	private String username; //账号
 	private String password; //密码
 	private String phone; //电话
-	private String province; //省代码
-	private String city; //市代码
-	private String town; //区县代码
+	private Integer province; //省代码
+	private Integer city; //市代码
+	private Integer town; //区县代码
 	private String address; //地址
 	private String nickname; //昵称
+	private Integer age; //年龄
 	private Integer sex; //性别,0:man,1:fumale
 	private String headIcon; //头像
 	private Integer funs; //粉丝数
@@ -52,14 +53,14 @@ public class UserDetail extends CMCreateBaseDomain<Long> {
 	private String code; //用户代码，默认为UUID
 	private Integer userTypes; //用户类型
 	private String salt; //加密盐
-    
+
 	/**
 	 *默认空构造函数
 	 */
 	public UserDetail() {
 		super();
 	}
-	 
+
 	/**
 	 * @return username 账号
 	 */
@@ -99,37 +100,37 @@ public class UserDetail extends CMCreateBaseDomain<Long> {
 	/**
 	 * @return province 省代码
 	 */
-	public String getProvince(){
+	public Integer getProvince(){
 		return this.province;
 	}
 	/**
 	 * @param province 省代码
 	 */
-	public void setProvince(String province){
+	public void setProvince(Integer province){
 		this.province = province;
 	}
 	/**
 	 * @return city 市代码
 	 */
-	public String getCity(){
+	public Integer getCity(){
 		return this.city;
 	}
 	/**
 	 * @param city 市代码
 	 */
-	public void setCity(String city){
+	public void setCity(Integer city){
 		this.city = city;
 	}
 	/**
 	 * @return town 区县代码
 	 */
-	public String getTown(){
+	public Integer getTown(){
 		return this.town;
 	}
 	/**
 	 * @param town 区县代码
 	 */
-	public void setTown(String town){
+	public void setTown(Integer town){
 		this.town = town;
 	}
 	/**
@@ -155,6 +156,18 @@ public class UserDetail extends CMCreateBaseDomain<Long> {
 	 */
 	public void setNickname(String nickname){
 		this.nickname = nickname;
+	}
+	/**
+	 * @return age 年龄
+	 */
+	public Integer getAge(){
+		return this.age;
+	}
+	/**
+	 * @param age 年龄
+	 */
+	public void setAge(Integer age){
+		this.age = age;
 	}
 	/**
 	 * @return sex 性别,0:man,1:fumale
@@ -288,73 +301,75 @@ public class UserDetail extends CMCreateBaseDomain<Long> {
 	public void setSalt(String salt){
 		this.salt = salt;
 	}
-	
+
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-			.append("id",getId())
-			.append("username",getUsername())
-			.append("password",getPassword())
-			.append("phone",getPhone())
-			.append("province",getProvince())
-			.append("city",getCity())
-			.append("town",getTown())
-			.append("address",getAddress())
-			.append("nickname",getNickname())
-			.append("sex",getSex())
-			.append("headIcon",getHeadIcon())
-			.append("funs",getFuns())
-			.append("attentions",getAttentions())
-			.append("score",getScore())
-			.append("idCard",getIdCard())
-			.append("idCardPic",getIdCardPic())
-			.append("description",getDescription())
-			.append("code",getCode())
-			.append("userTypes",getUserTypes())
-			.append("salt",getSalt())
-			.append("creator",getCreator())
-			.append("createDate",getCreateDate())
-			.append("lastModifier",getLastModifier())
-			.append("lastModDate",getLastModDate())
-			.append("status",getStatus())
-			.toString();
+				.append("id",getId())
+				.append("username",getUsername())
+				.append("password",getPassword())
+				.append("phone",getPhone())
+				.append("province",getProvince())
+				.append("city",getCity())
+				.append("town",getTown())
+				.append("address",getAddress())
+				.append("nickname",getNickname())
+				.append("age",getAge())
+				.append("sex",getSex())
+				.append("headIcon",getHeadIcon())
+				.append("funs",getFuns())
+				.append("attentions",getAttentions())
+				.append("score",getScore())
+				.append("idCard",getIdCard())
+				.append("idCardPic",getIdCardPic())
+				.append("description",getDescription())
+				.append("code",getCode())
+				.append("userTypes",getUserTypes())
+				.append("salt",getSalt())
+				.append("creator",getCreator())
+				.append("createDate",getCreateDate())
+				.append("lastModifier",getLastModifier())
+				.append("lastModDate",getLastModDate())
+				.append("status",getStatus())
+				.toString();
 	}
-	
+
 	public int hashCode() {
 		return new HashCodeBuilder()
-			.append(getId())
-			.append(getUsername())
-			.append(getPassword())
-			.append(getPhone())
-			.append(getProvince())
-			.append(getCity())
-			.append(getTown())
-			.append(getAddress())
-			.append(getNickname())
-			.append(getSex())
-			.append(getHeadIcon())
-			.append(getFuns())
-			.append(getAttentions())
-			.append(getScore())
-			.append(getIdCard())
-			.append(getIdCardPic())
-			.append(getDescription())
-			.append(getCode())
-			.append(getUserTypes())
-			.append(getSalt())
-			.append(getCreator())
-			.append(getCreateDate())
-			.append(getLastModifier())
-			.append(getLastModDate())
-			.append(getStatus())
-			.toHashCode();
+				.append(getId())
+				.append(getUsername())
+				.append(getPassword())
+				.append(getPhone())
+				.append(getProvince())
+				.append(getCity())
+				.append(getTown())
+				.append(getAddress())
+				.append(getNickname())
+				.append(getAge())
+				.append(getSex())
+				.append(getHeadIcon())
+				.append(getFuns())
+				.append(getAttentions())
+				.append(getScore())
+				.append(getIdCard())
+				.append(getIdCardPic())
+				.append(getDescription())
+				.append(getCode())
+				.append(getUserTypes())
+				.append(getSalt())
+				.append(getCreator())
+				.append(getCreateDate())
+				.append(getLastModifier())
+				.append(getLastModDate())
+				.append(getStatus())
+				.toHashCode();
 	}
-	
+
 	public boolean equals(Object obj) {
 		if(obj instanceof UserDetail == false) return false;
 		if(this == obj) return true;
 		UserDetail other = (UserDetail)obj;
 		return new EqualsBuilder()
-			.append(getId(),other.getId())
-			.isEquals();
+				.append(getId(),other.getId())
+				.isEquals();
 	}
 }

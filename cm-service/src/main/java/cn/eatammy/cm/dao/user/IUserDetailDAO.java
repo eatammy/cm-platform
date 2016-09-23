@@ -21,12 +21,13 @@
 package cn.eatammy.cm.dao.user;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
+import cn.eatammy.cm.domain.bi.BiResultDto;
 import cn.eatammy.cm.domain.user.UserDetail;
 import cn.eatammy.common.sys.database.DataSource;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 《用户》 数据访问接口
@@ -127,4 +128,52 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
      */
     @DataSource("write")
     int updateUserTypes(@Param("code") String code, @Param("userType") int userType);
+
+    /**
+     * 批量插入用户（生产数据）
+     * @param userDetails
+     * @return
+     */
+    @DataSource("write")
+    int addUsers(@Param("list")List<UserDetail> userDetails);
+
+    /**
+     * 根据用户传入条件查询用户地图（BI）
+     * @param sex       性别：-1：默认，0：男，1：女
+     * @param minAge    最小年龄
+     * @param maxAge    最大年龄
+     * @return  返回，统计数据列表
+     */
+    @DataSource("read")
+    List<BiResultDto> queryUserMap(@Param("sex")Integer sex, @Param("minAge")Integer minAge, @Param("maxAge")Integer maxAge);
+
+    /**
+     * 查询某个月份每天的注册量 (BI)
+     * @param month     月份，0，表示当前月份，递增表示往前的月份，如1，表示上个月，2表示前个月
+     * @return  返回，每天注册的统计集合
+     */
+    @DataSource("read")
+    List<BiResultDto> queryRegister(@Param("month") Integer month);
+
+    /**
+     * 统计当前月份的注册量（BI）
+     * @return  返回，统计结果
+     */
+    @DataSource("read")
+    int countCurMonthRegister();
+
+    /**
+     * 按周获取注册量（）
+     * @return   返回，统计结果
+     */
+    @DataSource("read")
+    List<BiResultDto> countCurWeekRegister();
+
+    /**
+     * 统计每天的注册量
+     * @return  返回，统计结果
+     */
+    @DataSource("read")
+    int countCurDayRegister();
+
 }

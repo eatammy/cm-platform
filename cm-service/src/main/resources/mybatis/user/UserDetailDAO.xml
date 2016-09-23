@@ -13,6 +13,7 @@
         town,
         address,
         nickname,
+        age,
         sex,
         headIcon,
         funs,
@@ -32,149 +33,154 @@
     </sql>
     <insert id="insert" parameterType="cn.eatammy.cm.domain.user.UserDetail">
         INSERT INTO cm_user_detail (
-		    username
-		    ,password
-		    ,phone
-		    ,province
-		    ,city
-		    ,town
-		    ,address
-		    ,nickname
-		    ,sex
-		    ,headIcon
-		    ,funs
-		    ,attentions
-		    ,score
-		    ,idCard
-		    ,idCardPic
-		    ,description
-		    ,code
-		    ,userTypes
-		    ,salt
-		    ,creator
-		    ,createDate
-		    ,lastModifier
-		    ,lastModDate
-		    ,status
+        username
+        ,password
+        ,phone
+        ,province
+        ,city
+        ,town
+        ,address
+        ,nickname
+        ,age
+        ,sex
+        ,headIcon
+        ,funs
+        ,attentions
+        ,score
+        ,idCard
+        ,idCardPic
+        ,description
+        ,code
+        ,userTypes
+        ,salt
+        ,creator
+        ,createDate
+        ,lastModifier
+        ,lastModDate
+        ,status
         ) VALUES (
-		    	#{username}
-		    	,#{password}
-		    	,#{phone}
-		    	,#{province}
-		    	,#{city}
-		    	,#{town}
-		    	,#{address}
-		    	,#{nickname}
-		    	,#{sex}
-		    	,#{headIcon}
-		    	,#{funs}
-		    	,#{attentions}
-		    	,#{score}
-		    	,#{idCard}
-		    	,#{idCardPic}
-		    	,#{description}
-		    	,#{code}
-		    	,#{userTypes}
-		    	,#{salt}
-		    	,#{creator}
-		    	,#{createDate}
-		    	,#{lastModifier}
-		    	,#{lastModDate}
-		    	,#{status}
+        #{username}
+        ,#{password}
+        ,#{phone}
+        ,#{province}
+        ,#{city}
+        ,#{town}
+        ,#{address}
+        ,#{nickname}
+        ,#{age}
+        ,#{sex}
+        ,#{headIcon}
+        ,#{funs}
+        ,#{attentions}
+        ,#{score}
+        ,#{idCard}
+        ,#{idCardPic}
+        ,#{description}
+        ,#{code}
+        ,#{userTypes}
+        ,#{salt}
+        ,#{creator}
+        ,#{createDate}
+        ,#{lastModifier}
+        ,#{lastModDate}
+        ,#{status}
         )
         <selectKey resultType="java.lang.Long" keyProperty="id">
-        	SELECT LAST_INSERT_ID() AS ID
+            SELECT LAST_INSERT_ID() AS ID
         </selectKey>
     </insert>
 
     <insert id="insertMap" >
         INSERT INTO cm_user_detail (
-		    username
-		    ,password
-		    ,phone
-		    ,province
-		    ,city
-		    ,town
-		    ,address
-		    ,nickname
-		    ,sex
-		    ,headIcon
-		    ,funs
-		    ,attentions
-		    ,score
-		    ,idCard
-		    ,idCardPic
-		    ,description
-		    ,code
-		    ,userTypes
-		    ,salt
-		    ,creator
-		    ,createDate
-		    ,lastModifier
-		    ,lastModDate
-		    ,status
+        username
+        ,password
+        ,phone
+        ,province
+        ,city
+        ,town
+        ,address
+        ,nickname
+        ,age
+        ,sex
+        ,headIcon
+        ,funs
+        ,attentions
+        ,score
+        ,idCard
+        ,idCardPic
+        ,description
+        ,code
+        ,userTypes
+        ,salt
+        ,creator
+        ,createDate
+        ,lastModifier
+        ,lastModDate
+        ,status
         ) VALUES (
-		    	#{map.username}
-		    	,#{map.password}
-		    	,#{map.phone}
-		    	,#{map.province}
-		    	,#{map.city}
-		    	,#{map.town}
-		    	,#{map.address}
-		    	,#{map.nickname}
-		    	,#{map.sex}
-		    	,#{map.headIcon}
-		    	,#{map.funs}
-		    	,#{map.attentions}
-		    	,#{map.score}
-		    	,#{map.idCard}
-		    	,#{map.idCardPic}
-		    	,#{map.description}
-		    	,#{map.code}
-		    	,#{map.userTypes}
-		    	,#{map.salt}
-		    	,#{map.creator}
-		    	,#{map.createDate}
-		    	,#{map.lastModifier}
-		    	,#{map.lastModDate}
-		    	,#{map.status}
+        #{map.username}
+        ,#{map.password}
+        ,#{map.phone}
+        ,#{map.province}
+        ,#{map.city}
+        ,#{map.town}
+        ,#{map.address}
+        ,#{map.nickname}
+        ,#{map.age}
+        ,#{map.sex}
+        ,#{map.headIcon}
+        ,#{map.funs}
+        ,#{map.attentions}
+        ,#{map.score}
+        ,#{map.idCard}
+        ,#{map.idCardPic}
+        ,#{map.description}
+        ,#{map.code}
+        ,#{map.userTypes}
+        ,#{map.salt}
+        ,#{map.creator}
+        ,#{map.createDate}
+        ,#{map.lastModifier}
+        ,#{map.lastModDate}
+        ,#{map.status}
         )
     </insert>
-    
+
     <!-- 更新 -->
     <update id="update" parameterType="cn.eatammy.cm.domain.user.UserDetail">
         UPDATE cm_user_detail
         <trim prefix="SET" suffixOverrides=",">
-		    username=#{username},
-		    password=#{password},
-		    phone=#{phone},
-		    province=#{province},
-		    city=#{city},
-		    town=#{town},
-		    address=#{address},
-		    nickname=#{nickname},
-		    sex=#{sex},
-		    headIcon=#{headIcon},
-		    funs=#{funs},
-		    attentions=#{attentions},
-		    score=#{score},
-		    idCard=#{idCard},
-		    idCardPic=#{idCardPic},
-		    description=#{description},
-		    code=#{code},
-		    userTypes=#{userTypes},
-		    salt=#{salt},
-		    creator=#{creator},
-		    createDate=#{createDate},
-		    lastModifier=#{lastModifier},
-		    lastModDate=#{lastModDate},
-		    status=#{status},
+            username=#{username},
+            password=#{password},
+            phone=#{phone},
+            province=#{province},
+            city=#{city},
+            town=#{town},
+            address=#{address},
+            nickname=#{nickname},
+            age=#{age},
+            sex=#{sex},
+            headIcon=#{headIcon},
+            funs=#{funs},
+            attentions=#{attentions},
+            score=#{score},
+            idCard=#{idCard},
+            idCardPic=#{idCardPic},
+            description=#{description},
+            code=#{code},
+            userTypes=#{userTypes},
+            salt=#{salt},
+            creator=#{creator},
+            createDate=#{createDate},
+            lastModifier=#{lastModifier},
+            lastModDate=#{lastModDate},
+            status=#{status},
         </trim>
         WHERE
         id = #{id}
     </update>
-	
-	<update id="updateMap">
+
+    <update id="updateMap">
         UPDATE cm_user_detail
         <trim prefix="SET" suffixOverrides=",">
             <if test="map.username!=null">
@@ -200,6 +206,9 @@
             </if>
             <if test="map.nickname!=null">
                 nickname = #{map.nickname},
+            </if>
+            <if test="map.age!=null">
+                age = #{map.age},
             </if>
             <if test="map.sex!=null">
                 sex = #{map.sex},
@@ -281,6 +290,9 @@
             <if test="update.nickname!=null">
                 nickname = #{update.nickname},
             </if>
+            <if test="update.age!=null">
+                age = #{update.age},
+            </if>
             <if test="update.sex!=null">
                 sex = #{update.sex},
             </if>
@@ -356,6 +368,9 @@
             <if test="condition.nickname!=null">
                 AND nickname = #{condition.nickname}
             </if>
+            <if test="condition.age!=null">
+                AND age = #{condition.age}
+            </if>
             <if test="condition.sex!=null">
                 AND sex = #{condition.sex}
             </if>
@@ -418,6 +433,7 @@
             town = #{town},
             address = #{address},
             nickname = #{nickname},
+            age = #{age},
             sex = #{sex},
             headIcon = #{headIcon},
             funs = #{funs},
@@ -438,8 +454,8 @@
         WHERE
         id = #{id}
     </update>
-    
-    
+
+
     <!-- 按Id删除 -->
     <delete id="deleteById" parameterType="java.lang.Long">
         DELETE FROM cm_user_detail
@@ -484,6 +500,9 @@
             </if>
             <if test="nickname!=null">
                 AND nickname = #{nickname}
+            </if>
+            <if test="age!=null">
+                AND age = #{age}
             </if>
             <if test="sex!=null">
                 AND sex = #{sex}
@@ -540,7 +559,7 @@
         DELETE FROM cm_user_detail WHERE
         ${property} = #{value}
     </delete>
-    
+
     <!--查询相关 -->
     <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.user.UserDetail">
         SELECT
@@ -615,6 +634,9 @@
             <if test="condition.nickname!=null">
                 ${condition.groupOp}   nickname  ${condition.nickname.op}  #{condition.nickname.data}
             </if>
+            <if test="condition.age!=null">
+                ${condition.groupOp}   age  ${condition.age.op}  #{condition.age.data}
+            </if>
             <if test="condition.sex!=null">
                 ${condition.groupOp}   sex  ${condition.sex.op}  #{condition.sex.data}
             </if>
@@ -665,10 +687,10 @@
             </if>
 
 
-    </where>
+        </where>
 
         <if test="orderBy!=null">
-        ORDER BY ${orderBy} ${sortBy}
+            ORDER BY ${orderBy} ${sortBy}
         </if>
         <if test="offset != null">
             limit ${offset}, ${rows}
@@ -706,6 +728,9 @@
             </if>
             <if test="nickname!=null">
                 AND nickname like CONCAT('%', #{nickname} , '%')
+            </if>
+            <if test="age!=null">
+                AND age like CONCAT('%', #{age} , '%')
             </if>
             <if test="sex!=null">
                 AND sex like CONCAT('%', #{sex} , '%')
@@ -757,7 +782,7 @@
             </if>
         </trim>
         <if test="orderBy!=null">
-        ORDER BY ${orderBy} ${sortBy}
+            ORDER BY ${orderBy} ${sortBy}
         </if>
     </select>
 
@@ -793,6 +818,9 @@
             </if>
             <if test="condition.nickname!=null">
                 AND nickname = #{condition.nickname}
+            </if>
+            <if test="condition.age!=null">
+                AND age = #{condition.age}
             </if>
             <if test="condition.sex!=null">
                 AND sex = #{condition.sex}
@@ -844,7 +872,7 @@
             </if>
         </trim>
         <if test="orderBy!=null">
-        ORDER BY ${orderBy} ${sortBy}
+            ORDER BY ${orderBy} ${sortBy}
         </if>
     </select>
 
@@ -879,6 +907,9 @@
             </if>
             <if test="condition.nickname!=null">
                 AND nickname = #{condition.nickname}
+            </if>
+            <if test="condition.age!=null">
+                AND age = #{condition.age}
             </if>
             <if test="condition.sex!=null">
                 AND sex = #{condition.sex}
@@ -934,87 +965,90 @@
 
     <select id="count" resultType="java.lang.Integer">
         SELECT count(1) FROM cm_user_detail
-       <where>
-           <if test="id!=null">
-               ${groupOp} id ${id.op}  #{id.data}
-           </if>
-           <if test="username!=null">
-               ${groupOp} username ${username.op}  #{username.data}
-           </if>
-           <if test="password!=null">
-               ${groupOp} password ${password.op}  #{password.data}
-           </if>
-           <if test="phone!=null">
-               ${groupOp} phone ${phone.op}  #{phone.data}
-           </if>
-           <if test="province!=null">
-               ${groupOp} province ${province.op}  #{province.data}
-           </if>
-           <if test="city!=null">
-               ${groupOp} city ${city.op}  #{city.data}
-           </if>
-           <if test="town!=null">
-               ${groupOp} town ${town.op}  #{town.data}
-           </if>
-           <if test="address!=null">
-               ${groupOp} address ${address.op}  #{address.data}
-           </if>
-           <if test="nickname!=null">
-               ${groupOp} nickname ${nickname.op}  #{nickname.data}
-           </if>
-           <if test="sex!=null">
-               ${groupOp} sex ${sex.op}  #{sex.data}
-           </if>
-           <if test="headIcon!=null">
-               ${groupOp} headIcon ${headIcon.op}  #{headIcon.data}
-           </if>
-           <if test="funs!=null">
-               ${groupOp} funs ${funs.op}  #{funs.data}
-           </if>
-           <if test="attentions!=null">
-               ${groupOp} attentions ${attentions.op}  #{attentions.data}
-           </if>
-           <if test="score!=null">
-               ${groupOp} score ${score.op}  #{score.data}
-           </if>
-           <if test="idCard!=null">
-               ${groupOp} idCard ${idCard.op}  #{idCard.data}
-           </if>
-           <if test="idCardPic!=null">
-               ${groupOp} idCardPic ${idCardPic.op}  #{idCardPic.data}
-           </if>
-           <if test="description!=null">
-               ${groupOp} description ${description.op}  #{description.data}
-           </if>
-           <if test="code!=null">
-               ${groupOp} code ${code.op}  #{code.data}
-           </if>
-           <if test="userTypes!=null">
-               ${groupOp} userTypes ${userTypes.op}  #{userTypes.data}
-           </if>
-           <if test="salt!=null">
-               ${groupOp} salt ${salt.op}  #{salt.data}
-           </if>
-           <if test="creator!=null">
-               ${groupOp} creator ${creator.op}  #{creator.data}
-           </if>
-           <if test="createDate!=null">
-               ${groupOp} createDate ${createDate.op}  #{createDate.data}
-           </if>
-           <if test="lastModifier!=null">
-               ${groupOp} lastModifier ${lastModifier.op}  #{lastModifier.data}
-           </if>
-           <if test="lastModDate!=null">
-               ${groupOp} lastModDate ${lastModDate.op}  #{lastModDate.data}
-           </if>
-           <if test="status!=null">
-               ${groupOp} status ${status.op}  #{status.data}
-           </if>
+        <where>
+            <if test="id!=null">
+                ${groupOp} id ${id.op}  #{id.data}
+            </if>
+            <if test="username!=null">
+                ${groupOp} username ${username.op}  #{username.data}
+            </if>
+            <if test="password!=null">
+                ${groupOp} password ${password.op}  #{password.data}
+            </if>
+            <if test="phone!=null">
+                ${groupOp} phone ${phone.op}  #{phone.data}
+            </if>
+            <if test="province!=null">
+                ${groupOp} province ${province.op}  #{province.data}
+            </if>
+            <if test="city!=null">
+                ${groupOp} city ${city.op}  #{city.data}
+            </if>
+            <if test="town!=null">
+                ${groupOp} town ${town.op}  #{town.data}
+            </if>
+            <if test="address!=null">
+                ${groupOp} address ${address.op}  #{address.data}
+            </if>
+            <if test="nickname!=null">
+                ${groupOp} nickname ${nickname.op}  #{nickname.data}
+            </if>
+            <if test="age!=null">
+                ${groupOp} age ${age.op}  #{age.data}
+            </if>
+            <if test="sex!=null">
+                ${groupOp} sex ${sex.op}  #{sex.data}
+            </if>
+            <if test="headIcon!=null">
+                ${groupOp} headIcon ${headIcon.op}  #{headIcon.data}
+            </if>
+            <if test="funs!=null">
+                ${groupOp} funs ${funs.op}  #{funs.data}
+            </if>
+            <if test="attentions!=null">
+                ${groupOp} attentions ${attentions.op}  #{attentions.data}
+            </if>
+            <if test="score!=null">
+                ${groupOp} score ${score.op}  #{score.data}
+            </if>
+            <if test="idCard!=null">
+                ${groupOp} idCard ${idCard.op}  #{idCard.data}
+            </if>
+            <if test="idCardPic!=null">
+                ${groupOp} idCardPic ${idCardPic.op}  #{idCardPic.data}
+            </if>
+            <if test="description!=null">
+                ${groupOp} description ${description.op}  #{description.data}
+            </if>
+            <if test="code!=null">
+                ${groupOp} code ${code.op}  #{code.data}
+            </if>
+            <if test="userTypes!=null">
+                ${groupOp} userTypes ${userTypes.op}  #{userTypes.data}
+            </if>
+            <if test="salt!=null">
+                ${groupOp} salt ${salt.op}  #{salt.data}
+            </if>
+            <if test="creator!=null">
+                ${groupOp} creator ${creator.op}  #{creator.data}
+            </if>
+            <if test="createDate!=null">
+                ${groupOp} createDate ${createDate.op}  #{createDate.data}
+            </if>
+            <if test="lastModifier!=null">
+                ${groupOp} lastModifier ${lastModifier.op}  #{lastModifier.data}
+            </if>
+            <if test="lastModDate!=null">
+                ${groupOp} lastModDate ${lastModDate.op}  #{lastModDate.data}
+            </if>
+            <if test="status!=null">
+                ${groupOp} status ${status.op}  #{status.data}
+            </if>
 
-       </where>
-    <if test="orderBy!=null">
-        ORDER BY ${orderBy} ${sortBy}
-    </if>
+        </where>
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
     <select id="selectMaxId" resultType="java.lang.Long">
@@ -1022,5 +1056,5 @@
         MAX(id)
         FROM cm_user_detail
     </select>
-   
+
 </mapper>

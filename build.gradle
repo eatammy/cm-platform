@@ -1,18 +1,16 @@
 allprojects {
     group 'cm-platform'
-    version '1.0-SNAPSHOT'
+    version '0.0.1-SNAPSHOT'
 
     apply plugin: 'java'
     apply plugin: 'war'
 
     repositories {
         //使用开源中国的maven仓库
-        maven { url 'http://maven.oschina.net/content/groups/public/' }
+        maven { url 'http://mvnrepository.com/' }
     }
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-
     compile project(':cm-web-war')
 }
