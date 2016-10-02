@@ -160,6 +160,11 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
     List<UserDetail> queryUser4Shop();
 
 
+    /**
+     * 随机获得一个用户
+     * @return  返回，单个用户信息
+     */
+    UserDetail getRandomUser();
 
 //    /**
 //     * 查找全国各地用户分布数量（BI分析）

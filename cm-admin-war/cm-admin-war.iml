@@ -36,7 +36,6 @@
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.1.6" level="project" />
     <orderEntry type="library" name="Gradle: org.logback-extensions:logback-ext-spring:0.1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpclient:4.5" level="project" />
-    <orderEntry type="library" name="Gradle: com.qiniu:qiniu-java-sdk:7.0.10" level="project" />
     <orderEntry type="library" name="Gradle: commons-lang:commons-lang:2.6" level="project" />
     <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-web:4.1.0.RELEASE" level="project" />
@@ -81,5 +80,14 @@
     <orderEntry type="library" name="Gradle: org.apache.shiro:shiro-ehcache:1.2.4" level="project" />
     <orderEntry type="library" name="Gradle: commons-beanutils:commons-beanutils:1.8.3" level="project" />
     <orderEntry type="library" name="Gradle: net.sf.ehcache:ehcache-core:2.6.11" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.poi:poi-ooxml:3.10.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.qiniu:qiniu-java-sdk:7.0.11" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.poi:poi:3.10.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.poi:poi-ooxml-schemas:3.10.1" level="project" />
+    <orderEntry type="library" name="Gradle: dom4j:dom4j:1.6.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.xmlbeans:xmlbeans:2.6.0" level="project" />
+    <orderEntry type="library" name="Gradle: xml-apis:xml-apis:1.0.b2" level="project" />
+    <orderEntry type="library" name="Gradle: stax:stax-api:1.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.commons:commons-lang3:3.4" level="project" />
   </component>
 </module>

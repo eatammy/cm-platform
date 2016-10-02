@@ -20,16 +20,26 @@
 
 package cn.eatammy.cm.service.business;
 
+import cn.eatammy.cm.domain.business.IndentRelation;
 import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.service.ICMBaseService;
 import cn.eatammy.common.service.IPageService;
+import org.apache.ibatis.annotations.Param;
 
- /**
+import java.util.List;
+
+/**
  * 《订单关系》 业务逻辑服务接口
- * @author 郭旭辉
  *
+ * @author 郭旭辉
  */
-public interface IIndentRelationService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>,IPageService<D, T>{
+public interface IIndentRelationService<D extends ICMBaseDAO<T>, T extends BaseDomain> extends ICMBaseService<D, T>, IPageService<D, T> {
 
+    /**
+     * 批量插入订单关系
+     * @param relationList  关系集合
+     * @return   返回，操作码
+     */
+    String addRelations(@Param("list") List<IndentRelation> relationList);
 }

@@ -31,7 +31,7 @@ public class UserTest {
     @Test
 //    @Transactional(rollbackFor = {Exception.class})
     public void addUser() {
-        long phone = 13500000901L;
+        long phone = 13500002001L;
         String password = "123123";
         List<UserDetail> userDetails = new ArrayList<>(100);
         UserDetail userDetail = null;
@@ -48,7 +48,7 @@ public class UserTest {
             userDetail.setUserTypes(1);
             userDetail.setSalt(CommonUtils.getUUID().substring(0, 8));
             userDetail.setCreator("557a5629d23351037c020d5a21b236fc");
-            userDetail.setCreateDate(CommonUtils.randomDate("2016-09-01", "2016-09-16").getTime());
+            userDetail.setCreateDate(CommonUtils.randomDate("2016-09-20", "2016-12-31").getTime());
             userDetail.setStatus(0);
             userDetail.setPassword(getPassword(password, userDetail.getSalt()));
             userDetails.add(userDetail);

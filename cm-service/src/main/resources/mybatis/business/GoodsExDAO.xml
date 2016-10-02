@@ -3,52 +3,111 @@
 
 <mapper namespace="cn.eatammy.cm.dao.business.IGoodsDAO">
 
-	<!-- 在这里存放用户自定义的映射配置（注：GoodsDAO.xml里各节点的ID不能在这里重复出现）  -->
+    <!-- 在这里存放用户自定义的映射配置（注：GoodsDAO.xml里各节点的ID不能在这里重复出现）  -->
 
-	<select id="queryPageEx" resultType="cn.eatammy.cm.domain.business.GoodsEx">
-		SELECT cbg.*,csc.name as categoryName from cm_business_goods cbg LEFT JOIN cm_business_shop cbs
-		ON cbg.shopId = cbs.`code`
-		LEFT JOIN cm_sys_category csc
-		ON cbg.categoryId = csc.id
-		<where>
-			<if test="condition.shopId != null and condition.shopId != ''">
-				AND cbg.shopId = #{condition.shopId}
-			</if>
-			<if test="condition.goodsName != null and condition.goodsName != ''">
-				AND cbg.goodsName LIKE '%${condition.goodsName}%'
-			</if>
-			<if test="condition.pLow != null and condition.pLow > 0">
-				AND cbg.price &gt;= #{condition.pLow} and cbg.price &lt;= #{condition.pHigh}
-			</if>
-		</where>
-		group by id
-		order by id desc
-		<if test="offset != null">
-			limit ${offset}, #{rows}
-		</if>
+    <insert id="addBatch">
+        INSERT INTO cm_business_goods(
+        goodsName,
+        price,
+        code,
+        shopId,
+        stock,
+        categoryId,
+        creator,
+        createDate,
+        status
+        )VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.goodsName},
+            #{item.price},
+            #{item.code},
+            #{item.shopId},
+            #{item.stock},
+            #{item.categoryId},
+            #{item.creator},
+            #{item.createDate},
+            #{item.status}
+            )
+        </foreach>
+    </insert>
+
+    <select id="queryPageEx" resultType="cn.eatammy.cm.domain.business.GoodsEx">
+        SELECT cbg.*,csc.name as categoryName from cm_business_goods cbg LEFT JOIN cm_business_shop cbs
+        ON cbg.shopId = cbs.`code`
+        LEFT JOIN cm_sys_category csc
+        ON cbg.categoryId = csc.id
+        <where>
+            <if test="condition.shopId != null and condition.shopId != ''">
+                AND cbg.shopId = #{condition.shopId}
+            </if>
+            <if test="condition.goodsName != null and condition.goodsName != ''">
+                AND cbg.goodsName LIKE '%${condition.goodsName}%'
+            </if>
+            <if test="condition.pLow != null and condition.pLow > 0">
+                AND cbg.price &gt;= #{condition.pLow} and cbg.price &lt;= #{condition.pHigh}
+            </if>
+        </where>
+        group by id
+        order by id desc
+        <if test="offset != null">
+            limit ${offset}, #{rows}
+        </if>
+    </select>
+
+    <select id="countEx" resultType="java.lang.Integer">
+        SELECT count(1) from cm_business_goods cbg LEFT JOIN cm_business_shop cbs
+        ON cbg.shopId = cbs.`code`
+        LEFT JOIN cm_sys_category csc
+        ON cbg.categoryId = csc.id
+        <where>
+            <if test="condition.shopId != null and condition.shopId != ''">
+                AND cbg.shopId = #{condition.shopId}
+            </if>
+            <if test="condition.goodsName != null and condition.goodsName != ''">
+                AND cbg.goodsName LIKE '%${condition.goodsName}%'
+            </if>
+            <if test="condition.pLow != null and condition.pLow > 0">
+                AND cbg.price &gt;= #{condition.pLow} and cbg.price &lt;= #{condition.pHigh}
+            </if>
+        </where>
+    </select>
+    <select id="getRandomGoodses" resultType="cn.eatammy.cm.domain.business.Goods">
+		SELECT id, price, stock, code, sale,shopId
+		FROM cm_business_goods
+		where status = 0
+		ORDER BY RAND() LIMIT ${num}
 	</select>
 
-	<select id="countEx" resultType="java.lang.Integer">
-		SELECT count(1) from cm_business_goods cbg LEFT JOIN cm_business_shop cbs
-		ON cbg.shopId = cbs.`code`
-		LEFT JOIN cm_sys_category csc
-		ON cbg.categoryId = csc.id
-		<where>
-			<if test="condition.shopId != null and condition.shopId != ''">
-				AND cbg.shopId = #{condition.shopId}
-			</if>
-			<if test="condition.goodsName != null and condition.goodsName != ''">
-				AND cbg.goodsName LIKE '%${condition.goodsName}%'
-			</if>
-			<if test="condition.pLow != null and condition.pLow > 0">
-				AND cbg.price &gt;= #{condition.pLow} and cbg.price &lt;= #{condition.pHigh}
-			</if>
-		</where>
-	</select>
-
-	<update id="disableOrEnable">
+    <update id="disableOrEnable">
 		UPDATE cm_business_goods
 		set status = #{status}
 		where id = #{id}
 	</update>
+    <update id="updateGoodsStock">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update cm_business_goods
+            <set>
+                stock=${item.stock}, sale = ${item.sale}
+            </set>
+            where code = #{item.code}
+        </foreach>
+    </update>
+
+    <select id="countWeekGoodses" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
+		SELECT DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%u周') as name,count(id) as value
+        FROM cm_business_goods
+ 		WHERE status = 0 AND DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%u') = DATE_FORMAT(date_sub(curdate(), interval #{week} week),'%u')
+        GROUP BY  name
+        ORDER BY name DESC
+	</select>
+
+    <select id="queryTopTen" resultType="cn.eatammy.cm.domain.business.Goods">
+        SELECT goodsName,code,sale
+        FROM cm_business_goods
+        WHERE sale > 0
+        ORDER BY sale DESC
+        LIMIT 0, 10;
+    </select>
+
 </mapper>

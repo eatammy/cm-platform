@@ -29,6 +29,7 @@ import cn.eatammy.cm.domain.business.IndentRelation;
 import cn.eatammy.cm.param.business.IndentParamEx;
 import cn.eatammy.cm.service.AbstractCMPageService;
 import cn.eatammy.common.domain.AccountDto;
+import cn.eatammy.common.utils.MD5Utils;
 import cn.eatammy.common.utils.RETURNCODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,7 +63,7 @@ public class IndentServiceImpl extends AbstractCMPageService<ICMBaseDAO<Indent>,
         //构建订单
         Indent indent = new Indent();
         indent.setUid(paramEx.getUid());
-        indent.setSerialNumber(System.currentTimeMillis());
+        indent.setSerialNumber(MD5Utils.getMD5(String.valueOf(System.currentTimeMillis())));
         indent.setAddress(paramEx.getAddress());
         indent.setTotal(paramEx.getTotal());
         indent.setIsTraded(0);
@@ -79,8 +80,8 @@ public class IndentServiceImpl extends AbstractCMPageService<ICMBaseDAO<Indent>,
             args = detail.split(":");
             indentRelation = new IndentRelation();
             indentRelation.setIndentId(indent.getId());
-            indentRelation.setShopId(paramEx.getShopId());
-            indentRelation.setGoodsId(Long.parseLong(args[0]));
+//            indentRelation.setShopId(paramEx.getShopId());
+//            indentRelation.setGoodsId(Long.parseLong(args[0]));
             indentRelation.setNum(Integer.parseInt(args[1]));
             indentRelation.setPrice(Double.parseDouble(args[2]));
             indentRelations.add(indentRelation);
@@ -88,7 +89,7 @@ public class IndentServiceImpl extends AbstractCMPageService<ICMBaseDAO<Indent>,
         indentRelationDAO.insertRelations(indentRelations);
 
         //更新商家额度
-        shopDAO.updateIncome(paramEx.getTotal());
+//        shopDAO.updateIncome(paramEx.getTotal());
         return RETURNCODE.ADD_COMPLETE.getMessage();
     }
 }

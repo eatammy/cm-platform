@@ -29,7 +29,12 @@ dependencies {
 
             //引入ehcache
             'net.sf.ehcache:ehcache-core:2.6.11',
-            'org.apache.shiro:shiro-ehcache:1.2.3'
+            'org.apache.shiro:shiro-ehcache:1.2.3',
+
+            //excel
+            'org.apache.poi:poi-ooxml:3.10.1',
+
+            'org.apache.commons:commons-lang3:3.4'
 
 
     )

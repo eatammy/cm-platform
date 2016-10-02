@@ -20,6 +20,7 @@
 
 package cn.eatammy.cm.service.business;
 
+import cn.eatammy.cm.domain.business.Goods;
 import cn.eatammy.cm.param.business.GoodsParam;
 import cn.eatammy.cm.param.business.GoodsParamEx;
 import cn.eatammy.common.domain.AccountDto;
@@ -28,7 +29,7 @@ import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.service.ICMBaseService;
 import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.service.IPageService;
-
+import java.util.List;
 /**
  * 《商品信息》 业务逻辑服务接口
  *
@@ -54,6 +55,12 @@ public interface IGoodsService<D extends ICMBaseDAO<T>, T extends BaseDomain> ex
     String add(GoodsParam param, AccountDto currentUser);
 
     /**
+     * 批量导入商品
+     * @param goodses   商品列表
+     * @return  操作码
+     */
+    String add(List<Goods> goodses);
+    /**
      * 更新商品信息
      * @param param             更新参数
      * @param currentUser       当前操作用户
@@ -68,4 +75,18 @@ public interface IGoodsService<D extends ICMBaseDAO<T>, T extends BaseDomain> ex
      * @return 返回， 操作码
      */
     String disableOrEnable(Long id, Integer status);
+
+    /**
+     * 随机获取N条商品信息
+     * @param num   条数
+     * @return  返回，商品集合
+     */
+    List<Goods> getRandomGoodses(int num);
+
+    /**
+     * 批量更新商品库存
+     * @param goodses   待更新商品列表
+     * @return  返回，操作码
+     */
+    String updateGoodsStock(List<Goods> goodses);
 }

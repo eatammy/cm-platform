@@ -71,6 +71,12 @@ public interface IUserFlowService<D extends ICMBaseDAO<T>, T extends BaseDomain>
     Map<String, Object> getRegisterCharts(Integer month);
 
     /**
+     * 获取统计数据视图
+     * @return  返回，统计结果集合
+     */
+    Map<String, Object> getStatisticalData();
+
+    /**
      * 获取用户活动视图（分析统计）
      *
      * @param type  统计类型：0：每月访客，1：每月活跃用户，2：设备统计

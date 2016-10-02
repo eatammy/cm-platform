@@ -21,6 +21,7 @@
 package cn.eatammy.cm.dao.business;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
+import cn.eatammy.cm.domain.bi.BiResultDto;
 import cn.eatammy.cm.domain.business.Goods;
 import cn.eatammy.cm.domain.business.GoodsEx;
 import cn.eatammy.common.sys.database.DataSource;
@@ -65,4 +66,43 @@ public interface IGoodsDAO extends ICMBaseDAO<Goods> {
      */
     @DataSource("write")
     int disableOrEnable(@Param("id")long id, @Param("status")int status);
+
+    /**
+     * 批量插入商品
+     * @param goodses   商品列表
+     * @return  返回，非零：成功插入的条数，零，失败
+     */
+    @DataSource("write")
+    int addBatch(@Param("list")List<Goods> goodses);
+
+    /**
+     * 随机获取N条商品信息
+     * @param num   条数
+     * @return  返回，商品列表
+     */
+    @DataSource("read")
+    List<Goods> getRandomGoodses(@Param("num") int num);
+
+    /**
+     * 查询某一周的新增商品统计
+     * @param week 月份，0：表示当前周，1：表示上一周，-1：表示下一周，以此类推2：表示前周，-2：后周
+     * @return 返回，统计结果
+     */
+    @DataSource("read")
+    BiResultDto countWeekGoodses(int week);
+
+    /**
+     * 批量更新商品库存销售量
+     * @param goodses   待更新商品列表
+     * @return  返回，非零，更新条数，0：更新失败
+     */
+    @DataSource("write")
+    int updateGoodsStock(@Param("list")List<Goods> goodses);
+
+    /**
+     * 查询商品销售量前10
+     * @return  返回，商品列表
+     */
+    @DataSource("read")
+    List<Goods> queryTopTen();
 }

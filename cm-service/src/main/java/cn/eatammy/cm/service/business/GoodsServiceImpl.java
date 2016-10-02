@@ -30,6 +30,7 @@ import cn.eatammy.cm.service.AbstractCMPageService;
 import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.exception.BizException;
+import cn.eatammy.common.utils.CommonUtils;
 import cn.eatammy.common.utils.ERRORCODE;
 import cn.eatammy.common.utils.PageUtils;
 import cn.eatammy.common.utils.RETURNCODE;
@@ -74,7 +75,8 @@ public class GoodsServiceImpl extends AbstractCMPageService<ICMBaseDAO<Goods>, G
             goods.setPicture(param.getPicture());
             goods.setCategoryId(param.getCategoryId());
             goods.setCreator(currentUser.getUid());
-            goods.setCreateDate(System.currentTimeMillis());
+//            goods.setCreateDate(System.currentTimeMillis());
+            goods.setCreateDate(CommonUtils.randomDate("2016-08-21", "2016-12-31").getTime());
             goods.setStatus(0);
             if(goodsDAO.insert(goods) == 1){
                 return RETURNCODE.ADD_COMPLETE.getMessage();
@@ -83,6 +85,14 @@ public class GoodsServiceImpl extends AbstractCMPageService<ICMBaseDAO<Goods>, G
         } else{
             throw new BizException(ERRORCODE.GOODSNAME_EXISTS.getCode(), ERRORCODE.GOODSNAME_EXISTS.getMessage());
         }
+    }
+
+    @Override
+    public String add(List<Goods> goodses) {
+        if(goodsDAO.addBatch(goodses) > 0){
+            return RETURNCODE.SUCCESS_COMPLETE.getMessage();
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
     }
 
     @Override
@@ -108,6 +118,19 @@ public class GoodsServiceImpl extends AbstractCMPageService<ICMBaseDAO<Goods>, G
         }else {
             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
         }
+    }
+
+    @Override
+    public List<Goods> getRandomGoodses(int num) {
+        return goodsDAO.getRandomGoodses(num);
+    }
+
+    @Override
+    public String updateGoodsStock(List<Goods> goodses) {
+        if(goodsDAO.updateGoodsStock(goodses) > 0){
+            return RETURNCODE.UPDATE_COMPLETE.getMessage();
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
     }
 
     private boolean isExists(String property, Object value){

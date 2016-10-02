@@ -86,6 +86,8 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
     @DataSource("read")
     List<UserDetail> queryPageEx(@Param("condition") Map<String, Object> condition, @Param("offset") int offset, @Param("rows") int rows);
 
+    @DataSource("read")
+    List<UserDetail> queryPage4BI(@Param("offset") int offset, @Param("rows") int rows);
     /**
      * 分页统计
      *
@@ -175,5 +177,8 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
      */
     @DataSource("read")
     int countCurDayRegister();
+
+    @DataSource("read")
+    UserDetail getRandomUser();
 
 }

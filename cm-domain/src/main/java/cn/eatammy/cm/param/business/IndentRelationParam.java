@@ -1,21 +1,20 @@
 /*
 {*****************************************************************************
-{  吃咩主平台 v1.0													
-{  版权信息 (c) 2005-2016 广东全通教育股份有限公司. 保留所有权利.					
+{  主平台 v1.0
+{  版权信息 (c) 2016-2016 郭旭辉-詹晓锋. 保留所有权利.
 {  创建人：  郭旭辉
 {  审查人：
-{  模块：订单关系表											
-{  功能描述:										
-{															
-{  ---------------------------------------------------------------------------	
-{  维护历史:													
-{  日期        维护人        维护类型						
-{  ---------------------------------------------------------------------------	
-{  2016-06-13  郭旭辉        新建	
-{ 	                                                                     
+{  模块：订单关系表
+{  功能描述:
+{
 {  ---------------------------------------------------------------------------
-{  注：本模块代码由codgen代码生成工具辅助生成 http://www.oschina.net/p/codgen	
-{*****************************************************************************	
+{  维护历史:
+{  日期        维护人        维护类型
+{  ---------------------------------------------------------------------------
+{  2016-09-29  郭旭辉        新建
+{
+{  ---------------------------------------------------------------------------
+{*****************************************************************************
 */
 
 package cn.eatammy.cm.param.business;
@@ -31,41 +30,41 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public class IndentRelationParam extends BaseParam<Long> {
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	*字段常量——订单id
-	*/
+	 *字段常量——订单id
+	 */
 	public static final String F_IndentId="indentId";
 	/**
-	*字段常量——商店id
-	*/
+	 *字段常量——商店id
+	 */
 	public static final String F_ShopId="shopId";
 	/**
-	*字段常量——商品id
-	*/
+	 *字段常量——商品id
+	 */
 	public static final String F_GoodsId="goodsId";
 	/**
-	*字段常量——数量
-	*/
+	 *字段常量——数量
+	 */
 	public static final String F_Num="num";
 	/**
-	*字段常量——销售价格
-	*/
+	 *字段常量——销售价格
+	 */
 	public static final String F_Price="price";
-	
+
 	private Long indentId; //订单id
-	private Long shopId; //商店id
-	private Long goodsId; //商品id
+	private String shopId; //商店id
+	private String goodsId; //商品id
 	private Integer num; //数量
 	private Double price; //销售价格
-    
+
 	/**
 	 *默认空构造函数
 	 */
 	public IndentRelationParam() {
 		super();
 	}
-	 
+
 	/**
 	 * @return indentId 订单id
 	 */
@@ -81,25 +80,25 @@ public class IndentRelationParam extends BaseParam<Long> {
 	/**
 	 * @return shopId 商店id
 	 */
-	public Long getShopId(){
+	public String getShopId(){
 		return this.shopId;
 	}
 	/**
 	 * @param shopId 商店id
 	 */
-	public void setShopId(Long shopId){
+	public void setShopId(String shopId){
 		this.shopId = shopId;
 	}
 	/**
 	 * @return goodsId 商品id
 	 */
-	public Long getGoodsId(){
+	public String getGoodsId(){
 		return this.goodsId;
 	}
 	/**
 	 * @param goodsId 商品id
 	 */
-	public void setGoodsId(Long goodsId){
+	public void setGoodsId(String goodsId){
 		this.goodsId = goodsId;
 	}
 	/**
@@ -126,16 +125,16 @@ public class IndentRelationParam extends BaseParam<Long> {
 	public void setPrice(Double price){
 		this.price = price;
 	}
-	
+
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-			.append("id",getId())
-			.append("indentId",getIndentId())
-			.append("shopId",getShopId())
-			.append("goodsId",getGoodsId())
-			.append("num",getNum())
-			.append("price",getPrice())
-			.toString();
+				.append("id",getId())
+				.append("indentId",getIndentId())
+				.append("shopId",getShopId())
+				.append("goodsId",getGoodsId())
+				.append("num",getNum())
+				.append("price",getPrice())
+				.toString();
 	}
-	
+
 }

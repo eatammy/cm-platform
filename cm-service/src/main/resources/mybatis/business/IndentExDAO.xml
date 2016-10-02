@@ -3,5 +3,48 @@
 
 <mapper namespace="cn.eatammy.cm.dao.business.IIndentDAO">
 	<!-- 在这里存放用户自定义的映射配置（注：IndentDAO.xml里各节点的ID不能在这里重复出现）  -->
-	
+
+	<select id="countTradeTotal" resultType="java.lang.Double">
+		SELECT SUM(total)
+		FROM cm_business_indent
+		WHERE isTraded = 1 AND status = 0 AND date_format(FROM_UNIXTIME(createDate/1000),'%Y') = year(CURDATE());
+	</select>
+
+	<select id="countWeekIndents" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
+		SELECT DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%u周') as name,count(id) as value
+        FROM cm_business_indent
+  		WHERE status = 0 AND DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%u') = DATE_FORMAT(date_sub(curdate(), interval #{week} week),'%u')
+        group by name
+        order BY name DESC
+	</select>
+
+	<select id="countDailyIndentsByMonth" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
+		SELECT DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%d日') as name,count(id) as value
+		FROM cm_business_indent
+		<where >
+			<if test="isTraded!= null">
+				AND isTraded = #{isTraded}
+			</if>
+			AND DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%Y') = #{year}
+			AND date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
+		</where>
+		GROUP BY name
+	</select>
+
+	<select id="countLastTwoMonthIndentsAndSale" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
+		SELECT DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%m月') as name,count(id) as value, sum(CASE WHEN isTraded = 1 THEN total ELSE 0 END) as total
+		FROM cm_business_indent
+		WHERE DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%Y') = 2016 AND date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') &lt;= date_format(date_sub(curdate(), interval 0 month),'%Y-%m')
+		GROUP BY name
+		ORDER BY NAME DESC
+		limit 0, 2
+	</select>
+
+	<select id="queryTradeZoo" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
+		SELECT province AS name, count(1) AS VALUE, SUM(CASE WHEN isTraded = 1 THEN total ELSE 0 END) AS total
+		FROM cm_business_indent
+		WHERE province is NOT NULL AND isTraded = 1
+		GROUP BY name
+		ORDER BY total desc, VALUE DESC;
+	</select>
 </mapper>

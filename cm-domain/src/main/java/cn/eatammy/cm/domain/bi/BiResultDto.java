@@ -10,9 +10,11 @@ public class BiResultDto {
 
     private int value;
 
-    private int sex;
+    private int sex;            //性别
 
-    private int deviceType;
+    private int deviceType;    //设备类型
+
+    private double total;       //销售总额
 
     public Object getName() {
         return name;
@@ -44,5 +46,13 @@ public class BiResultDto {
 
     public void setDeviceType(int deviceType) {
         this.deviceType = deviceType;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 }

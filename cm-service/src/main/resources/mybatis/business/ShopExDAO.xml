@@ -2,35 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 在这里存放用户自定义的映射配置（注：ShopDAO.xml里各节点的ID不能在这里重复出现）  -->
 <mapper namespace="cn.eatammy.cm.dao.business.IShopDAO">
+    <insert id="insertBatch">
+        INSERT INTO cm_business_shop(
+        shopName,
+        address,
+        owner,
+        code,
+        uid,
+        ownerPaperPic,
+        ownerPaper,
+        categoryId,
+        creator,
+        createDate,
+        status
+        )VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.shopName},
+            #{item.address},
+            #{item.owner},
+            #{item.code},
+            #{item.uid},
+            #{item.ownerPaperPic},
+            #{item.ownerPaper},
+            #{item.categoryId},
+            #{item.creator},
+            #{item.createDate},
+            #{item.status}
+            )
+        </foreach>
+    </insert>
 
     <select id="queryPageEx" resultType="cn.eatammy.cm.domain.business.ShopEx">
-		SELECT cbs.id as id, cbs.shopName as shopName,cbs.`code` as code, cbs.address as address,
-		cbs.createDate as createDate, cbs.`status` as `status`,
-		csc.`name` AS categoryName,cbs.owner AS owner
-	    FROM cm_business_shop cbs LEFT JOIN cm_user_detail cud on cbs.uid = cud.`code`
-	    LEFT JOIN cm_sys_category csc ON cbs.categoryId = csc.id
+        SELECT cbs.id as id, cbs.shopName as shopName,cbs.`code` as code, cbs.address as address,
+        cbs.createDate as createDate, cbs.`status` as `status`,
+        csc.`name` AS categoryName,cbs.owner AS owner
+        FROM cm_business_shop cbs LEFT JOIN cm_user_detail cud on cbs.uid = cud.`code`
+        LEFT JOIN cm_sys_category csc ON cbs.categoryId = csc.id
         <where>
             csc.status = 0 AND cud.status = 0
             <if test="condition.shopName != null and condition.shopName != ''">
-              AND cbs.shopName = #{condition.shopName}
+                AND cbs.shopName = #{condition.shopName}
             </if>
             <if test="condition.username != null and condition.username != ''">
-              AND cud.username = #{condition.username}
+                AND cud.username = #{condition.username}
             </if>
             <if test="condition.categoryId != null and condition.categoryId != -1">
-              AND cbs.categoryId = #{condition.categoryId}
+                AND cbs.categoryId = #{condition.categoryId}
             </if>
             <if test="condition.province != null and condition.province != -1">
-              AND cbs.province = #{condition.province}
+                AND cbs.province = #{condition.province}
             </if>
             <if test="condition.city != null and condition.city != -1">
-              AND cbs.city = #{condition.city}
+                AND cbs.city = #{condition.city}
             </if>
             <if test="condition.town != null and condition.town != -1">
-              AND cbs.town = #{condition.town}
+                AND cbs.town = #{condition.town}
             </if>
             <if test="condition.status != null and condition.status != -1">
-              and cbs.status = condition.status
+                and cbs.status = #{condition.status}
             </if>
         </where>
         group by cbs.id
@@ -38,7 +68,7 @@
         <if test="offset != null">
             limit ${offset}, ${rows}
         </if>
-	</select>
+    </select>
 
     <select id="countEx" resultType="java.lang.Integer">
         SELECT count(1)
@@ -65,7 +95,7 @@
                 AND cbs.town = #{condition.town}
             </if>
             <if test="condition.status != null and condition.status != -1">
-                and cbs.status = condition.status
+                and cbs.status = #{condition.status}
             </if>
         </where>
     </select>
@@ -91,7 +121,35 @@
 
     <update id="updateIncome">
         UPDATE  cm_business_shop
-        SET income4Sum = income4Sum + #{income},withdrawable = withdrawable + income
+        SET income4Sum = income4Sum + #{income},withdrawable = withdrawable + #{income}
     </update>
+
+    <update id="updateShopIncome">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            UPDATE cm_business_shop
+            <set>
+                income4Sum = income4Sum + #{item.income4Sum},withdrawable = withdrawable + #{item.income4Sum}
+            </set>
+            where code = #{item.code}
+        </foreach>
+    </update>
+
+
+    <select id="countMonthShops" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
+        SELECT DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%m月') as name,count(id) as value
+        FROM cm_business_shop
+        WHERE DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%m') = DATE_FORMAT(date_sub(curdate(), interval #{month} month),'%m')
+        GROUP BY name
+        ORDER BY name DESC
+
+    </select>
+
+    <select id="queryTopTen" resultType="cn.eatammy.cm.domain.business.Shop">
+        SELECT shopName, code, income4Sum
+        FROM cm_business_shop
+        WHERE income4Sum > 0
+        ORDER BY income4Sum desc
+        limit 0,10;
+    </select>
 
 </mapper>

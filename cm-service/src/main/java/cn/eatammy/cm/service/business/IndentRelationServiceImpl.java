@@ -24,10 +24,16 @@ import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.business.IIndentRelationDAO;
 import cn.eatammy.cm.domain.business.IndentRelation;
 import cn.eatammy.cm.service.AbstractCMPageService;
+import cn.eatammy.common.exception.BizException;
+import cn.eatammy.common.utils.ERRORCODE;
+import cn.eatammy.common.utils.RETURNCODE;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
- /**
+import java.util.List;
+
+/**
  * 《订单关系》 业务逻辑服务类
  * @author 郭旭辉
  *
@@ -42,4 +48,11 @@ public class IndentRelationServiceImpl extends AbstractCMPageService<ICMBaseDAO<
         return indentRelationDAO;
     }
 
+    @Override
+    public String addRelations(@Param("list") List<IndentRelation> relationList) {
+        if(indentRelationDAO.insertRelations(relationList) > 0){
+            return RETURNCODE.ADD_COMPLETE.getMessage();
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+    }
 }

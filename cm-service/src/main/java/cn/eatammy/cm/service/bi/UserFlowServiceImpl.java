@@ -22,6 +22,7 @@ package cn.eatammy.cm.service.bi;
 import cn.eatammy.cm.dao.ICMBaseDAO;
 import cn.eatammy.cm.dao.bi.IUserFlowDAO;
 import cn.eatammy.cm.dao.user.IUserDetailDAO;
+import cn.eatammy.cm.domain.bi.BiDataDto;
 import cn.eatammy.cm.domain.bi.BiResultDto;
 import cn.eatammy.cm.domain.bi.UserFlow;
 import cn.eatammy.cm.service.AbstractCMPageService;
@@ -33,6 +34,7 @@ import cn.eatammy.common.utils.RETURNCODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -46,6 +48,8 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
     private IUserFlowDAO userFlowDAO;
     @Autowired
     private IUserDetailDAO userDetailDAO;
+
+    private Calendar calendar = Calendar.getInstance();
 
     @Override
     public ICMBaseDAO<UserFlow> getDao() {
@@ -116,7 +120,7 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
 
     @Override
     public Map<String, Object> getRegisterCharts(Integer month) {
-        int curMonth = new Date().getMonth() + 1;
+        int curMonth = calendar.get(Calendar.MONTH) + 1;
         month = Math.abs(curMonth - month);
         List<BiResultDto> biResultDtos = userDetailDAO.queryRegister(month);
         if (biResultDtos.size() <= 0) {
@@ -134,6 +138,48 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
         }
         result.put("xAxis", xAxis);
         result.put("data", data);
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> getStatisticalData() {
+        int year = calendar.get(Calendar.YEAR);
+        int month = 0;
+        Map<String, Object> result = new HashMap<>(3);
+        List<BiResultDto> queryResult = null;
+        BiDataDto dataDto = null;
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        //查询今天访客数量
+        queryResult = userFlowDAO.countMonthPV(year, month, 0, 2);
+        dataDto = new BiDataDto();
+        dataDto.setContent(String.valueOf(queryResult.get(0).getValue()));
+        dataDto.setRate(String.valueOf(df.format(queryResult.get(0).getValue() * 1.0 / queryResult.get(1).getValue() * 100)) + "%");
+        dataDto.setUpOrDown(queryResult.get(0).getValue() > queryResult.get(1).getValue() ? 1 : 0);
+        result.put("userPV", dataDto);
+
+        //统计访客数量
+        queryResult = userFlowDAO.countLastTowMonthActivePV(0, 2);
+        dataDto = new BiDataDto();
+        dataDto.setContent(String.valueOf(queryResult.get(0).getValue()));
+        dataDto.setRate(String.valueOf(df.format(queryResult.get(0).getValue() * 1.0 / queryResult.get(1).getValue() * 100)) + "%");
+        dataDto.setUpOrDown(queryResult.get(0).getValue() > queryResult.get(1).getValue() ? 1 : 0);
+        result.put("activePV", dataDto);
+
+        //统计设备数量
+        queryResult = userFlowDAO.countDevicePV(month);
+        int app = 0;
+        int pc = 0;
+        for (BiResultDto bi : queryResult) {
+            if (bi.getDeviceType() != 0) {
+                app += bi.getValue();
+            }else{
+                pc = bi.getValue();
+            }
+        }
+        dataDto = new BiDataDto();
+        dataDto.setContent("PC: "+pc+"   App: "+ app);
+        result.put("devicePV", dataDto);
         return result;
     }
 
@@ -182,8 +228,8 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
      * @return 返回，统计结果
      */
     private List<BiResultDto> getUserPV(Integer year, Integer month) {
-        month = Math.abs(new Date().getMonth() + 1 - month);
-        List<BiResultDto> queryResult = userFlowDAO.countMonthPV(year, month);
+        month = Math.abs(calendar.get(Calendar.MONTH) + 1 - month);
+        List<BiResultDto> queryResult = userFlowDAO.countMonthPV(year, month, null, null);
         if (queryResult.size() > 0) {
             return queryResult;
         }
@@ -208,9 +254,9 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
                 List<Integer> male = new ArrayList<>();
                 List<Integer> females = new ArrayList<>();
                 for (BiResultDto bi : queryResult) {
-                    xAxis.add(bi.getName().toString());
                     if (bi.getSex() == 0) {
                         male.add(bi.getValue());
+                        xAxis.add(bi.getName().toString());
                     } else {
                         females.add(bi.getValue());
                     }
@@ -257,14 +303,14 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
      * @return 返回，统计结果
      */
     private Map<String, Object> getDevicePV(Integer month) {
-        month = Math.abs(new Date().getMonth() + 1 - month);
+        month = Math.abs(calendar.get(Calendar.MONTH) + 1 - month);
         List<BiResultDto> queryResult = userFlowDAO.countDevicePV(month);
         List<BiResultDto> data;
         Map<String, Object> result;
         if (queryResult.size() > 0) {
             result = new HashMap<>();
-            result.put("text", "活跃用户统计");
-            result.put("subtext", "每天活跃用户统计");
+            result.put("text", "登入设备统计");
+            result.put("subtext", "用户登入设备统计");
             List<String> xAixs = Arrays.asList("电脑", "手机", "平板");
             data = new ArrayList<>(queryResult.size());
             BiResultDto biResultDto;

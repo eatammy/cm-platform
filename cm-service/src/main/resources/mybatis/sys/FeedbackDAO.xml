@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.eatammy.cm.dao.sys.IFeedbackDAO">
+
+    <sql id="Base_Column_List">
+        id,
+        uid,
+        content,
+        createTime
+    </sql>
+    <insert id="insert" parameterType="cn.eatammy.cm.domain.sys.Feedback">
+        INSERT INTO cm_sys_feedback (
+		    uid
+		    ,content
+		    ,createTime
+        ) VALUES (
+		    	#{uid}
+		    	,#{content}
+		    	,#{createTime}
+        )
+        <selectKey resultType="java.lang.Long" keyProperty="id">
+        	SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+    </insert>
+
+    <insert id="insertMap" >
+        INSERT INTO cm_sys_feedback (
+		    uid
+		    ,content
+		    ,createTime
+        ) VALUES (
+		    	#{map.uid}
+		    	,#{map.content}
+		    	,#{map.createTime}
+        )
+    </insert>
+    
+    <!-- 更新 -->
+    <update id="update" parameterType="cn.eatammy.cm.domain.sys.Feedback">
+        UPDATE cm_sys_feedback
+        <trim prefix="SET" suffixOverrides=",">
+		    uid=#{uid},
+		    content=#{content},
+		    createTime=#{createTime},
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+	
+	<update id="updateMap">
+        UPDATE cm_sys_feedback
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="map.uid!=null">
+                uid = #{map.uid},
+            </if>
+            <if test="map.content!=null">
+                content = #{map.content},
+            </if>
+            <if test="map.createTime!=null">
+                createTime = #{map.createTime},
+            </if>
+        </trim>
+        WHERE
+        id = #{map.id}
+    </update>
+
+    <update id="updateByCondition">
+        UPDATE cm_sys_feedback
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="update.uid!=null">
+                uid = #{update.uid},
+            </if>
+            <if test="update.content!=null">
+                content = #{update.content},
+            </if>
+            <if test="update.createTime!=null">
+                createTime = #{update.createTime},
+            </if>
+        </trim>
+
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.uid!=null">
+                AND uid = #{condition.uid}
+            </if>
+            <if test="condition.content!=null">
+                AND content = #{condition.content}
+            </if>
+            <if test="condition.createTime!=null">
+                AND createTime = #{condition.createTime}
+            </if>
+        </trim>
+    </update>
+
+    <update id="updateNull" parameterType="cn.eatammy.cm.domain.sys.Feedback">
+        UPDATE cm_sys_feedback
+        <trim prefix="SET" suffixOverrides=",">
+            uid = #{uid},
+            content = #{content},
+            createTime = #{createTime},
+        </trim>
+        WHERE
+        id = #{id}
+    </update>
+    
+    
+    <!-- 按Id删除 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM cm_sys_feedback
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </delete>
+
+    <!--根据list(ids)删除对象-->
+    <delete id="deleteByIds">
+        DELETE FROM cm_sys_feedback
+        WHERE id in
+        <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+
+    <delete id="deleteByCondition" parameterType="java.util.Map">
+        DELETE FROM cm_sys_feedback
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id = #{id}
+            </if>
+            <if test="uid!=null">
+                AND uid = #{uid}
+            </if>
+            <if test="content!=null">
+                AND content = #{content}
+            </if>
+            <if test="createTime!=null">
+                AND createTime = #{createTime}
+            </if>
+        </trim>
+    </delete>
+
+    <delete id="deleteByProperty" parameterType="java.util.Map">
+        DELETE FROM cm_sys_feedback WHERE
+        ${property} = #{value}
+    </delete>
+    
+    <!--查询相关 -->
+    <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.sys.Feedback">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_sys_feedback
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            AND id = #{id}
+        </trim>
+    </select>
+
+    <select id="findOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.sys.Feedback">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_sys_feedback WHERE
+        ${property} = #{value}
+        LIMIT 0,1
+    </select>
+
+    <select id="findList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.sys.Feedback">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_sys_feedback WHERE
+        ${property} = #{value}
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="findAll" resultType="Feedback">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_sys_feedback
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryPage" resultType="cn.eatammy.cm.domain.sys.Feedback">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_sys_feedback
+        <where>
+
+            <if test="condition.whereSql != null">
+                and id in (#{condition.whereSql})
+            </if>
+
+            <if test="condition.id!=null">
+                ${condition.groupOp}   id  ${condition.id.op}  #{condition.id.data}
+            </if>
+            <if test="condition.uid!=null">
+                ${condition.groupOp}   uid  ${condition.uid.op}  #{condition.uid.data}
+            </if>
+            <if test="condition.content!=null">
+                ${condition.groupOp}   content  ${condition.content.op}  #{condition.content.data}
+            </if>
+            <if test="condition.createTime!=null">
+                ${condition.groupOp}   createTime  ${condition.createTime.op}  #{condition.createTime.data}
+            </if>
+
+
+    </where>
+
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+    <select id="like" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.sys.Feedback">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_sys_feedback
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="id!=null">
+                AND id like CONCAT('%', #{id} , '%')
+            </if>
+            <if test="uid!=null">
+                AND uid like CONCAT('%', #{uid} , '%')
+            </if>
+            <if test="content!=null">
+                AND content like CONCAT('%', #{content} , '%')
+            </if>
+            <if test="createTime!=null">
+                AND createTime like CONCAT('%', #{createTime} , '%')
+            </if>
+        </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+
+    <select id="queryList" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.sys.Feedback">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_sys_feedback
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.uid!=null">
+                AND uid = #{condition.uid}
+            </if>
+            <if test="condition.content!=null">
+                AND content = #{condition.content}
+            </if>
+            <if test="condition.createTime!=null">
+                AND createTime = #{condition.createTime}
+            </if>
+        </trim>
+        <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+        </if>
+    </select>
+
+    <select id="queryOne" parameterType="java.util.Map" resultType="cn.eatammy.cm.domain.sys.Feedback">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM cm_sys_feedback
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="condition.id!=null">
+                AND id = #{condition.id}
+            </if>
+            <if test="condition.uid!=null">
+                AND uid = #{condition.uid}
+            </if>
+            <if test="condition.content!=null">
+                AND content = #{condition.content}
+            </if>
+            <if test="condition.createTime!=null">
+                AND createTime = #{condition.createTime}
+            </if>
+        </trim>
+        limit 0,1
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(1) FROM cm_sys_feedback
+       <where>
+           <if test="id!=null">
+               ${groupOp} id ${id.op}  #{id.data}
+           </if>
+           <if test="uid!=null">
+               ${groupOp} uid ${uid.op}  #{uid.data}
+           </if>
+           <if test="content!=null">
+               ${groupOp} content ${content.op}  #{content.data}
+           </if>
+           <if test="createTime!=null">
+               ${groupOp} createTime ${createTime.op}  #{createTime.data}
+           </if>
+
+       </where>
+    <if test="orderBy!=null">
+        ORDER BY ${orderBy} ${sortBy}
+    </if>
+    </select>
+
+    <select id="selectMaxId" resultType="java.lang.Long">
+        SELECT
+        MAX(id)
+        FROM cm_sys_feedback
+    </select>
+   
+</mapper>

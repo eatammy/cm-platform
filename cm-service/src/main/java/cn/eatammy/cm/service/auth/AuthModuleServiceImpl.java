@@ -111,7 +111,7 @@ public class AuthModuleServiceImpl extends AbstractCMPageService<ICMBaseDAO<Auth
 
     @Override
     public List<AuthModule> getModules(String uid, int userType) {
-        List<AuthModule> authModules = null;
+         List<AuthModule> authModules = null;
         if (authRoleService.isSuper(uid, userType)) {
             authModules = this.findList(AuthModuleParam.F_Status, DataStatusEnum.ENABLED);
         } else {

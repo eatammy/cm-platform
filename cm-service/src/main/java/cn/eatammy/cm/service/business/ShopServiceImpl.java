@@ -40,6 +40,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 /**
  * 《商家》 业务逻辑服务类
  *
@@ -61,14 +62,14 @@ public class ShopServiceImpl extends AbstractCMPageService<ICMBaseDAO<Shop>, Sho
 
     @Override
     public BizData4Page<Shop> queryPage(ShopParam param, int pageNo, int pageSize) {
-        List<ShopEx> data = shopDAO.queryPageEx(param.toMap(), (pageNo -1)*pageSize, pageSize);
+        List<ShopEx> data = shopDAO.queryPageEx(param.toMap(), (pageNo - 1) * pageSize, pageSize);
         int records = shopDAO.countEx(param.toMap());
         return PageUtils.toBizData4Page(data, pageNo, pageSize, records);
     }
 
     @Override
     public String add(ShopParamEx paramEx, AccountDto accountDto) {
-        if (!isExists(ShopParam.F_OwnerPaper, paramEx.getOwnerPaper())){  //  一个身份证号码只能申请一次
+        if (!isExists(ShopParam.F_OwnerPaper, paramEx.getOwnerPaper())) {  //  一个身份证号码只能申请一次
             Shop shop = new Shop();
             shop.setShopName(paramEx.getShopName());
             shop.setAddress(paramEx.getAddress());
@@ -89,16 +90,16 @@ public class ShopServiceImpl extends AbstractCMPageService<ICMBaseDAO<Shop>, Sho
             shopDAO.insert(shop);
             userDetailDAO.updateUserTypes(paramEx.getUid(), 2);
             return RETURNCODE.ADD_COMPLETE.getMessage();
-        }else{
+        } else {
             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
         }
     }
 
     @Override
     public String disableOrEnable(long id, int status) {
-        if(shopDAO.updateShopStatus(id, status) == 1){
+        if (shopDAO.updateShopStatus(id, status) == 1) {
             return RETURNCODE.UPDATE_COMPLETE.getMessage();
-        }else{
+        } else {
             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
         }
     }
@@ -110,13 +111,13 @@ public class ShopServiceImpl extends AbstractCMPageService<ICMBaseDAO<Shop>, Sho
 
     @Override
     public String deleteOne(long id, String code) {
-        if(this.deleteById(id) == 1){
+        if (this.deleteById(id) == 1) {
             //删除证件照
-            for(int i=1;i<3;i++){
-                bucketManagerService.deleteFile(BucketEnum.AUTH.getBucketName(), code+"_"+i);
+            for (int i = 1; i < 3; i++) {
+                bucketManagerService.deleteFile(BucketEnum.AUTH.getBucketName(), code + "_" + i);
             }
             return RETURNCODE.DELETE_COMPLETE.getMessage();
-        }else{
+        } else {
             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
         }
     }
@@ -128,5 +129,13 @@ public class ShopServiceImpl extends AbstractCMPageService<ICMBaseDAO<Shop>, Sho
     @Override
     public ShopEx findOne(String uid) {
         return shopDAO.queryShopByUid(uid);
+    }
+
+    @Override
+    public String updateShopIncome(List<Shop> shops) {
+        if (shopDAO.updateShopIncome(shops) > 0) {
+            return RETURNCODE.UPDATE_COMPLETE.getMessage();
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
     }
 }

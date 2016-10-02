@@ -8,6 +8,7 @@
         uid,
         serialNumber,
         address,
+        province,
         total,
         isTraded,
         creator,
@@ -18,79 +19,84 @@
     </sql>
     <insert id="insert" parameterType="cn.eatammy.cm.domain.business.Indent">
         INSERT INTO cm_business_indent (
-		    uid
-		    ,serialNumber
-		    ,address
-		    ,total
-		    ,isTraded
-		    ,creator
-		    ,createDate
-		    ,lastModifier
-		    ,lastModDate
-		    ,status
+        uid
+        ,serialNumber
+        ,address
+        ,province
+        ,total
+        ,isTraded
+        ,creator
+        ,createDate
+        ,lastModifier
+        ,lastModDate
+        ,status
         ) VALUES (
-		    	#{uid}
-		    	,#{serialNumber}
-		    	,#{address}
-		    	,#{total}
-		    	,#{isTraded}
-		    	,#{creator}
-		    	,#{createDate}
-		    	,#{lastModifier}
-		    	,#{lastModDate}
-		    	,#{status}
+        #{uid}
+        ,#{serialNumber}
+        ,#{address}
+        ,#{province}
+        ,#{total}
+        ,#{isTraded}
+        ,#{creator}
+        ,#{createDate}
+        ,#{lastModifier}
+        ,#{lastModDate}
+        ,#{status}
         )
         <selectKey resultType="java.lang.Long" keyProperty="id">
-        	SELECT LAST_INSERT_ID() AS ID
+            SELECT LAST_INSERT_ID() AS ID
         </selectKey>
     </insert>
 
     <insert id="insertMap" >
         INSERT INTO cm_business_indent (
-		    uid
-		    ,serialNumber
-		    ,address
-		    ,total
-		    ,isTraded
-		    ,creator
-		    ,createDate
-		    ,lastModifier
-		    ,lastModDate
-		    ,status
+        uid
+        ,serialNumber
+        ,address
+        ,province
+        ,total
+        ,isTraded
+        ,creator
+        ,createDate
+        ,lastModifier
+        ,lastModDate
+        ,status
         ) VALUES (
-		    	#{map.uid}
-		    	,#{map.serialNumber}
-		    	,#{map.address}
-		    	,#{map.total}
-		    	,#{map.isTraded}
-		    	,#{map.creator}
-		    	,#{map.createDate}
-		    	,#{map.lastModifier}
-		    	,#{map.lastModDate}
-		    	,#{map.status}
+        #{map.uid}
+        ,#{map.serialNumber}
+        ,#{map.address}
+        ,#{map.province}
+        ,#{map.total}
+        ,#{map.isTraded}
+        ,#{map.creator}
+        ,#{map.createDate}
+        ,#{map.lastModifier}
+        ,#{map.lastModDate}
+        ,#{map.status}
         )
     </insert>
-    
+
     <!-- 更新 -->
     <update id="update" parameterType="cn.eatammy.cm.domain.business.Indent">
         UPDATE cm_business_indent
         <trim prefix="SET" suffixOverrides=",">
-		    uid=#{uid},
-		    serialNumber=#{serialNumber},
-		    address=#{address},
-		    total=#{total},
-		    isTraded=#{isTraded},
-		    creator=#{creator},
-		    createDate=#{createDate},
-		    lastModifier=#{lastModifier},
-		    lastModDate=#{lastModDate},
-		    status=#{status},
+            uid=#{uid},
+            serialNumber=#{serialNumber},
+            address=#{address},
+            province=#{province},
+            total=#{total},
+            isTraded=#{isTraded},
+            creator=#{creator},
+            createDate=#{createDate},
+            lastModifier=#{lastModifier},
+            lastModDate=#{lastModDate},
+            status=#{status},
         </trim>
         WHERE
         id = #{id}
     </update>
-	
-	<update id="updateMap">
+
+    <update id="updateMap">
         UPDATE cm_business_indent
         <trim prefix="SET" suffixOverrides=",">
             <if test="map.uid!=null">
@@ -101,6 +107,9 @@
             </if>
             <if test="map.address!=null">
                 address = #{map.address},
+            </if>
+            <if test="map.province!=null">
+                province = #{map.province},
             </if>
             <if test="map.total!=null">
                 total = #{map.total},
@@ -140,6 +149,9 @@
             <if test="update.address!=null">
                 address = #{update.address},
             </if>
+            <if test="update.province!=null">
+                province = #{update.province},
+            </if>
             <if test="update.total!=null">
                 total = #{update.total},
             </if>
@@ -173,6 +185,9 @@
             <if test="condition.address!=null">
                 AND address = #{condition.address}
             </if>
+            <if test="condition.province!=null">
+                AND province = #{condition.province}
+            </if>
             <if test="condition.total!=null">
                 AND total = #{condition.total}
             </if>
@@ -203,6 +218,7 @@
             uid = #{uid},
             serialNumber = #{serialNumber},
             address = #{address},
+            province = #{province},
             total = #{total},
             isTraded = #{isTraded},
             creator = #{creator},
@@ -214,8 +230,8 @@
         WHERE
         id = #{id}
     </update>
-    
-    
+
+
     <!-- 按Id删除 -->
     <delete id="deleteById" parameterType="java.lang.Long">
         DELETE FROM cm_business_indent
@@ -246,6 +262,9 @@
             <if test="address!=null">
                 AND address = #{address}
             </if>
+            <if test="province!=null">
+                AND province = #{province}
+            </if>
             <if test="total!=null">
                 AND total = #{total}
             </if>
@@ -274,7 +293,7 @@
         DELETE FROM cm_business_indent WHERE
         ${property} = #{value}
     </delete>
-    
+
     <!--查询相关 -->
     <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.business.Indent">
         SELECT
@@ -334,6 +353,9 @@
             <if test="condition.address!=null">
                 ${condition.groupOp}   address  ${condition.address.op}  #{condition.address.data}
             </if>
+            <if test="condition.province!=null">
+                ${condition.groupOp}   province  ${condition.province.op}  #{condition.province.data}
+            </if>
             <if test="condition.total!=null">
                 ${condition.groupOp}   total  ${condition.total.op}  #{condition.total.data}
             </if>
@@ -357,10 +379,10 @@
             </if>
 
 
-    </where>
+        </where>
 
         <if test="orderBy!=null">
-        ORDER BY ${orderBy} ${sortBy}
+            ORDER BY ${orderBy} ${sortBy}
         </if>
         <if test="offset != null">
             limit ${offset}, ${rows}
@@ -383,6 +405,9 @@
             </if>
             <if test="address!=null">
                 AND address like CONCAT('%', #{address} , '%')
+            </if>
+            <if test="province!=null">
+                AND province like CONCAT('%', #{province} , '%')
             </if>
             <if test="total!=null">
                 AND total like CONCAT('%', #{total} , '%')
@@ -407,7 +432,7 @@
             </if>
         </trim>
         <if test="orderBy!=null">
-        ORDER BY ${orderBy} ${sortBy}
+            ORDER BY ${orderBy} ${sortBy}
         </if>
     </select>
 
@@ -428,6 +453,9 @@
             </if>
             <if test="condition.address!=null">
                 AND address = #{condition.address}
+            </if>
+            <if test="condition.province!=null">
+                AND province = #{condition.province}
             </if>
             <if test="condition.total!=null">
                 AND total = #{condition.total}
@@ -452,7 +480,7 @@
             </if>
         </trim>
         <if test="orderBy!=null">
-        ORDER BY ${orderBy} ${sortBy}
+            ORDER BY ${orderBy} ${sortBy}
         </if>
     </select>
 
@@ -472,6 +500,9 @@
             </if>
             <if test="condition.address!=null">
                 AND address = #{condition.address}
+            </if>
+            <if test="condition.province!=null">
+                AND province = #{condition.province}
             </if>
             <if test="condition.total!=null">
                 AND total = #{condition.total}
@@ -500,45 +531,48 @@
 
     <select id="count" resultType="java.lang.Integer">
         SELECT count(1) FROM cm_business_indent
-       <where>
-           <if test="id!=null">
-               ${groupOp} id ${id.op}  #{id.data}
-           </if>
-           <if test="uid!=null">
-               ${groupOp} uid ${uid.op}  #{uid.data}
-           </if>
-           <if test="serialNumber!=null">
-               ${groupOp} serialNumber ${serialNumber.op}  #{serialNumber.data}
-           </if>
-           <if test="address!=null">
-               ${groupOp} address ${address.op}  #{address.data}
-           </if>
-           <if test="total!=null">
-               ${groupOp} total ${total.op}  #{total.data}
-           </if>
-           <if test="isTraded!=null">
-               ${groupOp} isTraded ${isTraded.op}  #{isTraded.data}
-           </if>
-           <if test="creator!=null">
-               ${groupOp} creator ${creator.op}  #{creator.data}
-           </if>
-           <if test="createDate!=null">
-               ${groupOp} createDate ${createDate.op}  #{createDate.data}
-           </if>
-           <if test="lastModifier!=null">
-               ${groupOp} lastModifier ${lastModifier.op}  #{lastModifier.data}
-           </if>
-           <if test="lastModDate!=null">
-               ${groupOp} lastModDate ${lastModDate.op}  #{lastModDate.data}
-           </if>
-           <if test="status!=null">
-               ${groupOp} status ${status.op}  #{status.data}
-           </if>
+        <where>
+            <if test="id!=null">
+                ${groupOp} id ${id.op}  #{id.data}
+            </if>
+            <if test="uid!=null">
+                ${groupOp} uid ${uid.op}  #{uid.data}
+            </if>
+            <if test="serialNumber!=null">
+                ${groupOp} serialNumber ${serialNumber.op}  #{serialNumber.data}
+            </if>
+            <if test="address!=null">
+                ${groupOp} address ${address.op}  #{address.data}
+            </if>
+            <if test="province!=null">
+                ${groupOp} province ${province.op}  #{province.data}
+            </if>
+            <if test="total!=null">
+                ${groupOp} total ${total.op}  #{total.data}
+            </if>
+            <if test="isTraded!=null">
+                ${groupOp} isTraded ${isTraded.op}  #{isTraded.data}
+            </if>
+            <if test="creator!=null">
+                ${groupOp} creator ${creator.op}  #{creator.data}
+            </if>
+            <if test="createDate!=null">
+                ${groupOp} createDate ${createDate.op}  #{createDate.data}
+            </if>
+            <if test="lastModifier!=null">
+                ${groupOp} lastModifier ${lastModifier.op}  #{lastModifier.data}
+            </if>
+            <if test="lastModDate!=null">
+                ${groupOp} lastModDate ${lastModDate.op}  #{lastModDate.data}
+            </if>
+            <if test="status!=null">
+                ${groupOp} status ${status.op}  #{status.data}
+            </if>
 
-       </where>
-    <if test="orderBy!=null">
-        ORDER BY ${orderBy} ${sortBy}
-    </if>
+        </where>
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
     <select id="selectMaxId" resultType="java.lang.Long">
@@ -546,5 +580,5 @@
         MAX(id)
         FROM cm_business_indent
     </select>
-   
+
 </mapper>

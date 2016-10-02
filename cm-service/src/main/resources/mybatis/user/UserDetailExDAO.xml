@@ -186,7 +186,7 @@
     </select>
 
     <select id="countCurWeekRegister" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
-        select DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%u周') as name,count(id) as value
+        SELECT DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%u周') as name,count(id) as value
         From cm_user_detail
         group by name
         order BY name DESC
@@ -194,6 +194,15 @@
 
     <select id="countCurDayRegister" resultType="java.lang.Integer">
         select count(1) from cm_user_detail where date(FROM_UNIXTIME(createDate/1000)) = curdate();
+    </select>
+    <select id="getRandomUser" resultType="cn.eatammy.cm.domain.user.UserDetail">
+        select * from cm_user_detail WHERE status = 0 ORDER BY RAND() limit 1;
+    </select>
+    <select id="queryPage4BI" resultType="cn.eatammy.cm.domain.user.UserDetail">
+        SELECT * FROM  cm_user_detail
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
     </select>
 
 

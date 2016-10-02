@@ -21,6 +21,7 @@
 package cn.eatammy.cm.dao.business;
 
 import cn.eatammy.cm.dao.ICMBaseDAO;
+import cn.eatammy.cm.domain.bi.BiResultDto;
 import cn.eatammy.cm.domain.business.Shop;
 import cn.eatammy.cm.domain.business.ShopEx;
 import cn.eatammy.common.sys.database.DataSource;
@@ -87,4 +88,35 @@ public interface IShopDAO extends ICMBaseDAO<Shop> {
      */
     @DataSource("write")
     int updateIncome(@Param("income") Float income);
+
+    /**
+     * 统计某个月份新增的商店数量
+     * @param month 月份，0：表示当前月份，1：上个月份，-1：下个月，以此类推，2：前个月，-2：后个月等
+     * @return  返回，统计结果
+     */
+    @DataSource("read")
+    BiResultDto countMonthShops(int month);
+
+    /**
+     * 批量插入商家（BI分析产生数据）
+     * @param shops 新商家集合
+     * @return  返回，非零，成功插入条数，0：失败
+     */
+    @DataSource("write")
+    int insertBatch(@Param("list")List<Shop> shops);
+
+    /**
+     * 批量更新商家的销售额
+     * @param shops 商店列表
+     * @return  返回，非零：成功操作条数，0：失败
+     */
+    @DataSource("write")
+    int updateShopIncome(@Param("list")List<Shop> shops);
+
+    /**
+     * 查询销售排行榜前十的商家（BI分析）
+     * @return  返回，商家列表
+     */
+    @DataSource("read")
+    List<Shop> queryTopTen();
 }

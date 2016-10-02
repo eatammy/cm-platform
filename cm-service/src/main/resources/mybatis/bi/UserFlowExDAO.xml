@@ -28,6 +28,10 @@
 		WHERE DATE_FORMAT(FROM_UNIXTIME(createTime/1000),'%Y') = #{year}
 		AND date_format(FROM_UNIXTIME(createTime/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
 		GROUP BY name
+		<if test="offset != null">
+            order by name desc
+            limit ${offset}, ${rows}
+        </if>
 	</select>
 
     <select id="countMonthActivePV" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
@@ -52,4 +56,17 @@
         month),'%Y-%m')
         GROUP BY name,deviceType
     </select>
+
+    <select id="countLastTowMonthActivePV" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
+        SELECT DATE_FORMAT(FROM_UNIXTIME(cbuf.createTime/1000),'%m月')as name, count(cud.id) as value
+        FROM cm_bi_user_flow cbuf LEFT JOIN cm_user_detail cud ON cbuf.uid = cud.`code`
+        WHERE cbuf.eventType = 1
+        GROUP BY name
+		ORDER BY name DESC
+	    <if test="offset!= null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+
+
 </mapper>

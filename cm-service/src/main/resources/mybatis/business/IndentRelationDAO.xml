@@ -13,20 +13,20 @@
     </sql>
     <insert id="insert" parameterType="cn.eatammy.cm.domain.business.IndentRelation">
         INSERT INTO cm_business_indentRelation (
-		    indentId
-		    ,shopId
-		    ,goodsId
-		    ,num
-		    ,price
+        indentId
+        ,shopId
+        ,goodsId
+        ,num
+        ,price
         ) VALUES (
-		    	#{indentId}
-		    	,#{shopId}
-		    	,#{goodsId}
-		    	,#{num}
-		    	,#{price}
+        #{indentId}
+        ,#{shopId}
+        ,#{goodsId}
+        ,#{num}
+        ,#{price}
         )
         <selectKey resultType="java.lang.Long" keyProperty="id">
-        	SELECT LAST_INSERT_ID() AS ID
+            SELECT LAST_INSERT_ID() AS ID
         </selectKey>
     </insert>
 
@@ -45,22 +45,22 @@
 		    	,#{map.price}
         )
     </insert>
-    
+
     <!-- 更新 -->
     <update id="update" parameterType="cn.eatammy.cm.domain.business.IndentRelation">
         UPDATE cm_business_indentRelation
         <trim prefix="SET" suffixOverrides=",">
-		    indentId=#{indentId},
-		    shopId=#{shopId},
-		    goodsId=#{goodsId},
-		    num=#{num},
-		    price=#{price},
+            indentId=#{indentId},
+            shopId=#{shopId},
+            goodsId=#{goodsId},
+            num=#{num},
+            price=#{price},
         </trim>
         WHERE
         id = #{id}
     </update>
-	
-	<update id="updateMap">
+
+    <update id="updateMap">
         UPDATE cm_business_indentRelation
         <trim prefix="SET" suffixOverrides=",">
             <if test="map.indentId!=null">
@@ -134,8 +134,8 @@
         WHERE
         id = #{id}
     </update>
-    
-    
+
+
     <!-- 按Id删除 -->
     <delete id="deleteById" parameterType="java.lang.Long">
         DELETE FROM cm_business_indentRelation
@@ -179,7 +179,7 @@
         DELETE FROM cm_business_indentRelation WHERE
         ${property} = #{value}
     </delete>
-    
+
     <!--查询相关 -->
     <select id="fetch" parameterType="java.lang.Long" resultType="cn.eatammy.cm.domain.business.IndentRelation">
         SELECT
@@ -247,10 +247,10 @@
             </if>
 
 
-    </where>
+        </where>
 
         <if test="orderBy!=null">
-        ORDER BY ${orderBy} ${sortBy}
+            ORDER BY ${orderBy} ${sortBy}
         </if>
         <if test="offset != null">
             limit ${offset}, ${rows}
@@ -282,7 +282,7 @@
             </if>
         </trim>
         <if test="orderBy!=null">
-        ORDER BY ${orderBy} ${sortBy}
+            ORDER BY ${orderBy} ${sortBy}
         </if>
     </select>
 
@@ -312,7 +312,7 @@
             </if>
         </trim>
         <if test="orderBy!=null">
-        ORDER BY ${orderBy} ${sortBy}
+            ORDER BY ${orderBy} ${sortBy}
         </if>
     </select>
 
@@ -345,30 +345,30 @@
 
     <select id="count" resultType="java.lang.Integer">
         SELECT count(1) FROM cm_business_indentRelation
-       <where>
-           <if test="id!=null">
-               ${groupOp} id ${id.op}  #{id.data}
-           </if>
-           <if test="indentId!=null">
-               ${groupOp} indentId ${indentId.op}  #{indentId.data}
-           </if>
-           <if test="shopId!=null">
-               ${groupOp} shopId ${shopId.op}  #{shopId.data}
-           </if>
-           <if test="goodsId!=null">
-               ${groupOp} goodsId ${goodsId.op}  #{goodsId.data}
-           </if>
-           <if test="num!=null">
-               ${groupOp} num ${num.op}  #{num.data}
-           </if>
-           <if test="price!=null">
-               ${groupOp} price ${price.op}  #{price.data}
-           </if>
+        <where>
+            <if test="id!=null">
+                ${groupOp} id ${id.op}  #{id.data}
+            </if>
+            <if test="indentId!=null">
+                ${groupOp} indentId ${indentId.op}  #{indentId.data}
+            </if>
+            <if test="shopId!=null">
+                ${groupOp} shopId ${shopId.op}  #{shopId.data}
+            </if>
+            <if test="goodsId!=null">
+                ${groupOp} goodsId ${goodsId.op}  #{goodsId.data}
+            </if>
+            <if test="num!=null">
+                ${groupOp} num ${num.op}  #{num.data}
+            </if>
+            <if test="price!=null">
+                ${groupOp} price ${price.op}  #{price.data}
+            </if>
 
-       </where>
-    <if test="orderBy!=null">
-        ORDER BY ${orderBy} ${sortBy}
-    </if>
+        </where>
+        <if test="orderBy!=null">
+            ORDER BY ${orderBy} ${sortBy}
+        </if>
     </select>
 
     <select id="selectMaxId" resultType="java.lang.Long">
@@ -376,5 +376,5 @@
         MAX(id)
         FROM cm_business_indentRelation
     </select>
-   
+
 </mapper>

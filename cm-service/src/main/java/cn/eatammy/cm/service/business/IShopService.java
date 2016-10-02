@@ -30,7 +30,7 @@ import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.domain.BaseDomain;
 import cn.eatammy.common.domain.BizData4Page;
 import cn.eatammy.common.service.IPageService;
-
+import java.util.List;
 /**
  * 《商家》 业务逻辑服务接口
  *
@@ -85,4 +85,6 @@ public interface IShopService<D extends ICMBaseDAO<T>, T extends BaseDomain> ext
      * @return  返回，商店信息
      */
     ShopEx findOne(String uid);
+
+    String updateShopIncome(List<Shop> shops);
 }

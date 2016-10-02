@@ -56,7 +56,25 @@ public class UserFlowController {
         return userFlowService.getRegisterCharts(month);
     }
 
+    /**
+     * 获取用户统计数据视图
+     * @return  返回，统计结果
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getStatisticalData")
+    public Map<String, Object> getStatisticalData(){
+        return  userFlowService.getStatisticalData();
+    }
 
+    /**
+     * 获取用户活动视图（分析统计）
+     *
+     * @param type  统计类型：0：每月访客，1：每月活跃用户，2：设备统计
+     * @param month 月份
+     * @param year  年份
+     * @param isDefault  是否默认选项
+     * @return 返回，数据视图
+     */
     @ResponseBody
     @RequestMapping(value = "/{type}/getUserCharts")
     public Map<String, Object> getUserCharts(@PathVariable("type") Integer type, @RequestParam(defaultValue = "0") Integer month, Integer year, @RequestParam(defaultValue = "0") Integer isDefault) {
