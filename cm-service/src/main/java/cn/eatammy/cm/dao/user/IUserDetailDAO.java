@@ -178,7 +178,18 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
     @DataSource("read")
     int countCurDayRegister();
 
+    /**
+     * 随机获取一个用户
+     * @return 返回， 用户
+     */
     @DataSource("read")
     UserDetail getRandomUser();
 
+    /**
+     * 随机获取用户列表
+     * @param count 数量
+     * @return 返回，用户列表
+     */
+    @DataSource("read")
+    List<UserDetail> getRandomUsers(@Param("count") int count);
 }

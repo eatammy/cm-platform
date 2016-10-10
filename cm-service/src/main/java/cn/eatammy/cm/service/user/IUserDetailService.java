@@ -166,6 +166,13 @@ public interface IUserDetailService<D extends ICMBaseDAO<T>, T extends BaseDomai
      */
     UserDetail getRandomUser();
 
+    /**
+     * 随机获取用户列表
+     * @param count 数量
+     * @return  返回，用户列表
+     */
+    List<UserDetail> getRandowUsers(int count);
+
 //    /**
 //     * 查找全国各地用户分布数量（BI分析）
 //     * @return  返回，结果列表

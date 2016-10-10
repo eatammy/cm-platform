@@ -306,6 +306,10 @@ public class UserDetailServiceImpl extends AbstractCMPageService<ICMBaseDAO<User
         return userDetailDAO.getRandomUser();
     }
 
+    @Override
+    public List<UserDetail> getRandowUsers(int count) {
+        return userDetailDAO.getRandomUsers(count);
+    }
     //    @Override
 //    public List<BiResultDto> queryUserMap() {
 //        return userDetailDAO.queryUserMap();

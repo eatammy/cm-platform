@@ -2,10 +2,12 @@ package cn.eatammy.common.shiro;
 
 import cn.eatammy.cm.dao.auth.IAuthOperationDAO;
 import cn.eatammy.cm.domain.auth.AuthOperation;
+import cn.eatammy.cm.domain.bi.UserFlow;
 import cn.eatammy.cm.domain.user.UserDetail;
 import cn.eatammy.cm.param.auth.AuthOperationParam;
 import cn.eatammy.cm.param.user.UserDetailParam;
 import cn.eatammy.cm.service.auth.IAuthRoleService;
+import cn.eatammy.cm.service.bi.IUserFlowService;
 import cn.eatammy.cm.service.user.IUserDetailService;
 import cn.eatammy.common.domain.AccountDto;
 import cn.eatammy.common.exception.BizException;
@@ -26,6 +28,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 /**
  * Created by 郭旭辉 on 2016/8/9.
  * 自定义realm
@@ -38,6 +42,9 @@ public class CmRealm extends AuthorizingRealm {
     private IAuthRoleService authRoleService;
     @Autowired
     private IAuthOperationDAO authOperationDAO;
+    @Autowired
+    private IUserFlowService userFlowService;
+
 
     //设置realm的名称
     @Override
@@ -84,6 +91,16 @@ public class CmRealm extends AuthorizingRealm {
         UserDetail user = (UserDetail) userDetailService.findOne(UserDetailParam.F_Username, username);
         AccountDto accountDto;
         if (user != null) {
+            //计入流量表中
+            UserFlow userFlow = new UserFlow();
+            userFlow.setUid(user.getCode());
+            userFlow.setEventType(1);
+            userFlow.setEventValue("login");
+            userFlow.setCreateTime(System.currentTimeMillis());
+            userFlow.setDeviceType(new Random().nextInt(3));
+            userFlowService.add(userFlow);
+
+
             accountDto = new AccountDto();
             accountDto.setUid(user.getCode());
             accountDto.setUsername(user.getUsername());
