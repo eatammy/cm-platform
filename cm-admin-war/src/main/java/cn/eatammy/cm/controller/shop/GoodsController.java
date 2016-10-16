@@ -31,14 +31,14 @@ public class GoodsController {
      * 分页查询
      *
      * @param paramEx  查询参数
-     * @param pageNO   页码
+     * @param pageNo   页码
      * @param pageSize 页大小
      * @return 返回，分页结果
      */
     @ResponseBody
     @RequestMapping(value = "/queryPage", method = RequestMethod.POST)
-    public BizData4Page queryPage(GoodsParamEx paramEx, @RequestParam(defaultValue = "1") int pageNO, @RequestParam(defaultValue = "10") int pageSize) {
-        return goodsService.queryPage(paramEx, pageNO, pageSize);
+    public BizData4Page queryPage(GoodsParamEx paramEx, @RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
+        return goodsService.queryPage(paramEx, pageNo, pageSize);
     }
 
     /**

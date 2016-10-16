@@ -56,7 +56,7 @@ public class CategoryServiceImpl extends AbstractCMPageService<ICMBaseDAO<Catego
 
     @Override
     public String add(CategoryParam param, AccountDto accountDto) {
-        if (!isExist(param.F_Name, param.getName())) {
+        if (!isExist(CategoryParam.F_Name, param.getName())) {
             Category category = new Category();
             category.setName(param.getName());
             category.setPriority(param.getPriority());
