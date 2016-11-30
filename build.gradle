@@ -7,7 +7,7 @@ allprojects {
 
     repositories {
         //使用开源中国的maven仓库
-        maven { url 'http://mvnrepository.com/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     }
 }
 
