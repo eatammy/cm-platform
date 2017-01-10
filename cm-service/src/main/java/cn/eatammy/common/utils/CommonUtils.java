@@ -91,6 +91,7 @@ public class CommonUtils {
 
     /**
      * 根据当前时间获取本月的第一天和最后一天
+     *
      * @return 返回，日期集合
      */
     public static Map getMonthDate() {
@@ -103,6 +104,27 @@ public class CommonUtils {
         calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DATE));
         map.put("monthL", format.format(calendar.getTime()));
         return map;
+    }
+
+    /**
+     * 获取月份步长
+     * @param year      年份
+     * @param month     月份，0~11：1月~12月
+     * @return 返回，步长值
+     */
+    public static int getMonthSpan(int year, int month) {
+        int curYear = calendar.get(Calendar.YEAR);
+        int curmonth = calendar.get(Calendar.YEAR);
+        if (year > curYear) {
+            throw new BizException(ERRORCODE.NO_DATA.getCode(), ERRORCODE.NO_DATA.getMessage());
+        }
+        if (curYear == year) {
+            return curmonth - month;
+        }
+        if (curYear > year) {
+            return curmonth + 12 - month;
+        }
+        return 0;
     }
 
 
@@ -146,10 +168,6 @@ public class CommonUtils {
     }
 
     public static void main(String[] args) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        for (int i = 0; i < 10; i++) {
-            Date date = randomDate("2016-08-20", "2016-09-10");
-            System.out.println(format.format(date));
-        }
+        System.out.println(calendar.get(Calendar.MONTH));
     }
 }

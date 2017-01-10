@@ -47,13 +47,14 @@ public class UserFlowController {
     /**
      * 获取注册量表图
      *
+     * @param year  年份
      * @param month 月份
      * @return 返回，当月注册量信息
      */
     @ResponseBody
     @RequestMapping(value = "/getRegisterCharts")
-    public Map<String, Object> getRegisterCharts(@RequestParam(defaultValue = "0") Integer month) {
-        return userFlowService.getRegisterCharts(month);
+    public Map<String, Object> getRegisterCharts(Integer year, @RequestParam(defaultValue = "0") Integer month) {
+        return userFlowService.getRegisterCharts(year, month);
     }
 
     /**

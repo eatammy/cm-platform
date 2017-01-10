@@ -151,11 +151,13 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
 
     /**
      * 查询某个月份每天的注册量 (BI)
+     *
+     * @param year      年份
      * @param month     月份，0，表示当前月份，递增表示往前的月份，如1，表示上个月，2表示前个月
      * @return  返回，每天注册的统计集合
      */
     @DataSource("read")
-    List<BiResultDto> queryRegister(@Param("month") Integer month);
+    List<BiResultDto> queryRegister(@Param("year") Integer year, @Param("month") Integer month);
 
     /**
      * 统计当前月份的注册量（BI）

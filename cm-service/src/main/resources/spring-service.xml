@@ -17,9 +17,9 @@
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
         <property name="locations">
             <list>
-                <!--<value>classpath:db.properties</value>-->
-                <value>classpath:db_local.properties</value>
-                <value>classpath:redis.properties</value>
+                <value>classpath:db.properties</value>
+                <!--<value>classpath:db_local.properties</value>-->
+                <!--<value>classpath:redis.properties</value>-->
             </list>
         </property>
     </bean>

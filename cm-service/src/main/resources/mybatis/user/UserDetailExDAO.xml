@@ -176,7 +176,14 @@
     <select id="queryRegister" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
         SELECT DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%d日')as name, count(id) as value
         FROM cm_user_detail
-        WHERE date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
+       <where>
+           <if test="year != null and year != -1">
+               AND date_format(FROM_UNIXTIME(createDate/1000),'%Y') = #{month}
+           </if>
+           <if test="month != null and month != -1">
+               AND date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
+           </if>
+       </where>
         GROUP BY name
     </select>
 

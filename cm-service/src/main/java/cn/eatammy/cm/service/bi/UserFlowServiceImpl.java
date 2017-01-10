@@ -119,16 +119,14 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
     }
 
     @Override
-    public Map<String, Object> getRegisterCharts(Integer month) {
-        int curMonth = calendar.get(Calendar.MONTH) + 1;
-        month = Math.abs(curMonth - month);
-        List<BiResultDto> biResultDtos = userDetailDAO.queryRegister(month);
+    public Map<String, Object> getRegisterCharts(Integer year, Integer month) {
+        List<BiResultDto> biResultDtos = userDetailDAO.queryRegister(year, CommonUtils.getMonthSpan(year, month));
         if (biResultDtos.size() <= 0) {
             throw new BizException(ERRORCODE.NO_DATA.getCode(), ERRORCODE.NO_DATA.getMessage());
         }
         Map<String, Object> result = new HashMap<>();
         //设置标题
-        result.put("text", curMonth + "月用户注册量统计");
+        result.put("text", month + 1 + "月用户注册量统计");
         result.put("subtext", "当月每天注册量统计");
         List<String> xAxis = new ArrayList<>(biResultDtos.size());
         List<Integer> data = new ArrayList<>(biResultDtos.size());
@@ -173,12 +171,12 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
         for (BiResultDto bi : queryResult) {
             if (bi.getDeviceType() != 0) {
                 app += bi.getValue();
-            }else{
+            } else {
                 pc = bi.getValue();
             }
         }
         dataDto = new BiDataDto();
-        dataDto.setContent("PC: "+pc+"   App: "+ app);
+        dataDto.setContent("PC: " + pc + "   App: " + app);
         result.put("devicePV", dataDto);
         return result;
     }

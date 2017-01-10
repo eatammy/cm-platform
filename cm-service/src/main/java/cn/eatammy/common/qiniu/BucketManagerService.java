@@ -8,7 +8,7 @@ import com.qiniu.storage.model.FileInfo;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by 郭旭辉 on 2016/4/26.
+ * Created by simagle on 2016/4/26.
  * 空间资源管理
  */
 @Component("bucketManagerService")

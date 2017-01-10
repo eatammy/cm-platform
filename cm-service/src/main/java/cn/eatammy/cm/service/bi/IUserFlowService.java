@@ -65,10 +65,11 @@ public interface IUserFlowService<D extends ICMBaseDAO<T>, T extends BaseDomain>
     /**
      * 获取注册情况（分析统计）
      *
+     * @param year  年份
      * @param month 月份
      * @return 返回，数据视图
      */
-    Map<String, Object> getRegisterCharts(Integer month);
+    Map<String, Object> getRegisterCharts(Integer year, Integer month);
 
     /**
      * 获取统计数据视图

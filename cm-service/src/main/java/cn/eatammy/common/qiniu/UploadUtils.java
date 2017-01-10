@@ -1,5 +1,8 @@
 package cn.eatammy.common.qiniu;
 
+import com.qiniu.common.QiniuException;
+import com.qiniu.http.Response;
+import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import com.qiniu.util.StringMap;
 
@@ -77,5 +80,18 @@ public class UploadUtils {
     @Deprecated
     public String uploadToken(String bucket, String key, long expires, StringMap policy, boolean strict) {
         return null;
+    }
+
+
+
+
+
+    public static void main(String[] args) throws QiniuException {
+        //创建上传对象
+        UploadManager uploadManager = new UploadManager();
+        //调用put方法上传
+        Response res = uploadManager.put("haha".getBytes(), "haha.txt", generalToken(BucketEnum.AUTH.getBucketName()));
+        //打印返回的信息
+        System.out.println(res.bodyString());
     }
 }
