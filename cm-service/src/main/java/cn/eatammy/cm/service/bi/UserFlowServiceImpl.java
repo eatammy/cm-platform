@@ -111,22 +111,32 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
     @Override
     public Map<String, Object> getRegisterInfo() {
         Map<String, Object> result = new HashMap<>();
-        result.put("gross", userDetailDAO.count(null));
+        result.put("grossRegister", userDetailDAO.count(null));
         result.put("monthRegister", userDetailDAO.countCurMonthRegister());
         result.put("weekRegister", userDetailDAO.countCurWeekRegister().get(0).getValue());
         result.put("dayRegister", userDetailDAO.countCurDayRegister());
+        result.put("years",CommonUtils.generateYears());
         return result;
     }
 
     @Override
     public Map<String, Object> getRegisterCharts(Integer year, Integer month) {
+       Map<String,Object> result = new HashMap<>(2);
+       //总体注册量统计
+       result.put("allRegisterPV", countAllRegisterPV(year, month));
+       //年龄区间注册量统计
+       result.put("ageRangeRegisterPV", getAgeRangeRegisterPV(year, month));
+       return result;
+    }
+
+    @Override
+    public Map<String, Object> countAllRegisterPV(Integer year, Integer month) {
         List<BiResultDto> biResultDtos = userDetailDAO.queryRegister(year, CommonUtils.getMonthSpan(year, month));
         if (biResultDtos.size() <= 0) {
             throw new BizException(ERRORCODE.NO_DATA.getCode(), ERRORCODE.NO_DATA.getMessage());
         }
         Map<String, Object> result = new HashMap<>();
-        //设置标题
-        result.put("text", month + 1 + "月用户注册量统计");
+        result.put("text", month  + "月用户注册量统计");
         result.put("subtext", "当月每天注册量统计");
         List<String> xAxis = new ArrayList<>(biResultDtos.size());
         List<Integer> data = new ArrayList<>(biResultDtos.size());
@@ -291,6 +301,41 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
             return result;
         }
         throw new BizException(ERRORCODE.NO_DATA.getCode(), ERRORCODE.NO_DATA.getMessage());
+    }
+
+    /**
+     * 统计不同年龄段的注册用户
+     * @param year      年份
+     * @param month     月份
+     * @return  返回，注册统计集合
+     */
+    private Map<String, Object> getAgeRangeRegisterPV(Integer year, Integer month){
+        Map<String, Object> result = new HashMap<>(2);
+        int minAge = 10, maxAge = 80;
+        List<String> xAxis = null;  //横坐标
+        List<Integer> itemData;  // 数据值
+        List<List<Integer>> data = new ArrayList<>();  // 数据值
+        List<BiResultDto> queryResult = null;
+        for (int i = minAge; i < maxAge; i += 10) {
+            if (i >= 60) {
+                queryResult = userDetailDAO.countAgeRangeRegisterPV(year, CommonUtils.getMonthSpan(year, month), i, maxAge);
+                xAxis = new ArrayList<>(queryResult.size());
+                for (BiResultDto bi : queryResult) {
+                    xAxis.add(bi.getName().toString());
+                }
+                i += 20;//迫使本次循环之后退出循环
+            } else {
+                queryResult = userDetailDAO.countAgeRangeRegisterPV(year, CommonUtils.getMonthSpan(year, month),i, i + 10);
+            }
+            itemData = new ArrayList<>(queryResult.size());
+            for (BiResultDto bi : queryResult) {
+                itemData.add(bi.getValue());
+            }
+            data.add(itemData);
+        }
+        result.put("xAxis", xAxis);
+        result.put("data", data);
+        return result;
     }
 
 

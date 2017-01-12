@@ -178,7 +178,7 @@
         FROM cm_user_detail
        <where>
            <if test="year != null and year != -1">
-               AND date_format(FROM_UNIXTIME(createDate/1000),'%Y') = #{month}
+               AND date_format(FROM_UNIXTIME(createDate/1000),'%Y') = #{year}
            </if>
            <if test="month != null and month != -1">
                AND date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
@@ -216,6 +216,21 @@
 
     <select id="getRandomUsers" resultType="cn.eatammy.cm.domain.user.UserDetail">
         select * from cm_user_detail WHERE status = 0 ORDER BY RAND() limit ${count};
+    </select>
+
+    <select id="countAgeRangeRegisterPV" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
+        SELECT DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%d日')as name,
+        SUM(CASE WHEN cud.age &gt;=#{minAge} AND cud.age &lt; #{maxAge} THEN 1 ELSE 0 END) AS value
+        FROM cm_user_detail cud
+        <where>
+            <if test="year != null and year != -1">
+                AND date_format(FROM_UNIXTIME(createDate/1000),'%Y') = #{year}
+            </if>
+            <if test="month != null and month != -1">
+                and date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
+            </if>
+        </where>
+        GROUP BY name
     </select>
 
 

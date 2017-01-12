@@ -108,13 +108,14 @@ public class CommonUtils {
 
     /**
      * 获取月份步长
-     * @param year      年份
-     * @param month     月份，0~11：1月~12月
+     *
+     * @param year  年份
+     * @param month 月份，0~11：1月~12月
      * @return 返回，步长值
      */
     public static int getMonthSpan(int year, int month) {
         int curYear = calendar.get(Calendar.YEAR);
-        int curmonth = calendar.get(Calendar.YEAR);
+        int curmonth = calendar.get(Calendar.MONTH) + 1;
         if (year > curYear) {
             throw new BizException(ERRORCODE.NO_DATA.getCode(), ERRORCODE.NO_DATA.getMessage());
         }
@@ -125,6 +126,19 @@ public class CommonUtils {
             return curmonth + 12 - month;
         }
         return 0;
+    }
+
+    /**
+     * 获取年份数组
+     *
+     * @return 返回年份数组
+     */
+    public static List<Integer> generateYears() {
+        List<Integer> result = new ArrayList<>();
+        for (int i = 2016; i <= calendar.get(Calendar.YEAR); i++) {
+            result.add(i);
+        }
+        return result;
     }
 
 
@@ -170,4 +184,6 @@ public class CommonUtils {
     public static void main(String[] args) {
         System.out.println(calendar.get(Calendar.MONTH));
     }
+
+
 }

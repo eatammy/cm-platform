@@ -72,6 +72,14 @@ public interface IUserFlowService<D extends ICMBaseDAO<T>, T extends BaseDomain>
     Map<String, Object> getRegisterCharts(Integer year, Integer month);
 
     /**
+     * 统计当月注册每日注册总量情况
+     * @param year      年份
+     * @param month     月份
+     * @return  返回，统计结果集合
+     */
+    Map<String, Object> countAllRegisterPV(Integer year, Integer month);
+
+    /**
      * 获取统计数据视图
      * @return  返回，统计结果集合
      */

@@ -194,4 +194,15 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
      */
     @DataSource("read")
     List<UserDetail> getRandomUsers(@Param("count") int count);
+
+
+    /**
+     * 统计不同年龄区间的用户注册量
+     * @param year      年份
+     * @param month     月份偏移量，0表示当前月份，1：上一个月，以此递增
+     * @param minAge    最小年龄
+     * @param maxAge    最大年龄
+     * @return  返回统计结果集合
+     */
+    List<BiResultDto> countAgeRangeRegisterPV(@Param("year") Integer year, @Param("month") Integer month, @Param("minAge") Integer minAge, @Param("maxAge") Integer maxAge);
 }
