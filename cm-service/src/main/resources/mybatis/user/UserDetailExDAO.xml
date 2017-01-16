@@ -183,6 +183,9 @@
            <if test="month != null and month != -1">
                AND date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
            </if>
+           <if test="day != null and day != -1">
+               AND date_format(FROM_UNIXTIME(createDate/1000),'%d') &lt;= #{day}
+           </if>
        </where>
         GROUP BY name
     </select>
@@ -227,7 +230,10 @@
                 AND date_format(FROM_UNIXTIME(createDate/1000),'%Y') = #{year}
             </if>
             <if test="month != null and month != -1">
-                and date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
+                AND date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
+            </if>
+            <if test="day != null and day != -1">
+                AND date_format(FROM_UNIXTIME(createDate/1000),'%d') &lt;= #{day}
             </if>
         </where>
         GROUP BY name

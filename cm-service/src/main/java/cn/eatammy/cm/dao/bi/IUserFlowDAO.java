@@ -60,10 +60,11 @@ public interface IUserFlowDAO extends ICMBaseDAO<UserFlow> {
 
     /**
      * 统计近的用户活跃量（男女）
+     * @param day 天
      * @return 返回，近一月的活跃用户统计量
      */
     @DataSource("read")
-    List<BiResultDto> countMonthActivePV();
+    List<BiResultDto> countMonthActivePV(@Param("day") Integer day);
 
     /**
      * 统计年龄区间段的用户活跃量（年龄区间）
@@ -84,13 +85,21 @@ public interface IUserFlowDAO extends ICMBaseDAO<UserFlow> {
 
     /**
      * 查询最后两个月的活跃用户
+     * @param year      年份
+     * @param month     0，表示当前月份，递增表示往前的月份，如1，表示上个月，2表示前个月
      * @param offset    偏移量
      * @param rows      行号
-     * @return  返回，统计结果
+     * @return  返回，统计结果列表
      */
     @DataSource("read")
-    List<BiResultDto> countLastTowMonthActivePV(@Param("offset")Integer offset, @Param("rows")Integer rows);
+    List<BiResultDto> countLastTowMonthActivePV(@Param("year")Integer year, @Param("month")Integer month, @Param("offset")Integer offset, @Param("rows")Integer rows);
 
+    /**
+     * 统计某个月份的活跃用户量
+     * @param year      年份
+     * @param month     0，表示当前月份，递增表示往前的月份，如1，表示上个月，2表示前个月
+     * @return 返回统计结果
+     */
     @DataSource("read")
     BiResultDto countMonthActivePv(@Param("year") Integer year, @Param("month") Integer month);
 

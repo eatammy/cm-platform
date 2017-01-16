@@ -157,7 +157,7 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
      * @return  返回，每天注册的统计集合
      */
     @DataSource("read")
-    List<BiResultDto> queryRegister(@Param("year") Integer year, @Param("month") Integer month);
+    List<BiResultDto> queryRegister(@Param("year") Integer year, @Param("month") Integer month, @Param("day") Integer day);
 
     /**
      * 统计当前月份的注册量（BI）
@@ -200,9 +200,10 @@ public interface IUserDetailDAO extends ICMBaseDAO<UserDetail> {
      * 统计不同年龄区间的用户注册量
      * @param year      年份
      * @param month     月份偏移量，0表示当前月份，1：上一个月，以此递增
+     * @param day       天
      * @param minAge    最小年龄
      * @param maxAge    最大年龄
      * @return  返回统计结果集合
      */
-    List<BiResultDto> countAgeRangeRegisterPV(@Param("year") Integer year, @Param("month") Integer month, @Param("minAge") Integer minAge, @Param("maxAge") Integer maxAge);
+    List<BiResultDto> countAgeRangeRegisterPV(@Param("year") Integer year, @Param("month") Integer month, @Param("day") Integer day, @Param("minAge") Integer minAge, @Param("maxAge") Integer maxAge);
 }

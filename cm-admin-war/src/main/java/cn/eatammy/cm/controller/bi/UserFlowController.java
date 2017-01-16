@@ -63,7 +63,7 @@ public class UserFlowController {
      */
     @ResponseBody
     @RequestMapping(value = "/getStatisticalData")
-    public Map<String, Object> getStatisticalData(@RequestParam(defaultValue = "0") Integer month){
+    public Map<String, Object> getStatisticalData(@RequestParam(defaultValue = "1") Integer month){
         return  userFlowService.getStatisticalData(month);
     }
 

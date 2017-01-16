@@ -50,8 +50,8 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
     private IUserDetailDAO userDetailDAO;
 
     private DecimalFormat df = new DecimalFormat("#.##");
-    private int year= CommonUtils.calendar.get(Calendar.YEAR);
-
+    private int year = CommonUtils.calendar.get(Calendar.YEAR);
+    private int day = CommonUtils.calendar.get(Calendar.DAY_OF_MONTH);
 
 
     @Override
@@ -118,28 +118,28 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
         result.put("monthRegister", userDetailDAO.countCurMonthRegister());
         result.put("weekRegister", userDetailDAO.countCurWeekRegister().get(0).getValue());
         result.put("dayRegister", userDetailDAO.countCurDayRegister());
-        result.put("years",CommonUtils.generateYears());
+        result.put("years", CommonUtils.generateYears());
         return result;
     }
 
     @Override
     public Map<String, Object> getRegisterCharts(Integer year, Integer month) {
-       Map<String,Object> result = new HashMap<>(2);
-       //总体注册量统计
-       result.put("allRegisterPV", countAllRegisterPV(year, month));
-       //年龄区间注册量统计
-       result.put("ageRangeRegisterPV", getAgeRangeRegisterPV(year, month));
-       return result;
+        Map<String, Object> result = new HashMap<>(2);
+        //总体注册量统计
+        result.put("allRegisterPV", countAllRegisterPV(year, month));
+        //年龄区间注册量统计
+        result.put("ageRangeRegisterPV", getAgeRangeRegisterPV(year, month));
+        return result;
     }
 
     @Override
     public Map<String, Object> countAllRegisterPV(Integer year, Integer month) {
-        List<BiResultDto> biResultDtos = userDetailDAO.queryRegister(year, CommonUtils.getMonthSpan(year, month));
+        List<BiResultDto> biResultDtos = userDetailDAO.queryRegister(year, CommonUtils.getMonthSpan(year, month),day);
         if (biResultDtos.size() <= 0) {
             throw new BizException(ERRORCODE.NO_DATA.getCode(), ERRORCODE.NO_DATA.getMessage());
         }
         Map<String, Object> result = new HashMap<>();
-        result.put("text", month  + "月用户注册量统计");
+        result.put("text", month + "月用户注册量统计");
         result.put("subtext", "当月每天注册量统计");
         List<String> xAxis = new ArrayList<>(biResultDtos.size());
         List<Integer> data = new ArrayList<>(biResultDtos.size());
@@ -154,27 +154,25 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
 
     @Override
     public Map<String, Object> getStatisticalData(Integer month) {
-        int year = CommonUtils.calendar.get(Calendar.YEAR);
-//        int month = 0;
         Map<String, Object> result = new HashMap<>(3);
         List<BiResultDto> queryResult = null;
         BiDataDto dataDto = null;
 
         //查询今天访客数量
-        queryResult = userFlowDAO.countMonthPV(year, CommonUtils.getMonthSpan(year, month), CommonUtils.calendar.get(Calendar.DAY_OF_MONTH),0, 2);
+        queryResult = userFlowDAO.countMonthPV(year, CommonUtils.getMonthSpan(year, month), day, 0, 2);
         dataDto = new BiDataDto();
         dataDto.setContent(String.valueOf(queryResult.get(0).getValue()));
-        dataDto.setRate(String.valueOf(df.format(queryResult.get(0).getValue() * 1.0 / queryResult.get(1).getValue() * 100)) + "%");
-        dataDto.setUpOrDown(queryResult.get(0).getValue() > queryResult.get(1).getValue() ? 1 : 0);
+        dataDto.setRate(String.valueOf(df.format((queryResult.get(0).getValue() - queryResult.get(1).getValue()) * 1.0 / queryResult.get(1).getValue() * 100)) + "%");
+        dataDto.setUpOrDown(queryResult.get(0).getValue() >= queryResult.get(1).getValue() ? 1 : 0);
         result.put("userPV", dataDto);
 
         //统计访客数量
-        queryResult = userFlowDAO.countLastTowMonthActivePV(0, 2);
-        dataDto = new BiDataDto();
-        dataDto.setContent(String.valueOf(queryResult.get(0).getValue()));
-        dataDto.setRate(String.valueOf(df.format(queryResult.get(0).getValue() * 1.0 / queryResult.get(1).getValue() * 100)) + "%");
-        dataDto.setUpOrDown(queryResult.get(0).getValue() > queryResult.get(1).getValue() ? 1 : 0);
-        result.put("activePV", dataDto);
+//        queryResult = userFlowDAO.countLastTowMonthActivePV(0, 2);
+//        dataDto = new BiDataDto();
+//        dataDto.setContent(String.valueOf(queryResult.get(0).getValue()));
+//        dataDto.setRate(String.valueOf(df.format(queryResult.get(0).getValue() * 1.0 / queryResult.get(1).getValue() * 100)) + "%");
+//        dataDto.setUpOrDown(queryResult.get(0).getValue() > queryResult.get(1).getValue() ? 1 : 0);
+        result.put("activePV", getAcitveUsers(month));
 
         //统计设备数量
         queryResult = userFlowDAO.countDevicePV(month);
@@ -193,20 +191,23 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
         return result;
     }
 
-    private BiDataDto getAcitveUsers(Integer month){
-
-        BiDataDto dataDto = null;
-        if(month > 1){
-            List<BiResultDto> queryResult = userFlowDAO.countLastTowMonthActivePV(0, 2);
-            dataDto = new BiDataDto();
+    private BiDataDto getAcitveUsers(Integer month) {
+        BiDataDto dataDto = dataDto = new BiDataDto();
+        if (month > 1) {
+            List<BiResultDto> queryResult = userFlowDAO.countLastTowMonthActivePV(year, CommonUtils.getMonthSpan(year, month), 0, 2);
             dataDto.setContent(String.valueOf(queryResult.get(0).getValue()));
-            dataDto.setRate(String.valueOf(df.format(queryResult.get(0).getValue() * 1.0 / queryResult.get(1).getValue() * 100)) + "%");
-            dataDto.setUpOrDown(queryResult.get(0).getValue() > queryResult.get(1).getValue() ? 1 : 0);
-        }else{  //如果是当前月份为1月份，那么要统计上年12月份的活跃用户量
+            dataDto.setRate(String.valueOf(df.format((queryResult.get(0).getValue() - queryResult.get(1).getValue()) * 1.0 / queryResult.get(1).getValue() * 100)) + "%");
+            dataDto.setUpOrDown(queryResult.get(0).getValue() >= queryResult.get(1).getValue() ? 1 : 0);
+        } else {  //如果是当前月份为1月份，那么要统计上年12月份的活跃用户量
             //统计一月份活跃用户量
-//            BiResultDto biResultDto = userFlowDAO.countMonthActivePv(, CommonUtils)
+            BiResultDto biResultDto = userFlowDAO.countMonthActivePv(year, CommonUtils.getMonthSpan(year, month));
+            //获取上一个年度的活跃用户量
+            BiResultDto biResultDto1 = userFlowDAO.countMonthActivePv(year - 1, 1);
+            dataDto.setContent(String.valueOf(biResultDto.getValue()));
+            dataDto.setRate(String.valueOf(df.format((biResultDto.getValue() - biResultDto1.getValue()) * 1.0 / biResultDto1.getValue() * 100) + "%"));
+            dataDto.setUpOrDown(biResultDto.getValue() >= biResultDto1.getValue() ? 1 : 0);
         }
-        return  dataDto;
+        return dataDto;
     }
 
     /**
@@ -255,7 +256,7 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
      */
     private List<BiResultDto> getUserPV(Integer year, Integer month) {
         month = Math.abs(CommonUtils.calendar.get(Calendar.MONTH) + 1 - month);
-        List<BiResultDto> queryResult = userFlowDAO.countMonthPV(year, month, CommonUtils.calendar.get(Calendar.DAY_OF_MONTH), null, null);
+        List<BiResultDto> queryResult = userFlowDAO.countMonthPV(year, month, day, null, null);
         if (queryResult.size() > 0) {
             return queryResult;
         }
@@ -274,7 +275,7 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
         result.put("text", "活跃用户统计");
         result.put("subtext", "每天活跃用户统计");
         if (isDefault.equals(0)) {    //表示按性别统计
-            queryResult = userFlowDAO.countMonthActivePV();
+            queryResult = userFlowDAO.countMonthActivePV(day);
             if (queryResult.size() > 0) {
                 List<String> xAxis = new ArrayList<>();
                 List<Integer> male = new ArrayList<>();
@@ -323,11 +324,12 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
 
     /**
      * 统计不同年龄段的注册用户
-     * @param year      年份
-     * @param month     月份
-     * @return  返回，注册统计集合
+     *
+     * @param year  年份
+     * @param month 月份
+     * @return 返回，注册统计集合
      */
-    private Map<String, Object> getAgeRangeRegisterPV(Integer year, Integer month){
+    private Map<String, Object> getAgeRangeRegisterPV(Integer year, Integer month) {
         Map<String, Object> result = new HashMap<>(2);
         int minAge = 10, maxAge = 80;
         List<String> xAxis = null;  //横坐标
@@ -336,14 +338,14 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
         List<BiResultDto> queryResult = null;
         for (int i = minAge; i < maxAge; i += 10) {
             if (i >= 60) {
-                queryResult = userDetailDAO.countAgeRangeRegisterPV(year, CommonUtils.getMonthSpan(year, month), i, maxAge);
+                queryResult = userDetailDAO.countAgeRangeRegisterPV(year, CommonUtils.getMonthSpan(year, month), day, i, maxAge);
                 xAxis = new ArrayList<>(queryResult.size());
                 for (BiResultDto bi : queryResult) {
                     xAxis.add(bi.getName().toString());
                 }
                 i += 20;//迫使本次循环之后退出循环
             } else {
-                queryResult = userDetailDAO.countAgeRangeRegisterPV(year, CommonUtils.getMonthSpan(year, month),i, i + 10);
+                queryResult = userDetailDAO.countAgeRangeRegisterPV(year, CommonUtils.getMonthSpan(year, month), day, i, i + 10);
             }
             itemData = new ArrayList<>(queryResult.size());
             for (BiResultDto bi : queryResult) {
