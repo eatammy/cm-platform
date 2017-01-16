@@ -69,7 +69,7 @@ public class CommonUtils {
         return rtn;
     }
 
-    private static Calendar calendar = Calendar.getInstance();
+    public static Calendar calendar = Calendar.getInstance();
     private static DateFormat format = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
 
     /**
@@ -182,7 +182,7 @@ public class CommonUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(calendar.get(Calendar.MONTH));
+        System.out.println(calendar.get(Calendar.DAY_OF_MONTH));
     }
 
 

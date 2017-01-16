@@ -48,12 +48,13 @@ public interface IUserFlowDAO extends ICMBaseDAO<UserFlow> {
      * 统计每个月每天用户的访问量
      * @param year  年份
      * @param month 月份，0，表示当前月份，递增表示往前的月份，如1，表示上个月，2表示前个月
+     * @param day   天数
      * @param offset 偏移量
      * @param rows 行号
      * @return  一年中每个月的用户访问量集合
      */
     @DataSource("read")
-    List<BiResultDto> countMonthPV(@Param("year") Integer year, @Param("month") Integer month,@Param("offset") Integer offset, @Param("rows") Integer rows);
+    List<BiResultDto> countMonthPV(@Param("year") Integer year, @Param("month") Integer month, @Param("day") Integer day, @Param("offset") Integer offset, @Param("rows") Integer rows);
 
 
 
@@ -89,5 +90,8 @@ public interface IUserFlowDAO extends ICMBaseDAO<UserFlow> {
      */
     @DataSource("read")
     List<BiResultDto> countLastTowMonthActivePV(@Param("offset")Integer offset, @Param("rows")Integer rows);
+
+    @DataSource("read")
+    BiResultDto countMonthActivePv(@Param("year") Integer year, @Param("month") Integer month);
 
 }

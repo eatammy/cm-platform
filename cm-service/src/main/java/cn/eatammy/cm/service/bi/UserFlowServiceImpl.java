@@ -49,7 +49,10 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
     @Autowired
     private IUserDetailDAO userDetailDAO;
 
-    private Calendar calendar = Calendar.getInstance();
+    private DecimalFormat df = new DecimalFormat("#.##");
+    private int year= CommonUtils.calendar.get(Calendar.YEAR);
+
+
 
     @Override
     public ICMBaseDAO<UserFlow> getDao() {
@@ -150,16 +153,15 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
     }
 
     @Override
-    public Map<String, Object> getStatisticalData() {
-        int year = calendar.get(Calendar.YEAR);
-        int month = 0;
+    public Map<String, Object> getStatisticalData(Integer month) {
+        int year = CommonUtils.calendar.get(Calendar.YEAR);
+//        int month = 0;
         Map<String, Object> result = new HashMap<>(3);
         List<BiResultDto> queryResult = null;
         BiDataDto dataDto = null;
-        DecimalFormat df = new DecimalFormat("#.##");
 
         //查询今天访客数量
-        queryResult = userFlowDAO.countMonthPV(year, month, 0, 2);
+        queryResult = userFlowDAO.countMonthPV(year, CommonUtils.getMonthSpan(year, month), CommonUtils.calendar.get(Calendar.DAY_OF_MONTH),0, 2);
         dataDto = new BiDataDto();
         dataDto.setContent(String.valueOf(queryResult.get(0).getValue()));
         dataDto.setRate(String.valueOf(df.format(queryResult.get(0).getValue() * 1.0 / queryResult.get(1).getValue() * 100)) + "%");
@@ -189,6 +191,22 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
         dataDto.setContent("PC: " + pc + "   App: " + app);
         result.put("devicePV", dataDto);
         return result;
+    }
+
+    private BiDataDto getAcitveUsers(Integer month){
+
+        BiDataDto dataDto = null;
+        if(month > 1){
+            List<BiResultDto> queryResult = userFlowDAO.countLastTowMonthActivePV(0, 2);
+            dataDto = new BiDataDto();
+            dataDto.setContent(String.valueOf(queryResult.get(0).getValue()));
+            dataDto.setRate(String.valueOf(df.format(queryResult.get(0).getValue() * 1.0 / queryResult.get(1).getValue() * 100)) + "%");
+            dataDto.setUpOrDown(queryResult.get(0).getValue() > queryResult.get(1).getValue() ? 1 : 0);
+        }else{  //如果是当前月份为1月份，那么要统计上年12月份的活跃用户量
+            //统计一月份活跃用户量
+//            BiResultDto biResultDto = userFlowDAO.countMonthActivePv(, CommonUtils)
+        }
+        return  dataDto;
     }
 
     /**
@@ -236,8 +254,8 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
      * @return 返回，统计结果
      */
     private List<BiResultDto> getUserPV(Integer year, Integer month) {
-        month = Math.abs(calendar.get(Calendar.MONTH) + 1 - month);
-        List<BiResultDto> queryResult = userFlowDAO.countMonthPV(year, month, null, null);
+        month = Math.abs(CommonUtils.calendar.get(Calendar.MONTH) + 1 - month);
+        List<BiResultDto> queryResult = userFlowDAO.countMonthPV(year, month, CommonUtils.calendar.get(Calendar.DAY_OF_MONTH), null, null);
         if (queryResult.size() > 0) {
             return queryResult;
         }
@@ -346,7 +364,7 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
      * @return 返回，统计结果
      */
     private Map<String, Object> getDevicePV(Integer month) {
-        month = Math.abs(calendar.get(Calendar.MONTH) + 1 - month);
+        month = Math.abs(CommonUtils.calendar.get(Calendar.MONTH) + 1 - month);
         List<BiResultDto> queryResult = userFlowDAO.countDevicePV(month);
         List<BiResultDto> data;
         Map<String, Object> result;

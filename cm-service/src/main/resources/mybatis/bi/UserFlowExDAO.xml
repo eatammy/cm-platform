@@ -27,9 +27,10 @@
 		From cm_bi_user_flow
 		WHERE DATE_FORMAT(FROM_UNIXTIME(createTime/1000),'%Y') = #{year}
 		AND date_format(FROM_UNIXTIME(createTime/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
+        AND date_format(FROM_UNIXTIME(createTime/1000),'%d') &lt;= #{day}
 		GROUP BY name
-		<if test="offset != null">
-            order by name desc
+        order by name desc
+        <if test="offset != null">
             limit ${offset}, ${rows}
         </if>
 	</select>
@@ -43,7 +44,7 @@
 
     <select id="countAgeRangeActivePV" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
 		SELECT DATE_FORMAT(FROM_UNIXTIME(cbuf.createTime/1000),'%d日')as name,
-		SUM(CASE WHEN cud.age &gt;=#{minAge} AND cud.age &lt; #{maxAge} THEN 1 ELSE 0 END) AS value
+		SUM(CASE WHEN cud.age &gt;= #{minAge} AND cud.age &lt; #{maxAge} THEN 1 ELSE 0 END) AS value
 		FROM cm_bi_user_flow cbuf LEFT JOIN cm_user_detail cud ON cbuf.uid = cud.`code`
 		WHERE cbuf.eventType = 1 AND date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval 0 month),'%Y-%m')
 		GROUP BY name
@@ -57,15 +58,35 @@
         GROUP BY name,deviceType
     </select>
 
+    <!--<select id="countLastTowMonthActivePV" resultType="cn.eatammy.cm.domain.bi.BiResultDto">-->
+        <!--SELECT DATE_FORMAT(FROM_UNIXTIME(cbuf.createTime/1000),'%m月')as name, count(cud.id) as value-->
+        <!--FROM cm_bi_user_flow cbuf LEFT JOIN cm_user_detail cud ON cbuf.uid = cud.`code`-->
+        <!--WHERE cbuf.eventType = 1-->
+        <!--GROUP BY name-->
+		<!--ORDER BY name DESC-->
+	    <!--<if test="offset!= null">-->
+            <!--limit ${offset}, ${rows}-->
+        <!--</if>-->
+    <!--</select>-->
+
     <select id="countLastTowMonthActivePV" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
-        SELECT DATE_FORMAT(FROM_UNIXTIME(cbuf.createTime/1000),'%m月')as name, count(cud.id) as value
-        FROM cm_bi_user_flow cbuf LEFT JOIN cm_user_detail cud ON cbuf.uid = cud.`code`
-        WHERE cbuf.eventType = 1
+        SELECT DATE_FORMAT(FROM_UNIXTIME(cbuf.createTime/1000),'%m月')as name, count(cbuf.id) as value
+        FROM cm_bi_user_flow cbuf
+        WHERE cbuf.eventType = 1 and cbuf.uid is not null
         GROUP BY name
-		ORDER BY name DESC
-	    <if test="offset!= null">
+        ORDER BY name DESC
+        <if test="offset!= null">
             limit ${offset}, ${rows}
         </if>
+    </select>
+
+    <select id="countMonthActivePv" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
+        SELECT DATE_FORMAT(FROM_UNIXTIME(cbuf.createTime/1000),'%m月')as name, count(cbuf.id) as value
+        FROM cm_bi_user_flow cbuf
+        WHERE cbuf.eventType = 1 and cbuf.uid is not null
+        AND date_format(FROM_UNIXTIME(createTime/1000),'%Y') = #{year}
+        AND date_format(FROM_UNIXTIME(createTime/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
+        GROUP BY name
     </select>
 
 
