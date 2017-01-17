@@ -68,12 +68,15 @@ public interface IUserFlowDAO extends ICMBaseDAO<UserFlow> {
 
     /**
      * 统计年龄区间段的用户活跃量（年龄区间）
+     * @param year      年份
+     * @param month     月份，0，表示当前月份，递增表示往前的月份，如1，表示上个月，2表示前个月
+     * @param day       天数
      * @param minAge    最小年龄
      * @param maxAge    最大年龄
      * @return  返回，近一个月不同该年龄段的活跃用户统计量
      */
     @DataSource("read")
-    List<BiResultDto> countAgeRangeActivePV(@Param("minAge") Integer minAge, @Param("maxAge") Integer maxAge);
+    List<BiResultDto> countAgeRangeActivePV(@Param("year") Integer year, @Param("month")Integer month, @Param("day") Integer day, @Param("minAge") Integer minAge, @Param("maxAge") Integer maxAge);
 
     /**
      * 统计当前月各种设备的访问量

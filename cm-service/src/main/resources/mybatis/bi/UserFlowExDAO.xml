@@ -47,7 +47,18 @@
 		SELECT DATE_FORMAT(FROM_UNIXTIME(cbuf.createTime/1000),'%d日')as name,
 		SUM(CASE WHEN cud.age &gt;= #{minAge} AND cud.age &lt; #{maxAge} THEN 1 ELSE 0 END) AS value
 		FROM cm_bi_user_flow cbuf LEFT JOIN cm_user_detail cud ON cbuf.uid = cud.`code`
-		WHERE cbuf.eventType = 1 AND date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval 0 month),'%Y-%m')
+		<where>
+            <if test="year != null and year != -1">
+                AND date_format(FROM_UNIXTIME(createDate/1000),'%Y') = #{year}
+            </if>
+            <if test="month != null and month != -1">
+               AND  cbuf.eventType = 1  AND date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
+            </if>
+            <if test="day != null and day != -1">
+                AND date_format(FROM_UNIXTIME(createDate/1000),'%d') &lt;= #{day}
+            </if>
+        </where>
+
 		GROUP BY name
 	</select>
 
