@@ -138,10 +138,19 @@
     <select id="countMonthShops" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
         SELECT DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%m月') as name,count(id) as value
         FROM cm_business_shop
-        WHERE DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%m') = DATE_FORMAT(date_sub(curdate(), interval #{month} month),'%m')
+        <where>
+            <if test="year != null and year != -1">
+                AND date_format(FROM_UNIXTIME(createDate/1000),'%Y') = #{year}
+            </if>
+            <if test="month != null and month != -1">
+                AND DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%m') = DATE_FORMAT(date_sub(curdate(), interval #{month} month),'%m')
+            </if>
+            <if test="day != null and day != -1">
+                AND date_format(FROM_UNIXTIME(createDate/1000),'%d') &lt;= #{day}
+            </if>
+        </where>
         GROUP BY name
         ORDER BY name DESC
-
     </select>
 
     <select id="queryTopTen" resultType="cn.eatammy.cm.domain.business.Shop">

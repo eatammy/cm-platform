@@ -167,15 +167,10 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
         result.put("userPV", dataDto);
 
         //统计访客数量
-//        queryResult = userFlowDAO.countLastTowMonthActivePV(0, 2);
-//        dataDto = new BiDataDto();
-//        dataDto.setContent(String.valueOf(queryResult.get(0).getValue()));
-//        dataDto.setRate(String.valueOf(df.format(queryResult.get(0).getValue() * 1.0 / queryResult.get(1).getValue() * 100)) + "%");
-//        dataDto.setUpOrDown(queryResult.get(0).getValue() > queryResult.get(1).getValue() ? 1 : 0);
         result.put("activePV", getAcitveUsers(month));
 
         //统计设备数量
-        queryResult = userFlowDAO.countDevicePV(month);
+        queryResult = userFlowDAO.countDevicePV(curYear, CommonUtils.getMonthSpan(curYear, month), CommonUtils.getDayOfMonth(curYear, month));
         int app = 0;
         int pc = 0;
         for (BiResultDto bi : queryResult) {
@@ -237,7 +232,7 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
             case 1:
                 return getActivePV(year, month, isDefault);
             case 2:
-                return getDevicePV(month);
+                return getDevicePV(year, month);
             default:
                 throw new BizException(ERRORCODE.PARAM_ISERROR.getCode(), ERRORCODE.PARAM_ISERROR.getMessage());
         }
@@ -364,9 +359,8 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
      * @param month 月份，0，表示当前月份，递增表示往前的月份，如1，表示上个月，2表示前个月
      * @return 返回，统计结果
      */
-    private Map<String, Object> getDevicePV(Integer month) {
-        month = Math.abs(CommonUtils.calendar.get(Calendar.MONTH) + 1 - month);
-        List<BiResultDto> queryResult = userFlowDAO.countDevicePV(month);
+    private Map<String, Object> getDevicePV(Integer year,Integer month) {
+        List<BiResultDto> queryResult = userFlowDAO.countDevicePV(year, CommonUtils.getMonthSpan(year, month), CommonUtils.getDayOfMonth(year, month));
         List<BiResultDto> data;
         Map<String, Object> result;
         if (queryResult.size() > 0) {

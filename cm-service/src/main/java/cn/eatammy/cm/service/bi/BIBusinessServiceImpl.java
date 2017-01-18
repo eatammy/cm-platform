@@ -48,8 +48,8 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
     @Autowired
     private IGoodsDAO goodsDAO;
 
-    private Calendar calendar = Calendar.getInstance();
     DecimalFormat df = new DecimalFormat("#.##");
+
 
     @Override
     public Map<String, Object> getBusinessInfo() {
@@ -97,7 +97,7 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
     @Override
     public Map<String, Object> queryBusinessChart(int year, int month) {
         Map<String, Object> result = new HashMap<>();
-        month = calendar.get(Calendar.MONTH) + 1 - month;
+        month = CommonUtils.calendar.get(Calendar.MONTH) + 1 - month;
         //查询图表数据
         List<BiResultDto> allIndents = indentDAO.countDailyIndentsByMonth(year, month, null);   //订单总数
         List<BiResultDto> payedIndents = indentDAO.countDailyIndentsByMonth(year, month, 1);    //付款订单数

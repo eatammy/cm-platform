@@ -91,11 +91,13 @@ public interface IShopDAO extends ICMBaseDAO<Shop> {
 
     /**
      * 统计某个月份新增的商店数量
+     * @param year  年份
      * @param month 月份，0：表示当前月份，1：上个月份，-1：下个月，以此类推，2：前个月，-2：后个月等
+     * @param day   天数
      * @return  返回，统计结果
      */
     @DataSource("read")
-    BiResultDto countMonthShops(int month);
+    BiResultDto countMonthShops(@Param("year")Integer year, @Param("month")Integer month, @Param("day")Integer day);
 
     /**
      * 批量插入商家（BI分析产生数据）

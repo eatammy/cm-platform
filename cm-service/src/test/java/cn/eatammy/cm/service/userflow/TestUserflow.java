@@ -40,11 +40,43 @@ public class TestUserflow {
             userFlow.setUid(user.getCode());
             userFlow.setEventType(1);
             userFlow.setEventValue("login");
-            userFlow.setDeviceType(new Random().nextInt(3));
-            userFlow.setCreateTime(CommonUtils.randomDate("2016-08-01", "2016-12-31").getTime());
+            userFlow.setDeviceType(getDeviceType());
+            userFlow.setCreateTime(CommonUtils.randomDate("2017-01-01", "2017-12-31").getTime());
             result.add(userFlow);
         }
         userFlowService.addUserFlows(result);
 //        System.out.println(result.size());
+    }
+
+    //登入设备，手机占45%左右，平板占30%，电脑占25%
+    public int getDeviceType(){
+        int[] weight = {40, 30, 30};
+        int sum = 0;
+        int flag = 0;
+        int random = new Random().nextInt(100);
+        for (int i = 0; i < weight.length; i++) {
+            sum += weight[i];
+            if (random <= sum) {
+                flag = i;
+                break;
+            }
+        }
+       return flag;
+    }
+
+    public static void main(String[] args){
+//        int x=0, y=0,z=0;
+//        for(int i=0;i<100;i++){
+//            switch (getDeviceType()){
+//                case 0: x++;break;
+//                case 1: y++;break;
+//                case 2: z++;break;
+//                default:
+//                    System.out.println("deviceType is wrong!!");
+//            }
+//        }
+//        System.out.println(x);
+//        System.out.println(y);
+//        System.out.println(z);
     }
 }

@@ -13,6 +13,11 @@ import java.util.*;
  */
 public class CommonUtils {
 
+    public static Calendar calendar = Calendar.getInstance();
+    private static DateFormat format = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
+    public static Integer currentYear = calendar.get(Calendar.YEAR);
+    public static Integer currentMonth = calendar.get(Calendar.MONTH);
+
     /**
      * 获取无“-”的UUID
      *
@@ -69,8 +74,6 @@ public class CommonUtils {
         return rtn;
     }
 
-    public static Calendar calendar = Calendar.getInstance();
-    private static DateFormat format = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
 
     /**
      * 根据当前时间获取一周中的第一天和最后一天的日期

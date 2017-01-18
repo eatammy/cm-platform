@@ -80,11 +80,13 @@ public interface IUserFlowDAO extends ICMBaseDAO<UserFlow> {
 
     /**
      * 统计当前月各种设备的访问量
-     * @param month 月份，0，表示当前月份，递增表示往前的月份，如1，表示上个月，2表示前个月
+     * @param year   年份
+     * @param month  月份，0，表示当前月份，递增表示往前的月份，如1，表示上个月，2表示前个月
+     * @param day    天数
      * @return  返回，统计结果
      */
     @DataSource("read")
-    List<BiResultDto> countDevicePV(@Param("month") Integer month);
+    List<BiResultDto> countDevicePV(@Param("year")Integer year, @Param("month") Integer month, @Param("day") Integer day);
 
     /**
      * 查询最后两个月的活跃用户

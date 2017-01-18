@@ -42,7 +42,7 @@ public class UserTest {
             userDetail.setProvince(getProvince());
             userDetail.setCode(CommonUtils.getUUID());
             userDetail.setNickname("帅气的胖麦" + userDetail.getCode().substring(0, (int) (Math.random() * 15)));
-            userDetail.setSex((int) (Math.random() * 2));
+            userDetail.setSex(getGender());
             userDetail.setAge(getAge());
             userDetail.setScore(0);
             userDetail.setUserTypes(1);
@@ -141,5 +141,22 @@ public class UserTest {
 
         return min + (int) (Math.random() * ((max - min) + 1));
     }
+
+    //性别控制，男：30%，女：70%
+    private  int getGender(){
+        int[] weight = {30, 70};
+        int sum = 0;
+        int flag = 0;
+        int random = new Random().nextInt(100);
+        for (int i = 0; i < weight.length; i++) {
+            sum += weight[i];
+            if (random <= sum) {
+                flag = i;
+                break;
+            }
+        }
+        return flag;
+    }
+
 
 }

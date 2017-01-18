@@ -49,13 +49,13 @@
 		FROM cm_bi_user_flow cbuf LEFT JOIN cm_user_detail cud ON cbuf.uid = cud.`code`
 		<where>
             <if test="year != null and year != -1">
-                AND date_format(FROM_UNIXTIME(createDate/1000),'%Y') = #{year}
+                AND date_format(FROM_UNIXTIME(cud.createDate/1000),'%Y') = #{year}
             </if>
             <if test="month != null and month != -1">
-               AND  cbuf.eventType = 1  AND date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
+               AND  cbuf.eventType = 1  AND date_format(FROM_UNIXTIME(cud.createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
             </if>
             <if test="day != null and day != -1">
-                AND date_format(FROM_UNIXTIME(createDate/1000),'%d') &lt;= #{day}
+                AND date_format(FROM_UNIXTIME(cbuf.createTime/1000),'%d') &lt;= #{day}
             </if>
         </where>
 
@@ -65,8 +65,17 @@
     <select id="countDevicePV" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
         SELECT DATE_FORMAT(FROM_UNIXTIME(createTime/1000),'%c月')as name, count(id) as value,deviceType
         FROM cm_bi_user_flow
-        WHERE date_format(FROM_UNIXTIME(createTime/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month}
-        month),'%Y-%m')
+        <where>
+            <if test="year != null and year != -1">
+                AND date_format(FROM_UNIXTIME(createTime/1000),'%Y') = #{year}
+            </if>
+            <if test="month != null and month != -1">
+                AND eventType = 1  AND date_format(FROM_UNIXTIME(createTime/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
+            </if>
+            <if test="day != null and day != -1">
+                AND date_format(FROM_UNIXTIME(createTime/1000),'%d') &lt;= #{day}
+            </if>
+        </where>
         GROUP BY name,deviceType
     </select>
 
