@@ -97,7 +97,17 @@
     <select id="countWeekGoodses" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
 		SELECT DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%u周') as name,count(id) as value
         FROM cm_business_goods
- 		WHERE status = 0 AND DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%u') = DATE_FORMAT(date_sub(curdate(), interval #{week} week),'%u')
+        <where>
+            <if test="year!= null and year != -1">
+                AND DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%Y') = #{year}
+            </if>
+            <if test="week != null and year != -1">
+                AND status = 0 AND DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%u') = DATE_FORMAT(date_sub(curdate(), interval #{week} week),'%u')
+            </if>
+            <if test="day != null and day != -1">
+                AND DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%d') &lt;= #{day}
+            </if>
+        </where>
         GROUP BY  name
         ORDER BY name DESC
 	</select>

@@ -50,7 +50,7 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
     private IUserDetailDAO userDetailDAO;
 
     private DecimalFormat df = new DecimalFormat("#.##");
-    private int curYear = CommonUtils.calendar.get(Calendar.YEAR);
+    private int curYear = CommonUtils.CURRENTYEAR;
 //    private int day = CommonUtils.calendar.get(Calendar.DAY_OF_MONTH);
 
 

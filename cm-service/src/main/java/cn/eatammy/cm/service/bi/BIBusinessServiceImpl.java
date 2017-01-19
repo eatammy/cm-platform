@@ -55,52 +55,113 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
     public Map<String, Object> getBusinessInfo() {
 
         Map<String, Object> result = new HashMap<>(4);
-        BiDataDto biDataDto;
-        BiResultDto curWeek;
-        BiResultDto lastWeek;
-        BiResultDto curMonth;
-        BiResultDto lastMonth;
         //查询交易总量
         double totalTrade = indentDAO.countTradeTotal();
         result.put("TOTALTRADE", totalTrade);
 
         //订单
-        curWeek = indentDAO.countWeekIndents(0);    //本周
-        lastWeek = indentDAO.countWeekIndents(1);   //上一周
-        biDataDto = new BiDataDto();
-        biDataDto.setContent(String.valueOf(curWeek.getValue()));
-        biDataDto.setRate(df.format(curWeek.getValue() * 1.0 / lastWeek.getValue()) + "%");
-        biDataDto.setUpOrDown(curWeek.getValue() > lastWeek.getValue() ? 1 : 0);
-        result.put("INDENT", biDataDto);
+        result.put("INDENT", getIndentsInfo());
 
         //商家
-        curMonth = shopDAO.countMonthShops(0);      //本月
-        lastMonth = shopDAO.countMonthShops(1);     //上一个月
-        biDataDto = new BiDataDto();
-        biDataDto.setContent(String.valueOf(curMonth.getValue()));
-        biDataDto.setRate(df.format(curMonth.getValue() * 1.0 / lastMonth.getValue()) + "%");
-        biDataDto.setUpOrDown(curMonth.getValue() > lastMonth.getValue() ? 1 : 0);
-        result.put("SHOP", biDataDto);
+        result.put("SHOP", getShopInfo());
 
         //商品
-        curWeek = goodsDAO.countWeekGoodses(0);     //本周
-        lastWeek = goodsDAO.countWeekGoodses(1);    //上一周
-        biDataDto = new BiDataDto();
-        biDataDto.setContent(String.valueOf(curWeek.getValue()));
-        biDataDto.setRate(df.format(curWeek.getValue() * 1.0 / curWeek.getValue()) + "%");
-        biDataDto.setUpOrDown(curWeek.getValue() > lastWeek.getValue() ? 1 : 0);
-        result.put("GOODS", biDataDto);
+        result.put("GOODS", getGoodsInfo());
 
+        return result;
+    }
+
+    /**
+     * 统计本周订单数量
+     * @return 返回，统计结果
+     */
+    private BiDataDto getIndentsInfo() {
+        BiDataDto result = new BiDataDto();
+        int year, month;
+        BiResultDto curWeek = indentDAO.countWeekIndents(CommonUtils.CURRENTYEAR, 0, CommonUtils.getDayOfMonth(CommonUtils.CURRENTYEAR, CommonUtils.CURRENTMONTH + 1)); //本周
+        if(curWeek == null){
+            result.setContent("本周暂无订单数据");
+            result.setRate("0%");
+            result.setUpOrDown(0);
+        }else{
+            year = CommonUtils.WEEK_OF_YEAR == 1 ? CommonUtils.CURRENTYEAR - 1 : CommonUtils.CURRENTYEAR;
+            month = CommonUtils.WEEK_OF_YEAR == 1 ? 12 : CommonUtils.CURRENTMONTH + 1;
+            BiResultDto lastWeek = indentDAO.countWeekIndents(CommonUtils.CURRENTYEAR, 1,CommonUtils.getDayOfMonth(year,month ));//上周
+            result.setContent(String.valueOf(curWeek.getValue()));
+            if(lastWeek == null){
+                result.setRate("100%");
+                result.setUpOrDown(1);
+            }else{
+                result.setRate(df.format((curWeek.getValue()-lastWeek.getValue())*1.0 / lastWeek.getValue()*100)+"%");
+                result.setUpOrDown(curWeek.getValue() >= lastWeek.getValue() ? 1 : 0);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 统计入驻商家
+     *
+     * @return 返回，统计结果
+     */
+    private BiDataDto getShopInfo() {
+        BiDataDto result = new BiDataDto();
+        int year, month;
+        BiResultDto curMonth = shopDAO.countMonthShops(CommonUtils.CURRENTYEAR, 0, CommonUtils.getDayOfMonth(CommonUtils.CURRENTYEAR, CommonUtils.CURRENTMONTH + 1));      //本月
+        if (curMonth == null) {
+            result.setContent("本月暂无入驻商家");
+            result.setRate("0%");
+            result.setUpOrDown(0);
+        } else {
+            year = CommonUtils.CURRENTMONTH == 0 ? CommonUtils.CURRENTYEAR - 1 : CommonUtils.CURRENTYEAR;
+            month = CommonUtils.CURRENTMONTH == 0 ? 12 : CommonUtils.CURRENTMONTH + 1;
+            BiResultDto lastMonth = shopDAO.countMonthShops(year, 1, CommonUtils.getDayOfMonth(year, month));  // 上一个月
+            result.setContent(String.valueOf(curMonth.getValue()));
+            if (lastMonth == null) {
+                result.setRate("100%");
+                result.setUpOrDown(1);
+            } else {
+                result.setRate(df.format((curMonth.getValue() - lastMonth.getValue()) * 1.0 / lastMonth.getValue() * 100) + "%");
+                result.setUpOrDown(curMonth.getValue() >= lastMonth.getValue() ? 1 : 0);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 统计新增商品
+     * @return 返回，统计结果
+     */
+    private BiDataDto getGoodsInfo(){
+        BiDataDto result = new BiDataDto();
+        int year, month;
+        BiResultDto curWeek = goodsDAO.countWeekGoodses(CommonUtils.CURRENTYEAR, 0, CommonUtils.getDayOfMonth(CommonUtils.CURRENTYEAR, CommonUtils.CURRENTMONTH + 1)); //本周
+        if(curWeek == null){
+            result.setContent("本周暂无订单数据");
+            result.setRate("0%");
+            result.setUpOrDown(0);
+        }else{
+            year = CommonUtils.WEEK_OF_YEAR == 1 ? CommonUtils.CURRENTYEAR - 1 : CommonUtils.CURRENTYEAR;
+            month = CommonUtils.WEEK_OF_YEAR == 1 ? 12 : CommonUtils.CURRENTMONTH + 1;
+            BiResultDto lastWeek = goodsDAO.countWeekGoodses(CommonUtils.CURRENTYEAR, 1,CommonUtils.getDayOfMonth(year,month ));//上周
+            result.setContent(String.valueOf(curWeek.getValue()));
+            if(lastWeek == null){
+                result.setUpOrDown(1);
+                result.setRate("100%");
+            }else{
+                result.setRate(df.format((curWeek.getValue()-lastWeek.getValue())*1.0 / lastWeek.getValue()*100)+"%");
+                result.setUpOrDown(curWeek.getValue() >= lastWeek.getValue() ? 1 : 0);
+            }
+        }
         return result;
     }
 
     @Override
     public Map<String, Object> queryBusinessChart(int year, int month) {
         Map<String, Object> result = new HashMap<>();
-        month = CommonUtils.calendar.get(Calendar.MONTH) + 1 - month;
         //查询图表数据
-        List<BiResultDto> allIndents = indentDAO.countDailyIndentsByMonth(year, month, null);   //订单总数
-        List<BiResultDto> payedIndents = indentDAO.countDailyIndentsByMonth(year, month, 1);    //付款订单数
+        List<BiResultDto> allIndents = indentDAO.countDailyIndentsByMonth(year, CommonUtils.getMonthSpan(year, month), null);   //订单总数
+        List<BiResultDto> payedIndents = indentDAO.countDailyIndentsByMonth(year, CommonUtils.getMonthSpan(year, month), 1);    //付款订单数
         List<String> xAxis = new ArrayList<>(allIndents.size());
         Map<String, Object> chartResult = new HashMap<>(2);     //图表数据结果集
 
@@ -122,29 +183,34 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
 
         //右侧数据列表
         List<BiDataDto> dataList = new ArrayList<>(3);
+        BiResultDto todayIndent = allIndents.get(allIndents.size() - 1);        //今天订单数据
+        BiResultDto yesterdayIndent = allIndents.get(allIndents.size() - 2);    //昨天订单数据
         BiDataDto biDataDto = new BiDataDto();
         biDataDto.setTitle("今天订单数");
-        biDataDto.setContent(String.valueOf(allIndents.get(allIndents.size() - 1).getValue()));
-        biDataDto.setRate(df.format(allIndents.get(allIndents.size() - 1).getValue() * 1.0 / allIndents.get(allIndents.size() - 2).getValue()) + "%");
-        biDataDto.setUpOrDown(allIndents.get(allIndents.size() - 1).getValue() > allIndents.get(allIndents.size() - 2).getValue() ? 1 : 0);
+        biDataDto.setContent(String.valueOf(todayIndent.getValue()));
+        biDataDto.setRate(df.format((todayIndent.getValue()-yesterdayIndent.getValue()) * 1.0 / yesterdayIndent.getValue()) + "%");
+        biDataDto.setUpOrDown(todayIndent.getValue() >= yesterdayIndent.getValue()? 1 : 0);
         dataList.add(biDataDto);
 
         //查询近两个月的数据
-        List<BiResultDto> lastTowMonth = indentDAO.countLastTwoMonthIndentsAndSale();
-        //近一个月订单
-        biDataDto = new BiDataDto();
-        biDataDto.setTitle("近一个月订单");
-        biDataDto.setContent(String.valueOf(lastTowMonth.get(0).getValue()));
-        biDataDto.setRate(df.format(lastTowMonth.get(0).getValue() * 1.0 / lastTowMonth.get(1).getValue()) + "%");
-        biDataDto.setUpOrDown(lastTowMonth.get(0).getValue() > lastTowMonth.get(1).getValue() ? 1 : 0);
-        dataList.add(biDataDto);
-        //近一个月销售额
-        biDataDto = new BiDataDto();
-        biDataDto.setTitle("近一个月销售额");
-        biDataDto.setContent(String.valueOf(lastTowMonth.get(0).getTotal()));
-        biDataDto.setRate(df.format(lastTowMonth.get(0).getTotal() / lastTowMonth.get(1).getTotal()) + "%");
-        biDataDto.setUpOrDown(lastTowMonth.get(0).getTotal() > lastTowMonth.get(1).getTotal() ? 1 : 0);
-        dataList.add(biDataDto);
+//        List<BiResultDto> lastTowMonth = indentDAO.countLastTwoMonthIndentsAndSale();
+//        //近一个月订单
+//        biDataDto = new BiDataDto();
+//        biDataDto.setTitle("近一个月订单");
+//        biDataDto.setContent(String.valueOf(lastTowMonth.get(0).getValue()));
+//        biDataDto.setRate(df.format(lastTowMonth.get(0).getValue() * 1.0 / lastTowMonth.get(1).getValue()) + "%");
+//        biDataDto.setUpOrDown(lastTowMonth.get(0).getValue() > lastTowMonth.get(1).getValue() ? 1 : 0);
+//        dataList.add(biDataDto);
+//        //近一个月销售额
+//        biDataDto = new BiDataDto();
+//        biDataDto.setTitle("近一个月销售额");
+//        biDataDto.setContent(String.valueOf(lastTowMonth.get(0).getTotal()));
+//        biDataDto.setRate(df.format(lastTowMonth.get(0).getTotal() / lastTowMonth.get(1).getTotal()) + "%");
+//        biDataDto.setUpOrDown(lastTowMonth.get(0).getTotal() > lastTowMonth.get(1).getTotal() ? 1 : 0);
+//        dataList.add(biDataDto);
+
+        //添加近一个月订单与销售总量
+        dataList.addAll(getLastMonthIndentAndSale());
 
         //封装最终数据
         result.put("xAxis", xAxis);
@@ -153,10 +219,39 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
         return result;
     }
 
+    /**
+     * 获取近一个月的订单数据与销售总量数据
+     * @return  返回，统计结果
+     */
+    private List<BiDataDto> getLastMonthIndentAndSale(){
+        List<BiDataDto> result = new ArrayList<>(2);
+        int year = CommonUtils.CURRENTMONTH == 0 ? CommonUtils.CURRENTYEAR -1: CommonUtils.CURRENTYEAR;
+        //先统计出当前月份的数据
+        BiResultDto curMonth = indentDAO.countMonthIndentsAndSale(CommonUtils.CURRENTYEAR, CommonUtils.getMonthSpan(CommonUtils.CURRENTYEAR, CommonUtils.CURRENTMONTH+ 1), CommonUtils.getDayOfMonth(CommonUtils.CURRENTYEAR, CommonUtils.CURRENTMONTH+ 1));
+        //统计前一个月的数据
+        BiResultDto lastMonth = indentDAO.countMonthIndentsAndSale(year, CommonUtils.getMonthSpan(year, CommonUtils.CURRENTMONTH+ 1), CommonUtils.getDayOfMonth(year, CommonUtils.CURRENTMONTH+ 1));
+
+        //近一个月订单
+        BiDataDto biDataDto = new BiDataDto();
+        biDataDto.setTitle("近一个月订单");
+        biDataDto.setContent(String.valueOf(curMonth.getValue()));
+        biDataDto.setRate(df.format((curMonth.getValue() - lastMonth.getValue()) * 1.0 / lastMonth.getValue()) + "%");
+        biDataDto.setUpOrDown(curMonth.getValue() >= lastMonth.getValue() ? 1 : 0);
+        result.add(biDataDto);
+        //近一个月销售额
+        biDataDto = new BiDataDto();
+        biDataDto.setTitle("近一个月销售额");
+        biDataDto.setContent(String.valueOf(curMonth.getTotal()));
+        biDataDto.setRate(df.format((curMonth.getTotal() - lastMonth.getTotal())/ lastMonth.getTotal()) + "%");
+        biDataDto.setUpOrDown(curMonth.getTotal() > lastMonth.getTotal() ? 1 : 0);
+        result.add(biDataDto);
+        return result;
+    }
+
+
     @Override
     public Map<String, Object> queryRanking() {
         Map<String, Object> result = new HashMap<>(2);
-
         //查询商家
         result.put("SHOPS", shopDAO.queryTopTen());
         //查询商品

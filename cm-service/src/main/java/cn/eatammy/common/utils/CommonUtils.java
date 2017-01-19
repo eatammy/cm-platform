@@ -15,8 +15,9 @@ public class CommonUtils {
 
     public static Calendar calendar = Calendar.getInstance();
     private static DateFormat format = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
-    public static Integer currentYear = calendar.get(Calendar.YEAR);
-    public static Integer currentMonth = calendar.get(Calendar.MONTH);
+    public static Integer CURRENTYEAR = calendar.get(Calendar.YEAR);
+    public static Integer CURRENTMONTH = calendar.get(Calendar.MONTH);
+    public static Integer WEEK_OF_YEAR = calendar.get(Calendar.WEEK_OF_YEAR);
 
     /**
      * 获取无“-”的UUID
@@ -133,17 +134,18 @@ public class CommonUtils {
 
     /**
      * 获取当前为本月的那一天
-     * @param year      年份
-     * @param month     月数
-     * @return  返回，天数
+     *
+     * @param year  年份
+     * @param month 月数
+     * @return 返回，天数
      */
-    public static int getDayOfMonth(int year, int month){
+    public static int getDayOfMonth(int year, int month) {
         int curYear = calendar.get(Calendar.YEAR);
-        int curMonth =calendar.get(Calendar.MONTH) + 1;
+        int curMonth = calendar.get(Calendar.MONTH) + 1;
         int curDay = calendar.get(Calendar.DAY_OF_MONTH);
-        if(curYear != year || curMonth != month){
+        if (curYear != year || curMonth != month) {
             Calendar calendar1 = Calendar.getInstance();
-            calendar1.set(year, month-1, 1);
+            calendar1.set(year, month - 1, 1);
             curDay = calendar.getActualMaximum(Calendar.DATE);
         }
         return curDay;
@@ -203,11 +205,9 @@ public class CommonUtils {
     }
 
     public static void main(String[] args) {
-
-//        System.out.println(getDayOfMonth(2017,1));
-        for(int i=2016;i<=2018;i++){
-            System.out.println(getDayOfMonth(i,1));
-        }
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.set(2017, 0, 1);
+        System.out.println(calendar1.get(Calendar.WEEK_OF_YEAR));
     }
 
 

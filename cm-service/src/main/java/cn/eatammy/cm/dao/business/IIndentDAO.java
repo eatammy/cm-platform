@@ -44,11 +44,13 @@ public interface IIndentDAO extends ICMBaseDAO<Indent> {
 
     /**
      * 查询某一周的订单统计
+     * @param year 年份
      * @param week 周，0：表示当前周，1：表示上一周，-1：表示下一周，以此类推2：表示前周，-2：后周
+     * @param day  天数
      * @return 返回，统计结果
      */
     @DataSource("read")
-    BiResultDto countWeekIndents(int week);
+    BiResultDto countWeekIndents(@Param("year") Integer year, @Param("week") Integer week, @Param("day") Integer day);
 
     /**
      * 统计某年某月每天的订单
@@ -66,6 +68,16 @@ public interface IIndentDAO extends ICMBaseDAO<Indent> {
      */
     @DataSource("read")
     List<BiResultDto> countLastTwoMonthIndentsAndSale();
+
+    /**
+     * 统计月份的订单数和销售额
+     * @param year  年份
+     * @param month 月份
+     * @param day   天数
+     * @return  返回，统计结果
+     */
+    @DataSource("read")
+    BiResultDto countMonthIndentsAndSale(@Param("year")Integer year, @Param("month")Integer month, @Param("day") Integer day);
 
     /**
      * 查询交易地区统计

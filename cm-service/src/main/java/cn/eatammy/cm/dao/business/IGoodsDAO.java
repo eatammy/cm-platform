@@ -85,11 +85,13 @@ public interface IGoodsDAO extends ICMBaseDAO<Goods> {
 
     /**
      * 查询某一周的新增商品统计
+     * @param year 年份
      * @param week 月份，0：表示当前周，1：表示上一周，-1：表示下一周，以此类推2：表示前周，-2：后周
+     * @param day  天数
      * @return 返回，统计结果
      */
     @DataSource("read")
-    BiResultDto countWeekGoodses(int week);
+    BiResultDto countWeekGoodses(@Param("year")Integer year, @Param("week") Integer week, @Param("day") Integer day);
 
     /**
      * 批量更新商品库存销售量
