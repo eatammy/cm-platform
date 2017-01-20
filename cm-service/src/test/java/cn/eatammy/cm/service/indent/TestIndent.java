@@ -56,7 +56,7 @@ public class TestIndent {
         List<Goods> goodsList = goodsService.getRandomGoodses(num);
         //随机获取一个用户
         UserDetail user = userDetailService.getRandomUser();
-        long time = CommonUtils.randomDate("2016-08-21", "2016-12-31").getTime();
+        long time = CommonUtils.randomDate("2017-01-01", "2017-04-30").getTime();
         String address = "海角七号";
         //组装订单
         Indent indent = new Indent();
@@ -72,7 +72,6 @@ public class TestIndent {
         double sum = 0;
         //组装订单关系
         List<IndentRelation> relations = new ArrayList<>(goodsList.size());
-//        String shopId = "30c34027c85255258ad4c44211dcee1e";
         IndentRelation indentRelation;
         List<Shop> shops = new ArrayList<>(goodsList.size());
         Shop shop = null;
@@ -132,10 +131,35 @@ public class TestIndent {
     }
 
     private Integer getProvince() {
+        int[] hotArea = new int[]{9,10,11,13,18,19,27,28,29};
+        int[] weight = {55, 45};
+        int sum = 0;
         int result = 0;
-        while (result == 0) {
-            result = (int) (Math.random() * 35);
+        boolean flag = false;
+        int random = new Random().nextInt(100);
+        for (int i = 0; i < weight.length; i++) {
+            sum += weight[i];
+            if (random <= sum) {
+                break;
+            }else{
+                flag = true;
+            }
+        }
+        if(flag){//随机取一个
+            while (result == 0) {
+                result = (int) (Math.random() * 35);
+            }
+            result = (int) (Math.random() * 35) ;
+        }else{  //在热门地区取一个
+            result = hotArea[new Random().nextInt(hotArea.length)];
         }
         return result;
+    }
+
+    public static void main(String[] args){
+//        System.out.println(new Random().nextInt(9));
+//        for(int i=0;i<100;i++){
+//            System.out.println( getProvices());
+//        }
     }
 }

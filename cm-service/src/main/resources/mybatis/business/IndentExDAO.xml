@@ -35,8 +35,15 @@
 			<if test="isTraded!= null">
 				AND isTraded = #{isTraded}
 			</if>
-			AND DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%Y') = #{year}
-			AND date_format(FROM_UNIXTIME(createDate/1000),'%Y-%m') = date_format(date_sub(curdate(), interval #{month} month),'%Y-%m')
+			<if test="year != null and year != -1">
+				AND DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%Y') = #{year}
+			</if>
+			<if test="month != null and month != -1">
+				AND date_format(FROM_UNIXTIME(createDate/1000),'%m') = date_format(date_sub(curdate(), interval #{month} month),'%m')
+			</if>
+			<if test="day != null and day != -1">
+				AND date_format(FROM_UNIXTIME(createDate/1000),'%d') &lt;= #{day}
+			</if>
 		</where>
 		GROUP BY name
 	</select>

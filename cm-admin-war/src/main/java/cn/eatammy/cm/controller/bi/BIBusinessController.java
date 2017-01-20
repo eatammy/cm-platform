@@ -4,7 +4,6 @@ import cn.eatammy.cm.service.bi.IBIBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
@@ -37,7 +36,7 @@ public class BIBusinessController {
      */
     @ResponseBody
     @RequestMapping(value = "/queryBusinessChart")
-    public Map<String, Object> queryBusinessChart(int year, @RequestParam(defaultValue = "0") int month){
+    public Map<String, Object> queryBusinessChart(int year, int month){
         return  biBusinessService.queryBusinessChart(year, month);
     }
 

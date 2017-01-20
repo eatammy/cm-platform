@@ -118,15 +118,14 @@ public class CommonUtils {
      * @return 返回，步长值
      */
     public static int getMonthSpan(int year, int month) {
-        int curYear = calendar.get(Calendar.YEAR);
         int curmonth = calendar.get(Calendar.MONTH) + 1;
-        if (year > curYear) {
+        if (year > CURRENTYEAR) {
             throw new BizException(ERRORCODE.NO_DATA.getCode(), ERRORCODE.NO_DATA.getMessage());
         }
-        if (curYear == year) {
+        if (CURRENTYEAR == year) {
             return curmonth - month;
         }
-        if (curYear > year) {
+        if (CURRENTYEAR > year) {
             return curmonth + 12 - month;
         }
         return 0;

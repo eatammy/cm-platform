@@ -56,11 +56,12 @@ public interface IIndentDAO extends ICMBaseDAO<Indent> {
      * 统计某年某月每天的订单
      * @param year 年份
      * @param month 月份，0：表示当前月份，1：表示上一个月，-1：表示下个月，以此类推：2：表示前个月，-2：表示下个月
+     * @param day   天数
      * @param isTraded 交易完成标记，0：为付款，1：已付款
      * @return  返回，统计结果
      */
     @DataSource("read")
-    List<BiResultDto> countDailyIndentsByMonth(@Param("year") int year, @Param("month") int month, @Param("isTraded") Integer isTraded);
+    List<BiResultDto> countDailyIndentsByMonth(@Param("year") Integer year, @Param("month") Integer month, @Param("day")Integer day, @Param("isTraded") Integer isTraded);
 
     /**
      * 查询近连个月订单数和销售额

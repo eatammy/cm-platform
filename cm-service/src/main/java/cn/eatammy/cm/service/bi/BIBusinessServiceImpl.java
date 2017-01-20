@@ -68,6 +68,9 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
         //商品
         result.put("GOODS", getGoodsInfo());
 
+        //设置年份
+        result.put("years", CommonUtils.generateYears());
+
         return result;
     }
 
@@ -92,8 +95,8 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
                 result.setRate("100%");
                 result.setUpOrDown(1);
             }else{
-                result.setRate(df.format((curWeek.getValue()-lastWeek.getValue())*1.0 / lastWeek.getValue()*100)+"%");
                 result.setUpOrDown(curWeek.getValue() >= lastWeek.getValue() ? 1 : 0);
+                result.setRate(df.format((curWeek.getValue()-lastWeek.getValue())*1.0 / lastWeek.getValue()*100)+"%");
             }
         }
         return result;
@@ -118,11 +121,11 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
             BiResultDto lastMonth = shopDAO.countMonthShops(year, 1, CommonUtils.getDayOfMonth(year, month));  // 上一个月
             result.setContent(String.valueOf(curMonth.getValue()));
             if (lastMonth == null) {
-                result.setRate("100%");
                 result.setUpOrDown(1);
+                result.setRate("100%");
             } else {
-                result.setRate(df.format((curMonth.getValue() - lastMonth.getValue()) * 1.0 / lastMonth.getValue() * 100) + "%");
                 result.setUpOrDown(curMonth.getValue() >= lastMonth.getValue() ? 1 : 0);
+                result.setRate(df.format((curMonth.getValue() - lastMonth.getValue()) * 1.0 / lastMonth.getValue() * 100) + "%");
             }
         }
         return result;
@@ -160,8 +163,8 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
     public Map<String, Object> queryBusinessChart(int year, int month) {
         Map<String, Object> result = new HashMap<>();
         //查询图表数据
-        List<BiResultDto> allIndents = indentDAO.countDailyIndentsByMonth(year, CommonUtils.getMonthSpan(year, month), null);   //订单总数
-        List<BiResultDto> payedIndents = indentDAO.countDailyIndentsByMonth(year, CommonUtils.getMonthSpan(year, month), 1);    //付款订单数
+        List<BiResultDto> allIndents = indentDAO.countDailyIndentsByMonth(year, CommonUtils.getMonthSpan(year, month), CommonUtils.getDayOfMonth(year, month),null);   //订单总数
+        List<BiResultDto> payedIndents = indentDAO.countDailyIndentsByMonth(year, CommonUtils.getMonthSpan(year, month), CommonUtils.getDayOfMonth(year, month),1);    //付款订单数
         List<String> xAxis = new ArrayList<>(allIndents.size());
         Map<String, Object> chartResult = new HashMap<>(2);     //图表数据结果集
 
@@ -192,23 +195,6 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
         biDataDto.setUpOrDown(todayIndent.getValue() >= yesterdayIndent.getValue()? 1 : 0);
         dataList.add(biDataDto);
 
-        //查询近两个月的数据
-//        List<BiResultDto> lastTowMonth = indentDAO.countLastTwoMonthIndentsAndSale();
-//        //近一个月订单
-//        biDataDto = new BiDataDto();
-//        biDataDto.setTitle("近一个月订单");
-//        biDataDto.setContent(String.valueOf(lastTowMonth.get(0).getValue()));
-//        biDataDto.setRate(df.format(lastTowMonth.get(0).getValue() * 1.0 / lastTowMonth.get(1).getValue()) + "%");
-//        biDataDto.setUpOrDown(lastTowMonth.get(0).getValue() > lastTowMonth.get(1).getValue() ? 1 : 0);
-//        dataList.add(biDataDto);
-//        //近一个月销售额
-//        biDataDto = new BiDataDto();
-//        biDataDto.setTitle("近一个月销售额");
-//        biDataDto.setContent(String.valueOf(lastTowMonth.get(0).getTotal()));
-//        biDataDto.setRate(df.format(lastTowMonth.get(0).getTotal() / lastTowMonth.get(1).getTotal()) + "%");
-//        biDataDto.setUpOrDown(lastTowMonth.get(0).getTotal() > lastTowMonth.get(1).getTotal() ? 1 : 0);
-//        dataList.add(biDataDto);
-
         //添加近一个月订单与销售总量
         dataList.addAll(getLastMonthIndentAndSale());
 
@@ -226,10 +212,11 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
     private List<BiDataDto> getLastMonthIndentAndSale(){
         List<BiDataDto> result = new ArrayList<>(2);
         int year = CommonUtils.CURRENTMONTH == 0 ? CommonUtils.CURRENTYEAR -1: CommonUtils.CURRENTYEAR;
+        int month = CommonUtils.CURRENTMONTH == 0 ? 12: CommonUtils.CURRENTYEAR-1;
         //先统计出当前月份的数据
         BiResultDto curMonth = indentDAO.countMonthIndentsAndSale(CommonUtils.CURRENTYEAR, CommonUtils.getMonthSpan(CommonUtils.CURRENTYEAR, CommonUtils.CURRENTMONTH+ 1), CommonUtils.getDayOfMonth(CommonUtils.CURRENTYEAR, CommonUtils.CURRENTMONTH+ 1));
         //统计前一个月的数据
-        BiResultDto lastMonth = indentDAO.countMonthIndentsAndSale(year, CommonUtils.getMonthSpan(year, CommonUtils.CURRENTMONTH+ 1), CommonUtils.getDayOfMonth(year, CommonUtils.CURRENTMONTH+ 1));
+        BiResultDto lastMonth = indentDAO.countMonthIndentsAndSale(year, CommonUtils.getMonthSpan(year, 12), CommonUtils.getDayOfMonth(year, month));
 
         //近一个月订单
         BiDataDto biDataDto = new BiDataDto();
@@ -272,7 +259,7 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
         //设置数据
         List<BiResultDto> data = new ArrayList<>(queryResult.size());
         BiResultDto biResultDto;
-        for (BiResultDto item : queryResult) {
+            for (BiResultDto item : queryResult) {
             if (map.containsKey(item.getName())) {
                 biResultDto = new BiResultDto();
                 biResultDto.setName(map.get(item.getName()));
@@ -283,17 +270,7 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
                 throw new BizException(ERRORCODE.DIRTY_DATA.getCode(), ERRORCODE.DIRTY_DATA.getMessage());
             }
         }
-        //获取订单数最大值
-//        int max = 0;
-//        Collections.sort(queryResult, new Comparator<BiResultDto>() {
-//            @Override
-//            public int compare(BiResultDto o1, BiResultDto o2) {
-//                return o1.getValue() > o2.getValue() ? 0 : 1;
-//            }
-//        });
-//        max = queryResult.get(0).getValue();
         result.put("data", data);
-//        result.put("max", max);
         return result;
     }
 }
