@@ -189,7 +189,7 @@ public class UserFlowServiceImpl extends AbstractCMPageService<ICMBaseDAO<UserFl
     private BiDataDto getAcitveUsers(Integer month) {
         BiDataDto dataDto = dataDto = new BiDataDto();
         if (month > 1) {
-            List<BiResultDto> queryResult = userFlowDAO.countLastTowMonthActivePV(curYear, CommonUtils.getMonthSpan(curYear, month), 0, 2);
+            List<BiResultDto> queryResult = userFlowDAO.countLastTowMonthActivePV(curYear, month, 0, 2);
             dataDto.setContent(String.valueOf(queryResult.get(0).getValue()));
             dataDto.setRate(String.valueOf(df.format((queryResult.get(0).getValue() - queryResult.get(1).getValue()) * 1.0 / queryResult.get(1).getValue() * 100)) + "%");
             dataDto.setUpOrDown(queryResult.get(0).getValue() >= queryResult.get(1).getValue() ? 1 : 0);
