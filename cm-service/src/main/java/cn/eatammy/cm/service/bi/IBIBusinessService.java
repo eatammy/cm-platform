@@ -52,5 +52,5 @@ public interface IBIBusinessService{
      * 获取交易地区
      * @return 返回，信息集合
      */
-    Map<String, Object> queryTradesZoo();
+    Map<String, Object> queryTradesZoo(Integer year, Integer month);
 }

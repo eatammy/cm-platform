@@ -56,8 +56,8 @@ public class BIBusinessController {
      */
     @ResponseBody
     @RequestMapping(value = "/queryTradesZoo")
-    public Map<String, Object> queryTradesZoo(){
-        return biBusinessService.queryTradesZoo();
+    public Map<String, Object> queryTradesZoo(Integer year, Integer month){
+        return biBusinessService.queryTradesZoo(year, month);
     }
 
 }

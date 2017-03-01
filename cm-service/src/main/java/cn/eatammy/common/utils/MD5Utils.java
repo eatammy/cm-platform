@@ -1,5 +1,7 @@
 package cn.eatammy.common.utils;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -75,8 +77,11 @@ public class MD5Utils {
     }
 
     public static void main(String[] args){
-        System.out.println(getMD5("123456"+SALT));
-        System.out.println(getToken("simagle","123123"));
+        String randomNum2 = RandomStringUtils.randomAlphanumeric(8);
+        System.out.println(randomNum2);
+//        System.out.println(getMD5("123456"+SALT));
+//        System.out.println(new Md5Hash("123456"+SALT, SALT, 1));
+//        System.out.println(getToken("simagle","123123"));
     }
 
 }

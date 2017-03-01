@@ -247,8 +247,8 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
     }
 
     @Override
-    public Map<String, Object> queryTradesZoo() {
-        List<BiResultDto> queryResult = indentDAO.queryTradeZoo();
+    public Map<String, Object> queryTradesZoo(Integer year, Integer month) {
+        List<BiResultDto> queryResult = indentDAO.queryTradeZoo(year, CommonUtils.getMonthSpan(year, month), CommonUtils.getDayOfMonth(year, month));
         if (queryResult.size() == 0) {
             throw new BizException(ERRORCODE.NO_DATA.getCode(), ERRORCODE.NO_DATA.getMessage());
         }
@@ -259,7 +259,7 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
         //设置数据
         List<BiResultDto> data = new ArrayList<>(queryResult.size());
         BiResultDto biResultDto;
-            for (BiResultDto item : queryResult) {
+        for (BiResultDto item : queryResult) {
             if (map.containsKey(item.getName())) {
                 biResultDto = new BiResultDto();
                 biResultDto.setName(map.get(item.getName()));

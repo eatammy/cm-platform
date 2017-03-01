@@ -60,7 +60,18 @@
 	<select id="queryTradeZoo" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
 		SELECT province AS name, count(1) AS VALUE, SUM(CASE WHEN isTraded = 1 THEN total ELSE 0 END) AS total
 		FROM cm_business_indent
-		WHERE province is NOT NULL AND isTraded = 1
+		<where>
+			<if test="year != null and year != -1">
+				AND province is NOT NULL AND DATE_FORMAT(FROM_UNIXTIME(createDate/1000),'%Y') = #{year}
+			</if>
+			<if test="month != null and month != -1">
+				AND date_format(FROM_UNIXTIME(createDate/1000),'%m') = date_format(date_sub(curdate(), interval #{month} month),'%m')
+			</if>
+			<if test="day != null and day != -1">
+				AND date_format(FROM_UNIXTIME(createDate/1000),'%d') &lt;= #{day}
+			</if>
+		</where>
+
 		GROUP BY name
 		ORDER BY total desc, VALUE DESC;
 	</select>

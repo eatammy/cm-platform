@@ -73,7 +73,7 @@ public interface IIndentDAO extends ICMBaseDAO<Indent> {
     /**
      * 统计月份的订单数和销售额
      * @param year  年份
-     * @param month 月份
+     * @param month 月份偏移量，0：表示当前月份，1：表示上一个月，-1：表示下个月，以此类推：2：表示前个月，-2：表示下个月
      * @param day   天数
      * @return  返回，统计结果
      */
@@ -82,8 +82,11 @@ public interface IIndentDAO extends ICMBaseDAO<Indent> {
 
     /**
      * 查询交易地区统计
+     * @param year 年份
+     * @param month 月份偏移量，0：表示当前月份，1：表示上一个月，-1：表示下个月，以此类推：2：表示前个月，-2：表示下个月
+     * @param day 天数
      * @return  返回，交易地区数据集合
      */
     @DataSource("read")
-    List<BiResultDto> queryTradeZoo();
+    List<BiResultDto> queryTradeZoo(@Param("year")Integer year, @Param("month")Integer month, @Param("day") Integer day);
 }
