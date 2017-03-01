@@ -76,27 +76,28 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
 
     /**
      * 统计本周订单数量
+     *
      * @return 返回，统计结果
      */
     private BiDataDto getIndentsInfo() {
         BiDataDto result = new BiDataDto();
         int year, month;
         BiResultDto curWeek = indentDAO.countWeekIndents(CommonUtils.CURRENTYEAR, 0, CommonUtils.getDayOfMonth(CommonUtils.CURRENTYEAR, CommonUtils.CURRENTMONTH + 1)); //本周
-        if(curWeek == null){
+        if (curWeek == null) {
             result.setContent("本周暂无订单数据");
             result.setRate("0%");
             result.setUpOrDown(0);
-        }else{
+        } else {
             year = CommonUtils.WEEK_OF_YEAR == 1 ? CommonUtils.CURRENTYEAR - 1 : CommonUtils.CURRENTYEAR;
             month = CommonUtils.WEEK_OF_YEAR == 1 ? 12 : CommonUtils.CURRENTMONTH + 1;
-            BiResultDto lastWeek = indentDAO.countWeekIndents(CommonUtils.CURRENTYEAR, 1,CommonUtils.getDayOfMonth(year,month ));//上周
+            BiResultDto lastWeek = indentDAO.countWeekIndents(CommonUtils.CURRENTYEAR, 1, CommonUtils.getDayOfMonth(year, month));//上周
             result.setContent(String.valueOf(curWeek.getValue()));
-            if(lastWeek == null){
+            if (lastWeek == null) {
                 result.setRate("100%");
                 result.setUpOrDown(1);
-            }else{
+            } else {
                 result.setUpOrDown(curWeek.getValue() >= lastWeek.getValue() ? 1 : 0);
-                result.setRate(df.format((curWeek.getValue()-lastWeek.getValue())*1.0 / lastWeek.getValue()*100)+"%");
+                result.setRate(df.format((curWeek.getValue() - lastWeek.getValue()) * 1.0 / lastWeek.getValue() * 100) + "%");
             }
         }
         return result;
@@ -133,26 +134,27 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
 
     /**
      * 统计新增商品
+     *
      * @return 返回，统计结果
      */
-    private BiDataDto getGoodsInfo(){
+    private BiDataDto getGoodsInfo() {
         BiDataDto result = new BiDataDto();
         int year, month;
         BiResultDto curWeek = goodsDAO.countWeekGoodses(CommonUtils.CURRENTYEAR, 0, CommonUtils.getDayOfMonth(CommonUtils.CURRENTYEAR, CommonUtils.CURRENTMONTH + 1)); //本周
-        if(curWeek == null){
+        if (curWeek == null) {
             result.setContent("本周暂无订单数据");
             result.setRate("0%");
             result.setUpOrDown(0);
-        }else{
+        } else {
             year = CommonUtils.WEEK_OF_YEAR == 1 ? CommonUtils.CURRENTYEAR - 1 : CommonUtils.CURRENTYEAR;
             month = CommonUtils.WEEK_OF_YEAR == 1 ? 12 : CommonUtils.CURRENTMONTH + 1;
-            BiResultDto lastWeek = goodsDAO.countWeekGoodses(CommonUtils.CURRENTYEAR, 1,CommonUtils.getDayOfMonth(year,month ));//上周
+            BiResultDto lastWeek = goodsDAO.countWeekGoodses(CommonUtils.CURRENTYEAR, 1, CommonUtils.getDayOfMonth(year, month));//上周
             result.setContent(String.valueOf(curWeek.getValue()));
-            if(lastWeek == null){
+            if (lastWeek == null) {
                 result.setUpOrDown(1);
                 result.setRate("100%");
-            }else{
-                result.setRate(df.format((curWeek.getValue()-lastWeek.getValue())*1.0 / lastWeek.getValue()*100)+"%");
+            } else {
+                result.setRate(df.format((curWeek.getValue() - lastWeek.getValue()) * 1.0 / lastWeek.getValue() * 100) + "%");
                 result.setUpOrDown(curWeek.getValue() >= lastWeek.getValue() ? 1 : 0);
             }
         }
@@ -163,8 +165,8 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
     public Map<String, Object> queryBusinessChart(int year, int month) {
         Map<String, Object> result = new HashMap<>();
         //查询图表数据
-        List<BiResultDto> allIndents = indentDAO.countDailyIndentsByMonth(year, CommonUtils.getMonthSpan(year, month), CommonUtils.getDayOfMonth(year, month),null);   //订单总数
-        List<BiResultDto> payedIndents = indentDAO.countDailyIndentsByMonth(year, CommonUtils.getMonthSpan(year, month), CommonUtils.getDayOfMonth(year, month),1);    //付款订单数
+        List<BiResultDto> allIndents = indentDAO.countDailyIndentsByMonth(year, CommonUtils.getMonthSpan(year, month), CommonUtils.getDayOfMonth(year, month), null);   //订单总数
+        List<BiResultDto> payedIndents = indentDAO.countDailyIndentsByMonth(year, CommonUtils.getMonthSpan(year, month), CommonUtils.getDayOfMonth(year, month), 1);    //付款订单数
         List<String> xAxis = new ArrayList<>(allIndents.size());
         Map<String, Object> chartResult = new HashMap<>(2);     //图表数据结果集
 
@@ -191,8 +193,8 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
         BiDataDto biDataDto = new BiDataDto();
         biDataDto.setTitle("今天订单数");
         biDataDto.setContent(String.valueOf(todayIndent.getValue()));
-        biDataDto.setRate(df.format((todayIndent.getValue()-yesterdayIndent.getValue()) * 1.0 / yesterdayIndent.getValue()) + "%");
-        biDataDto.setUpOrDown(todayIndent.getValue() >= yesterdayIndent.getValue()? 1 : 0);
+        biDataDto.setRate(df.format((todayIndent.getValue() - yesterdayIndent.getValue()) * 1.0 / yesterdayIndent.getValue()) + "%");
+        biDataDto.setUpOrDown(todayIndent.getValue() >= yesterdayIndent.getValue() ? 1 : 0);
         dataList.add(biDataDto);
 
         //添加近一个月订单与销售总量
@@ -207,16 +209,17 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
 
     /**
      * 获取近一个月的订单数据与销售总量数据
-     * @return  返回，统计结果
+     *
+     * @return 返回，统计结果
      */
-    private List<BiDataDto> getLastMonthIndentAndSale(){
+    private List<BiDataDto> getLastMonthIndentAndSale() {
         List<BiDataDto> result = new ArrayList<>(2);
-        int year = CommonUtils.CURRENTMONTH == 0 ? CommonUtils.CURRENTYEAR -1: CommonUtils.CURRENTYEAR;
-        int month = CommonUtils.CURRENTMONTH == 0 ? 12: CommonUtils.CURRENTYEAR-1;
+        int year = CommonUtils.CURRENTMONTH == 0 ? CommonUtils.CURRENTYEAR - 1 : CommonUtils.CURRENTYEAR;
+        int month = CommonUtils.CURRENTMONTH == 0 ? 12 : CommonUtils.CURRENTMONTH;
         //先统计出当前月份的数据
-        BiResultDto curMonth = indentDAO.countMonthIndentsAndSale(CommonUtils.CURRENTYEAR, CommonUtils.getMonthSpan(CommonUtils.CURRENTYEAR, CommonUtils.CURRENTMONTH+ 1), CommonUtils.getDayOfMonth(CommonUtils.CURRENTYEAR, CommonUtils.CURRENTMONTH+ 1));
+        BiResultDto curMonth = indentDAO.countMonthIndentsAndSale(CommonUtils.CURRENTYEAR, CommonUtils.getMonthSpan(CommonUtils.CURRENTYEAR, CommonUtils.CURRENTMONTH + 1), CommonUtils.getDayOfMonth(CommonUtils.CURRENTYEAR, CommonUtils.CURRENTMONTH + 1));
         //统计前一个月的数据
-        BiResultDto lastMonth = indentDAO.countMonthIndentsAndSale(year, CommonUtils.getMonthSpan(year, 12), CommonUtils.getDayOfMonth(year, month));
+        BiResultDto lastMonth = indentDAO.countMonthIndentsAndSale(year, CommonUtils.getMonthSpan(year, month), CommonUtils.getDayOfMonth(year, month));
 
         //近一个月订单
         BiDataDto biDataDto = new BiDataDto();
@@ -229,7 +232,7 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
         biDataDto = new BiDataDto();
         biDataDto.setTitle("近一个月销售额");
         biDataDto.setContent(String.valueOf(curMonth.getTotal()));
-        biDataDto.setRate(df.format((curMonth.getTotal() - lastMonth.getTotal())/ lastMonth.getTotal()) + "%");
+        biDataDto.setRate(df.format((curMonth.getTotal() - lastMonth.getTotal()) / lastMonth.getTotal()) + "%");
         biDataDto.setUpOrDown(curMonth.getTotal() > lastMonth.getTotal() ? 1 : 0);
         result.add(biDataDto);
         return result;
