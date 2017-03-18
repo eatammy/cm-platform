@@ -276,4 +276,50 @@ public class BIBusinessServiceImpl implements IBIBusinessService {
         result.put("data", data);
         return result;
     }
+
+    @Override
+    public Map<String, Object> queryIndents4Shop(String shopCode) {
+        //查询近一个月的所有订单
+        List<BiResultDto> allIndents =  indentDAO.queryIndentsbyShopCode(shopCode,null);
+        //统计已付款订单
+        List<BiResultDto> payedIndents = indentDAO.queryIndentsbyShopCode(shopCode,0);
+        List<String> xAxis = new ArrayList<>(allIndents.size());
+        List<Integer> allIndentsCount = new ArrayList<>(allIndents.size());
+        List<Integer> payedIndentsCount = new ArrayList<>(payedIndents.size());
+        boolean flag = !allIndents.get(0).getMonth().equals(allIndents.get(allIndents.size() -1).getMonth());
+        for(BiResultDto item : allIndents){
+            if(flag && item.getMonth().equals(allIndents.get(allIndents.size() -1).getMonth())){
+                xAxis.add(item.getMonth()+item.getName());
+                flag = false;
+            }else {
+                xAxis.add((String) item.getName());
+            }
+            allIndentsCount.add(item.getValue());
+        }
+        for(BiResultDto item: payedIndents){
+            payedIndentsCount.add(item.getValue());
+        }
+        Map<String, Object> result = new HashMap<>(2);
+        result.put("allIndents", allIndentsCount);
+        result.put("payedIndents", payedIndentsCount);
+        result.put("xAxis", xAxis);
+        //设置年份
+        result.put("years", CommonUtils.generateYears());
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> querySales4Shop(String shopCode) {
+        BiResultDto nullResult = new BiResultDto();
+        nullResult.setValue(0);
+        nullResult.setTotal(0);
+        BiResultDto day4Sales = indentDAO.querySales4Shop(shopCode,0, "day");
+        BiResultDto week4Sales = indentDAO.querySales4Shop(shopCode, 7,"day");
+        BiResultDto month4Sales = indentDAO.querySales4Shop(shopCode, 30,"day");
+        Map<String, Object> result = new HashMap<>(3);
+        result.put("day4Sales",day4Sales == null ? nullResult : day4Sales);
+        result.put("week4Sales",week4Sales == null ? nullResult : week4Sales);
+        result.put("month4Sales",month4Sales == null ? nullResult : month4Sales);
+        return result;
+    }
 }

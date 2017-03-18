@@ -21,6 +21,7 @@
 package cn.eatammy.cm.service.business;
 
 import cn.eatammy.cm.domain.business.Goods;
+import cn.eatammy.cm.domain.business.GoodsEx;
 import cn.eatammy.cm.param.business.GoodsParam;
 import cn.eatammy.cm.param.business.GoodsParamEx;
 import cn.eatammy.common.domain.AccountDto;
@@ -89,4 +90,20 @@ public interface IGoodsService<D extends ICMBaseDAO<T>, T extends BaseDomain> ex
      * @return  返回，操作码
      */
     String updateGoodsStock(List<Goods> goodses);
+
+    /**
+     * 根据商店code分页查询商店仓储情况
+     * @param shopCode      商店代码
+     * @param pageNo        页码
+     * @param pageSize      页大小
+     * @return  返回，分页结果
+     */
+    BizData4Page queryStorageByShopCode(String shopCode, int pageNo, int pageSize);
+
+    /**
+     * 根据商店code查询商品销售排行
+     * @param shopCode      商店代码
+     * @return  返回，列表结果集
+     */
+    List<GoodsEx> queryGoodsRankByShopCode(String shopCode);
 }

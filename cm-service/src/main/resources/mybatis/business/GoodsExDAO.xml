@@ -120,4 +120,31 @@
         LIMIT 0, 10;
     </select>
 
+    <select id="queryStorageByShopCode" resultType="cn.eatammy.cm.domain.business.GoodsEx">
+        SELECT id, goodsName, stock, sale
+        FROM cm_business_goods
+        WHERE shopId = #{shopCode} AND status = 0
+        AND sale / (stock+sale) > 0.7
+        <if test="offset != null">
+            limit ${offset}, ${rows}
+        </if>
+    </select>
+    <select id="countStorageByShopCode" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM cm_business_goods
+        WHERE shopId = #{shopCode} AND status = 0
+        AND sale / (stock+sale) > 0.7;
+    </select>
+
+    <select id="queryGoodsRankByShopCode" resultType="cn.eatammy.cm.domain.business.GoodsEx">
+        SELECT goodsName, price, sale FROM cm_business_goods
+        WHERE shopId = #{shopCode}
+        ORDER BY sale desc
+        LIMIT 0,5
+    </select>
+    <select id="querySumSales" resultType="java.lang.Double">
+         select sum(sale * price) from cm_business_goods
+         WHERE shopId = #{shopCode}
+    </select>
+
 </mapper>

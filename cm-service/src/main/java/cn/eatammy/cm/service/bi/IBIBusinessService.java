@@ -53,4 +53,18 @@ public interface IBIBusinessService{
      * @return 返回，信息集合
      */
     Map<String, Object> queryTradesZoo(Integer year, Integer month);
+
+    /**
+     * 根据商店code统计某个商店过去一个月的订单情况
+     * @param shopCode 商店代码
+     * @return 返回，统计情况
+     */
+    Map<String,Object> queryIndents4Shop(String shopCode);
+
+    /**
+     * 根据商店代码统计商店的销售情况
+     * @param shopCode  商店代码
+     * @return 返回，统计情况
+     */
+    Map<String,Object> querySales4Shop(String shopCode);
 }

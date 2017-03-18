@@ -107,4 +107,34 @@ public interface IGoodsDAO extends ICMBaseDAO<Goods> {
      */
     @DataSource("read")
     List<Goods> queryTopTen();
+
+    /**
+     * 根据商店代码分页查询仓储情况
+     * @param shopCode      商店代码
+     * @param offset        偏移量
+     * @param rows          页大小
+     * @return  返回，分页结果集
+     */
+    List<GoodsEx> queryStorageByShopCode(@Param("shopCode") String shopCode, @Param("offset") int offset, @Param("rows") int rows);
+
+    /**
+     * 根据商店代码分页查询仓储情况（统计分页总数）
+     * @param shopCode      商店代码
+     * @return  返回，统计结果
+     */
+    int countStorageByShopCode(@Param("shopCode") String shopCode);
+
+    /**
+     * 根据商店代码查询商品销售排行榜
+     * @param shopCode      商店代码
+     * @return  返回，统计结果
+     */
+    List<GoodsEx> queryGoodsRankByShopCode(@Param("shopCode") String shopCode);
+
+    /**
+     * 根据商店code统计商店总销售额
+     * @param shopCode  商店code
+     * @return  返回，销售总额
+     */
+    double querySumSales(@Param("shopCode") String shopCode);
 }

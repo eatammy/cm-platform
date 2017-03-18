@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by 郭旭辉 on 2016/5/16.
@@ -78,6 +79,20 @@ public class GoodsController {
     }
 
     /**
+     * 根据商品id更新商品库存
+     * @param param 更新参数
+     * @return  返回，操作码
+     */
+    @ResponseBody
+    @RequestMapping(value = "/updateStoragebyId", method = RequestMethod.POST)
+    public String updateStoragebyId(GoodsParam param){
+        if( goodsService.updateMap(param.toMap()) > 0){
+            return RETURNCODE.UPDATE_COMPLETE.getMessage();
+        }
+        throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
+    }
+
+    /**
      * 根据id删除一条商品信息
      * @param id    商品id
      * @return 返回，操作码
@@ -119,6 +134,30 @@ public class GoodsController {
     @RequestMapping(value = "/disableOrEnable")
     public String disableOrEnable(Long id, Integer status) {
         return goodsService.disableOrEnable(id, status);
+    }
+
+    /**
+     * 分页查询商店的仓储情况，
+     * @param shopCode      商店代码
+     * @param pageNo        页码
+     * @param pageSize      页大小
+     * @return  返回，分页结果集
+     */
+    @ResponseBody
+    @RequestMapping(value = "/queryStorageByShopCode")
+    public BizData4Page queryStorageByShopCode(String shopCode,@RequestParam(defaultValue = "1") int pageNo, @RequestParam(defaultValue = "5") int pageSize){
+        return goodsService.queryStorageByShopCode(shopCode, pageNo, pageSize);
+    }
+
+    /**
+     * 根据商店code查询商品排行
+     * @param shopCode  商店code
+     * @return  返回，查询结果集
+     */
+    @ResponseBody
+    @RequestMapping(value = "/queryGoodsRankByShopCode")
+    public List queryGoodsRankByShopCode(String shopCode){
+        return goodsService.queryGoodsRankByShopCode(shopCode);
     }
 
 }

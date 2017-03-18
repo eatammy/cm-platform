@@ -92,4 +92,40 @@
 		GROUP BY name
 		ORDER BY NAME DESC
 	</select>
+	<select id="queryIndentsbyShopCode" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
+		SELECT COUNT(DISTINCT cbi.id) as `value`,DATE_FORMAT(FROM_UNIXTIME(cbi.createDate/1000),'%d日') as `name`,DATE_FORMAT(FROM_UNIXTIME(cbi.createDate/1000),'%c月') as `month`
+		FROM cm_business_indent cbi LEFT JOIN cm_business_indentRelation cbir
+		ON cbi.id = cbir.indentId
+		<where>
+			DATE_SUB(CURDATE(), INTERVAL 1 month) &lt;= date(FROM_UNIXTIME(cbi.createDate/1000))
+			AND date(FROM_UNIXTIME(cbi.createDate/1000)) &lt;= CURDATE()
+			<if test="isTraded != null">
+				AND cbi.isTraded = #{isTraded}
+			</if>
+			<if test="shopCode != null and shopCode != ''">
+				AND cbir.shopId = #{shopCode}
+			</if>
+		</where>
+		GROUP BY `name`
+		ORDER BY `month` asc,`name` asc
+	</select>
+
+	<select id="querySales4Shop" resultType="cn.eatammy.cm.domain.bi.BiResultDto">
+		SELECT SUM(T1.`value`) AS `value`, sum(T1.total) AS total
+		FROM(
+			SELECT COUNT(DISTINCT cbi.id) AS `value`,sum(DISTINCT cbi.total) AS total,DATE_FORMAT(FROM_UNIXTIME(cbi.createDate/1000),'%d日') as `name`,DATE_FORMAT(FROM_UNIXTIME(cbi.createDate/1000),'%m月') as `month`
+			FROM cm_business_indent cbi LEFT JOIN cm_business_indentRelation cbir
+			ON cbi.id = cbir.indentId
+			<where>
+				DATE_SUB(CURDATE(), INTERVAL #{span} ${dateType}) &lt;= date(FROM_UNIXTIME(cbi.createDate/1000))
+				AND date(FROM_UNIXTIME(cbi.createDate/1000)) &lt;=CURDATE()
+				<if test="shopCode != null and shopCode !=''">
+					AND cbir.shopId = #{shopCode}
+				</if>
+				AND cbi.isTraded = 1
+			</where>
+			GROUP BY `name`
+			ORDER BY `month` asc,`name` asc
+		) T1
+	</select>
 </mapper>

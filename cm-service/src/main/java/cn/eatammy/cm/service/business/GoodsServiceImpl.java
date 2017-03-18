@@ -37,6 +37,7 @@ import cn.eatammy.common.utils.RETURNCODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -48,6 +49,8 @@ import java.util.List;
 public class GoodsServiceImpl extends AbstractCMPageService<ICMBaseDAO<Goods>, Goods> implements IGoodsService<ICMBaseDAO<Goods>, Goods> {
     @Autowired
     private IGoodsDAO goodsDAO;
+
+    DecimalFormat df = new DecimalFormat("#.##");
 
     @Override
     public ICMBaseDAO<Goods> getDao() {
@@ -63,7 +66,7 @@ public class GoodsServiceImpl extends AbstractCMPageService<ICMBaseDAO<Goods>, G
 
     @Override
     public String add(GoodsParam param, AccountDto currentUser) {
-        if(! isExists(param.F_GoodsName, param.getGoodsName())){
+        if (!isExists(param.F_GoodsName, param.getGoodsName())) {
             Goods goods = new Goods();
             goods.setGoodsName(param.getGoodsName());
             goods.setPrice(param.getPrice());
@@ -76,20 +79,20 @@ public class GoodsServiceImpl extends AbstractCMPageService<ICMBaseDAO<Goods>, G
             goods.setCategoryId(param.getCategoryId());
             goods.setCreator(currentUser.getUid());
 //            goods.setCreateDate(System.currentTimeMillis());
-            goods.setCreateDate(CommonUtils.randomDate("2016-08-21", "2016-12-31").getTime());
+            goods.setCreateDate(CommonUtils.randomDate("2017-01-01", "2017-04-30").getTime());
             goods.setStatus(0);
-            if(goodsDAO.insert(goods) == 1){
+            if (goodsDAO.insert(goods) == 1) {
                 return RETURNCODE.ADD_COMPLETE.getMessage();
             }
             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
-        } else{
+        } else {
             throw new BizException(ERRORCODE.GOODSNAME_EXISTS.getCode(), ERRORCODE.GOODSNAME_EXISTS.getMessage());
         }
     }
 
     @Override
     public String add(List<Goods> goodses) {
-        if(goodsDAO.addBatch(goodses) > 0){
+        if (goodsDAO.addBatch(goodses) > 0) {
             return RETURNCODE.SUCCESS_COMPLETE.getMessage();
         }
         throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
@@ -98,24 +101,24 @@ public class GoodsServiceImpl extends AbstractCMPageService<ICMBaseDAO<Goods>, G
     @Override
     public String update(GoodsParam param, AccountDto currentUser) {
         Goods goods = this.findOne(param.F_GoodsName, param.getGoodsName());
-        if(goods != null && goods.getCode().equalsIgnoreCase(param.getCode())){
+        if (goods != null && goods.getCode().equalsIgnoreCase(param.getCode())) {
             param.setLastModifier(currentUser.getUid());
             param.setLastModDate(System.currentTimeMillis());
-            if(goodsDAO.updateMap(param.toMap()) == 1){
+            if (goodsDAO.updateMap(param.toMap()) == 1) {
                 return RETURNCODE.UPDATE_COMPLETE.getMessage();
-            }else{
+            } else {
                 throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
             }
-        }else{
+        } else {
             throw new BizException(ERRORCODE.GOODSNAME_EXISTS.getCode(), ERRORCODE.GOODSNAME_EXISTS.getMessage());
         }
     }
 
     @Override
     public String disableOrEnable(Long id, Integer status) {
-        if(goodsDAO.disableOrEnable(id, status) == 1){
+        if (goodsDAO.disableOrEnable(id, status) == 1) {
             return RETURNCODE.SUCCESS_COMPLETE.getMessage();
-        }else {
+        } else {
             throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
         }
     }
@@ -127,13 +130,33 @@ public class GoodsServiceImpl extends AbstractCMPageService<ICMBaseDAO<Goods>, G
 
     @Override
     public String updateGoodsStock(List<Goods> goodses) {
-        if(goodsDAO.updateGoodsStock(goodses) > 0){
+        if (goodsDAO.updateGoodsStock(goodses) > 0) {
             return RETURNCODE.UPDATE_COMPLETE.getMessage();
         }
         throw new BizException(ERRORCODE.OPERATION_FAIL.getCode(), ERRORCODE.OPERATION_FAIL.getMessage());
     }
 
-    private boolean isExists(String property, Object value){
+    @Override
+    public BizData4Page queryStorageByShopCode(String shopCode, int pageNo, int pageSize) {
+        List<GoodsEx> data = goodsDAO.queryStorageByShopCode(shopCode, (pageNo - 1) * pageSize, pageSize);
+        for (GoodsEx goods : data) {
+            goods.setRate(df.format(goods.getSale() * 1.0 / (goods.getStock() + goods.getSale()) * 100) + "%");
+        }
+        int records = goodsDAO.countStorageByShopCode(shopCode);
+        return PageUtils.toBizData4Page(data, pageNo, pageSize, records);
+    }
+
+    @Override
+    public List<GoodsEx> queryGoodsRankByShopCode(String shopCode) {
+        List<GoodsEx> goodses = goodsDAO.queryGoodsRankByShopCode(shopCode);
+        double sum = goodsDAO.querySumSales(shopCode);
+        for (GoodsEx goods : goodses) {
+            goods.setRate(df.format((goods.getPrice() * goods.getSale()) / sum * 100) + "%");
+        }
+        return goodses;
+    }
+
+    private boolean isExists(String property, Object value) {
         return this.findOne(property, value) != null;
     }
 }

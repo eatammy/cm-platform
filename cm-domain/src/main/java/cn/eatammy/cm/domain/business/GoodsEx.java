@@ -28,6 +28,7 @@ package cn.eatammy.cm.domain.business;
 public class GoodsEx extends Goods {
 	private static final long serialVersionUID = 1L;
 	private String categoryName;
+	private String rate;
 	//针对Goods实体在这里增加额外的属性和对应的get和set方法
 
 	public String getCategoryName() {
@@ -36,5 +37,13 @@ public class GoodsEx extends Goods {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+
+	public String getRate() {
+		return rate;
+	}
+
+	public void setRate(String rate) {
+		this.rate = rate;
 	}
 }

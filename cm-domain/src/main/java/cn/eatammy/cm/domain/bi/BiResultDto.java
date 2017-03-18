@@ -10,6 +10,8 @@ public class BiResultDto {
 
     private int value;
 
+    private String month;   //月份
+
     private int sex;            //性别
 
     private int deviceType;    //设备类型
@@ -54,5 +56,13 @@ public class BiResultDto {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
     }
 }

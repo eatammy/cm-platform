@@ -89,4 +89,23 @@ public interface IIndentDAO extends ICMBaseDAO<Indent> {
      */
     @DataSource("read")
     List<BiResultDto> queryTradeZoo(@Param("year")Integer year, @Param("month")Integer month, @Param("day") Integer day);
+
+    /**
+     * 根据商店代码统计订单
+     * @param shopCode  商店代码
+     * @param isTraded  是否完成交易，0：未完成，1：完成
+     * @return 返回，统计结果
+     */
+    @DataSource("read")
+    List<BiResultDto> queryIndentsbyShopCode(@Param("shopCode") String shopCode, @Param("isTraded") Integer isTraded);
+
+    /**
+     * 统计不同时间跨度（本日，过去一周，近一个月）商店销售情况
+     * @param shopCode  商店代码
+     * @param span      偏移量
+     * @param dateType      日期类型
+     * @return 返回，统计结果
+     */
+    @DataSource("read")
+    BiResultDto querySales4Shop(@Param("shopCode") String shopCode, @Param("span") int span, @Param("dateType") String dateType);
 }
